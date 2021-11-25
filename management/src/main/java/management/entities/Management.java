@@ -1,9 +1,9 @@
-package template;
+package management.entities;
 
-public class Example {
+public class Management {
     private String name;
 
-    public Example(String name) {
+    public Management(String name) {
         this.name = name;
     }
 
