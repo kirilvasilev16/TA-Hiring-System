@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="adcca639-ce97-4eab-80c1-061d85e19f8f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Lecturer/.gitlab-ci.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/Example.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitlab/issue_templates/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitlab/issue_templates/bug.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitlab/issue_templates/user_story.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/config/H2Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/resources/template/config/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +41,13 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -83,6 +84,27 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="sem-repo-15a [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <configuration name="sem-repo-15a" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -150,6 +172,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="template.Lecturer.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="template.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="template.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="nl.tudelft.sem.template.Application" />
@@ -160,6 +189,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.sem-repo-15a" />
+        <item itemvalue="Gradle.sem-repo-15a [dependencies]" />
       </list>
     </recent_temporary>
   </component>
@@ -171,7 +201,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637838685202</updated>
-      <workItem from="1637838688894" duration="240000" />
+      <workItem from="1637838688894" duration="1489000" />
     </task>
     <servers />
   </component>
