@@ -1,4 +1,4 @@
-package template;
+package authentication;
 
 public class Example {
     private String name;
