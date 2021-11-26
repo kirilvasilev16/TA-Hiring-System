@@ -15,8 +15,10 @@ import java.util.List;
 
 @RestController("/lecturer")
 public class LecturerController {
+
 	private LecturerRepository lecturerRepository;
 	private RestTemplate restTemplate = new RestTemplate();
+
 	public LecturerController(LecturerRepository lecturerRepository) {
 		this.lecturerRepository = lecturerRepository;
 	}
@@ -35,6 +37,22 @@ public class LecturerController {
 			return course;
 		}
 		else throw new EntityNotFoundException("Course is not taught by lecturer");
+	}
+
+	private LecturerRepository getLecturerRepository() {
+		return lecturerRepository;
+	}
+
+	private void setLecturerRepository(LecturerRepository lecturerRepository) {
+		this.lecturerRepository = lecturerRepository;
+	}
+
+	private RestTemplate getRestTemplate() {
+		return restTemplate;
+	}
+
+	private void setRestTemplate(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
 	}
 
 //	@PatchMapping("/courses/{netId}/{courseId}/{studentNetId}")

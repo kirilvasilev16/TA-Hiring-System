@@ -43,8 +43,24 @@ public class Lecturer {
 		return courses;
 	}
 
+	public void setNetId(String netId) {
+		this.netId = netId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public void setCourses(List<Course> courses) {
