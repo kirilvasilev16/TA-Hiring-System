@@ -25,6 +25,3 @@ gradle-app.setting
 *.zip
 *.tar.gz
 *.rar
-
-# .idea folder
-.idea/
