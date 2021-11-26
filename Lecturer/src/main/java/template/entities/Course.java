@@ -8,8 +8,8 @@ import java.util.List;
 @Entity
 public class Course {
 	private Long id;
-	@ManyToMany
-	private List<Student> hiredTa;
+//	@ManyToMany
+//	private List<Student> hiredTa;
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -19,7 +19,7 @@ public class Course {
 		return id;
 	}
 
-	public List<Student> getHiredTa() {
-		return hiredTa;
-	}
+//	public List<Student> getHiredTa() {
+//		return hiredTa;
+//	}
 }
