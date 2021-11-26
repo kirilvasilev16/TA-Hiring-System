@@ -1,8 +1,9 @@
-import entities.Course;
-import org.springframework.stereotype.Service;
-import repositories.CourseRepository;
+package course;
 
-import java.util.ArrayList;
+import course.entities.Course;
+import course.repositories.CourseRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.Date;
 import java.util.HashSet;
 

@@ -1,9 +1,9 @@
-package services;
+package course.services;
 
-import entities.Course;
+import course.entities.Course;
+import course.repositories.CourseRepository;
+import course.services.interfaces.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import repositories.CourseRepository;
-import services.interfaces.CourseService;
 
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;

@@ -1,6 +1,6 @@
-package controllers;
+package course.controllers;
 
-import controllers.exceptions.CourseNotFoundException;
+import course.controllers.exceptions.CourseNotFoundException;
 import entities.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package entities;
+package course.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;

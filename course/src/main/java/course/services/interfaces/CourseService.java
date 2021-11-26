@@ -1,6 +1,6 @@
-package services.interfaces;
+package course.services.interfaces;
 
-import entities.Course;
+import course.entities.Course;
 import org.springframework.stereotype.Service;
 
 @Service

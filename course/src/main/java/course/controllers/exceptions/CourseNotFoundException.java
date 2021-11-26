@@ -1,4 +1,4 @@
-package controllers.exceptions;
+package course.controllers.exceptions;
 
 public class CourseNotFoundException extends RuntimeException {
     public CourseNotFoundException(String code) {
