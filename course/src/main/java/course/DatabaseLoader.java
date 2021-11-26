@@ -14,8 +14,8 @@ public class DatabaseLoader {
      *
      */
     public DatabaseLoader(CourseRepository courseRepo) {
-        Course c1 = new Course("Sample Course", new HashSet<>(), new Date());
-
+        Course c1 = new Course("Sample", new HashSet<>(), new Date());
+        System.out.println("Adding");
         courseRepo.save(c1);
 
     }

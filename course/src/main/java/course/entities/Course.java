@@ -12,14 +12,14 @@ public class Course {
     @Id
     private String courseName;
     private Integer courseSize;
-    @OneToMany(cascade = {CascadeType.PERSIST})
+    //@OneToMany(cascade = {CascadeType.PERSIST})
     private Set<Lecturer> lecturerSet;
     private Integer requiredTAs;
     @Temporal(TemporalType.TIMESTAMP)
     private Date startingDate;
-    @OneToMany(cascade = {CascadeType.PERSIST})
+    //@OneToMany(cascade = {CascadeType.PERSIST})
     private List<Student> candidateTAs;
-    @OneToMany(cascade = {CascadeType.PERSIST})
+    //@OneToMany(cascade = {CascadeType.PERSIST})
     private List<Management> hiredTAs;
 
     public Course(String courseName, Set<Lecturer> lecturerSet, Date startingDate) {
@@ -30,5 +30,9 @@ public class Course {
         requiredTAs = 0;
         candidateTAs = new ArrayList<>();
         hiredTAs = new ArrayList<>();
+    }
+
+    public String getCourseName() {
+        return courseName;
     }
 }

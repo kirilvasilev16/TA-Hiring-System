@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories("course")
+@EnableJpaRepositories("course.repositories")
 @PropertySource("application-dev.properties")
 @EnableTransactionManagement
 public class PersistanceConfig {
