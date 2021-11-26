@@ -15,7 +15,6 @@ public class Course {
     @OneToMany(cascade = {CascadeType.PERSIST})
     private Set<Lecturer> lecturerSet;
     private Integer requiredTAs;
-    @Id
     @Temporal(TemporalType.TIMESTAMP)
     private Date startingDate;
     @OneToMany(cascade = {CascadeType.PERSIST})
