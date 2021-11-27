@@ -12,6 +12,14 @@ public class Course {
     @ManyToMany
     private List<Student> candidateTas;
 
+    public Course() {
+    }
+
+    public Course(Long id, List<Student> candidateTas) {
+        this.id = id;
+        this.candidateTas = candidateTas;
+    }
+
     public Long getId() {
         return id;
     }
