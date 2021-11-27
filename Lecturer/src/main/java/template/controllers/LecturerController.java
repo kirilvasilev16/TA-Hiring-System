@@ -3,62 +3,64 @@ package template.controllers;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import template.entities.Course;
 import template.entities.Lecturer;
 import template.entities.Student;
-import template.repositories.LecturerRepository;
+import template.services.LecturerService;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-@RestController("/lecturer")
+@RestController
+@RequestMapping("/lecturer")
 public class LecturerController {
 
-	private LecturerRepository lecturerRepository;
-	private RestTemplate restTemplate = new RestTemplate();
+	private final transient LecturerService lecturerService;
 
-	public LecturerController(LecturerRepository lecturerRepository) {
-		this.lecturerRepository = lecturerRepository;
+	public LecturerController(LecturerService lecturerService) {
+		this.lecturerService = lecturerService;
+	}
+
+	@PostMapping("/addLecturer")
+	public void addLecturer(@RequestBody Lecturer lecturer) {
+		lecturerService.addLecturer(lecturer);
+	}
+
+	@GetMapping("/getAll")
+	public List<Lecturer> findAll() {
+		return lecturerService.findAll();
+	}
+
+	@GetMapping("/{netId}")
+	public Lecturer getLecturer(@PathVariable String netId) {
+		return lecturerService.findLecturerById(netId);
 	}
 
 	@GetMapping("/courses/{netId}")
 	public List<Course> getOwnCourses(@PathVariable String netId) {
-		Lecturer lecturer = lecturerRepository.findLecturerByNetId(netId);
-		return lecturer.getCourses();
+		return lecturerService.getOwnCourses(netId);
 	}
 
-	@GetMapping("/courses/{netId}/{courseId}")
-	public Course getSpecificCourse(@PathVariable String netId, @PathVariable String courseId) {
-		Course course = restTemplate.getForObject("http://localhost:8080/course/" + courseId, Course.class);
-		Lecturer lecturer = lecturerRepository.findLecturerByNetId(netId);
-		if (lecturer.getCourses().contains(course)) {
-			return course;
-		}
-		else throw new EntityNotFoundException("Course is not taught by lecturer");
+	@GetMapping("/courses/{netId}/course")
+	public Course getSpecificCourse(@PathVariable String netId, @RequestBody Course course) {
+		return lecturerService.getSpecificCourse(netId, course);
 	}
 
-	private LecturerRepository getLecturerRepository() {
-		return lecturerRepository;
+	@GetMapping("/courses/{netId}/candidateTas")
+	public List<Student> getCandidateTas(@PathVariable String netId, @RequestBody Course course) {
+		return lecturerService.getCandidateTaList(netId, course);
 	}
 
-	private void setLecturerRepository(LecturerRepository lecturerRepository) {
-		this.lecturerRepository = lecturerRepository;
+	@PatchMapping("/courses/{netId}/{studentNetId}")
+	public void selectTaForACourse(@PathVariable String netId, @RequestBody Course course, @PathVariable String studentNetId) {
+		lecturerService.chooseTa(netId, course, studentNetId);
 	}
 
-	private RestTemplate getRestTemplate() {
-		return restTemplate;
+	@PatchMapping("/courses/{netId}/addCourse")
+	public void addSpecificCourse(@PathVariable String netId, @RequestBody Course course) {
+		lecturerService.addSpecificCourse(netId, course);
 	}
-
-	private void setRestTemplate(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
-	}
-
-//	@PatchMapping("/courses/{netId}/{courseId}/{studentNetId}")
-//	public void selectTaForACourse(@PathVariable String netId, @PathVariable String courseId, @PathVariable String studentNetId) {
-//		Course course = getSpecificCourse(netId, courseId);
-//		Student student = restTemplate.post("http://localhost:8080/course/" + courseId + "/addTA/" + studentNetId);
-//		course.getHiredTa().add(student);
-//	}
 }

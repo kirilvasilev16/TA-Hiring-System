@@ -13,6 +13,7 @@ public class Lecturer {
 	private String name;
 	private String password;
 	private String email;
+
 	@ManyToMany
 	List<Course> courses;
 
@@ -39,16 +40,16 @@ public class Lecturer {
 		return email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
 	public List<Course> getCourses() {
 		return courses;
 	}
 
 	public void setNetId(String netId) {
 		this.netId = netId;
-	}
-
-	public String getPassword() {
-		return password;
 	}
 
 	public void setName(String name) {
