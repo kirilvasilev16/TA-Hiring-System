@@ -41,6 +41,58 @@ public class Course {
 
     }
 
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public Integer getCourseSize() {
+        return courseSize;
+    }
+
+    public void setCourseSize(Integer courseSize) {
+        this.courseSize = courseSize;
+    }
+
+    public Set<Lecturer> getLecturerSet() {
+        return lecturerSet;
+    }
+
+    public void setLecturerSet(Set<Lecturer> lecturerSet) {
+        this.lecturerSet = lecturerSet;
+    }
+
+    public Integer getRequiredTAs() {
+        return requiredTAs;
+    }
+
+    public void setRequiredTAs(Integer requiredTAs) {
+        this.requiredTAs = requiredTAs;
+    }
+
+    public Date getStartingDate() {
+        return startingDate;
+    }
+
+    public void setStartingDate(Date startingDate) {
+        this.startingDate = startingDate;
+    }
+
+    public List<Student> getCandidateTAs() {
+        return candidateTAs;
+    }
+
+    public void setCandidateTAs(List<Student> candidateTAs) {
+        this.candidateTAs = candidateTAs;
+    }
+
+    public List<Management> getHiredTAs() {
+        return hiredTAs;
+    }
+
+    public void setHiredTAs(List<Management> hiredTAs) {
+        this.hiredTAs = hiredTAs;
+    }
+
     public String getCourseName() {
         return courseName;
     }

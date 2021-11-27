@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CourseServiceImpl implements CourseService {
-    private final CourseRepository courseRepository;
+    private final transient CourseRepository courseRepository;
 
     @Autowired
     public CourseServiceImpl(CourseRepository courseRepository) {

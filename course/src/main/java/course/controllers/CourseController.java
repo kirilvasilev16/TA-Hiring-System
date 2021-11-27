@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("courses")
 public class CourseController {
 
-    private final CourseService courseService;
+    private final transient CourseService courseService;
 
     @Autowired
     public CourseController(CourseService courseService) {

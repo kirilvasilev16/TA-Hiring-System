@@ -2,7 +2,6 @@ package template;
 
 import course.entities.Course;
 import org.junit.jupiter.api.Test;
-
 import java.util.Date;
 import java.util.HashSet;
 
