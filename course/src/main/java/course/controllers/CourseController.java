@@ -20,14 +20,6 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping("search")
-    public String search()
-            throws CourseNotFoundException {
-        System.out.println("SEARCH");
-
-        return "Result";
-    }
-
     /**
      * Display info about a course.
      *
@@ -36,13 +28,11 @@ public class CourseController {
     @GetMapping("{code}")
     public Course getLecture(@PathVariable String code)
             throws CourseNotFoundException {
-        System.out.println("Looking");
         Course c = courseService.findByCourseName(code);
 
         if (c == null) {
             throw new CourseNotFoundException(code);
         }
-        System.out.println("Found");
         return c;
     }
 }

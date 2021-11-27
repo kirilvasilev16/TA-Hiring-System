@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories("course.repositories")
+@EnableJpaRepositories("course")
 @PropertySource("application-dev.properties")
 @EnableTransactionManagement
-public class PersistanceConfig {
+public class H2Config {
 
     @Autowired
     private transient Environment environment;
