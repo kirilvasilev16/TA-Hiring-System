@@ -10,10 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LecturerClassTest {
     private transient Lecturer lecturer;
-
+    private transient String netId = "netId";
+    private transient String name = "name";
+    private transient String password = "password";
+    private transient String email = "email";
     @BeforeEach
     void setUp() {
-        lecturer = new Lecturer("netId", "name", "password", "email", new ArrayList<>());
+        lecturer = new Lecturer(netId, name, password, email, new ArrayList<>());
     }
 
     @Test
@@ -23,7 +26,7 @@ public class LecturerClassTest {
 
     @Test
     void getId() {
-        assertEquals("netId", lecturer.getNetId());
+        assertEquals(netId, lecturer.getNetId());
     }
 
     @Test
@@ -34,7 +37,7 @@ public class LecturerClassTest {
 
     @Test
     void getName() {
-        assertEquals("name", lecturer.getName());
+        assertEquals(name, lecturer.getName());
     }
 
     @Test
@@ -45,7 +48,7 @@ public class LecturerClassTest {
 
     @Test
     void getPassword() {
-        assertEquals("password", lecturer.getPassword());
+        assertEquals(password, lecturer.getPassword());
     }
 
     @Test
@@ -56,7 +59,7 @@ public class LecturerClassTest {
 
     @Test
     void getEmail() {
-        assertEquals("email", lecturer.getEmail());
+        assertEquals(email, lecturer.getEmail());
     }
 
     @Test
@@ -80,7 +83,7 @@ public class LecturerClassTest {
 
     @Test
     void equalsTest() {
-        Lecturer newLecturer = new Lecturer("netId", "name", "password", "email", new ArrayList<>());
+        Lecturer newLecturer = new Lecturer(netId, name, password, email, new ArrayList<>());
         assertEquals(lecturer, newLecturer);
     }
 
@@ -102,7 +105,7 @@ public class LecturerClassTest {
 
     @Test
     void hashCodeTest() {
-        Lecturer newLecturer = new Lecturer("netId", "name", "password", "email", new ArrayList<>());
+        Lecturer newLecturer = new Lecturer(netId, name, password, email, new ArrayList<>());
         System.out.println(lecturer.getName());
         assertEquals(lecturer.hashCode(), newLecturer.hashCode());
     }
