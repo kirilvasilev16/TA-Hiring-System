@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ManagementService {
 
+    private transient String managementNotFound = "Management object not found.";
     private final transient ManagementRepository managementRepository;
 
     public ManagementService(ManagementRepository managementRepository) {
@@ -61,7 +62,7 @@ public class ManagementService {
         Management management = this.getOne(id);
 
         if (management == null) {
-            throw new InvalidIdException("Management not found");
+            throw new InvalidIdException(managementNotFound);
         }
 
         if (hours < 0) {
@@ -89,7 +90,7 @@ public class ManagementService {
         Management management = this.getOne(id);
 
         if (management == null) {
-            throw new InvalidIdException("Management not found");
+            throw new InvalidIdException(managementNotFound);
         }
 
         if (hours < 0) {
@@ -118,7 +119,7 @@ public class ManagementService {
         Management management = this.getOne(id);
 
         if (management == null) {
-            throw new InvalidIdException("Management not found");
+            throw new InvalidIdException(managementNotFound);
         }
 
         if (rating < 0 || rating > 10) {
@@ -128,5 +129,23 @@ public class ManagementService {
 
         management.setRating(rating);
         managementRepository.updateRating(id, rating);
+    }
+
+    /**
+     * Send the contract using the management id and email to student.
+     *
+     * @param id the id
+     * @param email the email
+     */
+    public void sendContract(long id, String email) {
+        Management management = this.getOne(id);
+
+        if (management == null) {
+            throw new InvalidIdException(managementNotFound);
+        }
+
+        String contract = "Contract:\n"
+                + "Hours in contract: " + management.getAmountOfHours() + "\n";
+        System.out.println(contract);
     }
 }

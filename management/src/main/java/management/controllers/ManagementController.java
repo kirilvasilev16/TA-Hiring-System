@@ -93,4 +93,15 @@ public class ManagementController {
         managementService.rateStudent(id, rating);
     }
 
+    /**
+     * Send the contract using the management id and email to student.
+     *
+     * @param id the id
+     * @param email the email
+     */
+    @GetMapping("sendContract")
+    public void sendContract(@PathParam("id") long id, @PathParam("email") String email) {
+        managementService.sendContract(id, email);
+    }
+
 }

@@ -107,4 +107,12 @@ class ManagementControllerTest {
                 .andExpect(status().isOk());
         verify(managementService, only()).rateStudent(1, 2.5f);
     }
+
+    @Test
+    void sendContract() throws Exception {
+        this.mockMvc
+                .perform(get("/management/sendContract?id=1&email=email@gmail.com"))
+                .andExpect(status().isOk());
+        verify(managementService, only()).sendContract(1, "email@gmail.com");
+    }
 }

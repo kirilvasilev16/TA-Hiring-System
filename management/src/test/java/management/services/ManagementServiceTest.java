@@ -137,4 +137,16 @@ class ManagementServiceTest {
         assertThrows(InvalidIdException.class,
                 () -> managementService.rateStudent(3, -1));
     }
+
+    @Test
+    void sendContract() {
+        managementService.sendContract(2, "email@gmail.com");
+        Mockito.verify(managementRepository, Mockito.only()).getOne(2L);
+    }
+
+    @Test
+    void sendContractInvalid() {
+        assertThrows(InvalidIdException.class,
+                () -> managementService.sendContract(3, "email@gmail.com"));
+    }
 }
