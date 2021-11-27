@@ -3,6 +3,7 @@ package management.entities;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import management.serializers.ManagementSerializer;
 
-@Entity(name = "management")
+@Entity(name = "Management")
 @JsonSerialize(using = ManagementSerializer.class)
 public class Management {
 
@@ -184,5 +185,40 @@ public class Management {
      */
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    /**
+     * Equals method for Management.
+     *
+     * @param o other object
+     * @return true iff the 2 objects are identical
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Management that = (Management) o;
+        return id == that.id
+                && courseId == that.courseId
+                && studentId == that.studentId
+                && Float.compare(that.amountOfHours, amountOfHours) == 0
+                && Float.compare(that.approvedHours, approvedHours) == 0
+                && Float.compare(that.declaredHours, declaredHours) == 0
+                && Float.compare(that.rating, rating) == 0;
+    }
+
+    /**
+     * Hash management object.
+     *
+     * @return hash of object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, courseId, studentId, amountOfHours,
+                approvedHours, declaredHours, rating);
     }
 }

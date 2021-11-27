@@ -1,6 +1,7 @@
 package management.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class ManagementTest {
 
-    Management management;
+    private transient Management management;
 
     @BeforeEach
     void setUp() {
@@ -101,5 +102,33 @@ public class ManagementTest {
     void setRating() {
         management.setRating(5);
         assertEquals(5, management.getRating());
+    }
+
+    @Test
+    void equalsTest() {
+        Management management1 = new Management(100, 200, 120);
+        assertEquals(management, management1);
+    }
+
+    @Test
+    void equalsNull() {
+        assertNotEquals(management, null);
+    }
+
+    @Test
+    void equalsSame() {
+        assertEquals(management, management);
+    }
+
+    @Test
+    void equalsNot() {
+        Management management1 = new Management(100, 210, 120);
+        assertNotEquals(management, management1);
+    }
+
+    @Test
+    void hashCodeTest() {
+        Management management1 = new Management(100, 200, 120);
+        assertEquals(management.hashCode(), management1.hashCode());
     }
 }
