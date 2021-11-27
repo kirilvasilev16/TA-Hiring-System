@@ -2,11 +2,10 @@ package template.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import template.entities.Course;
 import template.entities.Lecturer;
 import template.entities.Student;
@@ -29,14 +28,16 @@ public class LecturerService {
 
     public Lecturer findLecturerById(String netId) {
         Optional<Lecturer> lecturer = lecturerRepository.findLecturerByNetId(netId);
-        if (lecturer.isEmpty()) throw new LecturerNotFoundException("Lecturer with id " + netId + " was not found.");
+        if (lecturer.isEmpty()) {
+            throw new LecturerNotFoundException("Lecturer with id " + netId + " was not found.");
+        }
         return lecturer.get();
     }
 
-	/**
-	 * @param netId of a lecturer
-	 * @return list of courses belonging to a lecturer
-	 */
+    /**
+     * @param netId of a lecturer
+     * @return list of courses belonging to a lecturer
+     */
     public List<Course> getOwnCourses(String netId) {
         return this.findLecturerById(netId).getCourses();
     }
@@ -46,7 +47,8 @@ public class LecturerService {
         if (lecturer.getCourses().contains(course)) {
             return course;
         } else {
-        	throw new CourseNotFoundException("Course with id " + course.getId() + " is not taught by lecturer");
+            throw new CourseNotFoundException("Course with id "
+                    + course.getId() + " is not taught by lecturer");
         }
     }
 
