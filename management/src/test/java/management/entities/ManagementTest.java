@@ -8,9 +8,9 @@ public class ManagementTest {
 
     @Test
     public void testExample() {
-        Management exampleTest = new Management("name");
-        assertEquals("name", exampleTest.getName());
-        exampleTest.setName("newName");
-        assertEquals("newName", exampleTest.getName());
+        Management management = new Management(100, 200, 120);
+        assertEquals(0, management.getRating());
+        management.setRating(3);
+        assertEquals(3, management.getRating());
     }
 }
