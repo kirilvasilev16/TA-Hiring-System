@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class AuthenticationService {
 
-    private final AuthenticationRepository authenticationRepository;
+    private transient final AuthenticationRepository authenticationRepository;
 
     public AuthenticationService(AuthenticationRepository authenticationRepository) {
         this.authenticationRepository = authenticationRepository;
