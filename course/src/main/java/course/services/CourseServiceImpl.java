@@ -16,8 +16,23 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course findByCourseName(String courseName) {
-        return courseRepository.findByCourseName(courseName);
+    public Course findByName(String name) {
+        return courseRepository.findByName(name);
     }
+
+    @Override
+    public Course findByCourseID(String id) {
+        return courseRepository.findByCourseID(id);
+    }
+
+    @Override
+    public void save(Course c) {
+        courseRepository.save(c);
+    }
+
+//    @Override
+//    public void updateCourseSize(Integer courseSize) {
+//        courseRepository.updateCourseSize(courseSize);
+//    }
 
 }

@@ -11,6 +11,7 @@ public class Lecturer {
     @Id
     private String name;
 
-    public Lecturer() {
+    public Lecturer(String name) {
+        this.name = name;
     }
 }

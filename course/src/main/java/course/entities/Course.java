@@ -15,7 +15,8 @@ import java.util.Set;
 @Table(name = "courses")
 public class Course {
     @Id
-    private String courseName;
+    private String courseID;
+    private String name;
     private Integer courseSize;
     @OneToMany
     private Set<Lecturer> lecturerSet;
@@ -27,8 +28,9 @@ public class Course {
     @OneToMany
     private List<Management> hiredTAs;
 
-    public Course(String courseName, Set<Lecturer> lecturerSet, Date startingDate) {
-        this.courseName = courseName;
+    public Course(String courseID, String name, Set<Lecturer> lecturerSet, Date startingDate) {
+        this.courseID = courseID;
+        this.name = name;
         this.lecturerSet = lecturerSet;
         this.startingDate = startingDate;
         courseSize = 0;
@@ -41,8 +43,12 @@ public class Course {
 
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getCourseSize() {
@@ -91,9 +97,5 @@ public class Course {
 
     public void setHiredTAs(List<Management> hiredTAs) {
         this.hiredTAs = hiredTAs;
-    }
-
-    public String getCourseName() {
-        return courseName;
     }
 }

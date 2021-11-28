@@ -8,9 +8,10 @@ import javax.persistence.Table;
 @Table(name = "student")
 public class Student {
     @Id
-    String name;
+    private String name;
 
-    public Student() {
+    public Student(String name) {
+        this.name = name;
     }
 
 }
