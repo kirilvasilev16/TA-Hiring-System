@@ -1,4 +1,4 @@
-package template;
+package course.template;
 
 public class CourseExample {
     private String name;

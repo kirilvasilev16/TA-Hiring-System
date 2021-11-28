@@ -23,7 +23,7 @@ plugins {
     id 'info.solidsoft.pitest'
 }
 
-group 'nl.tudelft.cse.sem.template'
+group 'course'
 version '0.0.1-SNAPSHOT'
 sourceCompatibility = 11
 targetCompatibility = 11
@@ -34,9 +34,16 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    implementation 'com.h2database:h2'
+    developmentOnly 'org.hibernate:hibernate-entitymanager'
+
     testImplementation('org.junit.jupiter:junit-jupiter:5.5.2')
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.1.0'
     testImplementation('org.assertj:assertj-core:3.14.0')
@@ -46,7 +53,7 @@ test {
     useJUnitPlatform()
     jacoco {
         enabled = true
-        includes = ['nl.tudelft.sem.template.*']
+        includes = ['course.*']
         excludes = []
     }
 }
@@ -58,7 +65,7 @@ jacocoTestCoverageVerification() {
         rule {
             enabled = true
             element = 'CLASS'
-            includes = ['nl.tudelft.sem.template.*']
+            includes = ['course.*']
 
             limit {
                 counter = 'BRANCH'
@@ -83,7 +90,7 @@ pitest {
     //adds dependency to org.pitest:pitest-junit5-plugin and sets "testPlugin" to "junit5"
     junit5PluginVersion = '0.12'
 
-    targetClasses = ['nl.tudelft.sem.template.*']  //by default "${project.group}.*"
+    targetClasses = ['course.*']  //by default "${project.group}.*"
     pitestVersion = '1.5.1' //not needed when a default PIT version should be used
     threads = 4
     outputFormats = ['XML', 'HTML']
