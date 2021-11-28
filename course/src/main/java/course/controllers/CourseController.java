@@ -52,19 +52,19 @@ public class CourseController {
         return c.getCourseSize();
     }
 
-//    @PatchMapping("{code}/updatesize")
-//    @Transactional
-//    public void updateCourseSize(@PathVariable String code, @RequestBody Integer courseSize)
-//            throws CourseNotFoundException {
-//        Course c = courseService.findByName(code);
-//
-//        if (c == null) {
-//            throw new CourseNotFoundException(code);
-//        }
-//
-//        courseService.updateCourseSize(courseSize);
-//
-//    }
+    @PatchMapping("{code}/updatesize")
+    @Transactional
+    public void updateCourseSize(@PathVariable String code, @RequestParam Integer courseSize)
+            throws CourseNotFoundException {
+        Course c = courseService.findByName(code);
+
+        if (c == null) {
+            throw new CourseNotFoundException(code);
+        }
+
+        courseService.updateCourseSize(courseSize);
+
+    }
 
     @GetMapping("{code}/lecturers")
     public Set<Lecturer> getLecturerSet(@PathVariable String code)

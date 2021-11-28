@@ -30,9 +30,9 @@ public class CourseServiceImpl implements CourseService {
         courseRepository.save(c);
     }
 
-//    @Override
-//    public void updateCourseSize(Integer courseSize) {
-//        courseRepository.updateCourseSize(courseSize);
-//    }
+    @Override
+    public void updateCourseSize(Integer courseSize) {
+        courseRepository.updateCourseSize(courseSize);
+    }
 
 }

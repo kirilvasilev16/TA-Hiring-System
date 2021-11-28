@@ -8,5 +8,5 @@ public interface CourseService {
 
     void save(Course c);
 
-//    void updateCourseSize(Integer courseSize);
+    void updateCourseSize(Integer courseSize);
 }

@@ -43,6 +43,14 @@ public class Course {
 
     }
 
+    public String getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
+    }
+
     public String getName() {
         return name;
     }

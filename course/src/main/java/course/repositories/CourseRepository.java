@@ -12,7 +12,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     Course findByName(String name);
     Course findByCourseID(String name);
 
-//    @Modifying
-//    @Query("UPDATE Course c SET c.courseSize = :courseSize WHERE q.courseID = :courseID")
-//    void updateCourseSize(Integer courseSize);
+    @Modifying
+    @Query("UPDATE Course c SET c.courseSize = :courseSize WHERE c.courseID = :courseID")
+    void updateCourseSize(Integer courseSize);
 }
