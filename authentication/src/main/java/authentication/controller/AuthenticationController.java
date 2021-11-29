@@ -6,11 +6,7 @@ import javax.websocket.server.PathParam;
 import authentication.entities.Authentication;
 import authentication.service.AuthenticationService;
 //import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("Authentication")
 @RequestMapping("auth")
@@ -26,9 +22,14 @@ public class AuthenticationController {
      *
      * @return the list
      */
-    @GetMapping("findAll")
+    @GetMapping("/getAll")
     public List<Authentication> findAll() {
         return authenticationService.findAll();
+    }
+
+    @GetMapping("/getUserByNetID/{netId}")
+    public Authentication getUserNetID(@PathVariable String netId){
+        return authenticationService.getUserByNetId(netId);
     }
 
 

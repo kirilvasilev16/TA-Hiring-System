@@ -8,6 +8,6 @@ public class AuthTest {
         @Test
         public void testExample() {
             Authentication exampleTest = new Authentication("net@id.com","net-id");
-            assertEquals("net@id.com", exampleTest.getNetID());
+            assertEquals("net@id.com", exampleTest.getNetId());
         }
 }

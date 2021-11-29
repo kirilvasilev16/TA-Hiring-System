@@ -23,4 +23,8 @@ public class AuthenticationService {
     public List<Authentication> findAll() {
         return authenticationRepository.findAll();
     }
+
+    public Authentication getUserByNetId(String netId) {
+        return authenticationRepository.findByNetId(netId);
+    }
 }

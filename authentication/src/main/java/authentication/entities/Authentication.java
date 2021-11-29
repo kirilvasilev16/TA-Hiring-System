@@ -16,25 +16,25 @@ public class Authentication {
             strategy = SEQUENCE,
             generator = "auth_sequence"
     )
-
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
-    private String netID;
+    private String netId;
     private String name;
 
 
+    public Authentication(){}
 
-    public Authentication(String netID, String name) {
-        this.netID = netID;
+    public Authentication(String netId, String name) {
+        this.netId = netId;
         this.name = name;
     }
 
-    public String getNetID() {
-        return netID;
+    public String getNetId() {
+        return netId;
     }
 
-    public void setNetID(String netID) {
-        this.netID = netID;
+    public void setNetId(String netId) {
+        this.netId = netId;
     }
 
     public String getName() {
