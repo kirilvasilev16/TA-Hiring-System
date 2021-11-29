@@ -30,9 +30,9 @@ class ManagementServiceTest {
         managementRepository = Mockito.mock(ManagementRepository.class);
         managementService = new ManagementService(managementRepository);
 
-        management1 = new Management(101, 202, 120);
+        management1 = new Management("CSE1200", "kvasilev", 120);
         management1.setId(1);
-        management2 = new Management(50, 45, 70);
+        management2 = new Management("CSE1200", "aatanasov", 70);
         management2.setId(2);
         managements = new ArrayList<>();
         managements.add(management1);
@@ -57,7 +57,7 @@ class ManagementServiceTest {
 
     @Test
     void createManagement() {
-        Management newManagement = managementService.createManagement(50, 45, 70);
+        Management newManagement = managementService.createManagement("CSE1300", "bborisov", 70);
         assertEquals(management2, newManagement);
     }
 

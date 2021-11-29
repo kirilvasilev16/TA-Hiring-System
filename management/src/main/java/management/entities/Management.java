@@ -28,9 +28,9 @@ public class Management {
     @Column(name = "id", updatable = false)
     private long id;
     @Column
-    private long courseId;
+    private String courseId;
     @Column
-    private long studentId;
+    private String studentId;
     @Column
     private float amountOfHours;
     @Column
@@ -52,7 +52,7 @@ public class Management {
      * @param studentId id of student
      * @param amountOfHours contract hours
      */
-    public Management(long courseId, long studentId, float amountOfHours) {
+    public Management(String courseId, String studentId, float amountOfHours) {
         this.courseId = courseId;
         this.studentId = studentId;
         this.amountOfHours = amountOfHours;
@@ -84,7 +84,7 @@ public class Management {
      *
      * @return the id
      */
-    public long getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
@@ -93,7 +93,7 @@ public class Management {
      *
      * @param courseId the id
      */
-    public void setCourseId(long courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
@@ -102,7 +102,7 @@ public class Management {
      *
      * @return the id
      */
-    public long getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
@@ -111,7 +111,7 @@ public class Management {
      *
      * @param studentId the id
      */
-    public void setStudentId(long studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

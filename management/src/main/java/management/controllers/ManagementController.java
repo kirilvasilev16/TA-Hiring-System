@@ -1,7 +1,6 @@
 package management.controllers;
 
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import management.entities.Management;
 import management.services.ManagementService;
@@ -51,8 +50,8 @@ public class ManagementController {
      * @return the management object
      */
     @PostMapping("create")
-    public Management create(@PathParam("courseId") long courseId,
-                                 @PathParam("studentId") long studentId,
+    public Management create(@PathParam("courseId") String courseId,
+                                 @PathParam("studentId") String studentId,
                                  @PathParam("amountOfHours") float amountOfHours) {
         return managementService.createManagement(courseId, studentId, amountOfHours);
     }

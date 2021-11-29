@@ -10,10 +10,12 @@ import org.junit.jupiter.api.Test;
 public class ManagementTest {
 
     private transient Management management;
+    private final transient String courseId = "CSE1200";
+    private final transient String netId = "kvasilev";
 
     @BeforeEach
     void setUp() {
-        management = new Management(100, 200, 120);
+        management = new Management(courseId, netId, 120);
     }
 
     @Test
@@ -40,24 +42,24 @@ public class ManagementTest {
 
     @Test
     void getCourseId() {
-        assertEquals(100, management.getCourseId());
+        assertEquals(courseId, management.getCourseId());
     }
 
     @Test
     void setCourseId() {
-        management.setCourseId(240);
-        assertEquals(240, management.getCourseId());
+        management.setCourseId("CSE1300");
+        assertEquals("CSE1300", management.getCourseId());
     }
 
     @Test
     void getStudentId() {
-        assertEquals(200, management.getStudentId());
+        assertEquals(netId, management.getStudentId());
     }
 
     @Test
     void setStudentId() {
-        management.setStudentId(212);
-        assertEquals(212, management.getStudentId());
+        management.setStudentId("aatanasov");
+        assertEquals("aatanasov", management.getStudentId());
     }
 
     @Test
@@ -106,7 +108,7 @@ public class ManagementTest {
 
     @Test
     void equalsTest() {
-        Management management1 = new Management(100, 200, 120);
+        Management management1 = new Management(courseId, netId, 120);
         assertEquals(management, management1);
     }
 
@@ -122,13 +124,13 @@ public class ManagementTest {
 
     @Test
     void equalsNot() {
-        Management management1 = new Management(100, 210, 120);
+        Management management1 = new Management(courseId, "aatanasov", 120);
         assertNotEquals(management, management1);
     }
 
     @Test
     void hashCodeTest() {
-        Management management1 = new Management(100, 200, 120);
+        Management management1 = new Management(courseId, netId, 120);
         assertEquals(management.hashCode(), management1.hashCode());
     }
 }

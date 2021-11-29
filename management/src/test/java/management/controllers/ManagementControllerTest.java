@@ -38,21 +38,21 @@ class ManagementControllerTest {
 
     @BeforeEach
     void setUp() {
-        management1 = new Management(101, 202, 120);
+        management1 = new Management("CSE1200", "kvasilev", 120);
         management1.setId(1);
-        management2 = new Management(50, 45, 70);
+        management2 = new Management("CSE1200", "aatanasov", 70);
         management2.setId(2);
         managements = new ArrayList<>();
         managements.add(management1);
         managements.add(management2);
 
-        findAllResult = "[{\"id\":1,\"courseId\":101,\"studentId\":202,\"amountOfHours\":120.0,"
-                + "\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0},"
-                + "{\"id\":2,\"courseId\":50,\"studentId\":45,\"amountOfHours\":70.0,"
+        findAllResult = "[{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
+                + ":120.0,\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0},"
+                + "{\"id\":2,\"courseId\":CSE1200,\"studentId\":aatanasov,\"amountOfHours\":70.0,"
                 + "\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0}]";
 
-        findOneResult = "{\"id\":1,\"courseId\":101,\"studentId\":202,\"amountOfHours\":120.0,"
-                + "\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0}";
+        findOneResult = "{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
+                + ":120.0,\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0}";
     }
 
     @Test
@@ -75,11 +75,12 @@ class ManagementControllerTest {
 
     @Test
     void create() throws Exception {
-        when(managementService.createManagement(101, 202, 120))
+        when(managementService.createManagement("CSE1200", "kvasilev", 120))
                 .thenReturn(management1);
 
         this.mockMvc
-                .perform(post("/management/create?courseId=101&studentId=202&amountOfHours=120"))
+                .perform(post("/management/create?courseId=CSE1200&"
+                        + "studentId=kvasilev&amountOfHours=120"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(findOneResult));
     }

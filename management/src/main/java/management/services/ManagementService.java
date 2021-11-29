@@ -46,7 +46,7 @@ public class ManagementService {
      * @param amountOfHours amount of contract hours
      * @return the management object
      */
-    public Management createManagement(long courseId, long studentId, float amountOfHours) {
+    public Management createManagement(String courseId, String studentId, float amountOfHours) {
         Management management = new Management(courseId, studentId, amountOfHours);
 
         return managementRepository.save(management);

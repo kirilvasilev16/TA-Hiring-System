@@ -31,8 +31,8 @@ public class ManagementSerializer extends StdSerializer<Management> {
         gen.writeStartObject();
 
         gen.writeNumberField("id", management.getId());
-        gen.writeNumberField("courseId", management.getCourseId());
-        gen.writeNumberField("studentId", management.getStudentId());
+        gen.writeStringField("courseId", management.getCourseId());
+        gen.writeStringField("studentId", management.getStudentId());
 
         gen.writeNumberField("amountOfHours", management.getAmountOfHours());
         gen.writeNumberField("approvedHours", management.getApprovedHours());

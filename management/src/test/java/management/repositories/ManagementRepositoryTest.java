@@ -21,7 +21,7 @@ class ManagementRepositoryTest {
     @BeforeEach
     void setUp() {
         assertNotNull(managementRepository);
-        managementRepository.save(new Management(101, 202, 120));
+        managementRepository.save(new Management("CSE1200", "kvasilev", 120));
     }
 
     @Test

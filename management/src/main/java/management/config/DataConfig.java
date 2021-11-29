@@ -18,7 +18,7 @@ public class DataConfig {
     @Bean
     CommandLineRunner commandLineRunner(ManagementRepository managementRepository) {
         return args -> {
-            Management management = new Management(100L, 200L, 60);
+            Management management = new Management("CSE1200", "kvasilev", 60);
             managementRepository.save(management);
         };
     }
