@@ -1,32 +1,57 @@
 package authentication.entities;
 
-import javax.persistence.*;
+import static javax.persistence.GenerationType.AUTO;
 
-import static javax.persistence.GenerationType.SEQUENCE;
+import java.util.Collection;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity(name = "Authentication")
 public class Authentication {
     @Id
-    @SequenceGenerator(
-            name = "auth_sequence",
-            sequenceName = "auth_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "auth_sequence"
-    )
+    @GeneratedValue(strategy = AUTO)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
     private String netId;
+    private String password;
     private String name;
-
+    @ManyToMany(fetch =  javax.persistence.FetchType.EAGER)
+    private Collection<Role> roles;
 
     public Authentication(){}
 
-    public Authentication(String netId, String name) {
+    /**
+     * Authentication object constructor.
+     *
+     * @param netId of the user
+     * @param password of the user
+     * @param name of the user
+     * @param roles granted for the user like student/ta/admin/lecturer
+     */
+    public Authentication(String netId, String password, String name, Collection roles) {
         this.netId = netId;
+        this.password = password;
         this.name = name;
+        this.roles = roles;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
     public String getNetId() {
