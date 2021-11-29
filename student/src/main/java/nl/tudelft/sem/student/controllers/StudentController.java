@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("api/student")
 public class StudentController {
 
-    private final StudentService studentService;
+    private final transient StudentService studentService;
 
     @Autowired
     public StudentController(StudentService studentService) {

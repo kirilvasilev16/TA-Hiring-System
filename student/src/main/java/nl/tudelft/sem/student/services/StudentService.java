@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public class StudentService {
 
-    private final StudentRepository studentRepository;
+    private final transient StudentRepository studentRepository;
 
     @Autowired
     public StudentService(StudentRepository studentRepository) {

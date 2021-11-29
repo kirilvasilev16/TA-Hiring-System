@@ -10,23 +10,23 @@ import java.util.List;
 import java.util.Map;
 
 
-@Entity(name="Student")
+@Entity(name = "Student")
 public class Student {
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private long id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-//    @Column(name="passedCourses")
+//    @Column(name = "passedCourses")
 //    private Map<Long, Float> passedCourses;
 //
-//    @Column(name="candidateCourses")
+//    @Column(name = "candidateCourses")
 //    private List<Long> candidateCourses;
 //
-//    @Column(name="taCourses")
+//    @Column(name = "taCourses")
 //    private List<Long> taCourses;
 
     public Student(long id, String name) {
@@ -35,5 +35,21 @@ public class Student {
 //        this.passedCourses = new HashMap<>();
 //        this.candidateCourses = new ArrayList<>();
 //        this.taCourses = new ArrayList<>();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
