@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="adcca639-ce97-4eab-80c1-061d85e19f8f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Course.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Student.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/repositories/LecturerRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/services/CourseService.java" afterDir="false" />
+    <list default="true" id="28a807a0-654f-4072-8a1c-44395d4297e6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/checkstyleidea-libs/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/template.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/template.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Lecturer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,9 +36,22 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/../Lecturer">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Lecturer" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Lecturer" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -53,6 +67,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="management" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
@@ -64,19 +83,39 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../tatu" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources" />
       <recent name="D:\SEM\sem-repo-15a\Lecturer" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources\template\config" />
+      <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources" />
+    </key>
   </component>
-  <component name="RunManager" selected="Gradle.sem-repo-15a">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="gradle clean" />
+      <command value="gradle build" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Gradle.LecturerServiceTest">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -88,40 +127,105 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="sem-repo-15a [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="LecturerServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="--tests &quot;LecturerServiceTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="dependencies" />
+            <option value=":Lecturer:test" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="sem-repo-15a" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="LecturerServiceTest.addCourse" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="--tests &quot;LecturerServiceTest.addCourse&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
-          <list />
+          <list>
+            <option value=":Lecturer:test" />
+          </list>
         </option>
         <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="LecturerServiceTest.findByIdNullable" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;LecturerServiceTest.findByIdNullable&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":Lecturer:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="LecturerServiceTest.getSpecificNullCourse" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;LecturerServiceTest.getSpecificNullCourse&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":Lecturer:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="sem-repo-15a [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" value="" />
       </ExternalSystemSettings>
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
@@ -191,8 +295,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.sem-repo-15a" />
-        <item itemvalue="Gradle.sem-repo-15a [dependencies]" />
+        <item itemvalue="Gradle.LecturerServiceTest" />
+        <item itemvalue="Gradle.sem-repo-15a [build]" />
+        <item itemvalue="Gradle.LecturerServiceTest.getSpecificNullCourse" />
+        <item itemvalue="Gradle.LecturerServiceTest.findByIdNullable" />
+        <item itemvalue="Gradle.LecturerServiceTest.addCourse" />
       </list>
     </recent_temporary>
   </component>
@@ -206,6 +313,49 @@
       <updated>1637838685202</updated>
       <workItem from="1637838688894" duration="9820000" />
     </task>
+    <task id="LOCAL-00001" summary="fixed building">
+      <created>1637937136245</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1637937136245</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added getters and setters">
+      <created>1637938473055</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1637938473055</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added needed endpoints for lecturer's work and exceptions">
+      <created>1638051233161</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1638051233161</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added basic tests and checkstyle">
+      <created>1638053954834</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638053954834</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix build by adding transient">
+      <created>1638054380596</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1638054380596</updated>
+    </task>
+    <task id="LOCAL-00006" summary="tested lecturer service">
+      <created>1638057518733</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1638057518733</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,5 +371,23 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fixed building" />
+    <MESSAGE value="added getters and setters" />
+    <MESSAGE value="Added needed endpoints for lecturer's work and exceptions" />
+    <MESSAGE value="Added basic tests and checkstyle" />
+    <MESSAGE value="fix build by adding transient" />
+    <MESSAGE value="tested lecturer service" />
+    <option name="LAST_COMMIT_MESSAGE" value="tested lecturer service" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/template$LecturerServiceTest.ic" NAME="LecturerServiceTest Coverage Results" MODIFIED="1638057225040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/template$LecturerClassTest.ic" NAME="LecturerClassTest Coverage Results" MODIFIED="1638053270536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

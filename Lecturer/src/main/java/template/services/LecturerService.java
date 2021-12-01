@@ -57,7 +57,7 @@ public class LecturerService {
     }
 
     public List<Student> getCandidateTaList(String netId, Course course) {
-        return getSpecificCourse(netId, course).getCandidateTas();
+        return this.getSpecificCourse(netId, course).getCandidateTas();
     }
 
     public void chooseTa(String netId, Course course, String studentNetId) {

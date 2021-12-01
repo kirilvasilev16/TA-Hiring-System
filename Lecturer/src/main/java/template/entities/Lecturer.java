@@ -18,11 +18,11 @@ public class Lecturer {
     List<Course> courses;
 
     public Lecturer(
-            String netId,
-            String name,
-            String password,
-            String email,
-            List<Course> courses) {
+    		String netId,
+		    String name,
+		    String password,
+		    String email,
+		    List<Course> courses) {
         this.netId = netId;
         this.name = name;
         this.password = password;
@@ -76,17 +76,17 @@ public class Lecturer {
     @Override
     public boolean equals(Object o) {
         if (this == o) {
-            return true;
+        	return true;
         }
         if (o == null || getClass() != o.getClass()) {
-            return false;
+        	return false;
         }
         Lecturer lecturer = (Lecturer) o;
         return Objects.equals(netId, lecturer.netId)
-                && Objects.equals(name, lecturer.name)
-                && Objects.equals(password, lecturer.password)
-                && Objects.equals(email, lecturer.email)
-                && Objects.equals(courses, lecturer.courses);
+		        && Objects.equals(name, lecturer.name)
+		        && Objects.equals(password, lecturer.password)
+		        && Objects.equals(email, lecturer.email)
+		        && Objects.equals(courses, lecturer.courses);
     }
 
     @Override
