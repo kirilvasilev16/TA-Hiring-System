@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Optional;
+import java.util.Set;
 
 /**
  * The type Student service.
@@ -52,7 +52,7 @@ public class StudentService {
      * @param id the id
      * @return the candidate courses
      */
-    public Map<String, Float> getCandidateCourses(String id) {
+    public Set<String> getCandidateCourses(String id) {
         return studentRepository.getOne(id).getCandidateCourses();
     }
 
@@ -62,7 +62,36 @@ public class StudentService {
      * @param id the id
      * @return the ta courses
      */
-    public Map<String, Float> getTaCourses(String id) {
+    public Set<String> getTaCourses(String id) {
         return studentRepository.getOne(id).getTaCourses();
+    }
+
+    public Student apply(String netId, String courseId) {
+        Student student = studentRepository.getOne(netId);
+        if (student == null) {
+            return null;
+        }
+        if (student.getPassedCourses().containsKey(courseId)) {
+            Set<String> candidate = student.getCandidateCourses();
+            candidate.add(courseId);
+            studentRepository.updateCandidateCourses(netId, candidate);
+        }
+        return student;
+    }
+
+    public Student accept(String netId, String courseId) {
+        Student student = studentRepository.getOne(netId);
+        if (student == null) {
+            return null;
+        }
+        if (student.getCandidateCourses().contains(courseId)) {
+            Set<String> candidate = student.getCandidateCourses();
+            Set<String> ta = student.getTaCourses();
+            candidate.remove(courseId);
+            studentRepository.updateCandidateCourses(netId, candidate);
+            ta.add(courseId);
+            studentRepository.updateTaCourses(netId, ta);
+        }
+        return student;
     }
 }

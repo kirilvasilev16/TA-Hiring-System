@@ -23,11 +23,11 @@ public class Student {
 
     @ElementCollection
     @Column(name = "candidateCourses")
-    private List<String> candidateCourses;
+    private Set<String> candidateCourses;
 
     @ElementCollection
     @Column(name = "taCourses")
-    private List<String> taCourses;
+    private Set<String> taCourses;
 
     /**
      * Instantiates a new Student.
@@ -39,8 +39,8 @@ public class Student {
         this.netId = netId;
         this.name = name;
         this.passedCourses = new HashMap<>();
-        this.candidateCourses = new ArrayList<>();
-        this.taCourses = new ArrayList<>();
+        this.candidateCourses = new HashSet<String>();
+        this.taCourses = new HashSet<String>();
     }
 
     /**
@@ -84,7 +84,7 @@ public class Student {
      *
      * @return the candidate courses
      */
-    public List<String> getCandidateCourses() {
+    public Set<String> getCandidateCourses() {
         return candidateCourses;
     }
 
@@ -93,7 +93,7 @@ public class Student {
      *
      * @param candidateCourses the candidate courses
      */
-    public void setCandidateCourses(List<String> candidateCourses) {
+    public void setCandidateCourses(Set<String> candidateCourses) {
         this.candidateCourses = candidateCourses;
     }
 
@@ -102,7 +102,7 @@ public class Student {
      *
      * @return the ta courses
      */
-    public List<String> getTaCourses() {
+    public Set<String> getTaCourses() {
         return taCourses;
     }
 
@@ -111,7 +111,7 @@ public class Student {
      *
      * @param taCourses the ta courses
      */
-    public void setTaCourses(List<String> taCourses) {
+    public void setTaCourses(Set<String> taCourses) {
         this.taCourses = taCourses;
     }
 
