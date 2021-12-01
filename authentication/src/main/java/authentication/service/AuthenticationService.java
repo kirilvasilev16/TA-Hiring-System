@@ -34,11 +34,7 @@ public class AuthenticationService implements UserDetailsService {
     public List<Authentication> findAll() {
         return authenticationRepository.findAll();
     }
-
-    public Authentication getUserByNetId(String netId) {
-        return authenticationRepository.findByNetId(netId);
-    }
-
+    
     public Role saveRole(Role role) {
         return roleRepository.save(role);
     }

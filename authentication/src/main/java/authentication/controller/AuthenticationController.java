@@ -27,10 +27,4 @@ public class AuthenticationController {
         return authenticationService.findAll();
     }
 
-    @GetMapping("/getUserByNetId/{netId}")
-    public Authentication getUserNetId(@PathVariable String netId) {
-        return authenticationService.getUserByNetId(netId);
-    }
-
-
 }
