@@ -1,7 +1,9 @@
 package authentication.service;
 
 import authentication.entities.Authentication;
+import authentication.entities.Role;
 import authentication.repository.AuthenticationRepository;
+import authentication.repository.RoleRepository;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,13 +18,16 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService implements UserDetailsService {
 
     private final transient AuthenticationRepository authenticationRepository;
+    private final transient RoleRepository roleRepository;
 
-    public AuthenticationService(AuthenticationRepository authenticationRepository) {
+    public AuthenticationService(AuthenticationRepository authenticationRepository,
+                                 RoleRepository roleRepository) {
         this.authenticationRepository = authenticationRepository;
+        this.roleRepository = roleRepository;
     }
 
     /**
-     * Finds all managements stored in the database.
+     * Finds all authentication objects stored in the database.
      *
      * @return the list
      */
@@ -32,6 +37,28 @@ public class AuthenticationService implements UserDetailsService {
 
     public Authentication getUserByNetId(String netId) {
         return authenticationRepository.findByNetId(netId);
+    }
+
+    public Role saveRole(Role role) {
+        return roleRepository.save(role);
+    }
+
+    public Authentication saveAuth(Authentication authentication) {
+        return authenticationRepository.save(authentication);
+    }
+
+    /**
+     * add a role to the user authentication object.
+     *
+     * @param netId of the user
+     * @param roleName role of the user
+     * @return return authentication object
+     */
+    public Authentication addRoleToAuthentication(String netId, String roleName) {
+        Authentication auth = authenticationRepository.findByNetId(netId);
+        Role role = roleRepository.findByName(roleName);
+        auth.getRoles().add(role);
+        return authenticationRepository.save(auth);
     }
 
     @Override

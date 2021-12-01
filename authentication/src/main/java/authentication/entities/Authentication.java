@@ -5,9 +5,11 @@ import static javax.persistence.GenerationType.AUTO;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+
 
 @Entity(name = "Authentication")
 public class Authentication {
@@ -18,7 +20,7 @@ public class Authentication {
     private String netId;
     private String password;
     private String name;
-    @ManyToMany(fetch =  javax.persistence.FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles;
 
     public Authentication(){}
@@ -31,7 +33,7 @@ public class Authentication {
      * @param name of the user
      * @param roles granted for the user like student/ta/admin/lecturer
      */
-    public Authentication(String netId, String password, String name, Collection roles) {
+    public Authentication(String netId, String password, String name, Collection<Role> roles) {
         this.netId = netId;
         this.password = password;
         this.name = name;

@@ -9,7 +9,7 @@ public class AuthTest {
     @Test
     public void testExample() {
         Authentication exampleTest = new Authentication("net@id.com",
-                "password", "net-id", new ArrayList());
+                "password", "net-id", new ArrayList<Role>());
         assertEquals("net@id.com", exampleTest.getNetId());
     }
 }

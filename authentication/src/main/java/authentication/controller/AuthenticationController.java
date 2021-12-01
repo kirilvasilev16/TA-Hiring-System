@@ -22,7 +22,7 @@ public class AuthenticationController {
      *
      * @return the list
      */
-    @GetMapping("/getAll")
+    @GetMapping("getAll")
     public List<Authentication> findAll() {
         return authenticationService.findAll();
     }
