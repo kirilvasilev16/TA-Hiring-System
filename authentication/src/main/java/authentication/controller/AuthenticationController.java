@@ -18,7 +18,7 @@ public class AuthenticationController {
     }
 
     /**
-     * Returns all managements stored in the database.
+     * Returns all authentications stored in the database.
      *
      * @return the list
      */

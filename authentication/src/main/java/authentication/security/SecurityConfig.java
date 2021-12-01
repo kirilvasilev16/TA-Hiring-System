@@ -29,12 +29,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.bcpe = bcpe;
     }
 
+    /**
+     * configure authenticationManager.
+     *
+     * @param auth uses userDetailsService.
+     * @throws Exception if authentication manager cannot be configured
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         System.out.println("AuthManagerBuilder config");
         auth.userDetailsService(userDetailsService).passwordEncoder(bcpe);
     }
 
+    /**
+     * configure httpSecurity.
+     *
+     * @param http HttpSecurity object
+     * @throws Exception if HttpSecurityConfig cannot be configurated.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println("HttpSecurityConfig config");
@@ -49,6 +61,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 UsernamePasswordAuthenticationFilter.class);
     }
 
+    /**
+     * creates bean for authentication management.
+     *
+     * @return AuthenticationManager object
+     * @throws Exception if bean cannot be created
+     */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {

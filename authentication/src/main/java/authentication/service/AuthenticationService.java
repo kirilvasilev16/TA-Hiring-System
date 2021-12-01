@@ -34,7 +34,7 @@ public class AuthenticationService implements UserDetailsService {
     public List<Authentication> findAll() {
         return authenticationRepository.findAll();
     }
-    
+
     public Role saveRole(Role role) {
         return roleRepository.save(role);
     }
@@ -57,6 +57,13 @@ public class AuthenticationService implements UserDetailsService {
         return authenticationRepository.save(auth);
     }
 
+    /**
+     * loads user by username, in this case netId, is used by UserDetailsService.
+     *
+     * @param netId of user
+     * @return UserDetails object
+     * @throws UsernameNotFoundException if username is not found
+     */
     @Override
     public UserDetails loadUserByUsername(String netId) throws UsernameNotFoundException {
         Authentication auth = authenticationRepository.findByNetId(netId);

@@ -13,24 +13,48 @@ public class Role {
     private long id;
     private String name;
 
+    /**
+     * No argument constructor.
+     */
     public Role() {}
 
+    /**
+     * role constructor.
+     *
+     * @param name of role
+     */
     public Role(String name) {
         this.name = name;
     }
 
+    /**
+     * id getter.
+     *
+     * @return id of role
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * id setter.
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     * name getter.
+     *
+     * @return id of role
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * name setter.
+     */
     public void setName(String name) {
         this.name = name;
     }

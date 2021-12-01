@@ -48,6 +48,11 @@ public class DataConfig {
         };
     }
 
+    /**
+     * BCryptPasswordEncoder creating function.
+     *
+     * @return a new BCryptPasswordEncoder
+     */
     @Bean
     BCryptPasswordEncoder bcPasswordEncoder() {
         return new BCryptPasswordEncoder();

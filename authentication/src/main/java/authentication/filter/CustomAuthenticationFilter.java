@@ -30,6 +30,14 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         this.authenticationManager = authenticationManager;
     }
 
+    /**
+     * attempts authentication using authenticationManager - spring security functionality.
+     *
+     * @param request from user to login
+     * @param response response being created
+     * @return an Authentication object
+     * @throws AuthenticationException if user cannot be authenticated
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response)
@@ -43,6 +51,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         return authenticationManager.authenticate(authenticationToken);
     }
 
+    /**
+     * in the case of a successful authentication, JWT token is created using this function.
+     *
+     * @param request from user
+     * @param response that will be sent
+     * @param chain of filters that we have, for authentication and authorization
+     * @param authentication Authentication object of Spring Security
+     * @throws IOException io exception
+     * @throws ServletException servlet exception
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response, FilterChain chain,
@@ -51,6 +69,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         User user = (User) authentication.getPrincipal();
         //unsafe ask
         Algorithm algorithm = Algorithm.HMAC256("sem15a".getBytes());
+
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
@@ -59,11 +78,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                         .stream().map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toList()))
                 .sign(algorithm);
+
         String refreshToken = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
+
        Map<String, String> tokens = new HashMap<>();
        tokens.put("access_token", accessToken);
        tokens.put("refresh_token", refreshToken);

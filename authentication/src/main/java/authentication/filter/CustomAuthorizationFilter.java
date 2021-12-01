@@ -25,6 +25,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
+
+	/**
+	 * used for authorization, absorbs the token and checks if
+	 * the token is valid and what roles it has.
+	 *
+	 * @param request of user
+	 * @param response that will be sent to the user
+	 * @param filterChain chain of filters that are applied to the user
+	 * @throws ServletException servlet exception
+	 * @throws IOException IO exception
+	 */
 	@Override
 	protected void doFilterInternal(
 			HttpServletRequest request,
