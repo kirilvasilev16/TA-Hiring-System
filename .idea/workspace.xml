@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28a807a0-654f-4072-8a1c-44395d4297e6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/checkstyleidea-libs/readme.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/template.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/template.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Lecturer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/services/LecturerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/services/LecturerService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +93,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -115,7 +111,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.LecturerServiceTest">
+  <component name="RunManager" selected="Spring Boot.Application (1)">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
