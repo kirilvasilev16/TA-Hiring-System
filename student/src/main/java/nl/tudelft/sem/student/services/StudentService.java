@@ -66,6 +66,13 @@ public class StudentService {
         return studentRepository.getOne(id).getTaCourses();
     }
 
+    /**
+     * Applies student for TA, if the student has passed the course.
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the student
+     */
     public Student apply(String netId, String courseId) {
         Student student = studentRepository.getOne(netId);
         if (student == null) {
@@ -79,6 +86,13 @@ public class StudentService {
         return student;
     }
 
+    /**
+     * Accepts student as TA for a course, if the student has applied before.
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the student
+     */
     public Student accept(String netId, String courseId) {
         Student student = studentRepository.getOne(netId);
         if (student == null) {

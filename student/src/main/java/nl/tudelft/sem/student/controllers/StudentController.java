@@ -73,11 +73,25 @@ public class StudentController {
         return studentService.getTaCourses(id);
     }
 
+    /**
+     * Tries to apply a student as TA for a course.
+     *
+     * @param netId    the net id of the student
+     * @param courseId the course id
+     * @return the (updated) student
+     */
     @PutMapping("apply")
     public Student apply(@PathParam("netId") String netId, @PathParam("courseId") String courseId) {
         return studentService.apply(netId, courseId);
     }
 
+    /**
+     * Tries to accept a student as TA for a course.
+     *
+     * @param netId    the net id of the student
+     * @param courseId the course id
+     * @return the (updated) student
+     */
     @PutMapping("accept")
     public Student accept(@PathParam("netId") String netId, @PathParam("courseId") String courseId) {
         return studentService.accept(netId, courseId);
