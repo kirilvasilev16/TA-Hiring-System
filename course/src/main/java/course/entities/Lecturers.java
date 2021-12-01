@@ -18,15 +18,15 @@ public class Lecturers {
      * Getter for set of lecturers
      * @return Set of strings where strings are lecturerIDs
      */
-    Set<String> getLecturerSet(){
+    public Set<String> getLecturerSet(){
         return lecturerList;
     }
 
     /**
-     * Add set of lecturers to the course
+     * Add set of lecturers to the course, admin privileges
      * @param lecturerIDs Set of strings where stings are lecturerIDs
      */
-    void addLecturerSet(Set<String> lecturerIDs){
+    public void addLecturerSet(Set<String> lecturerIDs){
         this.lecturerList.addAll(lecturerIDs);
     }
 
@@ -34,7 +34,7 @@ public class Lecturers {
      * Add lecturer to the source
      * @param lecturerID String lecturerID
      */
-    void addLecturer(String lecturerID){
+    public void addLecturer(String lecturerID){
         this.lecturerList.add(lecturerID);
     }
 
@@ -43,7 +43,7 @@ public class Lecturers {
      * @param lecturerID String lecturerID
      * @return true if lecturer part of course, false otherwise
      */
-    boolean isLecturer(String lecturerID){
+    public boolean containsLecturer(String lecturerID){
         return this.lecturerList.contains(lecturerID);
     }
 
