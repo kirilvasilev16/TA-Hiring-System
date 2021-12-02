@@ -3,6 +3,7 @@ package course.controllers.strategies;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import course.controllers.CourseController;
 import course.entities.Course;
 import course.entities.Management;
 import course.entities.Student;
@@ -18,7 +19,7 @@ public class RatingStrategy implements TARecommendationStrategy{
     private static HttpClient client = HttpClient.newBuilder().build();
     private static Gson gson = new GsonBuilder()
             .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
-    private Course course;
+    private transient Course course;
 
     public RatingStrategy(Course course) {
         this.course = course;
@@ -29,15 +30,17 @@ public class RatingStrategy implements TARecommendationStrategy{
      * @param candidateTAs Set of Students
      * @return List sorted by rating
      */
+    @SuppressWarnings("PMD")
     public List<String> getRecommendedTAs(Set<Student> candidateTAs){
-        Map<Student, Float> studentRatingMap = new HashMap();
+        Map<Student, Float> studentRatingMap;
+        studentRatingMap = new HashMap();
+        HttpResponse<String> response;
 
         for(Student s : candidateTAs){
             float rating;
             HttpRequest request = HttpRequest.newBuilder().GET()
                     .uri(URI.create("http://localhost:8080/management/get?courseId=" + course.getCourseID() + "&studentId" + s.getNetId()))
                     .build();
-            HttpResponse<String> response = null;
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
@@ -45,7 +48,8 @@ public class RatingStrategy implements TARecommendationStrategy{
                 return List.of();
             }
 
-            if (response.statusCode() != 200) {
+
+            if (response.statusCode() != CourseController.successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
             System.out.println(response.body());

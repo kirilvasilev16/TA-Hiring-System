@@ -39,6 +39,8 @@ public class CourseController {
     private static Gson gson = new GsonBuilder()
             .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
 
+    public static int successCode = 200;
+
     @Autowired
     public CourseController(CourseService courseService) {
         this.courseService = courseService;

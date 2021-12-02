@@ -2,6 +2,7 @@ package course.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import course.controllers.CourseController;
 import course.controllers.strategies.ExperienceStrategy;
 import course.controllers.strategies.GradeStrategy;
 import course.controllers.strategies.RatingStrategy;
@@ -28,6 +29,9 @@ public class StudentService {
     private static HttpClient client = HttpClient.newBuilder().build();
     private static Gson gson = new GsonBuilder()
             .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
+    private static int ratingStrat = 1;
+    private static int experienceStrat = 2;
+    private static int gradeStrat = 3;
 
     /**
      * Getter for candidate TAs
@@ -79,6 +83,7 @@ public class StudentService {
      * @param strategy 1 -> By rating, 2 -> By experience, 3 -> By course grade
      * @return list containing student ids in desired order
      */
+    @SuppressWarnings("PMD")
     public static List<String> getTARecommendationList(Course course, Integer strategy){
         //Make request (POST)
         /*String idJson = gson.toJson(c.getCandidateTAs());
@@ -106,7 +111,7 @@ public class StudentService {
             HttpRequest request = HttpRequest.newBuilder().GET()
                     .uri(URI.create("http://localhost:8080/student/get?id=" + sId))
                     .build();
-            HttpResponse<String> response = null;
+            HttpResponse<String> response;
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
@@ -114,7 +119,7 @@ public class StudentService {
                 return List.of();
             }
 
-            if (response.statusCode() != 200) {
+            if (response.statusCode() != CourseController.successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
             System.out.println(response.body());
@@ -122,9 +127,9 @@ public class StudentService {
         }
 
         TARecommendationStrategy strategyImplementation;
-        if(strategy == 1){
+        if(strategy == ratingStrat){
             strategyImplementation = new RatingStrategy(course);
-        }else if(strategy == 2){
+        }else if(strategy == experienceStrat){
             strategyImplementation = new ExperienceStrategy();
         }else{
             strategyImplementation = new GradeStrategy(course);

@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GradeStrategy implements TARecommendationStrategy{
-    private Course course;
+    private transient Course course;
 
     public GradeStrategy(Course course) {
         this.course = course;
