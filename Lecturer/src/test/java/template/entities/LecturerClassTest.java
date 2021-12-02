@@ -1,4 +1,4 @@
-package entities;
+package template.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import template.entities.Course;
-import template.entities.Lecturer;
 
 public class LecturerClassTest {
     private transient Lecturer lecturer;

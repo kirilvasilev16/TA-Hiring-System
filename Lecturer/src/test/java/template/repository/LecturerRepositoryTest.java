@@ -1,16 +1,17 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.ArrayList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import template.entities.Lecturer;
-import template.repositories.LecturerRepository;
-
+//package template.repository;
+//
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertNotNull;
+//
+//import java.util.ArrayList;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.extension.ExtendWith;
+//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+//import org.springframework.test.context.junit.jupiter.SpringExtension;
+//import template.entities.Lecturer;
+//import template.repositories.LecturerRepository;
+//
 //@ExtendWith(SpringExtension.class)
 //@DataJpaTest
 //public class LecturerRepositoryTest {
