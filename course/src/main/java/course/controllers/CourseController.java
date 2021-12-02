@@ -1,6 +1,13 @@
 package course.controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import course.controllers.exceptions.CourseNotFoundException;
+import course.controllers.strategies.ExperienceStrategy;
+import course.controllers.strategies.GradeStrategy;
+import course.controllers.strategies.RatingStrategy;
+import course.controllers.strategies.TARecommendationStrategy;
 import course.entities.Course;
 import course.entities.Lecturer;
 import course.entities.Management;
@@ -14,6 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -21,6 +34,10 @@ import java.util.Set;
 public class CourseController {
 
     private final transient CourseService courseService;
+
+    private static HttpClient client = HttpClient.newBuilder().build();
+    private static Gson gson = new GsonBuilder()
+            .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
 
     @Autowired
     public CourseController(CourseService courseService) {
@@ -96,6 +113,18 @@ public class CourseController {
             throw new CourseNotFoundException(code);
         }
         return Math.max(1, c.getCourseSize() % 20 < 10 ? c.getCourseSize() / 20 : (c.getCourseSize() / 20) + 1);
+    }
+
+    @GetMapping("{code}/tarecommendations")
+    public List<String> getTARecommendationList(@PathVariable String code, @PathVariable Integer strategy)
+            throws CourseNotFoundException {
+        Course c = courseService.findByCourseID(code);
+
+        if (c == null) {
+            throw new CourseNotFoundException(code);
+        }
+
+        return StudentService.getTARecommendationList(c, strategy);
     }
 
     @PostMapping("makeCourse")

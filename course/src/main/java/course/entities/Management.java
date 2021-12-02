@@ -5,11 +5,10 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "management")
+
 public class Management {
-    @Id
     String name;
+    Float rating;
 
     public Management(){}
 
@@ -19,5 +18,13 @@ public class Management {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 }
