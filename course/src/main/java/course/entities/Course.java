@@ -1,9 +1,9 @@
 package course.entities;
 
+
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,38 +12,37 @@ public class Course {
     @Id
     private String courseID;
     private String name;
-    private int courseSize;
+    private Integer courseSize;
+    private Integer requiredTAs;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date startingDate;
 
-
-    private Students students;
-    private Lecturers lecturers;
+    @ElementCollection
+    private Set<String> lecturerSet;
+    @ElementCollection
+    private Set<String> candidateTAs;
+    @ElementCollection
+    private Set<String> hiredTAs;
 
     /**
      * Constructor for Course object
      * @param courseID String courseID
      * @param name String course name
      * @param courseSize int course student size
+     * @param lecturerSet et of strings where strings are lecturerIDs
      * @param startingDate Date course start date
-     * @param lecturerSet Set of strings where strings are lecturerIDs
-     * @param taSet Set of strings where strings are studentIDs
-     * @param candidateSet Set of strings where strings are studentIDs
      */
-    public Course(String courseID, String name, int courseSize,Date startingDate, Set<String> lecturerSet, Set<String> taSet, Set<String> candidateSet) {
+    public Course(String courseID, String name, int courseSize,Set<String> lecturerSet, Date startingDate) {
         this.courseID = courseID;
         this.name = name;
-        this.courseSize = courseSize;
         this.startingDate = startingDate;
+        this.courseSize = courseSize;
+        this.requiredTAs = Math.max(1, courseSize / 20);
 
-        this.lecturers = new Lecturers();
-        this.students = new Students(courseSize);
-
-        lecturers.addLecturerSet(lecturerSet);
-        students.addCandidateSet(candidateSet);
-        students.addTASet(taSet);
-
+        this.lecturerSet = lecturerSet;
+        this.candidateTAs = new HashSet<>();
+        this.hiredTAs = new HashSet<>();
     }
 
     public Course() {
@@ -75,7 +74,7 @@ public class Course {
     }
 
     /**
-     * Setter for course name, admin privilege?
+     * Setter for course name
      * @param name String new course name
      */
     public void setName(String name) {
@@ -90,21 +89,15 @@ public class Course {
         return this.courseSize;
     }
 
+
+
     /**
      * Setter for course student size
      * @param courseSize int new number of students
      */
     public void setCourseSize(Integer courseSize) {
         this.courseSize = courseSize;
-        this.students.setRequiredTAs(courseSize);
-    }
-
-    /**
-     * Getter for course lecturers
-     * @return Lecturers object
-     */
-    public Lecturers getLecturers() {
-        return this.lecturers;
+        setRequiredTAs(Math.max(1, courseSize / 20));
     }
 
 
@@ -124,13 +117,35 @@ public class Course {
         this.startingDate = startingDate;
     }
 
-    /**
-     * Getter for course students
-     * @return Students object
-     */
-    public Students getStudents() {
-        return this.students;
+    public Integer getRequiredTAs() {
+        return requiredTAs;
     }
 
+    public void setRequiredTAs(Integer requiredTAs) {
+        this.requiredTAs = requiredTAs;
+    }
 
+    public Set<String> getLecturerSet() {
+        return lecturerSet;
+    }
+
+    public void setLecturerSet(Set<String> lecturerSet) {
+        this.lecturerSet = lecturerSet;
+    }
+
+    public Set<String> getCandidateTAs() {
+        return candidateTAs;
+    }
+
+    public void setCandidateTAs(Set<String> candidateTAs) {
+        this.candidateTAs = candidateTAs;
+    }
+
+    public Set<String> getHiredTAs() {
+        return hiredTAs;
+    }
+
+    public void setHiredTAs(Set<String> hiredTAs) {
+        this.hiredTAs = hiredTAs;
+    }
 }

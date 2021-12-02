@@ -92,7 +92,7 @@ public class CourseController {
     public Integer getTARecommendation(@PathVariable String code)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseID(code);
-
+        StudentQuerier.getRecommendedTAS(c, param)
         if (c == null) {
             throw new CourseNotFoundException(code);
         }
