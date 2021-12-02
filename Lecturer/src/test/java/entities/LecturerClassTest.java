@@ -1,12 +1,15 @@
+package entities;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import template.entities.Course;
 import template.entities.Lecturer;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class LecturerClassTest {
     private transient Lecturer lecturer;
@@ -14,6 +17,7 @@ public class LecturerClassTest {
     private transient String name = "name";
     private transient String password = "password";
     private transient String email = "email";
+
     @BeforeEach
     void setUp() {
         lecturer = new Lecturer(netId, name, password, email, new ArrayList<>());

@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28a807a0-654f-4072-8a1c-44395d4297e6" name="Default Changelist" comment="">
+    <list default="true" id="2650b30d-8662-4bbf-a555-2ff19b3d5a58" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/LecturerClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/test/java/entities/LecturerClassTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/LecturerRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/test/java/repository/LecturerRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/test/java/service/LecturerServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +101,7 @@
       <recent name="D:\SEM\sem-repo-15a\Lecturer" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\SEM\sem-repo-15a\Lecturer\src\test\java\repository" />
       <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources\template\config" />
       <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources" />
     </key>
@@ -105,16 +109,31 @@
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="gradle clean" />
+      <command value="gradle Lecturer:checkstyleMain" />
+      <command value="gradle Lecturer:checkstyleTest" />
       <command value="gradle build" />
     </option>
   </component>
   <component name="RunManager" selected="Gradle.sem-repo-15a [build]">
-    <configuration name="LecturerRepositoryTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LecturerClassTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;LecturerRepositoryTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;entities.LecturerClassTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -135,7 +154,7 @@
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;LecturerServiceTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;service.LecturerServiceTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -151,44 +170,44 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="LecturerServiceTest.findByIdNullable" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="sem-repo-15a [Lecturer:checkstyleMain]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;LecturerServiceTest.findByIdNullable&quot;" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":Lecturer:test" />
+            <option value="Lecturer:checkstyleMain" />
           </list>
         </option>
-        <option name="vmOptions" />
+        <option name="vmOptions" value="" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="LecturerServiceTest.getSpecificNullCourse" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="sem-repo-15a [Lecturer:checkstyleTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;LecturerServiceTest.getSpecificNullCourse&quot;" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":Lecturer:test" />
+            <option value="Lecturer:checkstyleTest" />
           </list>
         </option>
-        <option name="vmOptions" />
+        <option name="vmOptions" value="" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
@@ -277,11 +296,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.LecturerRepositoryTest" />
-        <item itemvalue="Gradle.LecturerServiceTest" />
         <item itemvalue="Gradle.sem-repo-15a [build]" />
-        <item itemvalue="Gradle.LecturerServiceTest.getSpecificNullCourse" />
-        <item itemvalue="Gradle.LecturerServiceTest.findByIdNullable" />
+        <item itemvalue="Gradle.sem-repo-15a [Lecturer:checkstyleTest]" />
+        <item itemvalue="Gradle.sem-repo-15a [Lecturer:checkstyleMain]" />
+        <item itemvalue="Gradle.LecturerServiceTest" />
+        <item itemvalue="Gradle.LecturerClassTest" />
       </list>
     </recent_temporary>
   </component>

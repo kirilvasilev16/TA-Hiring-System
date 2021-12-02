@@ -1,7 +1,13 @@
-import org.junit.jupiter.api.BeforeAll;
+package service;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import template.entities.Course;
@@ -10,13 +16,6 @@ import template.exceptions.CourseNotFoundException;
 import template.exceptions.LecturerNotFoundException;
 import template.repositories.LecturerRepository;
 import template.services.LecturerService;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LecturerServiceTest {
     transient LecturerRepository lecturerRepository;
@@ -40,8 +39,10 @@ public class LecturerServiceTest {
         lecturers.add(lecturer1);
         lecturers.add(lecturer2);
 
-        Mockito.when(lecturerRepository.findLecturerByNetId("1")).thenReturn(java.util.Optional.ofNullable(lecturer1));
-        Mockito.when(lecturerRepository.findLecturerByNetId("2")).thenReturn(java.util.Optional.ofNullable(lecturer2));
+        Mockito.when(lecturerRepository.findLecturerByNetId("1"))
+                .thenReturn(java.util.Optional.ofNullable(lecturer1));
+        Mockito.when(lecturerRepository.findLecturerByNetId("2"))
+                .thenReturn(java.util.Optional.ofNullable(lecturer2));
         Mockito.when(lecturerRepository.findLecturerByNetId("3")).thenReturn(Optional.empty());
         Mockito.when(lecturerRepository.save(lecturer1)).thenReturn(lecturer1);
     }
@@ -74,7 +75,8 @@ public class LecturerServiceTest {
 
     @Test
     void getSpecificNullCourse() {
-        assertThrows(CourseNotFoundException.class, () -> lecturerService.getSpecificCourse("1", new Course()));
+        assertThrows(CourseNotFoundException.class,
+                () -> lecturerService.getSpecificCourse("1", new Course()));
     }
 
     @Test
