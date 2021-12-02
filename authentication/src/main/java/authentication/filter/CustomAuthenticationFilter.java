@@ -33,7 +33,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     /**
      * attempts authentication using authenticationManager - spring security functionality.
      *
-     * @param request from user to login
+     * @param request  from user to login
      * @param response response being created
      * @return an Authentication object
      * @throws AuthenticationException if user cannot be authenticated
@@ -54,11 +54,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     /**
      * in the case of a successful authentication, JWT token is created using this function.
      *
-     * @param request from user
-     * @param response that will be sent
-     * @param chain of filters that we have, for authentication and authorization
+     * @param request        from user
+     * @param response       that will be sent
+     * @param chain          of filters that we have, for authentication and authorization
      * @param authentication Authentication object of Spring Security
-     * @throws IOException io exception
+     * @throws IOException      io exception
      * @throws ServletException servlet exception
      */
     @Override
@@ -85,10 +85,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
 
-       Map<String, String> tokens = new HashMap<>();
-       tokens.put("access_token", accessToken);
-       tokens.put("refresh_token", refreshToken);
-       response.setContentType(APPLICATION_JSON_VALUE);
-       new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        Map<String, String> tokens = new HashMap<>();
+        tokens.put("access_token", accessToken);
+        tokens.put("refresh_token", refreshToken);
+        response.setContentType(APPLICATION_JSON_VALUE);
+        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }

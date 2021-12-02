@@ -26,71 +26,71 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
-	/**
-	 * used for authorization, absorbs the token and checks if
-	 * the token is valid and what roles it has.
-	 *
-	 * @param request of user
-	 * @param response that will be sent to the user
-	 * @param filterChain chain of filters that are applied to the user
-	 * @throws ServletException servlet exception
-	 * @throws IOException IO exception
-	 */
-	@Override
-	protected void doFilterInternal(
-			HttpServletRequest request,
-			 HttpServletResponse response,
-			 FilterChain filterChain)
-			throws ServletException, IOException {
+    /**
+     * used for authorization, absorbs the token and checks if
+     * the token is valid and what roles it has.
+     *
+     * @param request     of user
+     * @param response    that will be sent to the user
+     * @param filterChain chain of filters that are applied to the user
+     * @throws ServletException servlet exception
+     * @throws IOException      IO exception
+     */
+    @Override
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain)
+            throws ServletException, IOException {
 
-		if (request.getServletPath().equals("/login")) {
-			filterChain.doFilter(request, response);
-		} else {
-			String authorizationHeader = request.getHeader(AUTHORIZATION);
-			if (authorizationHeader != null
-					&& authorizationHeader.startsWith("Bearer ")) {
-				try {
-					String token =
-							authorizationHeader.substring(
-									"Bearer ".length());
+        if (request.getServletPath().equals("/login")) {
+            filterChain.doFilter(request, response);
+        } else {
+            String authorizationHeader = request.getHeader(AUTHORIZATION);
+            if (authorizationHeader != null
+                    && authorizationHeader.startsWith("Bearer ")) {
+                try {
+                    String token =
+                            authorizationHeader.substring(
+                                    "Bearer ".length());
 
-					Algorithm algorithm =
-							Algorithm.HMAC256("sem15a".getBytes());
-					JWTVerifier verifier =
-							JWT.require(algorithm).build();
-					DecodedJWT decodedJwt =
-							verifier.verify(token);
+                    Algorithm algorithm =
+                            Algorithm.HMAC256("sem15a".getBytes());
+                    JWTVerifier verifier =
+                            JWT.require(algorithm).build();
+                    DecodedJWT decodedJwt =
+                            verifier.verify(token);
 
-					String netId = decodedJwt.getSubject();
-					String[] roles = decodedJwt.getClaim("roles")
-							.asArray(String.class);
-					Collection<SimpleGrantedAuthority> authorities =
-							new ArrayList<>();
-					stream(roles).forEach(role -> authorities
-							.add(new SimpleGrantedAuthority(role)));
+                    String netId = decodedJwt.getSubject();
+                    String[] roles = decodedJwt.getClaim("roles")
+                            .asArray(String.class);
+                    Collection<SimpleGrantedAuthority> authorities =
+                            new ArrayList<>();
+                    stream(roles).forEach(role -> authorities
+                            .add(new SimpleGrantedAuthority(role)));
 
-					UsernamePasswordAuthenticationToken
-							authenticationToken =
-							new UsernamePasswordAuthenticationToken(
-									netId, null, authorities);
+                    UsernamePasswordAuthenticationToken
+                            authenticationToken =
+                            new UsernamePasswordAuthenticationToken(
+                                    netId, null, authorities);
 
-					SecurityContextHolder.getContext()
-							.setAuthentication(authenticationToken);
-					filterChain.doFilter(request, response);
-				} catch (Exception e) {
-					response.setHeader("error", e.getMessage());
-					response.setStatus(FORBIDDEN.value());
+                    SecurityContextHolder.getContext()
+                            .setAuthentication(authenticationToken);
+                    filterChain.doFilter(request, response);
+                } catch (Exception e) {
+                    response.setHeader("error", e.getMessage());
+                    response.setStatus(FORBIDDEN.value());
 
-					Map<String, String> error = new HashMap<>();
-					error.put("error_message", e.getMessage());
-					response.setContentType(APPLICATION_JSON_VALUE);
-					new ObjectMapper()
-							.writeValue(response.getOutputStream(),
-									error);
-				}
-			} else {
-				filterChain.doFilter(request, response);
-			}
-		}
-	}
+                    Map<String, String> error = new HashMap<>();
+                    error.put("error_message", e.getMessage());
+                    response.setContentType(APPLICATION_JSON_VALUE);
+                    new ObjectMapper()
+                            .writeValue(response.getOutputStream(),
+                                    error);
+                }
+            } else {
+                filterChain.doFilter(request, response);
+            }
+        }
+    }
 }
