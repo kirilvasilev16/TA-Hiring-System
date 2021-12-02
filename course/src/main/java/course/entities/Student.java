@@ -7,17 +7,29 @@ import javax.persistence.Table;
 
 public class Student {
 
-    private String name;
+    private String studentID;
 
-    public Student(String name) {
-        this.name = name;
+    /**
+     * Student Constructor
+     * @param studentID String student netID
+     */
+    public Student(String studentID) {
+        this.studentID = studentID;
     }
 
-    public String getName() {
-        return name;
+    /**
+     * Getter for student netID
+     * @return string
+     */
+    public String getStudentID() {
+        return studentID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Setter for student netID
+     * @param studentID String student netID
+     */
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
     }
 }

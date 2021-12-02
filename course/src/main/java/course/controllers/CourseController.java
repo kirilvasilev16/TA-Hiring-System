@@ -1,6 +1,7 @@
 package course.controllers;
 
 import course.controllers.exceptions.CourseNotFoundException;
+import course.controllers.exceptions.InvalidCandidateException;
 import course.entities.Course;
 import course.entities.Lecturer;
 import course.entities.Management;
@@ -42,6 +43,12 @@ public class CourseController {
         return c;
     }
 
+    /**
+     * Retrieve specific course student size
+     * @param code String courseID
+     * @return Integer course size
+     * @throws CourseNotFoundException if course not found
+     */
     @GetMapping("{code}/size")
     public Integer getCourseSize(@PathVariable String code)
             throws CourseNotFoundException {
@@ -52,6 +59,12 @@ public class CourseController {
         return c.getCourseSize();
     }
 
+    /**
+     * Update specific course student size
+     * @param code String courseID
+     * @param courseSize Integer course size
+     * @throws CourseNotFoundException if course not found
+     */
     @PatchMapping("{code}/updatesize")
     @Transactional
     public void updateCourseSize(@PathVariable String code, @RequestParam Integer courseSize)
@@ -66,6 +79,12 @@ public class CourseController {
 
     }
 
+    /**
+     * Retrieve lecturers of specific course
+     * @param code String courseID
+     * @return Set of Strings (lecturerIDs)
+     * @throws CourseNotFoundException if Course not found
+     */
     @GetMapping("{code}/lecturers")
     public Set<String> getLecturerSet(@PathVariable String code)
             throws CourseNotFoundException {
@@ -76,6 +95,12 @@ public class CourseController {
         return LecturerService.getLecturerSet(c);
     }
 
+    /**
+     * Retrieve number of required TAs for specific course
+     * @param code String courseID
+     * @return Integer value for required number of TAs
+     * @throws CourseNotFoundException if Course not found
+     */
     @GetMapping("{code}/requiredtas")
     public Integer getRequiredTAs(@PathVariable String code)
             throws CourseNotFoundException {
@@ -98,6 +123,11 @@ public class CourseController {
         return Math.max(1, c.getCourseSize() % 20 < 10 ? c.getCourseSize() / 20 : (c.getCourseSize() / 20) + 1);
     }
 
+    /**
+     * Create and Persist new Course in system
+     * @param body CourseCreationBody object containing course information
+     * @return String execution result message
+     */
     @PostMapping("makeCourse")
     public String makeCourse(@RequestBody CourseCreationBody body){
         Course c = courseService.findByCourseID(body.getCourseID());
@@ -110,9 +140,16 @@ public class CourseController {
         return "Course added successfully";
     }
 
+    /**
+     * Add student as Candidate TA for specific course
+     * @param code String courseID
+     * @param student String studentID
+     * @throws CourseNotFoundException if Course not found
+     * @throws InvalidCandidateException if student already hired as TA
+     */
     @PostMapping("addcandidateta")
     public void addCandidateTA(@PathVariable String code, @RequestBody String student)
-            throws CourseNotFoundException {
+            throws CourseNotFoundException, InvalidCandidateException {
         Course c = courseService.findByCourseID(code);
 
         if (c == null) {
@@ -122,19 +159,32 @@ public class CourseController {
         StudentService.addCandidate(c, student);
     }
 
+    /**
+     * Remove student as candidate TA for specific course
+     * @param code String courseID
+     * @param student String studentID
+     * @throws CourseNotFoundException if course not found
+     * @throws InvalidCandidateException if student not a candidate TA
+     */
     @DeleteMapping("{code}/removeascandidate")
     @Transactional
     public void removeAsCandidate(@PathVariable String code, @RequestBody String student)
-            throws CourseNotFoundException {
-            Course c = courseService.findByCourseID(code);
+            throws CourseNotFoundException, InvalidCandidateException {
+        Course c = courseService.findByCourseID(code);
 
-            if (c == null) {
-                throw new CourseNotFoundException(code);
-            }
-
-            StudentService.removeCandidate(c, student);
+        if (c == null) {
+            throw new CourseNotFoundException(code);
         }
 
+        StudentService.removeCandidate(c, student);
+    }
+
+    /**
+     * Retrieve TA average worked hours for specific course
+     * @param code String courseID
+     * @return float avg worked hours
+     * @throws CourseNotFoundException if course not found
+     */
     @GetMapping("{code}/averageworkedhours")
     public float getAverageWorkedHours(@PathVariable String code)
             throws CourseNotFoundException {

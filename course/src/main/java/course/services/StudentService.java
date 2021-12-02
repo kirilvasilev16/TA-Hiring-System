@@ -17,6 +17,7 @@ public class StudentService {
 
     /**
      * Getter for candidate TAs
+     * @param course Course Object
      * @return Set of strings where strings are studentIDs
      */
     public static Set<String> getCandidates(Course course){
@@ -25,6 +26,7 @@ public class StudentService {
 
     /**
      * Add set of candidate TAs, admin privilege
+     * @param course Course Object
      * @param students Set of strings where strings are studentIDs
      */
     public static void addCandidateSet(Course course, Set<String> students){
@@ -33,25 +35,32 @@ public class StudentService {
 
     /**
      * Add student as candidate TA
+     * @param course Course Object
      * @param studentID String studentID
+     * @throws InvalidCandidateException if Student already hired as TA
      */
-    public static void addCandidate(Course course, String studentID){
+    public static void addCandidate(Course course, String studentID)
+            throws InvalidCandidateException{
         if(containsTA(course, studentID)) throw new InvalidCandidateException("Student already hired as TA");
         course.getCandidateTAs().add(studentID);
     }
 
     /**
      * Remove student from candidate list
+     * @param course Course Object
      * @param studentID String studentID
      * @return true if removed, false otherwise
+     * @throws InvalidCandidateException if Student not a candidate TA
      */
-    public static boolean removeCandidate(Course course, String studentID){
+    public static boolean removeCandidate(Course course, String studentID)
+            throws InvalidCandidateException{
         if(!containsCandidate(course, studentID)) throw new InvalidCandidateException("Student not a candidate TA");
         return course.getCandidateTAs().remove(studentID);
     }
 
     /**
      * Check if student is in the candidate list
+     * @param course Course Object
      * @param studentID String studentID
      * @return true if student is candidate, false otherwise
      */
@@ -64,10 +73,13 @@ public class StudentService {
 
     /**
      * Hire candidate TA to be TA
+     * @param course Course Object
      * @param studentID String studentID
      * @return true if hired, false otherwise
+     * @throws InvalidHiringException if student already hired or not in course
      */
-    public static boolean hireTA(Course course, String studentID){
+    public static boolean hireTA(Course course, String studentID)
+            throws InvalidHiringException{
 
         if(course.getCandidateTAs().remove(studentID)){
             course.getHiredTAs().add(studentID);
@@ -81,6 +93,7 @@ public class StudentService {
 
     /**
      * Getter for hired TAs
+     * @param course Course Object
      * @return Set of strings where strings are studentIDs
      */
     public static Set<String> getTASet(Course course){
@@ -89,6 +102,7 @@ public class StudentService {
 
     /**
      * Add set of students as TAs, admin privilege
+     * @param course Course Object
      * @param students Set of Strings where strings are studentIDs
      */
     public static void addTASet(Course course, Set<String> students){
@@ -98,6 +112,7 @@ public class StudentService {
 
     /**
      * Remove student from TA set
+     * @param course Course Object
      * @param studentID String studentID
      * @return true if removed, false otherwise
      */
@@ -107,6 +122,7 @@ public class StudentService {
 
     /**
      * Check if student is a TA
+     * @param course Course Object
      * @param studentID String studentID
      * @return true is student is a TA, false otherwise
      */
@@ -118,12 +134,18 @@ public class StudentService {
 
     /**
      * Check if enough TA have been hired
+     * @param course Course Object
      * @return true if enough, false otherwise
      */
     public static boolean enoughTAs(Course course){
         return course.getHiredTAs().size() >= course.getRequiredTAs();
     }
 
+    /**
+     * Get number of TAs hired
+     * @param course Course object
+     * @return int
+     */
     public static int hiredTAs(Course course){
         return course.getHiredTAs().size();
     }

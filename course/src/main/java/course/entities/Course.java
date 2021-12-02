@@ -59,7 +59,7 @@ public class Course {
     }
 
     /**
-     * Setter for courseID, admin privilege?
+     * Setter for courseID
      * @param courseID String new courseID
      */
     public void setCourseID(String courseID) {
@@ -83,14 +83,28 @@ public class Course {
     }
 
     /**
+     * Getter for course starting date
+     * @return Date object
+     */
+    public Date getStartingDate() {
+        return this.startingDate;
+    }
+
+    /**
+     * Setter for course starting date
+     * @param startingDate Date object new starting date
+     */
+    public void setStartingDate(Date startingDate) {
+        this.startingDate = startingDate;
+    }
+
+    /**
      * Getter for course student size
      * @return int number of students
      */
     public int getCourseSize() {
         return this.courseSize;
     }
-
-
 
     /**
      * Setter for course student size
@@ -103,49 +117,65 @@ public class Course {
 
 
     /**
-     * Getter for course starting date
-     * @return Date object
+     * Getter for required TAs
+     * @return int
      */
-    public Date getStartingDate() {
-        return this.startingDate;
-    }
-
-    /**
-     * Setter for course starting date, admin privilege?
-     * @param startingDate Date object new starting date
-     */
-    public void setStartingDate(Date startingDate) {
-        this.startingDate = startingDate;
-    }
-
     public Integer getRequiredTAs() {
         return requiredTAs;
     }
 
+    /**
+     * Setter for required TAs
+     * @param requiredTAs Integer number of required TAs
+     */
     public void setRequiredTAs(Integer requiredTAs) {
         this.requiredTAs = requiredTAs;
     }
 
+    /**
+     * Getter for Lecturer set in course
+     * @return Set of strings where strings are lecturerIDs
+     */
     public Set<String> getLecturerSet() {
         return lecturerSet;
     }
 
+    /**
+     * Setter for Lecturer set in course
+     * @param lecturerSet Set of strings where strings are lecturerIDs
+     */
     public void setLecturerSet(Set<String> lecturerSet) {
         this.lecturerSet = lecturerSet;
     }
 
+    /**
+     * Getter for Candidate TA set in course
+     * @return Set of strings where strings are studentIDs
+     */
     public Set<String> getCandidateTAs() {
         return candidateTAs;
     }
 
+    /**
+     * Setter for Candidate TA set
+     * @param candidateTAs Set of strings where strings are studentIDs
+     */
     public void setCandidateTAs(Set<String> candidateTAs) {
         this.candidateTAs = candidateTAs;
     }
 
+    /**
+     * Getter for Hired TA set in course
+     * @return Set of strings where strings are studentDIs
+     */
     public Set<String> getHiredTAs() {
         return hiredTAs;
     }
 
+    /**
+     * Setter for Hired TA set
+     * @param hiredTAs Set of strings where strings are studentIDs
+     */
     public void setHiredTAs(Set<String> hiredTAs) {
         this.hiredTAs = hiredTAs;
     }

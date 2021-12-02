@@ -1,25 +1,31 @@
 package course.entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "lecturer")
 public class Lecturer {
-    @Id
-    private String name;
 
-    public Lecturer(String name) {
-        this.name = name;
+    private String lecturerID;
+
+    /**
+     * Lecturer Constructor
+     * @param lecturerID String lecturer netID
+     */
+    public Lecturer(String lecturerID) {
+        this.lecturerID = lecturerID;
     }
 
-    public String getName() {
-        return name;
+    /**
+     * Getter for LecturerID
+     * @return String lecturer netID
+     */
+    public String getLecturerID() {
+        return lecturerID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Setter for lecturerID
+     * @param lecturerID String lecturer nedID
+     */
+    public void setLecturerID(String lecturerID) {
+        this.lecturerID = lecturerID;
     }
 }

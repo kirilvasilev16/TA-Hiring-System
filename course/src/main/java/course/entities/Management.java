@@ -5,19 +5,28 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "management")
-public class Management {
-    @Id
-    String name;
 
+public class Management {
+    String managementID;
+
+    /**
+     * Management Constructor
+     */
     public Management(){}
 
-    public String getName() {
-        return name;
+    /**
+     * Getter for management ID
+     * @return String
+     */
+    public String getManagementID() {
+        return managementID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Setter for management ID
+     * @param managementID String management ID
+     */
+    public void setManagementID(String managementID) {
+        this.managementID = managementID;
     }
 }
