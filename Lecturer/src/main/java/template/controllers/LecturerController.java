@@ -4,7 +4,6 @@ import java.util.List;
 import javax.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +13,7 @@ import template.entities.Lecturer;
 import template.entities.Student;
 import template.services.LecturerService;
 
+@SuppressWarnings("PMD")
 @RestController
 @RequestMapping("/lecturer")
 public class LecturerController {
