@@ -1,12 +1,11 @@
 package nl.tudelft.sem.student.services;
 
-import nl.tudelft.sem.student.entities.Student;
-import nl.tudelft.sem.student.repositories.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.Map;
 import java.util.Set;
+import nl.tudelft.sem.student.entities.Student;
+import nl.tudelft.sem.student.exceptions.StudentNotFoundException;
+import nl.tudelft.sem.student.repositories.StudentRepository;
+import org.springframework.stereotype.Service;
 
 /**
  * The type Student service.
@@ -21,7 +20,6 @@ public class StudentService {
      *
      * @param studentRepository the student repository
      */
-    @Autowired
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
@@ -33,7 +31,11 @@ public class StudentService {
      * @return the student
      */
     public Student getStudent(String id) {
-        return studentRepository.getOne(id);
+        Student student = studentRepository.getOne(id);
+        if (student == null) {
+            throw new StudentNotFoundException("");
+        }
+        return student;
     }
 
     /**
@@ -43,7 +45,7 @@ public class StudentService {
      * @return the passed courses
      */
     public Map<String, Float> getPassedCourses(String id) {
-        return studentRepository.getOne(id).getPassedCourses();
+        return this.getStudent(id).getPassedCourses();
     }
 
     /**
@@ -53,7 +55,7 @@ public class StudentService {
      * @return the candidate courses
      */
     public Set<String> getCandidateCourses(String id) {
-        return studentRepository.getOne(id).getCandidateCourses();
+        return this.getStudent(id).getCandidateCourses();
     }
 
     /**
@@ -63,7 +65,7 @@ public class StudentService {
      * @return the ta courses
      */
     public Set<String> getTaCourses(String id) {
-        return studentRepository.getOne(id).getTaCourses();
+        return this.getStudent(id).getTaCourses();
     }
 
     /**
@@ -74,10 +76,7 @@ public class StudentService {
      * @return the student
      */
     public Student apply(String netId, String courseId) {
-        Student student = studentRepository.getOne(netId);
-        if (student == null) {
-            return null;
-        }
+        Student student = this.getStudent(netId);
         if (student.getPassedCourses().containsKey(courseId)) {
             Set<String> candidate = student.getCandidateCourses();
             candidate.add(courseId);
@@ -94,10 +93,7 @@ public class StudentService {
      * @return the student
      */
     public Student accept(String netId, String courseId) {
-        Student student = studentRepository.getOne(netId);
-        if (student == null) {
-            return null;
-        }
+        Student student = this.getStudent(netId);
         if (student.getCandidateCourses().contains(courseId)) {
             Set<String> candidate = student.getCandidateCourses();
             Set<String> ta = student.getTaCourses();

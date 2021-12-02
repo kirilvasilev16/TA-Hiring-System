@@ -1,8 +1,13 @@
 package nl.tudelft.sem.student.entities;
 
-import javax.persistence.*;
-import java.util.*;
-
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * The type Student.
