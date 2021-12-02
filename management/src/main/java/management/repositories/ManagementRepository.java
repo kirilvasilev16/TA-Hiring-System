@@ -11,6 +11,17 @@ import org.springframework.stereotype.Repository;
 public interface ManagementRepository extends JpaRepository<Management, Long> {
 
     /**
+     * Query Management object based on courseId and studentId.
+     *
+     * @param courseId id of course
+     * @param studentId id of student
+     * @return the management object
+     */
+    @Transactional
+    @Query(value = "SELECT m FROM Management m WHERE m.courseId = ?1 AND m.studentId = ?2")
+    Management getManagement(String courseId, String studentId);
+
+    /**
      * Update declared hours.
      *
      * @param id the id of the management object

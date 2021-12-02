@@ -24,6 +24,8 @@ class ManagementServiceTest {
     private transient Management management1;
     private transient Management management2;
     private transient List<Management> managements;
+    private transient String courseId = "CSE1200";
+    private transient String studentId = "aatanasov";
 
     @BeforeEach
     void setUp() {
@@ -39,7 +41,8 @@ class ManagementServiceTest {
         managements.add(management2);
 
         Mockito.when(managementRepository.findAll()).thenReturn(managements);
-        Mockito.when(managementRepository.getOne(2L)).thenReturn(management2);
+        Mockito.when(managementRepository.getManagement(courseId, studentId))
+                .thenReturn(management2);
         Mockito.when(managementRepository.save(any(Management.class))).thenReturn(management2);
     }
 
@@ -51,7 +54,7 @@ class ManagementServiceTest {
 
     @Test
     void getOne() {
-        Management foundManagement = managementService.getOne(2L);
+        Management foundManagement = managementService.getOne(courseId, studentId);
         assertEquals(management2, foundManagement);
     }
 
@@ -63,7 +66,7 @@ class ManagementServiceTest {
 
     @Test
     void declareHoursValid() {
-        managementService.declareHours(2, 10);
+        managementService.declareHours(courseId, studentId, 10);
 
         assertEquals(10, management2.getDeclaredHours());
     }
@@ -71,25 +74,25 @@ class ManagementServiceTest {
     @Test
     void declareHoursInvalid() {
         assertThrows(InvalidContractHoursException.class,
-                () -> managementService.declareHours(2, 1000));
+                () -> managementService.declareHours(courseId, studentId, 1000));
     }
 
     @Test
     void declareHoursInvalidNegative() {
         assertThrows(InvalidContractHoursException.class,
-                () -> managementService.declareHours(2, -10));
+                () -> managementService.declareHours(courseId, studentId, -10));
     }
 
     @Test
     void declareHoursNull() {
         assertThrows(InvalidIdException.class,
-                () -> managementService.declareHours(3, -10));
+                () -> managementService.declareHours(courseId, "student", -10));
     }
 
     @Test
     void approveHoursValid() {
         management2.setDeclaredHours(20);
-        managementService.approveHours(2, 5);
+        managementService.approveHours(courseId, studentId, 5);
 
         assertEquals(5, management2.getApprovedHours());
         assertEquals(15, management2.getDeclaredHours());
@@ -98,24 +101,24 @@ class ManagementServiceTest {
     @Test
     void approveHoursInvalid() {
         assertThrows(InvalidApprovedHoursException.class,
-                () -> managementService.approveHours(2, 1000));
+                () -> managementService.approveHours(courseId, studentId, 1000));
     }
 
     @Test
     void approveHoursInvalidNegative() {
         assertThrows(InvalidApprovedHoursException.class,
-                () -> managementService.approveHours(2, -10));
+                () -> managementService.approveHours(courseId, studentId, -10));
     }
 
     @Test
     void approveHoursNull() {
         assertThrows(InvalidIdException.class,
-                () -> managementService.approveHours(3, -10));
+                () -> managementService.approveHours(courseId, "no", -10));
     }
 
     @Test
     void rateStudentValid() {
-        managementService.rateStudent(2, 10);
+        managementService.rateStudent(courseId, studentId, 10);
 
         assertEquals(10, management2.getRating());
     }
@@ -123,30 +126,30 @@ class ManagementServiceTest {
     @Test
     void rateStudentInvalidPositive() {
         assertThrows(InvalidRatingException.class,
-                () -> managementService.rateStudent(2, 11));
+                () -> managementService.rateStudent(courseId, studentId, 11));
     }
 
     @Test
     void rateStudentInvalidNegative() {
         assertThrows(InvalidRatingException.class,
-                () -> managementService.rateStudent(2, -1));
+                () -> managementService.rateStudent(courseId, studentId, -1));
     }
 
     @Test
     void rateStudentNull() {
         assertThrows(InvalidIdException.class,
-                () -> managementService.rateStudent(3, -1));
+                () -> managementService.rateStudent(courseId, "invalid", -1));
     }
 
     @Test
     void sendContract() {
-        managementService.sendContract(2, "email@gmail.com");
-        Mockito.verify(managementRepository, Mockito.only()).getOne(2L);
+        managementService.sendContract(courseId, studentId, "email@gmail.com");
+        Mockito.verify(managementRepository, Mockito.only()).getManagement(courseId, studentId);
     }
 
     @Test
     void sendContractInvalid() {
         assertThrows(InvalidIdException.class,
-                () -> managementService.sendContract(3, "email@gmail.com"));
+                () -> managementService.sendContract(courseId, "bad", "email@gmail.com"));
     }
 }

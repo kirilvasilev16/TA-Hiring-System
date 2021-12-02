@@ -17,11 +17,21 @@ class ManagementRepositoryTest {
 
     @Autowired
     private transient ManagementRepository managementRepository;
+    private transient Management management;
 
     @BeforeEach
     void setUp() {
         assertNotNull(managementRepository);
-        managementRepository.save(new Management("CSE1200", "kvasilev", 120));
+        management = new Management("CSE1200", "kvasilev", 120);
+        managementRepository.save(management);
+    }
+
+    @Test
+    void getManagement() {
+        assertTrue(managementRepository.findAll().size() > 0);
+        Management management = managementRepository.getManagement("CSE1200", "kvasilev");
+
+        assertEquals(this.management, management);
     }
 
     @Test

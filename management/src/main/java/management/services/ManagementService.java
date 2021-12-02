@@ -31,11 +31,12 @@ public class ManagementService {
     /**
      * Get the specified management object.
      *
-     * @param id the id
+     * @param courseId the course id
+     * @param studentId the student id
      * @return the management object
      */
-    public Management getOne(long id) {
-        return managementRepository.getOne(id);
+    public Management getOne(String courseId, String studentId) {
+        return managementRepository.getManagement(courseId, studentId);
     }
 
     /**
@@ -55,11 +56,12 @@ public class ManagementService {
     /**
      * Increase declared hours.
      *
-     * @param id the id of the management object
+     * @param courseId the id of course
+     * @param studentId the id of student
      * @param hours hours declared
      */
-    public void declareHours(long id, long hours) {
-        Management management = this.getOne(id);
+    public void declareHours(String courseId, String studentId, long hours) {
+        Management management = managementRepository.getManagement(courseId, studentId);
 
         if (management == null) {
             throw new InvalidIdException(managementNotFound);
@@ -83,11 +85,12 @@ public class ManagementService {
     /**
      * Approved declared hours.
      *
-     * @param id the id of the management object
+     * @param courseId the id of the course
+     * @param studentId the id of the course
      * @param hours hours declared
      */
-    public void approveHours(long id, long hours) {
-        Management management = this.getOne(id);
+    public void approveHours(String courseId, String studentId, long hours) {
+        Management management = managementRepository.getManagement(courseId, studentId);
 
         if (management == null) {
             throw new InvalidIdException(managementNotFound);
@@ -112,11 +115,12 @@ public class ManagementService {
     /**
      * Rate a student.
      *
-     * @param id the id of the management object
+     * @param courseId the id of course
+     * @param studentId the id of student
      * @param rating new rating
      */
-    public void rateStudent(long id, float rating) {
-        Management management = this.getOne(id);
+    public void rateStudent(String courseId, String studentId, float rating) {
+        Management management = managementRepository.getManagement(courseId, studentId);
 
         if (management == null) {
             throw new InvalidIdException(managementNotFound);
@@ -128,17 +132,18 @@ public class ManagementService {
         }
 
         management.setRating(rating);
-        managementRepository.updateRating(id, rating);
+        managementRepository.updateRating(management.getId(), rating);
     }
 
     /**
      * Send the contract using the management id and email to student.
      *
-     * @param id the id
+     * @param courseId the id of course
+     * @param studentId the id of student
      * @param email the email
      */
-    public void sendContract(long id, String email) {
-        Management management = this.getOne(id);
+    public void sendContract(String courseId, String studentId, String email) {
+        Management management = managementRepository.getManagement(courseId, studentId);
 
         if (management == null) {
             throw new InvalidIdException(managementNotFound);

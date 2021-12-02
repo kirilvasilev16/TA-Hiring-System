@@ -20,6 +20,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @WebMvcTest
 class ManagementControllerTest {
 
@@ -35,6 +36,8 @@ class ManagementControllerTest {
     private transient List<Management> managements;
     private transient String findAllResult;
     private transient String findOneResult;
+    private transient String courseId = "CSE1200";
+    private transient String studentId = "kvasilev";
 
     @BeforeEach
     void setUp() {
@@ -66,16 +69,17 @@ class ManagementControllerTest {
 
     @Test
     void getOne() throws Exception {
-        when(managementService.getOne(1L)).thenReturn(management1);
+        when(managementService.getOne(courseId, studentId)).thenReturn(management1);
 
-        this.mockMvc.perform(get("/management/get?id=1"))
+        this.mockMvc.perform(get("/management/get?courseId=" + courseId
+        + "&studentId=" + studentId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(findOneResult));
     }
 
     @Test
     void create() throws Exception {
-        when(managementService.createManagement("CSE1200", "kvasilev", 120))
+        when(managementService.createManagement(courseId, studentId, 120))
                 .thenReturn(management1);
 
         this.mockMvc
@@ -88,32 +92,36 @@ class ManagementControllerTest {
     @Test
     void declareHours() throws Exception {
         this.mockMvc
-                .perform(put("/management/declareHours?id=1&hours=10"))
+                .perform(put("/management/declareHours?courseId=" + courseId
+                        + "&studentId=" + studentId + "&hours=10"))
                 .andExpect(status().isOk());
-        verify(managementService, only()).declareHours(1, 10);
+        verify(managementService, only()).declareHours(courseId, studentId, 10);
     }
 
     @Test
     void approveHours() throws Exception {
         this.mockMvc
-                .perform(put("/management/approveHours?id=1&hours=20"))
+                .perform(put("/management/approveHours?courseId=" + courseId
+                        + "&studentId=" + studentId + "&hours=20"))
                 .andExpect(status().isOk());
-        verify(managementService, only()).approveHours(1, 20);
+        verify(managementService, only()).approveHours(courseId, studentId, 20);
     }
 
     @Test
     void rate() throws Exception {
         this.mockMvc
-                .perform(put("/management/rate?id=1&rating=2.5"))
+                .perform(put("/management/rate?courseId=" + courseId
+                        + "&studentId=" + studentId + "&rating=2.5"))
                 .andExpect(status().isOk());
-        verify(managementService, only()).rateStudent(1, 2.5f);
+        verify(managementService, only()).rateStudent(courseId, studentId, 2.5f);
     }
 
     @Test
     void sendContract() throws Exception {
         this.mockMvc
-                .perform(get("/management/sendContract?id=1&email=email@gmail.com"))
+                .perform(get("/management/sendContract?courseId=" + courseId
+                        + "&studentId=" + studentId + "&email=email@gmail.com"))
                 .andExpect(status().isOk());
-        verify(managementService, only()).sendContract(1, "email@gmail.com");
+        verify(managementService, only()).sendContract(courseId, studentId, "email@gmail.com");
     }
 }
