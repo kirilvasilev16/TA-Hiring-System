@@ -3,151 +3,164 @@ package course.services;
 import course.controllers.exceptions.InvalidCandidateException;
 import course.controllers.exceptions.InvalidHiringException;
 import course.entities.Course;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.swing.plaf.IconUIResource;
-import java.util.HashSet;
 import java.util.Set;
 
 public class StudentService {
 
 
     /**
-     * Getter for candidate TAs
+     * Getter for candidate TAs.
+     *
      * @param course Course Object
      * @return Set of strings where strings are studentIDs
      */
-    public static Set<String> getCandidates(Course course){
-        return course.getCandidateTAs();
+    public static Set<String> getCandidates(Course course) {
+        return course.getCandidateTas();
     }
 
     /**
-     * Add set of candidate TAs, admin privilege
-     * @param course Course Object
+     * Add set of candidate TAs, admin privilege.
+     *
+     * @param course   Course Object
      * @param students Set of strings where strings are studentIDs
      */
-    public static void addCandidateSet(Course course, Set<String> students){
-        course.getCandidateTAs().addAll(students);
+    public static void addCandidateSet(Course course, Set<String> students) {
+        course.getCandidateTas().addAll(students);
     }
 
     /**
-     * Add student as candidate TA
-     * @param course Course Object
-     * @param studentID String studentID
+     * Add student as candidate TA.
+     *
+     * @param course    Course Object
+     * @param studentId String studentId
      * @throws InvalidCandidateException if Student already hired as TA
      */
-    public static void addCandidate(Course course, String studentID)
-            throws InvalidCandidateException{
-        if(containsTA(course, studentID)) throw new InvalidCandidateException("Student already hired as TA");
-        course.getCandidateTAs().add(studentID);
+    public static void addCandidate(Course course, String studentId)
+            throws InvalidCandidateException {
+        if (containsTa(course, studentId)) {
+            throw new InvalidCandidateException("Student already hired as TA");
+        }
+        course.getCandidateTas().add(studentId);
     }
 
     /**
-     * Remove student from candidate list
-     * @param course Course Object
-     * @param studentID String studentID
+     * Remove student from candidate list.
+     *
+     * @param course    Course Object
+     * @param studentId String studentId
      * @return true if removed, false otherwise
      * @throws InvalidCandidateException if Student not a candidate TA
      */
-    public static boolean removeCandidate(Course course, String studentID)
-            throws InvalidCandidateException{
-        if(!containsCandidate(course, studentID)) throw new InvalidCandidateException("Student not a candidate TA");
-        return course.getCandidateTAs().remove(studentID);
+    public static boolean removeCandidate(Course course, String studentId)
+            throws InvalidCandidateException {
+        if (!containsCandidate(course, studentId)) {
+            throw new InvalidCandidateException("Student not a candidate TA");
+        }
+        return course.getCandidateTas().remove(studentId);
     }
 
     /**
-     * Check if student is in the candidate list
-     * @param course Course Object
-     * @param studentID String studentID
+     * Check if student is in the candidate list.
+     *
+     * @param course    Course Object
+     * @param studentId String studentId
      * @return true if student is candidate, false otherwise
      */
-    public static boolean containsCandidate(Course course, String studentID){
-        return course.getCandidateTAs().contains(studentID);
+    public static boolean containsCandidate(Course course, String studentId) {
+        return course.getCandidateTas().contains(studentId);
     }
 
 
     //TODO: getTARecommendation
 
     /**
-     * Hire candidate TA to be TA
-     * @param course Course Object
-     * @param studentID String studentID
-     * @param hours float for contract hours
+     * Hire candidate TA to be TA.
+     *
+     * @param course    Course Object
+     * @param studentId String studentId
+     * @param hours     float for contract hours
      * @return true if hired, false otherwise
      * @throws InvalidHiringException if student already hired or not in course
      */
-    public static boolean hireTA(Course course, String studentID, float hours)
-            throws InvalidHiringException{
+    public static boolean hireTa(Course course, String studentId, float hours)
+            throws InvalidHiringException {
 
-        if(course.getCandidateTAs().remove(studentID)){
-            course.getHiredTAs().add(studentID);
+        if (course.getCandidateTas().remove(studentId)) {
+            course.getHiredTas().add(studentId);
             //TODO: access management microservice to create management
             return true;
-        }else{
-            if(containsTA(course, studentID)) throw new InvalidHiringException("Student already hired");
-            else throw new InvalidHiringException("Student not in course");
+        } else {
+            if (containsTa(course, studentId)) {
+                throw new InvalidHiringException("Student already hired");
+            } else {
+                throw new InvalidHiringException("Student not in course");
+            }
         }
     }
 
     /**
-     * Getter for hired TAs
+     * Getter for hired TAs.
+     *
      * @param course Course Object
      * @return Set of strings where strings are studentIDs
      */
-    public static Set<String> getTASet(Course course){
-        return course.getHiredTAs();
+    public static Set<String> getTaSet(Course course) {
+        return course.getHiredTas();
     }
 
+
     /**
-     * Add set of students as TAs, admin privilege
-     * @param course Course Object
+     * Add set of students as TAs, admin privilege.
+     *
+     * @param course   Course Object
      * @param students Set of Strings where strings are studentIDs
      */
-    public static void addTASet(Course course, Set<String> students){
-        course.getHiredTAs().addAll(students);
+    public static void addTaSet(Course course, Set<String> students) {
+        course.getHiredTas().addAll(students);
     }
 
 
     /**
-     * Remove student from TA set
-     * @param course Course Object
-     * @param studentID String studentID
+     * Remove student from TA set.
+     *
+     * @param course    Course Object
+     * @param studentId String studentId
      * @return true if removed, false otherwise
      */
-    public static boolean removeTA(Course course, String studentID){
-        return course.getHiredTAs().remove(studentID);
+    public static boolean removeTa(Course course, String studentId) {
+        return course.getHiredTas().remove(studentId);
     }
 
     /**
-     * Check if student is a TA
-     * @param course Course Object
-     * @param studentID String studentID
+     * Check if student is a TA.
+     *
+     * @param course    Course Object
+     * @param studentId String studentId
      * @return true is student is a TA, false otherwise
      */
-    public static boolean containsTA(Course course, String studentID){
-        return course.getHiredTAs().contains(studentID);
+    public static boolean containsTa(Course course, String studentId) {
+        return course.getHiredTas().contains(studentId);
     }
 
     //TODO: getAvgWorkedHOurs
 
     /**
-     * Check if enough TA have been hired
+     * Check if enough TA have been hired.
+     *
      * @param course Course Object
      * @return true if enough, false otherwise
      */
-    public static boolean enoughTAs(Course course){
-        return course.getHiredTAs().size() >= course.getRequiredTAs();
+    public static boolean enoughTas(Course course) {
+        return course.getHiredTas().size() >= course.getRequiredTas();
     }
 
     /**
-     * Get number of TAs hired
+     * Get number of TAs hired.
+     *
      * @param course Course object
      * @return int
      */
-    public static int hiredTAs(Course course){
-        return course.getHiredTAs().size();
+    public static int hiredTas(Course course) {
+        return course.getHiredTas().size();
     }
 }

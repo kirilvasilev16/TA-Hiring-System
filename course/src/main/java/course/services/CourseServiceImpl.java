@@ -11,7 +11,8 @@ public class CourseServiceImpl implements CourseService {
     private final transient CourseRepository courseRepository;
 
     /**
-     * Course Service Impl Constructor
+     * Course Service Impl Constructor.
+     *
      * @param courseRepository CourseRepository object
      */
     @Autowired
@@ -20,7 +21,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /**
-     * Query and find Course by course name
+     * Query and find Course by course name.
+     *
      * @param name String course name
      * @return Course object if found, else null
      */
@@ -30,17 +32,19 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /**
-     * Query and find Course by courseID
+     * Query and find Course by courseID.
+     *
      * @param id String courseID
      * @return Course object if found, else null
      */
     @Override
-    public Course findByCourseID(String id) {
-        return courseRepository.findByCourseID(id);
+    public Course findByCourseId(String id) {
+        return courseRepository.findByCourseId(id);
     }
 
     /**
-     * Persist Course object to database
+     * Persist Course object to database.
+     *
      * @param c Course object
      */
     @Override
@@ -49,7 +53,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /**
-     * Update course size of course
+     * Update course size of course.
+     *
      * @param courseSize Integer course size
      */
     @Override

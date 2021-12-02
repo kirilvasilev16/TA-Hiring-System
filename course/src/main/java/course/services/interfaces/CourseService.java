@@ -4,7 +4,8 @@ import course.entities.Course;
 
 public interface CourseService {
     Course findByName(String name);
-    Course findByCourseID(String id);
+
+    Course findByCourseId(String id);
 
     void save(Course c);
 

@@ -1,32 +1,31 @@
 package course.entities;
 
-import javax.persistence.Id;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 
 public class Management {
-    String managementID;
+    String managementId;
 
     /**
-     * Management Constructor
+     * Management Constructor.
      */
-    public Management(){}
-
-    /**
-     * Getter for management ID
-     * @return String
-     */
-    public String getManagementID() {
-        return managementID;
+    public Management() {
     }
 
     /**
-     * Setter for management ID
-     * @param managementID String management ID
+     * Getter for management ID.
+     *
+     * @return String
      */
-    public void setManagementID(String managementID) {
-        this.managementID = managementID;
+    public String getManagementId() {
+        return managementId;
+    }
+
+    /**
+     * Setter for management ID.
+     *
+     * @param managementId String management ID
+     */
+    public void setManagementId(String managementId) {
+        this.managementId = managementId;
     }
 }

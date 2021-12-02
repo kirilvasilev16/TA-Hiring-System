@@ -10,9 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
     Course findByName(String name);
-    Course findByCourseID(String name);
+
+    Course findByCourseId(String name);
 
     @Modifying
-    @Query("UPDATE Course c SET c.courseSize = :courseSize WHERE c.courseID = :courseID")
+    @Query("UPDATE Course c SET c.courseSize = :courseSize WHERE c.courseId = :courseID")
     void updateCourseSize(Integer courseSize);
 }

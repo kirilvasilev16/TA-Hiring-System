@@ -3,29 +3,32 @@ package course.entities;
 
 public class Lecturer {
 
-    private String lecturerID;
+    private String lecturerId;
 
     /**
-     * Lecturer Constructor
-     * @param lecturerID String lecturer netID
+     * Lecturer Constructor.
+     *
+     * @param lecturerId String lecturer netID
      */
-    public Lecturer(String lecturerID) {
-        this.lecturerID = lecturerID;
+    public Lecturer(String lecturerId) {
+        this.lecturerId = lecturerId;
     }
 
     /**
-     * Getter for LecturerID
+     * Getter for LecturerID.
+     *
      * @return String lecturer netID
      */
-    public String getLecturerID() {
-        return lecturerID;
+    public String getLecturerId() {
+        return lecturerId;
     }
 
     /**
-     * Setter for lecturerID
-     * @param lecturerID String lecturer nedID
+     * Setter for lecturerID.
+     *
+     * @param lecturerId String lecturer nedID
      */
-    public void setLecturerID(String lecturerID) {
-        this.lecturerID = lecturerID;
+    public void setLecturerId(String lecturerId) {
+        this.lecturerId = lecturerId;
     }
 }

@@ -1,14 +1,11 @@
 package course;
 
 import course.entities.Course;
-import course.entities.Lecturer;
-import course.entities.Student;
 import course.repositories.CourseRepository;
-import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import org.springframework.stereotype.Service;
+
 
 @Service
 public class DatabaseLoader {
