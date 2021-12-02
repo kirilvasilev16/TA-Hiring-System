@@ -65,8 +65,8 @@ public class LecturerController {
     }
 
     @PatchMapping("/courses/{netId}/addCourse")
-    public void addSpecificCourse(@PathVariable @PathParam("id") String netId,
+    public Lecturer addSpecificCourse(@PathVariable @PathParam("id") String netId,
                                   @RequestBody Course course) {
-        lecturerService.addSpecificCourse(netId, course);
+        return lecturerService.addSpecificCourse(netId, course);
     }
 }

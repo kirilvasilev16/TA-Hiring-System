@@ -119,9 +119,10 @@ public class LecturerService {
      * @param netId of a lecturer
      * @param course specific course
      */
-    public void addSpecificCourse(String netId, Course course) {
+    public Lecturer addSpecificCourse(String netId, Course course) {
         Lecturer lecturer = this.findLecturerById(netId);
         lecturer.getCourses().add(course);
         lecturerRepository.save(lecturer);
+        return lecturer;
     }
 }
