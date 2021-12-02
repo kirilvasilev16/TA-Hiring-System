@@ -6,10 +6,7 @@ import javax.websocket.server.PathParam;
 import nl.tudelft.sem.student.entities.Student;
 import nl.tudelft.sem.student.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * The type Student controller.
@@ -72,6 +69,17 @@ public class StudentController {
     @GetMapping("/gettacourses")
     public Set<String> getTaCourses(@PathParam("id") String id) {
         return studentService.getTaCourses(id);
+    }
+
+    /**
+     * Adds student to the db.
+     *
+     * @param student the student
+     * @return the student
+     */
+    @PostMapping("/addstudent")
+    public Student addStudent(@RequestBody Student student) {
+        return studentService.addStudent(student);
     }
 
     /**

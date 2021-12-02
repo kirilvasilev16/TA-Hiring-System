@@ -104,4 +104,14 @@ public class StudentService {
         }
         return student;
     }
+
+    /**
+     * Adds a student to the db.
+     *
+     * @param student the student
+     * @return the student
+     */
+    public Student addStudent(Student student) {
+        return studentRepository.save(student);
+    }
 }
