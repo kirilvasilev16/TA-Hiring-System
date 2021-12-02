@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28a807a0-654f-4072-8a1c-44395d4297e6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/student/template.student.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/student/template.student.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/student/template.student.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/LecturerRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/test/java/LecturerRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +112,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.LecturerRepositoryTest">
+  <component name="RunManager" selected="Spring Boot.Application (1)">
     <configuration name="LecturerRepositoryTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />

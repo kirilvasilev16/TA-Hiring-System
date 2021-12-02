@@ -34,38 +34,38 @@ public class LecturerController {
         return lecturerService.findAll();
     }
 
-    @GetMapping("/{netId}")
-    public Lecturer getLecturer(@PathVariable @PathParam("id") String netId) {
+    @GetMapping("/get")
+    public Lecturer getLecturer(@PathParam("netId") String netId) {
         return lecturerService.findLecturerById(netId);
     }
 
-    @GetMapping("/courses/{netId}")
-    public List<Course> getOwnCourses(@PathVariable @PathParam("id") String netId) {
+    @GetMapping("/courses")
+    public List<Course> getOwnCourses(@PathParam("netId") String netId) {
         return lecturerService.getOwnCourses(netId);
     }
 
-    @GetMapping("/courses/{netId}/course")
-    public Course getSpecificCourse(@PathVariable @PathParam("id") String netId,
+    @GetMapping("/courses/course")
+    public Course getSpecificCourse(@PathParam("netId") String netId,
                                     @RequestBody Course course) {
         return lecturerService.getSpecificCourse(netId, course);
     }
 
-    @GetMapping("/courses/{netId}/course/candidateTas")
-    public List<Student> getCandidateTas(@PathVariable @PathParam("id") String netId,
+    @GetMapping("/courses/course/candidateTas")
+    public List<Student> getCandidateTas(@PathParam("netId") String netId,
                                          @RequestBody Course course) {
         return lecturerService.getCandidateTaList(netId, course);
     }
 
-    @PatchMapping("/courses/{netId}/course/{studentNetId}")
+    @PatchMapping("/courses/course")
     public void selectTaForCourse(
-            @PathVariable @PathParam("id") String netId,
+            @PathParam("netId") String netId,
             @RequestBody Course course,
-            @PathVariable @PathParam("studentId") String studentNetId) {
+            @PathParam("studentId") String studentNetId) {
         lecturerService.chooseTa(netId, course, studentNetId);
     }
 
-    @PatchMapping("/courses/{netId}/addCourse")
-    public Lecturer addSpecificCourse(@PathVariable @PathParam("id") String netId,
+    @PatchMapping("/courses/addCourse")
+    public Lecturer addSpecificCourse(@PathParam("netId") String netId,
                                   @RequestBody Course course) {
         return lecturerService.addSpecificCourse(netId, course);
     }
