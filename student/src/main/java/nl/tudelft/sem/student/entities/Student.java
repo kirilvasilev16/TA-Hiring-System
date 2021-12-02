@@ -48,6 +48,10 @@ public class Student {
         this.taCourses = new HashSet<String>();
     }
 
+    public Student() {
+
+    }
+
     /**
      * Gets net id.
      *
