@@ -75,10 +75,11 @@ public class StudentService {
      * Hire candidate TA to be TA
      * @param course Course Object
      * @param studentID String studentID
+     * @param hours float for contract hours
      * @return true if hired, false otherwise
      * @throws InvalidHiringException if student already hired or not in course
      */
-    public static boolean hireTA(Course course, String studentID)
+    public static boolean hireTA(Course course, String studentID, float hours)
             throws InvalidHiringException{
 
         if(course.getCandidateTAs().remove(studentID)){
