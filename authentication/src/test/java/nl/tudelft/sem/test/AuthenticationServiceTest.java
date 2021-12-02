@@ -18,7 +18,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 public class AuthenticationServiceTest {
 
     private transient AuthenticationService authenticationService;
-    private transient  AuthenticationRepository authenticationRepository;
+    private transient AuthenticationRepository authenticationRepository;
     private transient RoleRepository roleRepository;
 
     transient Authentication testAdmin;
@@ -83,7 +83,7 @@ public class AuthenticationServiceTest {
         authorities.add(new SimpleGrantedAuthority(role.getName()));
         assertEquals(authenticationService.loadUserByUsername("stu"),
                 new org.springframework.security
-                .core.userdetails.User(testStudent.getNetId(),
-                        testStudent.getPassword(), authorities));
+                        .core.userdetails.User(testStudent.getNetId(),
+                            testStudent.getPassword(), authorities));
     }
 }
