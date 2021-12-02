@@ -49,6 +49,7 @@ public class Course {
 
     }
 
+
     /**
      * Getter for courseID
      * @return String courseID

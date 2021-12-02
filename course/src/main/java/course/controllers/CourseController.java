@@ -5,6 +5,8 @@ import course.entities.Course;
 import course.entities.Lecturer;
 import course.entities.Management;
 import course.entities.Student;
+import course.services.LecturerService;
+import course.services.StudentService;
 import course.services.interfaces.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,9 +37,8 @@ public class CourseController {
             throws CourseNotFoundException {
         Course c = courseService.findByCourseID(code);
 
-        if (c == null) {
-            throw new CourseNotFoundException(code);
-        }
+        if (c == null) throw new CourseNotFoundException(code);
+
         return c;
     }
 
@@ -46,9 +47,8 @@ public class CourseController {
             throws CourseNotFoundException {
         Course c = courseService.findByCourseID(code);
 
-        if (c == null) {
-            throw new CourseNotFoundException(code);
-        }
+        if (c == null) throw new CourseNotFoundException(code);
+
         return c.getCourseSize();
     }
 
@@ -67,14 +67,13 @@ public class CourseController {
     }
 
     @GetMapping("{code}/lecturers")
-    public Set<Lecturer> getLecturerSet(@PathVariable String code)
+    public Set<String> getLecturerSet(@PathVariable String code)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseID(code);
 
-        if (c == null) {
-            throw new CourseNotFoundException(code);
-        }
-        return c.getLecturerSet();
+        if (c == null) throw new CourseNotFoundException(code);
+
+        return LecturerService.getLecturerSet(c);
     }
 
     @GetMapping("{code}/requiredtas")
@@ -92,7 +91,7 @@ public class CourseController {
     public Integer getTARecommendation(@PathVariable String code)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseID(code);
-        StudentQuerier.getRecommendedTAS(c, param)
+
         if (c == null) {
             throw new CourseNotFoundException(code);
         }
@@ -106,13 +105,13 @@ public class CourseController {
         if (c != null) {
             return "Course with id " + body.getCourseID() + " already exists!";
         }
-        c = new Course(body.getCourseID(), body.getName(), body.getLecturerSet(), body.getStartingDate());
+        c = new Course(body.getCourseID(), body.getName(),body.getCourseSize() ,body.getLecturerSet(), body.getStartingDate());
         this.courseService.save(c);
         return "Course added successfully";
     }
 
     @PostMapping("addcandidateta")
-    public void addCandidateTA(@PathVariable String code, @RequestBody Student student)
+    public void addCandidateTA(@PathVariable String code, @RequestBody String student)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseID(code);
 
@@ -120,12 +119,12 @@ public class CourseController {
             throw new CourseNotFoundException(code);
         }
 
-        c.getCandidateTAs().add(student);
+        StudentService.addCandidate(c, student);
     }
 
     @DeleteMapping("{code}/removeascandidate")
     @Transactional
-    public void removeAsCandidate(@PathVariable String code, @RequestBody Student student)
+    public void removeAsCandidate(@PathVariable String code, @RequestBody String student)
             throws CourseNotFoundException {
             Course c = courseService.findByCourseID(code);
 
@@ -133,7 +132,7 @@ public class CourseController {
                 throw new CourseNotFoundException(code);
             }
 
-            c.getCandidateTAs().remove(student);
+            StudentService.removeCandidate(c, student);
         }
 
     @GetMapping("{code}/averageworkedhours")
@@ -148,10 +147,10 @@ public class CourseController {
 
         float avg = 0;
 
-        for(Management m : c.getHiredTAs()){
-            //avg += m.getWorkedHours
-        }
-        avg /= c.getHiredTAs().size();
+//        for(Management m : c.getHiredTAs()){
+//            //avg += m.getWorkedHours
+//        }
+        avg /= StudentService.hiredTAs(c);
 
         return avg;
     }

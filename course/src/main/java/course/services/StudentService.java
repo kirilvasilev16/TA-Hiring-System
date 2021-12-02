@@ -122,4 +122,8 @@ public class StudentService {
     public static boolean enoughTAs(Course course){
         return course.getHiredTAs().size() >= course.getRequiredTAs();
     }
+
+    public static int hiredTAs(Course course){
+        return course.getHiredTAs().size();
+    }
 }
