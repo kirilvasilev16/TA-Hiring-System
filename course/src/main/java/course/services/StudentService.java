@@ -1,5 +1,7 @@
 package course.services;
 
+import course.controllers.exceptions.InvalidCandidateException;
+import course.controllers.exceptions.InvalidHiringException;
 import course.entities.Course;
 
 import javax.persistence.Entity;
@@ -34,7 +36,7 @@ public class StudentService {
      * @param studentID String studentID
      */
     public static void addCandidate(Course course, String studentID){
-        if(containsTA(course, studentID)) return; //TODO: throw candidate already hired
+        if(containsTA(course, studentID)) throw new InvalidCandidateException("Student already hired as TA");
         course.getCandidateTAs().add(studentID);
     }
 
@@ -44,7 +46,7 @@ public class StudentService {
      * @return true if removed, false otherwise
      */
     public static boolean removeCandidate(Course course, String studentID){
-        if(!containsCandidate(course, studentID) || containsTA(course, studentID)) return false; //TODO: throw not candidate
+        if(!containsCandidate(course, studentID)) throw new InvalidCandidateException("Student not a candidate TA");
         return course.getCandidateTAs().remove(studentID);
     }
 
@@ -67,14 +69,13 @@ public class StudentService {
      */
     public static boolean hireTA(Course course, String studentID){
 
-        if(removeCandidate(course, studentID)){
+        if(course.getCandidateTAs().remove(studentID)){
             course.getHiredTAs().add(studentID);
-            //addTA(studentID);
             //TODO: access management microservice to create management
             return true;
         }else{
-            if(containsTA(course, studentID)) return false; //TODO: throws student already hired
-            else return false; //TODO: throw student not in course exception
+            if(containsTA(course, studentID)) throw new InvalidHiringException("Student already hired");
+            else throw new InvalidHiringException("Student not in course");
         }
     }
 
