@@ -29,7 +29,8 @@ class ManagementRepositoryTest {
     @Test
     void getManagement() {
         assertTrue(managementRepository.findAll().size() > 0);
-        Management management = managementRepository.getManagement("CSE1200", "kvasilev");
+        Management management = managementRepository
+                .getManagementByCourseAndStudent("CSE1200", "kvasilev");
 
         assertEquals(this.management, management);
     }

@@ -41,7 +41,7 @@ class ManagementServiceTest {
         managements.add(management2);
 
         Mockito.when(managementRepository.findAll()).thenReturn(managements);
-        Mockito.when(managementRepository.getManagement(courseId, studentId))
+        Mockito.when(managementRepository.getManagementByCourseAndStudent(courseId, studentId))
                 .thenReturn(management2);
         Mockito.when(managementRepository.save(any(Management.class))).thenReturn(management2);
     }
@@ -56,6 +56,12 @@ class ManagementServiceTest {
     void getOne() {
         Management foundManagement = managementService.getOne(courseId, studentId);
         assertEquals(management2, foundManagement);
+    }
+
+    @Test
+    void getOneNull() {
+        assertThrows(InvalidIdException.class,
+                () -> managementService.getOne(courseId, "invalid"));
     }
 
     @Test
@@ -83,11 +89,6 @@ class ManagementServiceTest {
                 () -> managementService.declareHours(courseId, studentId, -10));
     }
 
-    @Test
-    void declareHoursNull() {
-        assertThrows(InvalidIdException.class,
-                () -> managementService.declareHours(courseId, "student", -10));
-    }
 
     @Test
     void approveHoursValid() {
@@ -110,11 +111,6 @@ class ManagementServiceTest {
                 () -> managementService.approveHours(courseId, studentId, -10));
     }
 
-    @Test
-    void approveHoursNull() {
-        assertThrows(InvalidIdException.class,
-                () -> managementService.approveHours(courseId, "no", -10));
-    }
 
     @Test
     void rateStudentValid() {
@@ -136,15 +132,10 @@ class ManagementServiceTest {
     }
 
     @Test
-    void rateStudentNull() {
-        assertThrows(InvalidIdException.class,
-                () -> managementService.rateStudent(courseId, "invalid", -1));
-    }
-
-    @Test
     void sendContract() {
         managementService.sendContract(courseId, studentId, "email@gmail.com");
-        Mockito.verify(managementRepository, Mockito.only()).getManagement(courseId, studentId);
+        Mockito.verify(managementRepository, Mockito.only())
+                .getManagementByCourseAndStudent(courseId, studentId);
     }
 
     @Test

@@ -7,8 +7,8 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import management.serializers.ManagementSerializer;
 
 @Entity(name = "Management")
@@ -16,15 +16,7 @@ import management.serializers.ManagementSerializer;
 public class Management {
 
     @Id
-    @SequenceGenerator(
-            name = "management_sequence",
-            sequenceName = "management_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "management_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false)
     private long id;
     @Column

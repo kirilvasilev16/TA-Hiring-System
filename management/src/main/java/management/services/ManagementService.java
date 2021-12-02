@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ManagementService {
 
-    private transient String managementNotFound = "Management object not found.";
     private final transient ManagementRepository managementRepository;
 
     public ManagementService(ManagementRepository managementRepository) {
@@ -36,7 +35,12 @@ public class ManagementService {
      * @return the management object
      */
     public Management getOne(String courseId, String studentId) {
-        return managementRepository.getManagement(courseId, studentId);
+        Management management = managementRepository
+                .getManagementByCourseAndStudent(courseId, studentId);
+        if (management == null) {
+            throw new InvalidIdException("Management object not found.");
+        }
+        return management;
     }
 
     /**
@@ -61,16 +65,12 @@ public class ManagementService {
      * @param hours hours declared
      */
     public void declareHours(String courseId, String studentId, long hours) {
-        Management management = managementRepository.getManagement(courseId, studentId);
-
-        if (management == null) {
-            throw new InvalidIdException(managementNotFound);
-        }
-
         if (hours < 0) {
             throw new InvalidContractHoursException("You cannot declare negative "
                     + "amount of hours!");
         }
+
+        Management management = getOne(courseId, studentId);
 
         if (management.getDeclaredHours() + management.getApprovedHours() + hours
                 > management.getAmountOfHours()) {
@@ -90,16 +90,12 @@ public class ManagementService {
      * @param hours hours declared
      */
     public void approveHours(String courseId, String studentId, long hours) {
-        Management management = managementRepository.getManagement(courseId, studentId);
-
-        if (management == null) {
-            throw new InvalidIdException(managementNotFound);
-        }
-
         if (hours < 0) {
             throw new InvalidApprovedHoursException("You cannot approve negative "
                     + "amount of hours!");
         }
+
+        Management management = getOne(courseId, studentId);
 
         if (management.getDeclaredHours() < hours) {
             throw new InvalidApprovedHoursException("You cannot approve more hours "
@@ -120,16 +116,12 @@ public class ManagementService {
      * @param rating new rating
      */
     public void rateStudent(String courseId, String studentId, float rating) {
-        Management management = managementRepository.getManagement(courseId, studentId);
-
-        if (management == null) {
-            throw new InvalidIdException(managementNotFound);
-        }
-
         if (rating < 0 || rating > 10) {
             throw new InvalidRatingException("You cannot rate a student with"
                     + " less than 0 or more than 10!");
         }
+
+        Management management = getOne(courseId, studentId);
 
         management.setRating(rating);
         managementRepository.updateRating(management.getId(), rating);
@@ -143,11 +135,7 @@ public class ManagementService {
      * @param email the email
      */
     public void sendContract(String courseId, String studentId, String email) {
-        Management management = managementRepository.getManagement(courseId, studentId);
-
-        if (management == null) {
-            throw new InvalidIdException(managementNotFound);
-        }
+        Management management = getOne(courseId, studentId);
 
         String contract = "Contract:\n"
                 + "Hours in contract: " + management.getAmountOfHours() + "\n";

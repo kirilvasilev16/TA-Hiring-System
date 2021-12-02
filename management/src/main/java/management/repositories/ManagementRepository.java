@@ -19,7 +19,7 @@ public interface ManagementRepository extends JpaRepository<Management, Long> {
      */
     @Transactional
     @Query(value = "SELECT m FROM Management m WHERE m.courseId = ?1 AND m.studentId = ?2")
-    Management getManagement(String courseId, String studentId);
+    Management getManagementByCourseAndStudent(String courseId, String studentId);
 
     /**
      * Update declared hours.
