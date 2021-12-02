@@ -26,23 +26,6 @@ public class Role {
     public Role(String name) {
         this.name = name;
     }
-
-    /**
-     * id getter.
-     *
-     * @return id of role
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * id setter.
-     */
-    public void setId(long id) {
-        this.id = id;
-    }
-
     /**
      * name getter.
      *

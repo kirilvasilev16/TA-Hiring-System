@@ -50,11 +50,12 @@ public class AuthenticationService implements UserDetailsService {
      * @param roleName role of the user
      * @return return authentication object
      */
-    public Authentication addRoleToAuthentication(String netId, String roleName) {
+    public String addRoleToAuthentication(String netId, String roleName) {
         Authentication auth = authenticationRepository.findByNetId(netId);
         Role role = roleRepository.findByName(roleName);
         auth.getRoles().add(role);
-        return authenticationRepository.save(auth);
+        authenticationRepository.save(auth);
+        return "Role added successfully";
     }
 
     /**
