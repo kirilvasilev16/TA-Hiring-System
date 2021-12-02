@@ -11,7 +11,7 @@ public class CourseExampleTest {
 
     @Test
     public void testGettersSetters() {
-        Course c1 = new Course("CSE1000", "TestName", new HashSet<>(), new Date());
+        Course c1 = new Course("CSE1000", "TestName", 5,new HashSet<>(), new Date());
         assertEquals("TestName", c1.getName());
         /*CourseExample exampleTest = new CourseExample("name");
         assertEquals("name", exampleTest.getName());
