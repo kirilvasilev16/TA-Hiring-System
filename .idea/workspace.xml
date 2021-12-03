@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2650b30d-8662-4bbf-a555-2ff19b3d5a58" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/LecturerClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/test/java/entities/LecturerClassTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/LecturerRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/test/java/repository/LecturerRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Lecturer/src/test/java/service/LecturerServiceTest.java" afterDir="false" />
+    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/CourseNotFoundAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/CourseNotFoundAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/CourseNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/CourseNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/InvalidCandidateException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/InvalidCandidateException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/InvalidHiringException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/InvalidHiringException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,16 +37,30 @@
         <task path="$PROJECT_DIR$/../Lecturer">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/course">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Lecturer" type="f1a62948:ProjectNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Lecturer" type="f1a62948:ProjectNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
             </expand>
@@ -114,7 +130,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.sem-repo-15a [build]">
+  <component name="RunManager" selected="Spring Boot.CourseApplication">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -235,13 +251,6 @@
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="sem-repo-15a" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -249,33 +258,6 @@
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="sem-repo-15a" />
       <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -287,9 +269,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Application (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="template.authentication.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="authentication.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="template.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="nl.tudelft.sem.template.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CourseApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="course.template.course.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="course.CourseApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -389,7 +385,7 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/template$LecturerServiceTest.ic" NAME="LecturerServiceTest Coverage Results" MODIFIED="1638057225040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/template$LecturerClassTest.ic" NAME="LecturerClassTest Coverage Results" MODIFIED="1638053270536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/template$LecturerServiceTest.ic" NAME="LecturerServiceTest Coverage Results" MODIFIED="1638057225040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
