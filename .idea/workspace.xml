@@ -5,79 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/SID_DrW.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/course/course.template.course.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/management/template.management.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/student/template.student.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/student/template.student.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/student/template.student.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/.gitlab-ci.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/config/H2Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Course.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Lecturer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Student.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/exceptions/CourseNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/exceptions/LecturerNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/repositories/LecturerRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/services/LecturerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/resources/template/config/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/test/java/template/entities/LecturerClassTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lecturer/src/test/java/template/service/LecturerServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/.gitlab-ci.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/config/DataConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/config/H2Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/controller/AuthenticationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/entities/Authentication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/entities/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/filter/CustomAuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/filter/CustomAuthorizationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/repository/AuthenticationRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/repository/RoleRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/service/AuthenticationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/RoleTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/SecurityConfigTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitlab/issue_templates/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitlab/issue_templates/bug.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitlab/issue_templates/user_story.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/template.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/template.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/template.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/template.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/checkstyle/checkstyle-suppressions.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nl/tudelft/sem/template/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/tudelft/sem/template/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/template.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/template.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/template.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,12 +41,12 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Lecturer" type="f1a62948:ProjectNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Lecturer" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -322,9 +254,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Application (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="template.authentication.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="authentication.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="template.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="nl.tudelft.sem.template.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CourseApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="course.template.course.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="course.CourseApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
