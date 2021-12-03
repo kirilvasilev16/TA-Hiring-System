@@ -74,7 +74,7 @@ public class CourseController {
      * @param courseSize Integer course size
      * @throws CourseNotFoundException if course not found
      */
-    @PatchMapping("updatesize")
+    @PatchMapping("updateSize")
     @Transactional
     public void updateCourseSize(@PathParam("courseId") String courseId,
                                  @PathParam("size") Integer courseSize)
@@ -115,7 +115,7 @@ public class CourseController {
      * @return Integer value for required number of TAs
      * @throws CourseNotFoundException if Course not found
      */
-    @GetMapping("requiredtas")
+    @GetMapping("requiredTas")
     public Integer getRequiredTas(@PathParam("courseId") String courseId)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseId(courseId);
@@ -128,7 +128,7 @@ public class CourseController {
 
     // TODO: Will be further implemented for sprint 2
     /*
-    @GetMapping("tarecommendation")
+    @GetMapping("taRecommendation")
     public Integer getTARecommendation(@PathParam("courseId") String courseId)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseID(courseId);
@@ -168,7 +168,7 @@ public class CourseController {
      * @throws CourseNotFoundException   if Course not found
      * @throws InvalidCandidateException if student already hired as TA
      */
-    @PostMapping("addcandidateta")
+    @PostMapping("addCandidateTa")
     public void addCandidateTa(@PathParam("courseId") String courseId,
                                @PathParam("studentId") String student)
             throws CourseNotFoundException, InvalidCandidateException {
@@ -189,7 +189,7 @@ public class CourseController {
      * @throws CourseNotFoundException   if course not found
      * @throws InvalidCandidateException if student not a candidate TA
      */
-    @DeleteMapping("removeascandidate")
+    @DeleteMapping("removeAsCandidate")
     @Transactional
     public void removeAsCandidate(@PathParam("courseId") String courseId,
                                   @PathParam("studentId") String student)
@@ -210,7 +210,7 @@ public class CourseController {
      * @return float avg worked hours
      * @throws CourseNotFoundException if course not found
      */
-    @GetMapping("averageworkedhours")
+    @GetMapping("averageWorkedHours")
     public float getAverageWorkedHours(@PathParam("courseId") String courseId)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseId(courseId);
@@ -242,7 +242,7 @@ public class CourseController {
      * @param lecturer String lecturerId
      * @throws CourseNotFoundException if course not found
      */
-    @PostMapping("addlecturer")
+    @PostMapping("addLecturer")
     public void addLecturer(@PathParam("courseId") String courseId,
                             @PathParam("lecturerId") String lecturer)
             throws CourseNotFoundException {
@@ -303,7 +303,7 @@ public class CourseController {
      * @throws CourseNotFoundException if no courses found
      * @throws InvalidHiringException  if student already hired or not in course
      */
-    @PostMapping("hireTA")
+    @PostMapping("hireTa")
     public void hireTa(@PathParam("courseId") String courseId,
                        @PathParam("studentId") String student,
                        @PathParam("hours") float hours)
