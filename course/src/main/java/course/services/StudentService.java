@@ -1,7 +1,7 @@
 package course.services;
 
-import course.controllers.exceptions.InvalidCandidateException;
-import course.controllers.exceptions.InvalidHiringException;
+import course.exceptions.InvalidCandidateException;
+import course.exceptions.InvalidHiringException;
 import course.entities.Course;
 import java.util.Set;
 

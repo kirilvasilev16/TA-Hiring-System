@@ -1,4 +1,4 @@
-package course.controllers.exceptions;
+package course.exceptions;
 
 public class CourseNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 42L;

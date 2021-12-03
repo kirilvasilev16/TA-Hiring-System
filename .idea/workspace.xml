@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/template.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/template.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/template.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/CourseNotFoundAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/CourseNotFoundAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/CourseNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/CourseNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/InvalidCandidateException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/InvalidCandidateException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/InvalidHiringException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/InvalidHiringException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +37,9 @@
         <task path="$PROJECT_DIR$/../Lecturer">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/course">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -47,6 +51,17 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="template" type="f1a62948:ProjectNode" />
                 <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
             </expand>
             <select />

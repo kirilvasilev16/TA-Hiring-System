@@ -1,4 +1,4 @@
-package course.controllers.exceptions;
+package course.exceptions;
 
 public class InvalidCandidateException extends RuntimeException {
     static final long serialVersionUID = 1L;
