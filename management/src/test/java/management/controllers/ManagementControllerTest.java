@@ -43,6 +43,9 @@ class ManagementControllerTest {
     void setUp() {
         management1 = new Management("CSE1200", "kvasilev", 120);
         management1.setId(1);
+        management1.setRating(10.0f);
+        management1.setDeclaredHours(20);
+        management1.setApprovedHours(50);
         management2 = new Management("CSE1200", "aatanasov", 70);
         management2.setId(2);
         managements = new ArrayList<>();
@@ -50,12 +53,12 @@ class ManagementControllerTest {
         managements.add(management2);
 
         findAllResult = "[{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
-                + ":120.0,\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0},"
+                + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0},"
                 + "{\"id\":2,\"courseId\":CSE1200,\"studentId\":aatanasov,\"amountOfHours\":70.0,"
                 + "\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0}]";
 
         findOneResult = "{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
-                + ":120.0,\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0}";
+                + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0}";
     }
 
     @Test
@@ -75,6 +78,46 @@ class ManagementControllerTest {
         + "&studentId=" + studentId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(findOneResult));
+    }
+
+    @Test
+    void getRating() throws Exception {
+        when(managementService.getOne(courseId, studentId)).thenReturn(management1);
+
+        this.mockMvc.perform(get("/management/getRating?courseId=" + courseId
+                + "&studentId=" + studentId))
+                .andExpect(status().isOk())
+                .andExpect(content().json(String.valueOf(management1.getRating())));
+    }
+
+    @Test
+    void getAmountOfHours() throws Exception {
+        when(managementService.getOne(courseId, studentId)).thenReturn(management1);
+
+        this.mockMvc.perform(get("/management/getAmountOfHours?courseId=" + courseId
+                + "&studentId=" + studentId))
+                .andExpect(status().isOk())
+                .andExpect(content().json(String.valueOf(management1.getAmountOfHours())));
+    }
+
+    @Test
+    void getDeclaredHours() throws Exception {
+        when(managementService.getOne(courseId, studentId)).thenReturn(management1);
+
+        this.mockMvc.perform(get("/management/getDeclaredHours?courseId=" + courseId
+                + "&studentId=" + studentId))
+                .andExpect(status().isOk())
+                .andExpect(content().json(String.valueOf(management1.getDeclaredHours())));
+    }
+
+    @Test
+    void getApprovedHours() throws Exception {
+        when(managementService.getOne(courseId, studentId)).thenReturn(management1);
+
+        this.mockMvc.perform(get("/management/getApprovedHours?courseId=" + courseId
+                + "&studentId=" + studentId))
+                .andExpect(status().isOk())
+                .andExpect(content().json(String.valueOf(management1.getApprovedHours())));
     }
 
     @Test

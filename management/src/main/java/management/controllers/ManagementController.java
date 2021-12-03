@@ -45,6 +45,58 @@ public class ManagementController {
     }
 
     /**
+     * Gets the rating of a student for a course.
+     *
+     * @param courseId id of course
+     * @param studentId id of student
+     * @return the management object
+     */
+    @GetMapping("getRating")
+    public float getRating(@PathParam("courseId") String courseId,
+                             @PathParam("studentId") String studentId) {
+        return managementService.getOne(courseId, studentId).getRating();
+    }
+
+    /**
+     * Gets the contract hours of a student for a course.
+     *
+     * @param courseId id of course
+     * @param studentId id of student
+     * @return the management object
+     */
+    @GetMapping("getAmountOfHours")
+    public float getAmountOfHours(@PathParam("courseId") String courseId,
+                                  @PathParam("studentId") String studentId) {
+        return managementService.getOne(courseId, studentId).getAmountOfHours();
+    }
+
+    /**
+     * Gets the declared hours of a student for a course.
+     *
+     * @param courseId id of course
+     * @param studentId id of student
+     * @return the management object
+     */
+    @GetMapping("getDeclaredHours")
+    public float getDeclaredHours(@PathParam("courseId") String courseId,
+                           @PathParam("studentId") String studentId) {
+        return managementService.getOne(courseId, studentId).getDeclaredHours();
+    }
+
+    /**
+     * Gets the approved hours of a student for a course.
+     *
+     * @param courseId id of course
+     * @param studentId id of student
+     * @return the management object
+     */
+    @GetMapping("getApprovedHours")
+    public float getApprovedHours(@PathParam("courseId") String courseId,
+                                  @PathParam("studentId") String studentId) {
+        return managementService.getOne(courseId, studentId).getApprovedHours();
+    }
+
+    /**
      * Create a new Management object.
      *
      * @param courseId id of course
