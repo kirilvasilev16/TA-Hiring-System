@@ -1,0 +1,2 @@
+include:
+  - management/.gitlab-ci.yml
