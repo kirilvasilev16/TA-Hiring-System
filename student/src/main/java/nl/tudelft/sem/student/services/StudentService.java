@@ -1,6 +1,7 @@
 package nl.tudelft.sem.student.services;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import nl.tudelft.sem.student.entities.Student;
 import nl.tudelft.sem.student.exceptions.StudentNotFoundException;
@@ -31,11 +32,11 @@ public class StudentService {
      * @return the student
      */
     public Student getStudent(String id) {
-        Student student = studentRepository.getOne(id);
-        if (student == null) {
+        Optional<Student> student = studentRepository.findStudentByNetId(id);
+        if (student.isEmpty()) {
             throw new StudentNotFoundException("");
         }
-        return student;
+        return student.get();
     }
 
     /**

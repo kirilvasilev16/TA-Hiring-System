@@ -1,5 +1,6 @@
 package nl.tudelft.sem.student.repositories;
 
+import java.util.Optional;
 import java.util.Set;
 import nl.tudelft.sem.student.entities.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,4 +36,6 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     @Query("UPDATE Student s SET s.taCourses = :ta WHERE s.netId = :netId")
     void updateTaCourses(@Param("netId") String netId,
                          @Param("ta") Set<String> ta);
+
+    Optional<Student> findStudentByNetId(String id);
 }
