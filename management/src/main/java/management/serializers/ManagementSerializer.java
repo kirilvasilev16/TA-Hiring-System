@@ -1,6 +1,7 @@
 package management.serializers;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
@@ -9,20 +10,12 @@ import management.services.ManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class ManagementSerializer extends StdSerializer<Management> {
+public class ManagementSerializer extends JsonSerializer<Management> {
 
     static final long serialVersionUID = 1L;
 
     @Autowired
     private ManagementService managementService;
-
-    public ManagementSerializer() {
-        this(null);
-    }
-
-    public ManagementSerializer(Class<Management> t) {
-        super(t);
-    }
 
     @Override
     public void serialize(Management management, JsonGenerator gen, SerializerProvider provider)

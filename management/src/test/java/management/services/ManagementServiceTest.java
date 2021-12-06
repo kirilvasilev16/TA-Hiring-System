@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 import java.util.ArrayList;
 import java.util.List;
+import management.entities.Hours;
 import management.entities.Management;
 import management.exceptions.InvalidApprovedHoursException;
 import management.exceptions.InvalidContractHoursException;
@@ -72,7 +73,7 @@ class ManagementServiceTest {
 
     @Test
     void declareHoursValid() {
-        managementService.declareHours(courseId, studentId, 10);
+        managementService.declareHours(List.of(new Hours(courseId, studentId, 10)));
 
         assertEquals(10, management2.getDeclaredHours());
     }
@@ -80,13 +81,15 @@ class ManagementServiceTest {
     @Test
     void declareHoursInvalid() {
         assertThrows(InvalidContractHoursException.class,
-                () -> managementService.declareHours(courseId, studentId, 1000));
+                () -> managementService.declareHours(List.of(
+                        new Hours(courseId, studentId, 1000))));
     }
 
     @Test
     void declareHoursInvalidNegative() {
         assertThrows(InvalidContractHoursException.class,
-                () -> managementService.declareHours(courseId, studentId, -10));
+                () -> managementService.declareHours(List.of(
+                        new Hours(courseId, studentId, -1000))));
     }
 
 
