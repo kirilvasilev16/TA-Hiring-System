@@ -2,8 +2,13 @@ package template.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import template.entities.Course;
@@ -124,5 +129,30 @@ public class LecturerService {
         lecturer.getCourses().add(course);
         lecturerRepository.save(lecturer);
         return lecturer;
+    }
+
+    public double computeAverageRating(String netId, Course course, String studentId) {
+        List<Student> students = this.getCandidateTaList(netId, course);
+        for (Student student: students) {
+            if (student.getId().equals(studentId)) {
+                return student.getAverageRating();
+            }
+        }
+        return 0;
+    }
+
+    public List<Student> getRecommendation(String netId, Course course) {
+        Course c = getSpecificCourse(netId, course);
+        if (c == null) return new ArrayList<>();
+        Student[] sts = restTemplate.getForObject("http://localhost:8080/course/recommendations" + course.getId(), Student[].class);
+        if (sts == null) return new ArrayList<>();
+        List<Student> targetList = new ArrayList<>();
+        Collections.addAll(targetList, sts);
+        return targetList;
+    }
+
+    public int getNumberOfNeededTas(String netId, Course course) {
+        Course c = getSpecificCourse(netId, course);
+        return c.getSize()/20;
     }
 }

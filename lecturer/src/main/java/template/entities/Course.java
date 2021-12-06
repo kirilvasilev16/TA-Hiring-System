@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 public class Course {
     @Id
     private Long id;
+    private int size;
     @ManyToMany
     private List<Student> candidateTas;
 
@@ -34,5 +35,13 @@ public class Course {
 
     public void setCandidateTas(List<Student> candidateTas) {
         this.candidateTas = candidateTas;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }
