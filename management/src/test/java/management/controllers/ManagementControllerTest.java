@@ -157,10 +157,13 @@ class ManagementControllerTest {
     @Test
     void approveHours() throws Exception {
         this.mockMvc
-                .perform(put("/management/approveHours?courseId=" + courseId
-                        + "&studentId=" + studentId + "&hours=20"))
+                .perform(put("/management/approveHours")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[{\"courseId\":" + courseId
+                                + ",\"studentId\":" + studentId + ",\"hours\":20.0}]")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(managementService, only()).approveHours(courseId, studentId, 20);
+        verify(managementService, only()).approveHours(List.of(new Hours(courseId, studentId, 20)));
     }
 
     @Test

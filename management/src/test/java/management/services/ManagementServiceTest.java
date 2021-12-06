@@ -96,7 +96,7 @@ class ManagementServiceTest {
     @Test
     void approveHoursValid() {
         management2.setDeclaredHours(20);
-        managementService.approveHours(courseId, studentId, 5);
+        managementService.approveHours(List.of(new Hours(courseId, studentId, 5)));
 
         assertEquals(5, management2.getApprovedHours());
         assertEquals(15, management2.getDeclaredHours());
@@ -105,13 +105,15 @@ class ManagementServiceTest {
     @Test
     void approveHoursInvalid() {
         assertThrows(InvalidApprovedHoursException.class,
-                () -> managementService.approveHours(courseId, studentId, 1000));
+                () -> managementService.approveHours(List.of(new Hours(courseId,
+                        studentId, 1000))));
     }
 
     @Test
     void approveHoursInvalidNegative() {
         assertThrows(InvalidApprovedHoursException.class,
-                () -> managementService.approveHours(courseId, studentId, -10));
+                () -> managementService.approveHours(List.of(new Hours(courseId,
+                        studentId, -10))));
     }
 
 

@@ -126,15 +126,11 @@ public class ManagementController {
     /**
      * Approve working hours for student for a given course.
      *
-     * @param courseId id of course
-     * @param studentId id of student
-     * @param hours hours declared
+     * @param hours list of approvals
      */
     @PutMapping("approveHours")
-    public void approveHours(@PathParam("courseId") String courseId,
-                             @PathParam("studentId") String studentId,
-                             @PathParam("hours") long hours) {
-        managementService.approveHours(courseId, studentId, hours);
+    public void approveHours(@RequestBody List<Hours> hours) {
+        managementService.approveHours(hours);
     }
 
     /**

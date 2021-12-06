@@ -91,28 +91,32 @@ public class ManagementService {
 
     /**
      * Approved declared hours.
+     * Rollbacks all updates on exception.
      *
-     * @param courseId the id of the course
-     * @param studentId the id of the course
-     * @param hours hours declared
+     * @param hoursList arraylist with declarations
      */
-    public void approveHours(String courseId, String studentId, long hours) {
-        if (hours < 0) {
-            throw new InvalidApprovedHoursException("You cannot approve negative "
-                    + "amount of hours!");
+    @Transactional(rollbackOn = Exception.class)
+    public void approveHours(List<Hours> hoursList) {
+        for (Hours hourObject : hoursList) {
+            float hours = hourObject.getAmountOfHours();
+
+            if (hours < 0) {
+                throw new InvalidApprovedHoursException("You cannot approve negative "
+                        + "amount of hours!");
+            }
+
+            Management management = getOne(hourObject.getCourseId(), hourObject.getStudentId());
+
+            if (management.getDeclaredHours() < hours) {
+                throw new InvalidApprovedHoursException("You cannot approve more hours "
+                        + "than the declared ones!");
+            }
+
+            management.setDeclaredHours(management.getDeclaredHours() - hours);
+            management.setApprovedHours(management.getApprovedHours() + hours);
+            managementRepository.updateApprovedHours(management.getId(),
+                    management.getDeclaredHours(), management.getApprovedHours());
         }
-
-        Management management = getOne(courseId, studentId);
-
-        if (management.getDeclaredHours() < hours) {
-            throw new InvalidApprovedHoursException("You cannot approve more hours "
-                    + "than the declared ones!");
-        }
-
-        management.setDeclaredHours(management.getDeclaredHours() - hours);
-        management.setApprovedHours(management.getApprovedHours() + hours);
-        managementRepository.updateApprovedHours(management.getId(),
-                management.getDeclaredHours(), management.getApprovedHours());
     }
 
     /**
