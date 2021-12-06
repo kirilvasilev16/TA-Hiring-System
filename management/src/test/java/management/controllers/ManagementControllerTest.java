@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
+import management.entities.Hours;
 import management.entities.Management;
 import management.services.ManagementService;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @WebMvcTest
@@ -59,6 +64,10 @@ class ManagementControllerTest {
 
         findOneResult = "{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
                 + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0}";
+
+        this.mockMvc = MockMvcBuilders.standaloneSetup(this.managementController)
+                .setMessageConverters(new GsonHttpMessageConverter())
+                .build();
     }
 
     @Test
@@ -135,10 +144,14 @@ class ManagementControllerTest {
     @Test
     void declareHours() throws Exception {
         this.mockMvc
-                .perform(put("/management/declareHours?courseId=" + courseId
-                        + "&studentId=" + studentId + "&hours=10"))
+                .perform(put("/management/declareHours")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[{\"courseId\":" + courseId
+                                + ",\"studentId\":" + studentId + ",\"hours\":20.0}]")
+                        .accept(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isOk());
-        verify(managementService, only()).declareHours(courseId, studentId, 10);
+        verify(managementService, only()).declareHours(List.of(new Hours(courseId, studentId, 20)));
     }
 
     @Test

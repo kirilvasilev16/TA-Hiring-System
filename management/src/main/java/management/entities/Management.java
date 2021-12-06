@@ -1,7 +1,5 @@
 package management.entities;
 
-import static javax.persistence.GenerationType.SEQUENCE;
-
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Objects;
 import javax.persistence.Column;

@@ -2,12 +2,14 @@ package management.controllers;
 
 import java.util.List;
 import javax.websocket.server.PathParam;
+import management.entities.Hours;
 import management.entities.Management;
 import management.services.ManagementService;
 //import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -114,15 +116,11 @@ public class ManagementController {
     /**
      * Declare working hours for student for a given course.
      *
-     * @param courseId id of course
-     * @param studentId id of student
-     * @param hours hours declared
+     * @param hours list of declarations
      */
     @PutMapping("declareHours")
-    public void declareHours(@PathParam("courseId") String courseId,
-                             @PathParam("studentId") String studentId,
-                             @PathParam("hours") long hours) {
-        managementService.declareHours(courseId, studentId, hours);
+    public void declareHours(@RequestBody List<Hours> hours) {
+        managementService.declareHours(hours);
     }
 
     /**
