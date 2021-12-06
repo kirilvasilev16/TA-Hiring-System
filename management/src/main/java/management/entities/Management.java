@@ -1,6 +1,6 @@
 package management.entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.gson.annotations.JsonAdapter;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import management.serializers.ManagementSerializer;
 
 @Entity(name = "Management")
-@JsonSerialize(using = ManagementSerializer.class)
+@JsonAdapter(ManagementSerializer.class)
 public class Management {
 
     @Id
