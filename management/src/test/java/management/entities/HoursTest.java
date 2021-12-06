@@ -1,21 +1,29 @@
 package management.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class HoursTest {
 
     private transient Hours hours;
+    private static final transient String courseId = "CSE1200";
+    private static final transient String netId = "kvasilev";
+
     @BeforeEach
     void setUp() {
-        hours = new Hours("CSE1200", "kvasilev", 120.0f);
+        hours = new Hours(courseId, netId, 120.0f);
     }
 
     @Test
     void getCourseId() {
-        assertEquals("CSE1200", hours.getCourseId());
+        assertEquals(courseId, hours.getCourseId());
     }
 
     @Test
@@ -26,7 +34,7 @@ class HoursTest {
 
     @Test
     void getStudentId() {
-        assertEquals("kvasilev", hours.getStudentId());
+        assertEquals(netId, hours.getStudentId());
     }
 
     @Test
@@ -44,5 +52,34 @@ class HoursTest {
     void setAmountOfHours() {
         hours.setAmountOfHours(140.0f);
         assertEquals(140.0f, hours.getAmountOfHours());
+    }
+
+    @ParameterizedTest
+    @MethodSource("generatorEquals")
+    void equalsNot(Object hours1) {
+        assertNotEquals(hours, hours1);
+    }
+
+    private static Stream<Arguments> generatorEquals() {
+        Hours nullHours = null;
+        return Stream.of(
+                Arguments.of(nullHours),
+                Arguments.of(3),
+                Arguments.of(new Hours(courseId + "C", netId, 120)),
+                Arguments.of(new Hours(courseId, netId + "C", 120)),
+                Arguments.of(new Hours(courseId, netId, 123))
+        );
+    }
+
+    @Test
+    void equalsManagement() {
+        Hours hours1 = new Hours(courseId, netId, 120);
+        assertEquals(hours, hours1);
+    }
+
+    @Test
+    void hashCodeTest() {
+        Hours hours1 = new Hours(courseId, netId, 120);
+        assertEquals(hours.hashCode(), hours1.hashCode());
     }
 }

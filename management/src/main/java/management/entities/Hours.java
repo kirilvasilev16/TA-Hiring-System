@@ -1,6 +1,7 @@
 package management.entities;
 
 import com.google.gson.annotations.JsonAdapter;
+import java.util.Objects;
 import management.deserializers.HoursDeserialization;
 
 @JsonAdapter(HoursDeserialization.class)
@@ -75,5 +76,35 @@ public class Hours {
      */
     public void setAmountOfHours(float amountOfHours) {
         this.amountOfHours = amountOfHours;
+    }
+
+    /**
+     * Equals method for Hours.
+     *
+     * @param o other object
+     * @return true iff the 2 objects are identical
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Hours hours = (Hours) o;
+        return Float.compare(hours.amountOfHours, amountOfHours) == 0
+                && Objects.equals(courseId, hours.courseId)
+                && Objects.equals(studentId, hours.studentId);
+    }
+
+    /**
+     * Hash management object.
+     *
+     * @return hash of object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(courseId, studentId, amountOfHours);
     }
 }

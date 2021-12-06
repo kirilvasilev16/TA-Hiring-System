@@ -15,8 +15,7 @@ class HoursDeserializationTest {
     @Test
     void deserializeOne() {
 
-        String json = "{\"courseId\":CSE1200,\"studentId\":kvasilev,\"hours\""
-                + ":20.0}";
+        String json = "{\"courseId\":CSE1200,\"studentId\":kvasilev,\"hours\":20.0}";
 
         Hours hours = gson.fromJson(json, Hours.class);
 
