@@ -72,7 +72,12 @@ class HoursTest {
     }
 
     @Test
-    void equalsManagement() {
+    void equalsSame() {
+        assertEquals(hours, hours);
+    }
+
+    @Test
+    void equalsHours() {
         Hours hours1 = new Hours(courseId, netId, 120);
         assertEquals(hours, hours1);
     }
@@ -81,5 +86,11 @@ class HoursTest {
     void hashCodeTest() {
         Hours hours1 = new Hours(courseId, netId, 120);
         assertEquals(hours.hashCode(), hours1.hashCode());
+    }
+
+    @Test
+    void hashCodeTestFail() {
+        Hours hours1 = new Hours(courseId, netId, 130);
+        assertNotEquals(hours.hashCode(), hours1.hashCode());
     }
 }

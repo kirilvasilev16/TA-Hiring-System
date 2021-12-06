@@ -147,8 +147,20 @@ public class ManagementTest {
     }
 
     @Test
+    void equalsSame() {
+        assertEquals(management, management);
+    }
+
+    @Test
     void hashCodeTest() {
         Management management1 = new Management(courseId, netId, 120);
         assertEquals(management.hashCode(), management1.hashCode());
+    }
+
+    @Test
+    void hashCodeTestFail() {
+        Management management1 = new Management(courseId, netId, 120);
+        management.setId(11);
+        assertNotEquals(management.hashCode(), management1.hashCode());
     }
 }
