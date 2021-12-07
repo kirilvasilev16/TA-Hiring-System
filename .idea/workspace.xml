@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service" />
+    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
+      <change afterPath="$PROJECT_DIR$/course/src/test/java/course/entities/CourseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -68,6 +71,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -97,6 +101,8 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../tatu" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -114,6 +120,12 @@
       <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources\template\config" />
       <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="course.entities" />
+    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
@@ -123,7 +135,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.CourseApplication">
+  <component name="RunManager" selected="Gradle.CourseTest">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -137,18 +149,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LecturerClassTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="CourseTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;entities.LecturerClassTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;course.entities.CourseTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":Lecturer:test" />
+            <option value=":course:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -158,18 +170,18 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="LecturerServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="CourseTest.getCourseId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;service.LecturerServiceTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;course.entities.CourseTest.getCourseId&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":Lecturer:test" />
+            <option value=":course:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -285,11 +297,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.CourseTest" />
+        <item itemvalue="Gradle.CourseTest.getCourseId" />
         <item itemvalue="Gradle.sem-repo-15a [build]" />
         <item itemvalue="Gradle.sem-repo-15a [Lecturer:checkstyleTest]" />
         <item itemvalue="Gradle.sem-repo-15a [Lecturer:checkstyleMain]" />
-        <item itemvalue="Gradle.LecturerServiceTest" />
-        <item itemvalue="Gradle.LecturerClassTest" />
       </list>
     </recent_temporary>
   </component>
