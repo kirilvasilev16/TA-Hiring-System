@@ -3,6 +3,7 @@ package course.entities;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CourseTest {
     Course course;
     Set<String> lecturerSet;
-    Date startingDate;
+    Calendar startingDate;
     String courseId;
     String courseName;
     int courseSize;
@@ -21,8 +22,7 @@ class CourseTest {
     void setUp() {
         lecturerSet = new HashSet<>();
         lecturerSet.add("lecturer1");
-
-        startingDate = new Date(121, 11, 7);
+        startingDate = new Calendar.Builder().setDate(2021, 11, 7).build();
         courseSize = 500;
         courseId = "CSE2115-2021";
         courseName = "SEM";
@@ -61,7 +61,7 @@ class CourseTest {
 
     @Test
     void setStartingDate() {
-        Date newDate = new Date(121, 11, 6);
+        Calendar newDate = new Calendar.Builder().setDate(2021, 11, 6).build();
         course.setStartingDate(newDate);
         assertEquals(newDate, course.getStartingDate());
     }
