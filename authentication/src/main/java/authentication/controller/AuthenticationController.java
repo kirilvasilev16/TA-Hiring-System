@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("Authentication")
-@RequestMapping("auth")
+@RequestMapping("authentication")
 public class AuthenticationController {
     private final transient AuthenticationService authenticationService;
 

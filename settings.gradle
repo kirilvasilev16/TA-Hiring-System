@@ -3,3 +3,6 @@ include 'student'
 include 'management'
 include 'course'
 include 'authentication'
+include 'api-gateway'
+include 'api-gateway'
+
