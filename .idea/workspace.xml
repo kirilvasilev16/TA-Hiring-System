@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/CourseNotFoundAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/CourseNotFoundAdvice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/CourseNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/CourseNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/InvalidCandidateException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/InvalidCandidateException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/InvalidHiringException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/InvalidHiringException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" afterDir="false" />
-    </list>
+    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
