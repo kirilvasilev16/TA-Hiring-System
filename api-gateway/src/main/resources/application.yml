@@ -6,11 +6,11 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: management
+        - id: authentication
           uri: http://localhost:8080/
           predicates:
-            - Path=/management/**
-        - id: authentication
+            - Path=/authentication/**
+        - id: management
           uri: http://localhost:8081/
           predicates:
-            - Path=/authentication/**
+            - Path=/management/**
