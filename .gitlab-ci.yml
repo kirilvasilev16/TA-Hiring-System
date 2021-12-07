@@ -1,2 +1,3 @@
 include:
   - management/.gitlab-ci.yml
+  - course/.gitlab-ci.yml
