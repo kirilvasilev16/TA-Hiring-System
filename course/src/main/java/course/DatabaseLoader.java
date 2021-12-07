@@ -2,9 +2,7 @@ package course;
 
 import course.entities.Course;
 import course.repositories.CourseRepository;
-
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import org.springframework.stereotype.Service;
 

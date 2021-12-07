@@ -1,28 +1,35 @@
 package course.services;
 
-import course.entities.Course;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import course.entities.Course;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 class LecturerServiceTest {
 
-    Course course;
-    Set<String> lecturerSet;
-    Calendar startingDate;
-    String courseId;
-    String courseName;
-    int courseSize;
+    private transient Course course;
+    private transient Set<String> lecturerSet;
+    private transient Calendar startingDate;
+    private transient String courseId;
+    private transient String courseName;
+    private transient int courseSize;
+
+    private transient String lecturer1 = "lecturer1";
 
     @BeforeEach
     void setUp() {
+        String lecturer1 = "lecturer1";
+
         lecturerSet = new HashSet<>();
-        lecturerSet.add("lecturer1");
+        lecturerSet.add(lecturer1);
         startingDate = new Calendar.Builder().setDate(2021, 11, 7).build();
         courseSize = 500;
         courseId = "CSE2115-2021";
@@ -38,14 +45,18 @@ class LecturerServiceTest {
 
     @Test
     void addLecturerSet() {
+
+        String lecturer2 = "lecturer2";
+        String lecturer3 = "lecturer3";
+
         Set<String> expect = new HashSet<>();
-        expect.add("lecturer1");
-        expect.add("lecturer2");
-        expect.add("lecturer3");
+        expect.add(lecturer1);
+        expect.add(lecturer2);
+        expect.add(lecturer3);
 
         Set<String> add = new HashSet<>();
-        add.add("lecturer2");
-        add.add("lecturer3");
+        add.add(lecturer2);
+        add.add(lecturer3);
 
         LecturerService.addLecturerSet(course, add);
         assertEquals(expect, LecturerService.getLecturerSet(course));
@@ -53,21 +64,25 @@ class LecturerServiceTest {
 
     @Test
     void addLecturer() {
-        Set<String> expect = new HashSet<>();
-        expect.add("lecturer1");
-        expect.add("lecturer2");
+        String lecturer2 = "lecturer2";
 
-        LecturerService.addLecturer(course, "lecturer2");
+        Set<String> expect = new HashSet<>();
+        expect.add(lecturer1);
+        expect.add(lecturer2);
+
+        LecturerService.addLecturer(course, lecturer2);
         assertEquals(expect, LecturerService.getLecturerSet(course));
     }
 
     @Test
     void containsLecturerTrue() {
-        assertTrue(LecturerService.containsLecturer(course, "lecturer1"));
+        assertTrue(LecturerService.containsLecturer(course, lecturer1));
     }
 
     @Test
     void containsLecturerFalse() {
-        assertFalse(LecturerService.containsLecturer(course, "lecturer2"));
+        String lecturer2 = "lecturer2";
+
+        assertFalse(LecturerService.containsLecturer(course, lecturer2));
     }
 }

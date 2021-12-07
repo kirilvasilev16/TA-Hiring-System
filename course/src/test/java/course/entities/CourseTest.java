@@ -1,22 +1,22 @@
 package course.entities;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CourseTest {
-    Course course;
-    Set<String> lecturerSet;
-    Calendar startingDate;
-    String courseId;
-    String courseName;
-    int courseSize;
+    private transient Course course;
+    private transient Set<String> lecturerSet;
+    private transient Calendar startingDate;
+    private transient String courseId;
+    private transient String courseName;
+    private transient int courseSize;
 
     @BeforeEach
     void setUp() {

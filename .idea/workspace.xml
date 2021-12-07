@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
-      <change beforePath="$PROJECT_DIR$/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.gitlab-ci.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/test/java/course/entities/CourseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/test/java/course/entities/CourseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/test/java/course/services/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/test/java/course/services/LecturerServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +60,13 @@
                 <item name="template" type="f1a62948:ProjectNode" />
                 <item name="course" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -111,7 +120,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../tatu" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/course/config/checkstyle/checkstyle.xml" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -144,7 +153,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.LecturerServiceTest">
+  <component name="RunManager" selected="Gradle.Tests in 'course'">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -242,21 +251,21 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="sem-repo-15a [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="sem-repo-15a:course [pmdTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/course" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="build" />
+            <option value="pmdTest" />
           </list>
         </option>
-        <option name="vmOptions" value="" />
+        <option name="vmOptions" />
       </ExternalSystemSettings>
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
@@ -306,11 +315,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.LecturerServiceTest" />
         <item itemvalue="Gradle.Tests in 'course'" />
+        <item itemvalue="Gradle.sem-repo-15a:course [pmdTest]" />
+        <item itemvalue="Gradle.LecturerServiceTest" />
         <item itemvalue="Gradle.CourseTest" />
         <item itemvalue="Gradle.CourseTest.getCourseId" />
-        <item itemvalue="Gradle.sem-repo-15a [build]" />
       </list>
     </recent_temporary>
   </component>

@@ -1,9 +1,9 @@
 package course.controllers;
 
+import course.entities.Course;
 import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
-import course.entities.Course;
 import course.services.LecturerService;
 import course.services.StudentService;
 import course.services.interfaces.CourseService;

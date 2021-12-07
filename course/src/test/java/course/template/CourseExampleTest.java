@@ -3,9 +3,7 @@ package course.template;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import course.entities.Course;
-
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 

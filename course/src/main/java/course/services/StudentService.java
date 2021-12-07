@@ -1,8 +1,8 @@
 package course.services;
 
+import course.entities.Course;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
-import course.entities.Course;
 import java.util.Set;
 
 public class StudentService {
