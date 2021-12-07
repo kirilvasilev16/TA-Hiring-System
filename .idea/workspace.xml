@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
-      <change afterPath="$PROJECT_DIR$/.idea/modules/course/course.template.course.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/course/course.template.course.main~1.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/template.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/CourseNotFoundAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/CourseNotFoundAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/CourseNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/CourseNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/InvalidCandidateException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/InvalidCandidateException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/InvalidHiringException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/InvalidHiringException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,13 +50,18 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="template" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="help" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -77,7 +81,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="management" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -100,11 +104,11 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../tatu" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="org.infernus.idea.checkstyle.CheckStyleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -279,13 +283,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CourseApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="course.template.course.main~1" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="course.CourseApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CourseApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="course.template.course.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="course.CourseApplication" />
@@ -306,16 +303,13 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service" />
+      <changelist id="28a807a0-654f-4072-8a1c-44395d4297e6" name="Default Changelist" comment="" />
       <created>1637838685202</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637838685202</updated>
       <workItem from="1637838688894" duration="9820000" />
       <workItem from="1638432162625" duration="2709000" />
-      <workItem from="1638543650486" duration="2008000" />
-      <workItem from="1638647047896" duration="75000" />
-      <workItem from="1638889717917" duration="77000" />
     </task>
     <task id="LOCAL-00001" summary="fixed building">
       <created>1637937136245</created>
