@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/DatabaseLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/DatabaseLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/entities/Course.java" afterDir="false" />
-    </list>
+    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -144,7 +140,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.CourseTest">
+  <component name="RunManager" selected="Gradle.Tests in 'course'">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -200,23 +196,23 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="sem-repo-15a [Lecturer:checkstyleMain]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Tests in 'course'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" value="--tests &quot;course.*&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="Lecturer:checkstyleMain" />
+            <option value=":course:test" />
           </list>
         </option>
-        <option name="vmOptions" value="" />
+        <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
@@ -306,11 +302,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Tests in 'course'" />
         <item itemvalue="Gradle.CourseTest" />
         <item itemvalue="Gradle.CourseTest.getCourseId" />
         <item itemvalue="Gradle.sem-repo-15a [build]" />
         <item itemvalue="Gradle.sem-repo-15a [Lecturer:checkstyleTest]" />
-        <item itemvalue="Gradle.sem-repo-15a [Lecturer:checkstyleMain]" />
       </list>
     </recent_temporary>
   </component>
