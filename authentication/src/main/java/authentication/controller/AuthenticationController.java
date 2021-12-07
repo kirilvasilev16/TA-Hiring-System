@@ -1,15 +1,20 @@
 package authentication.controller;
 
+import authentication.communication.ServerCommunication;
 import authentication.entities.Authentication;
+import authentication.entities.Management;
 import authentication.service.AuthenticationService;
+
+import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController("Authentication")
-@RequestMapping("authentication")
+@RequestMapping("/")
 public class AuthenticationController {
     private final transient AuthenticationService authenticationService;
 
@@ -22,9 +27,18 @@ public class AuthenticationController {
      *
      * @return the list
      */
-    @GetMapping("getAll")
-    public List<Authentication> findAll() {
-        return authenticationService.findAll();
+    @GetMapping("/**")
+    public String get(HttpServletRequest request) throws IOException {
+        System.out.println("request received");
+        return ServerCommunication.getRequest(request.getRequestURI() + "?" + request.getQueryString());
+    }
+    @PutMapping("/**")
+    public String put(HttpServletRequest request) throws IOException {
+        return ServerCommunication.putRequest(request.getRequestURI() + "?" + request.getQueryString());
+    }
+    @PostMapping("/**")
+    public String post(HttpServletRequest request) throws IOException {
+        return ServerCommunication.postRequest(request.getRequestURI() + "?" + request.getQueryString());
     }
 
 }
