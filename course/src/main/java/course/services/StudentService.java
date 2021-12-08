@@ -9,13 +9,7 @@ import course.controllers.strategies.RatingStrategy;
 import course.controllers.strategies.TARecommendationStrategy;
 import course.entities.Course;
 import course.entities.Student;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.swing.plaf.IconUIResource;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -89,7 +83,7 @@ public class StudentService {
         /*String idJson = gson.toJson(c.getCandidateTAs());
 
         HttpRequest request = HttpRequest.newBuilder().POST(HttpRequest.BodyPublishers.ofString(idJson))
-                .uri(URI.create("http://localhost:8080/student/getstudents"))
+                .uri(URI.create("http://localhost:8083/student/getstudents"))
                 .build();
         HttpResponse<String> response = null;
         try {
@@ -109,7 +103,7 @@ public class StudentService {
         Set<Student> students = new HashSet<>();
         for(String sId : course.getCandidateTAs()){
             HttpRequest request = HttpRequest.newBuilder().GET()
-                    .uri(URI.create("http://localhost:8080/student/get?id=" + sId))
+                    .uri(URI.create("http://localhost:8083/student/get?id=" + sId))
                     .build();
             HttpResponse<String> response;
             try {
