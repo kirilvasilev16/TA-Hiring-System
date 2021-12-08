@@ -11,6 +11,9 @@ gradle-app.setting
 # Compiled class file
 *.class
 
+## Directory-based project format:
+.idea/
+
 # Log file
 *.log
 
@@ -25,3 +28,6 @@ gradle-app.setting
 *.zip
 *.tar.gz
 *.rar
+
+# .idea folder
+.idea/

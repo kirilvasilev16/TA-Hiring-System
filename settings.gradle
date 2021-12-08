@@ -1,3 +1,5 @@
 rootProject.name = 'template'
-include 'lecturer'
-
+include 'student'
+include 'management'
+include 'course'
+include 'authentication'

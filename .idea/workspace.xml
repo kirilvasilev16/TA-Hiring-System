@@ -1,27 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9f85f17-5115-4847-a07c-7f59bdaaabf3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lecturer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lecturer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/config/H2Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/config/H2Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/controllers/LecturerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/controllers/LecturerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Lecturer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/exceptions/CourseNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/exceptions/CourseNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/exceptions/LecturerNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/exceptions/LecturerNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/repositories/LecturerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/repositories/LecturerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/services/LecturerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/services/LecturerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/resources/template/config/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/resources/lecturer/config/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/entities/LecturerClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/entities/LecturerClassTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/repository/LecturerRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/service/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/service/LecturerServiceTest.java" afterDir="false" />
+    <list default="true" id="2650b30d-8662-4bbf-a555-2ff19b3d5a58" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/checkstyleidea-libs/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/SID_DrW.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/student/template.student.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/student/template.student.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/student/template.student.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/.gitlab-ci.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/config/H2Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Course.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Lecturer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/exceptions/CourseNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/exceptions/LecturerNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/repositories/LecturerRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/java/template/services/LecturerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/resources/application-dev.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/main/resources/template/config/application-dev.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/test/java/template/entities/LecturerClassTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lecturer/src/test/java/template/service/LecturerServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/.gitlab-ci.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/config/DataConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/config/H2Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/controller/AuthenticationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/entities/Authentication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/entities/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/filter/CustomAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/filter/CustomAuthorizationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/repository/AuthenticationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/repository/RoleRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/service/AuthenticationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/resources/application-dev.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/RoleTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/SecurityConfigTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitlab/issue_templates/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitlab/issue_templates/bug.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitlab/issue_templates/user_story.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/management/template.management.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/checkstyle/checkstyle-suppressions.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nl/tudelft/sem/template/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/tudelft/sem/template/Application.java" afterDir="false" />
+    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/CourseNotFoundAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/CourseNotFoundAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/CourseNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/CourseNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/InvalidCandidateException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/InvalidCandidateException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/exceptions/InvalidHiringException.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/InvalidHiringException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,9 +105,35 @@
         <task path="$PROJECT_DIR$/../Lecturer">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/course">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -91,12 +174,12 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../tatu" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.35665295" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="org.infernus.idea.checkstyle.CheckStyleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -111,20 +194,13 @@
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
+      <command value="gradle clean" />
       <command value="gradle Lecturer:checkstyleMain" />
       <command value="gradle Lecturer:checkstyleTest" />
-      <command value="gradle clean" />
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunDashboard">
-    <option name="configurationTypes">
-      <set>
-        <option value="SpringBootApplicationConfigurationType" />
-      </set>
-    </option>
-  </component>
-  <component name="RunManager" selected="Gradle.sem-repo-15a [build]">
+  <component name="RunManager" selected="Spring Boot.CourseApplication">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -138,25 +214,42 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LecturerRepositoryTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="LecturerClassTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;template.repository.LecturerRepositoryTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;entities.LecturerClassTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":lecturer:test" />
+            <option value=":Lecturer:test" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="LecturerServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;service.LecturerServiceTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":Lecturer:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration name="sem-repo-15a [Lecturer:checkstyleMain]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -175,9 +268,7 @@
         </option>
         <option name="vmOptions" value="" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration name="sem-repo-15a [Lecturer:checkstyleTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -196,9 +287,7 @@
         </option>
         <option name="vmOptions" value="" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration name="sem-repo-15a [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -217,41 +306,11 @@
         </option>
         <option name="vmOptions" value="" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="sem-repo-15a [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="clean" />
-          </list>
-        </option>
-        <option name="vmOptions" value="" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="sem-repo-15a" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -259,61 +318,20 @@
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="sem-repo-15a" />
       <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="lecturer.lecturer.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="lecturer.Application" />
+      <module name="template.Lecturer.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="template.Application" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="Application (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="lecturer.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="nl.tudelft.sem.template.Application" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Application (3)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="lecturer.lecturer.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="lecturer.Application" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Application (4)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="lecturer.lecturer.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="lecturer.Application" />
+      <module name="template.authentication.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="authentication.Application" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -325,17 +343,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CourseApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="course.template.course.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="course.CourseApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.LecturerRepositoryTest" />
-        <item itemvalue="Gradle.sem-repo-15a [clean]" />
+        <item itemvalue="Gradle.sem-repo-15a [build]" />
         <item itemvalue="Gradle.sem-repo-15a [Lecturer:checkstyleTest]" />
         <item itemvalue="Gradle.sem-repo-15a [Lecturer:checkstyleMain]" />
-        <item itemvalue="Gradle.sem-repo-15a [build]" />
+        <item itemvalue="Gradle.LecturerServiceTest" />
+        <item itemvalue="Gradle.LecturerClassTest" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="2650b30d-8662-4bbf-a555-2ff19b3d5a58" name="Default Changelist" comment="" />
@@ -345,9 +373,6 @@
       <updated>1637838685202</updated>
       <workItem from="1637838688894" duration="9820000" />
       <workItem from="1638432162625" duration="2709000" />
-      <workItem from="1638705403222" duration="258000" />
-      <workItem from="1638809539079" duration="3101000" />
-      <workItem from="1638915434173" duration="2876000" />
     </task>
     <task id="LOCAL-00001" summary="fixed building">
       <created>1637937136245</created>
@@ -423,7 +448,7 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/template$LecturerServiceTest.ic" NAME="LecturerServiceTest Coverage Results" MODIFIED="1638057225040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/template$LecturerClassTest.ic" NAME="LecturerClassTest Coverage Results" MODIFIED="1638053270536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/template$LecturerServiceTest.ic" NAME="LecturerServiceTest Coverage Results" MODIFIED="1638057225040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
