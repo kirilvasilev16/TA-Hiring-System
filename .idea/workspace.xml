@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/student/template.student.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/student/template.student.main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/test/java/course/services/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/test/java/course/services/LecturerServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,6 +138,7 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="course.controllers" />
       <recent name="course.services" />
       <recent name="course.entities" />
     </key>
@@ -230,23 +228,23 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="Tests in 'course'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="sem-repo-15a:course [pmdMain]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/course" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;course.*&quot;" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":course:test" />
+            <option value="pmdMain" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
@@ -317,9 +315,9 @@
       <list>
         <item itemvalue="Gradle.sem-repo-15a:course [pmdTest]" />
         <item itemvalue="Gradle.StudentServiceTest" />
+        <item itemvalue="Gradle.sem-repo-15a:course [pmdMain]" />
         <item itemvalue="Gradle.StudentServiceTest.hireTa" />
         <item itemvalue="Gradle.StudentServiceTest.addCandidateInvalid" />
-        <item itemvalue="Gradle.Tests in 'course'" />
       </list>
     </recent_temporary>
   </component>
@@ -333,7 +331,7 @@
       <updated>1637838685202</updated>
       <workItem from="1637838688894" duration="9820000" />
       <workItem from="1638432162625" duration="2709000" />
-      <workItem from="1638973143173" duration="2342000" />
+      <workItem from="1638973143173" duration="2742000" />
     </task>
     <task id="LOCAL-00001" summary="fixed building">
       <created>1637937136245</created>
