@@ -16,29 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, String> {
 
-    /**
-     * Update candidate courses.
-     *
-     * @param netId     the net id
-     * @param candidate the updated set of candidate courses
-     */
-    @Transactional
-    @Modifying
-    @Query("UPDATE Student s SET s.candidateCourses = :candidate WHERE s.netId = :netId")
-    void updateCandidateCourses(@Param("netId") String netId,
-                                @Param("candidate") Set<String> candidate);
-
-    /**
-     * Update ta courses.
-     *
-     * @param netId the net id
-     * @param ta    the updated set of TA courses
-     */
-    @Transactional
-    @Modifying
-    @Query("UPDATE Student s SET s.taCourses = :ta WHERE s.netId = :netId")
-    void updateTaCourses(@Param("netId") String netId,
-                         @Param("ta") Set<String> ta);
-
     Optional<Student> findStudentByNetId(String id);
+
 }

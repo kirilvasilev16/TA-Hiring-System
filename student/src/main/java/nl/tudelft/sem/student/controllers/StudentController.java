@@ -39,6 +39,11 @@ public class StudentController {
         return studentService.getStudent(id);
     }
 
+    /**
+     * Gets all students in db.
+     *
+     * @return list of all students
+     */
     @GetMapping("getAll")
     public List<Student> getAll() {
         return studentService.getAll();
