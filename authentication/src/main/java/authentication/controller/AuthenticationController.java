@@ -28,7 +28,6 @@ public class AuthenticationController {
      */
     @GetMapping("/**")
     public String get(HttpServletRequest request) throws IOException {
-        System.out.println("request received");
         return ServerCommunication.getRequest(request.getRequestURI()
                 + "?" + request.getQueryString());
     }
