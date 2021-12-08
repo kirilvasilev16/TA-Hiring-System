@@ -49,7 +49,7 @@ public class Student {
     }
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Student() {
 
