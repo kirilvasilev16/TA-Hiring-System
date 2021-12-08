@@ -95,7 +95,8 @@ public class StudentService {
             candidate.add(courseId);
             studentRepository.save(student);
         } else {
-            throw new StudentNotEligibleException("Student is not eligible for applying to course " + courseId);
+            throw new StudentNotEligibleException(
+                    "Student is not eligible for applying to course " + courseId);
         }
         return student;
     }

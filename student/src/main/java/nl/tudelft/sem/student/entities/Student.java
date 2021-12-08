@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * The type Student.
@@ -45,6 +48,9 @@ public class Student {
         this.taCourses = new HashSet<String>();
     }
 
+    /**
+     * Default constructor
+     */
     public Student() {
 
     }
