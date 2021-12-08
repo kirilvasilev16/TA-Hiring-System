@@ -48,6 +48,9 @@ public class Student {
         this.taCourses = new HashSet<String>();
     }
 
+    /**
+     * Default constructor.
+     */
     public Student() {
 
     }

@@ -1,5 +1,6 @@
 package nl.tudelft.sem.student.controllers;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.websocket.server.PathParam;
@@ -44,12 +45,22 @@ public class StudentController {
     }
 
     /**
+     * Gets all students in db.
+     *
+     * @return list of all students
+     */
+    @GetMapping("getAll")
+    public List<Student> getAll() {
+        return studentService.getAll();
+    }
+
+    /**
      * Gets passed courses.
      *
      * @param id the id
      * @return the passed courses
      */
-    @GetMapping("/getpassedcourses")
+    @GetMapping("/getPassedCourses")
     public Map<String, Float> getPassedCourses(@PathParam("id") String id) {
         return studentService.getPassedCourses(id);
     }
@@ -60,7 +71,7 @@ public class StudentController {
      * @param id the id
      * @return the candidate courses
      */
-    @GetMapping("/getcandidatecourses")
+    @GetMapping("/getCandidateCourses")
     public Set<String> getCandidateCourses(@PathParam("id") String id) {
         return studentService.getCandidateCourses(id);
     }
@@ -71,7 +82,7 @@ public class StudentController {
      * @param id the id
      * @return the ta courses
      */
-    @GetMapping("/gettacourses")
+    @GetMapping("/getTACourses")
     public Set<String> getTaCourses(@PathParam("id") String id) {
         return studentService.getTaCourses(id);
     }
@@ -82,7 +93,7 @@ public class StudentController {
      * @param student the student
      * @return the student
      */
-    @PostMapping("/addstudent")
+    @PostMapping("/add")
     public Student addStudent(@RequestBody Student student) {
         return studentService.addStudent(student);
     }
