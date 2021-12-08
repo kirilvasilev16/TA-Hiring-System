@@ -1,5 +1,8 @@
 package course.controllers;
 
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import course.entities.Course;
 import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
@@ -18,6 +21,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.http.HttpClient;
+import java.util.List;
 
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @RestController
@@ -25,6 +32,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CourseController {
 
     private final transient CourseService courseService;
+
+    private static HttpClient client = HttpClient.newBuilder().build();
+    private static Gson gson = new GsonBuilder()
+            .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
+
+    public static int successCode = 200;
 
     @Autowired
     public CourseController(CourseService courseService) {
@@ -127,19 +140,31 @@ public class CourseController {
     }
 
     // TODO: Will be further implemented for sprint 2
-    /*
+
     @GetMapping("taRecommendation")
-    public Integer getTARecommendation(@PathParam("courseId") String courseId)
+    public List<String> getTARecommendation(@PathParam("courseId") String courseId)
             throws CourseNotFoundException {
-        Course c = courseService.findByCourseID(courseId);
+        Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
         }
-        return 1;
+        return StudentService.getTARecommendationList(c, 1);
     }
-    */
 
+
+
+    @GetMapping("{code}/tarecommendations")
+    public List<String> getTARecommendationList(@PathVariable String code, @PathVariable Integer strategy)
+            throws CourseNotFoundException {
+        Course c = courseService.findByCourseId(code);
+
+        if (c == null) {
+            throw new CourseNotFoundException(code);
+        }
+
+        return StudentService.getTARecommendationList(c, strategy);
+    }
 
     /**
      * Create and Persist new Course in system.

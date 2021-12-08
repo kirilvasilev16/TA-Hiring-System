@@ -3,10 +3,40 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
+      <change afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/ExperienceStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/GradeStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/RatingStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/TARecommendationStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/course/template.course.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/course/template.course.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/course/template.course.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/course/template.course.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/CommunicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/CommunicationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/course/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/entities/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/entities/Lecturer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/entities/Management.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/entities/Management.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/entities/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/entities/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,25 +76,13 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="template" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="template" type="f1a62948:ProjectNode" />
-                <item name="course" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="template" type="f1a62948:ProjectNode" />
-                <item name="course" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="template" type="f1a62948:ProjectNode" />
-                <item name="course" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -152,7 +170,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.sem-repo-15a:course [pmdMain]">
+  <component name="RunManager" selected="Gradle.sem-repo-15a [build]">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -162,6 +180,19 @@
       <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CourseApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="course.CourseApplication" />
+      <module name="template.course.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="course.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -182,30 +213,45 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="StudentServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="sem-repo-15a [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;course.services.StudentServiceTest&quot;" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":course:test" />
+            <option value="build" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="sem-repo-15a [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration name="sem-repo-15a:course [pmdMain]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -224,34 +270,18 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="sem-repo-15a:course [pmdTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/course" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="pmdTest" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="sem-repo-15a" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -259,6 +289,33 @@
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="sem-repo-15a" />
       <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -298,19 +355,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CourseApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="course.template.course.main~2" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="course.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="course.CourseApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CourseApplication (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="course.template.course.main~1" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="course.CourseApplication" />
@@ -327,11 +371,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.sem-repo-15a [build]" />
+        <item itemvalue="Gradle.sem-repo-15a [clean]" />
+        <item itemvalue="Application.CourseApplication" />
         <item itemvalue="Gradle.sem-repo-15a:course [pmdMain]" />
-        <item itemvalue="Spring Boot.CourseApplication (1)" />
         <item itemvalue="Gradle.CourseCreationBodyTest" />
-        <item itemvalue="Gradle.sem-repo-15a:course [pmdTest]" />
-        <item itemvalue="Gradle.StudentServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -416,11 +460,32 @@
     <MESSAGE value="tested lecturer service" />
     <option name="LAST_COMMIT_MESSAGE" value="tested lecturer service" />
   </component>
+  <component name="WindowStateProjectService">
+    <state width="1234" height="316" key="GridCell.Tab.0.bottom" timestamp="1638998055206">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1234" height="316" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1638998055206" />
+    <state width="1234" height="316" key="GridCell.Tab.0.center" timestamp="1638998055205">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1234" height="316" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1638998055205" />
+    <state width="1234" height="316" key="GridCell.Tab.0.left" timestamp="1638998055205">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1234" height="316" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1638998055205" />
+    <state width="1234" height="316" key="GridCell.Tab.0.right" timestamp="1638998055206">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1234" height="316" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1638998055205" />
+  </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/template$CourseApplication.ic" NAME="CourseApplication Coverage Results" MODIFIED="1637964529739" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>course.template.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/template$LecturerClassTest.ic" NAME="LecturerClassTest Coverage Results" MODIFIED="1638053270536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/template$LecturerServiceTest.ic" NAME="LecturerServiceTest Coverage Results" MODIFIED="1638057225040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
