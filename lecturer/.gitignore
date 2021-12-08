@@ -2,7 +2,8 @@
 
 .gradle
 build/
-.idea
+.idea/
+*.iml
 gradle-app.setting
 !gradle/wrapper/gradle-wrapper.jar
 **/build/

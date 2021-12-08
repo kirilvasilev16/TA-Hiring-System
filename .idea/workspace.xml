@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2650b30d-8662-4bbf-a555-2ff19b3d5a58" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.Lecturer.test~1.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/template.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/template.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/template.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/template.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/controllers/LecturerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/controllers/LecturerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/services/LecturerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/services/LecturerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/service/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/template/service/LecturerServiceTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="e9f85f17-5115-4847-a07c-7f59bdaaabf3" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
