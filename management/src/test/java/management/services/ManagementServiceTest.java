@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 import java.util.ArrayList;
 import java.util.List;
+import management.entities.Hours;
 import management.entities.Management;
 import management.exceptions.InvalidApprovedHoursException;
 import management.exceptions.InvalidContractHoursException;
@@ -72,7 +73,7 @@ class ManagementServiceTest {
 
     @Test
     void declareHoursValid() {
-        managementService.declareHours(courseId, studentId, 10);
+        managementService.declareHours(List.of(new Hours(courseId, studentId, 10)));
 
         assertEquals(10, management2.getDeclaredHours());
     }
@@ -80,20 +81,22 @@ class ManagementServiceTest {
     @Test
     void declareHoursInvalid() {
         assertThrows(InvalidContractHoursException.class,
-                () -> managementService.declareHours(courseId, studentId, 1000));
+                () -> managementService.declareHours(List.of(
+                        new Hours(courseId, studentId, 1000))));
     }
 
     @Test
     void declareHoursInvalidNegative() {
         assertThrows(InvalidContractHoursException.class,
-                () -> managementService.declareHours(courseId, studentId, -10));
+                () -> managementService.declareHours(List.of(
+                        new Hours(courseId, studentId, -1000))));
     }
 
 
     @Test
     void approveHoursValid() {
         management2.setDeclaredHours(20);
-        managementService.approveHours(courseId, studentId, 5);
+        managementService.approveHours(List.of(new Hours(courseId, studentId, 5)));
 
         assertEquals(5, management2.getApprovedHours());
         assertEquals(15, management2.getDeclaredHours());
@@ -102,13 +105,15 @@ class ManagementServiceTest {
     @Test
     void approveHoursInvalid() {
         assertThrows(InvalidApprovedHoursException.class,
-                () -> managementService.approveHours(courseId, studentId, 1000));
+                () -> managementService.approveHours(List.of(new Hours(courseId,
+                        studentId, 1000))));
     }
 
     @Test
     void approveHoursInvalidNegative() {
         assertThrows(InvalidApprovedHoursException.class,
-                () -> managementService.approveHours(courseId, studentId, -10));
+                () -> managementService.approveHours(List.of(new Hours(courseId,
+                        studentId, -10))));
     }
 
 

@@ -1,9 +1,12 @@
 package nl.tudelft.sem.student.services;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import nl.tudelft.sem.student.entities.Student;
+import nl.tudelft.sem.student.exceptions.StudentNotEligibleException;
 import nl.tudelft.sem.student.exceptions.StudentNotFoundException;
 import nl.tudelft.sem.student.repositories.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -37,6 +40,15 @@ public class StudentService {
             throw new StudentNotFoundException("");
         }
         return student.get();
+    }
+
+    /**
+     * Gets all students in db.
+     *
+     * @return list of all students
+     */
+    public List<Student> getAll() {
+        return studentRepository.findAll();
     }
 
     /**
@@ -81,7 +93,10 @@ public class StudentService {
         if (student.getPassedCourses().containsKey(courseId)) {
             Set<String> candidate = student.getCandidateCourses();
             candidate.add(courseId);
-            studentRepository.updateCandidateCourses(netId, candidate);
+            studentRepository.save(student);
+        } else {
+            throw new StudentNotEligibleException(
+                    "Student is not eligible for applying to course " + courseId);
         }
         return student;
     }
@@ -99,9 +114,10 @@ public class StudentService {
             Set<String> candidate = student.getCandidateCourses();
             Set<String> ta = student.getTaCourses();
             candidate.remove(courseId);
-            studentRepository.updateCandidateCourses(netId, candidate);
             ta.add(courseId);
-            studentRepository.updateTaCourses(netId, ta);
+            studentRepository.save(student);
+        } else {
+            throw new StudentNotEligibleException("Student has not applied to course " + courseId);
         }
         return student;
     }

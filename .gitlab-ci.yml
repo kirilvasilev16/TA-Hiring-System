@@ -1,2 +1,5 @@
 include:
   - management/.gitlab-ci.yml
+  - course/.gitlab-ci.yml
+  - authentication/.gitlab-ci.yml
+  - api-gateway/.gitlab-ci.yml
