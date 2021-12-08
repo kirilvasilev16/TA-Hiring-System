@@ -1,0 +1,538 @@
+Index: .idea/modules/student/template.student.test.iml
+===================================================================
+diff --git a/.idea/modules/student/template.student.test.iml b/.idea/modules/student/template.student.test.iml
+deleted file mode 100644
+--- a/.idea/modules/student/template.student.test.iml	(revision ab6fba79d4a05648100347be13f115085dfb0453)
++++ /dev/null	(revision ab6fba79d4a05648100347be13f115085dfb0453)
+@@ -1,100 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module external.system.module.type="sourceSet" type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager">
+-    <output-test url="file://$MODULE_DIR$/../../../student/build/classes/java/test" />
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$/../../../student/src/test">
+-      <sourceFolder url="file://$MODULE_DIR$/../../../student/src/test/java" isTestSource="true" />
+-    </content>
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="module" module-name="template.student.main" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-test:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-jpa:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.h2database:h2:1.4.200" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.5.2" level="project" />
+-    <orderEntry type="library" name="Gradle: org.mockito:mockito-core:3.1.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.assertj:assertj-core:3.14.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-webmvc:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-web:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.mockito:mockito-junit-jupiter:3.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-test-autoconfigure:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-test:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-test:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-core:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.jayway.jsonpath:json-path:2.4.0" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest:2.2" level="project" />
+-    <orderEntry type="library" name="Gradle: org.skyscreamer:jsonassert:1.5.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.xmlunit:xmlunit-core:2.7.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-aop:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-jpa:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.transaction:jakarta.transaction-api:1.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.persistence:jakarta.persistence-api:2.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.hibernate:hibernate-core:5.4.22.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-aspects:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-logging:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5" level="project" />
+-    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.26" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.6.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.6.3" level="project" />
+-    <orderEntry type="library" name="Gradle: net.bytebuddy:byte-buddy:1.10.17" level="project" />
+-    <orderEntry type="library" name="Gradle: net.bytebuddy:byte-buddy-agent:1.10.17" level="project" />
+-    <orderEntry type="library" name="Gradle: org.objenesis:objenesis:2.6" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.39" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:9.0.39" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish:jakarta.el:3.0.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-context:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-expression:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-jcl:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: net.minidev:json-smart:2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.activation:jakarta.activation-api:1.2.2" level="project" />
+-    <orderEntry type="library" name="Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
+-    <orderEntry type="library" name="Gradle: org.aspectj:aspectjweaver:1.9.6" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.zaxxer:HikariCP:3.4.5" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-orm:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-commons:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-tx:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:jaxb-runtime:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.hibernate.common:hibernate-commons-annotations:5.1.0.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.jboss.logging:jboss-logging:3.4.1.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.javassist:javassist:3.24.0-GA" level="project" />
+-    <orderEntry type="library" name="Gradle: antlr:antlr:2.7.7" level="project" />
+-    <orderEntry type="library" name="Gradle: org.jboss:jandex:2.1.3.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml:classmate:1.5.1" level="project" />
+-    <orderEntry type="library" name="Gradle: org.dom4j:dom4j:2.1.3" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.13.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apiguardian:apiguardian-api:1.1.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-commons:1.6.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.opentest4j:opentest4j:1.2.0" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: net.minidev:accessors-smart:1.2" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:txw2:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.sun.istack:istack-commons-runtime:3.0.11" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.13.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.ow2.asm:asm:5.0.4" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.6.3" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.platform:junit-platform-engine:1.6.3" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.sun.activation:jakarta.activation:1.2.2" level="project" />
+-  </component>
+-  <component name="TestModuleProperties" production-module="template.student.main" />
+-</module>
+\ No newline at end of file
+Index: .idea/modules/management/template.management.test.iml
+===================================================================
+diff --git a/.idea/modules/management/template.management.test.iml b/.idea/modules/management/template.management.test.iml
+deleted file mode 100644
+--- a/.idea/modules/management/template.management.test.iml	(revision ab6fba79d4a05648100347be13f115085dfb0453)
++++ /dev/null	(revision ab6fba79d4a05648100347be13f115085dfb0453)
+@@ -1,100 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module external.system.module.type="sourceSet" type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager">
+-    <output-test url="file://$MODULE_DIR$/../../../management/build/classes/java/test" />
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$/../../../management/src/test">
+-      <sourceFolder url="file://$MODULE_DIR$/../../../management/src/test/java" isTestSource="true" />
+-    </content>
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="module" module-name="template.management.main" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-test:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-jpa:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.h2database:h2:1.4.200" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.5.2" level="project" />
+-    <orderEntry type="library" name="Gradle: org.mockito:mockito-core:3.1.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.assertj:assertj-core:3.14.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-webmvc:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-web:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.mockito:mockito-junit-jupiter:3.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-test-autoconfigure:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-test:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-test:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-core:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.jayway.jsonpath:json-path:2.4.0" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest:2.2" level="project" />
+-    <orderEntry type="library" name="Gradle: org.skyscreamer:jsonassert:1.5.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.xmlunit:xmlunit-core:2.7.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-aop:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-jpa:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.transaction:jakarta.transaction-api:1.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.persistence:jakarta.persistence-api:2.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.hibernate:hibernate-core:5.4.22.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-aspects:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-logging:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5" level="project" />
+-    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.26" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.6.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.6.3" level="project" />
+-    <orderEntry type="library" name="Gradle: net.bytebuddy:byte-buddy:1.10.17" level="project" />
+-    <orderEntry type="library" name="Gradle: net.bytebuddy:byte-buddy-agent:1.10.17" level="project" />
+-    <orderEntry type="library" name="Gradle: org.objenesis:objenesis:2.6" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.39" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:9.0.39" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish:jakarta.el:3.0.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-context:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-expression:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-jcl:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: net.minidev:json-smart:2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.activation:jakarta.activation-api:1.2.2" level="project" />
+-    <orderEntry type="library" name="Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
+-    <orderEntry type="library" name="Gradle: org.aspectj:aspectjweaver:1.9.6" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.zaxxer:HikariCP:3.4.5" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-orm:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-commons:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-tx:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:jaxb-runtime:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.hibernate.common:hibernate-commons-annotations:5.1.0.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.jboss.logging:jboss-logging:3.4.1.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.javassist:javassist:3.24.0-GA" level="project" />
+-    <orderEntry type="library" name="Gradle: antlr:antlr:2.7.7" level="project" />
+-    <orderEntry type="library" name="Gradle: org.jboss:jandex:2.1.3.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml:classmate:1.5.1" level="project" />
+-    <orderEntry type="library" name="Gradle: org.dom4j:dom4j:2.1.3" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.13.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apiguardian:apiguardian-api:1.1.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-commons:1.6.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.opentest4j:opentest4j:1.2.0" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: net.minidev:accessors-smart:1.2" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:txw2:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.sun.istack:istack-commons-runtime:3.0.11" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.13.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.ow2.asm:asm:5.0.4" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.6.3" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.platform:junit-platform-engine:1.6.3" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.sun.activation:jakarta.activation:1.2.2" level="project" />
+-  </component>
+-  <component name="TestModuleProperties" production-module="template.management.main" />
+-</module>
+\ No newline at end of file
+Index: .idea/modules/management/template.management.main.iml
+===================================================================
+diff --git a/.idea/modules/management/template.management.main.iml b/.idea/modules/management/template.management.main.iml
+deleted file mode 100644
+--- a/.idea/modules/management/template.management.main.iml	(revision ab6fba79d4a05648100347be13f115085dfb0453)
++++ /dev/null	(revision ab6fba79d4a05648100347be13f115085dfb0453)
+@@ -1,81 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module external.system.module.type="sourceSet" type="JAVA_MODULE" version="4">
+-  <component name="CheckStyle-IDEA-Module">
+-    <option name="configuration">
+-      <map />
+-    </option>
+-  </component>
+-  <component name="NewModuleRootManager">
+-    <output url="file://$MODULE_DIR$/../../../management/build/classes/java/main" />
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$/../../../management/src/main">
+-      <sourceFolder url="file://$MODULE_DIR$/../../../management/src/main/java" isTestSource="false" />
+-      <sourceFolder url="file://$MODULE_DIR$/../../../management/src/main/resources" type="java-resource" />
+-    </content>
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-jpa:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.h2database:h2:1.4.200" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-webmvc:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-web:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-aop:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-jpa:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.transaction:jakarta.transaction-api:1.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.persistence:jakarta.persistence-api:2.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.hibernate:hibernate-core:5.4.22.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-aspects:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-logging:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-core:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.26" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.39" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:9.0.39" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish:jakarta.el:3.0.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-context:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-expression:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.aspectj:aspectjweaver:1.9.6" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.zaxxer:HikariCP:3.4.5" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-orm:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-commons:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-tx:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: org.hibernate.common:hibernate-commons-annotations:5.1.0.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.jboss.logging:jboss-logging:3.4.1.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.javassist:javassist:3.24.0-GA" level="project" />
+-    <orderEntry type="library" name="Gradle: net.bytebuddy:byte-buddy:1.10.17" level="project" />
+-    <orderEntry type="library" name="Gradle: antlr:antlr:2.7.7" level="project" />
+-    <orderEntry type="library" name="Gradle: org.jboss:jandex:2.1.3.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml:classmate:1.5.1" level="project" />
+-    <orderEntry type="library" name="Gradle: org.dom4j:dom4j:2.1.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:jaxb-runtime:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.13.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-jcl:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:txw2:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.sun.istack:istack-commons-runtime:3.0.11" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.13.3" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.hibernate:hibernate-entitymanager:5.4.22.Final" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: javax.persistence:javax.persistence-api:2.2" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.1.1.Final" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.sun.activation:jakarta.activation:1.2.2" level="project" />
+-  </component>
+-</module>
+\ No newline at end of file
+Index: .idea/modules/template.test.iml
+===================================================================
+diff --git a/.idea/modules/template.test.iml b/.idea/modules/template.test.iml
+deleted file mode 100644
+--- a/.idea/modules/template.test.iml	(revision ab6fba79d4a05648100347be13f115085dfb0453)
++++ /dev/null	(revision ab6fba79d4a05648100347be13f115085dfb0453)
+@@ -1,61 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module external.system.module.type="sourceSet" type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager">
+-    <output-test url="file://$MODULE_DIR$/../../build/classes/java/test" />
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$/../../src/test">
+-      <sourceFolder url="file://$MODULE_DIR$/../../src/test/java" isTestSource="true" />
+-      <sourceFolder url="file://$MODULE_DIR$/../../src/test/resources" type="java-test-resource" />
+-    </content>
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="module" module-name="template.main" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-test:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.5.2" level="project" />
+-    <orderEntry type="library" name="Gradle: org.mockito:mockito-core:3.1.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.assertj:assertj-core:3.14.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.mockito:mockito-junit-jupiter:3.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-test-autoconfigure:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-test:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-test:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-core:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.jayway.jsonpath:json-path:2.4.0" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest:2.2" level="project" />
+-    <orderEntry type="library" name="Gradle: org.skyscreamer:jsonassert:1.5.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.xmlunit:xmlunit-core:2.7.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-logging:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5" level="project" />
+-    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.26" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.6.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.6.3" level="project" />
+-    <orderEntry type="library" name="Gradle: net.bytebuddy:byte-buddy:1.10.17" level="project" />
+-    <orderEntry type="library" name="Gradle: net.bytebuddy:byte-buddy-agent:1.10.17" level="project" />
+-    <orderEntry type="library" name="Gradle: org.objenesis:objenesis:2.6" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-jcl:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: net.minidev:json-smart:2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.activation:jakarta.activation-api:1.2.2" level="project" />
+-    <orderEntry type="library" name="Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-context:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.13.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apiguardian:apiguardian-api:1.1.0" level="project" />
+-    <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-commons:1.6.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.opentest4j:opentest4j:1.2.0" level="project" />
+-    <orderEntry type="library" name="Gradle: net.minidev:accessors-smart:1.2" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-expression:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.13.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.ow2.asm:asm:5.0.4" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.6.3" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.platform:junit-platform-engine:1.6.3" level="project" />
+-  </component>
+-  <component name="TestModuleProperties" production-module="template.main" />
+-</module>
+\ No newline at end of file
+Index: .idea/modules/template.main.iml
+===================================================================
+diff --git a/.idea/modules/template.main.iml b/.idea/modules/template.main.iml
+deleted file mode 100644
+--- a/.idea/modules/template.main.iml	(revision ab6fba79d4a05648100347be13f115085dfb0453)
++++ /dev/null	(revision ab6fba79d4a05648100347be13f115085dfb0453)
+@@ -1,31 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module external.system.module.type="sourceSet" type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager">
+-    <output url="file://$MODULE_DIR$/../../build/classes/java/main" />
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$/../../src/main">
+-      <sourceFolder url="file://$MODULE_DIR$/../../src/main/java" isTestSource="false" />
+-      <sourceFolder url="file://$MODULE_DIR$/../../src/main/resources" type="java-resource" />
+-    </content>
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-logging:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-core:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.26" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-context:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.13.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-jcl:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-expression:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.13.3" level="project" />
+-  </component>
+-</module>
+\ No newline at end of file
+Index: .idea/modules/student/template.student.main.iml
+===================================================================
+diff --git a/.idea/modules/student/template.student.main.iml b/.idea/modules/student/template.student.main.iml
+deleted file mode 100644
+--- a/.idea/modules/student/template.student.main.iml	(revision ab6fba79d4a05648100347be13f115085dfb0453)
++++ /dev/null	(revision ab6fba79d4a05648100347be13f115085dfb0453)
+@@ -1,81 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module external.system.module.type="sourceSet" type="JAVA_MODULE" version="4">
+-  <component name="CheckStyle-IDEA-Module">
+-    <option name="configuration">
+-      <map />
+-    </option>
+-  </component>
+-  <component name="NewModuleRootManager">
+-    <output url="file://$MODULE_DIR$/../../../student/build/classes/java/main" />
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$/../../../student/src/main">
+-      <sourceFolder url="file://$MODULE_DIR$/../../../student/src/main/java" isTestSource="false" />
+-      <sourceFolder url="file://$MODULE_DIR$/../../../student/src/main/resources" type="java-resource" />
+-    </content>
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-jpa:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.h2database:h2:1.4.200" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-webmvc:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-web:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-aop:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-jpa:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.transaction:jakarta.transaction-api:1.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.persistence:jakarta.persistence-api:2.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.hibernate:hibernate-core:5.4.22.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-aspects:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-logging:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-core:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.26" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.39" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:9.0.39" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish:jakarta.el:3.0.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-context:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-expression:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.aspectj:aspectjweaver:1.9.6" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.zaxxer:HikariCP:3.4.5" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-orm:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-commons:2.3.5.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-tx:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: org.hibernate.common:hibernate-commons-annotations:5.1.0.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.jboss.logging:jboss-logging:3.4.1.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: org.javassist:javassist:3.24.0-GA" level="project" />
+-    <orderEntry type="library" name="Gradle: net.bytebuddy:byte-buddy:1.10.17" level="project" />
+-    <orderEntry type="library" name="Gradle: antlr:antlr:2.7.7" level="project" />
+-    <orderEntry type="library" name="Gradle: org.jboss:jandex:2.1.3.Final" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml:classmate:1.5.1" level="project" />
+-    <orderEntry type="library" name="Gradle: org.dom4j:dom4j:2.1.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:jaxb-runtime:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.13.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.30" level="project" />
+-    <orderEntry type="library" name="Gradle: org.springframework:spring-jcl:5.2.10.RELEASE" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.11.3" level="project" />
+-    <orderEntry type="library" name="Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:txw2:2.3.3" level="project" />
+-    <orderEntry type="library" name="Gradle: com.sun.istack:istack-commons-runtime:3.0.11" level="project" />
+-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
+-    <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.13.3" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.hibernate:hibernate-entitymanager:5.4.22.Final" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: javax.persistence:javax.persistence-api:2.2" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.1.1.Final" level="project" />
+-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.sun.activation:jakarta.activation:1.2.2" level="project" />
+-  </component>
+-</module>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2650b30d-8662-4bbf-a555-2ff19b3d5a58\" name=\"Default Changelist\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.Lecturer.test~1.iml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.main.iml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/modules/lecturer.iml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/modules/lecturer.main.iml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/modules/lecturer.test.iml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/modules/template.iml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/modules/template.main.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/gradle.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/gradle.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/modules/template.test.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/modules/template.test.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/lecturer/src/main/java/template/controllers/LecturerController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/lecturer/src/main/java/template/controllers/LecturerController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/lecturer/src/main/java/template/entities/Student.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/lecturer/src/main/java/template/entities/Student.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/lecturer/src/main/java/template/services/LecturerService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/lecturer/src/main/java/template/services/LecturerService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/lecturer/src/test/java/template/repository/LecturerRepositoryTest.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/lecturer/src/test/java/template/repository/LecturerRepositoryTest.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/lecturer/src/test/java/template/service/LecturerServiceTest.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/lecturer/src/test/java/template/service/LecturerServiceTest.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"CodeStyleSettingsInfer\">\r\n    <option name=\"done\" value=\"true\" />\r\n  </component>\r\n  <component name=\"ComposerSettings\">\r\n    <execution />\r\n  </component>\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"ExternalProjectsManager\">\r\n    <system id=\"GRADLE\">\r\n      <state>\r\n        <task path=\"$PROJECT_DIR$\">\r\n          <activation />\r\n        </task>\r\n        <task path=\"$PROJECT_DIR$/../Lecturer\">\r\n          <activation />\r\n        </task>\r\n        <projects_view>\r\n          <tree_state>\r\n            <expand />\r\n            <select />\r\n          </tree_state>\r\n        </projects_view>\r\n      </state>\r\n    </system>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"management\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectCodeStyleSettingsMigration\">\r\n    <option name=\"version\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"21PNICCye5TOjzqjmeAfa93QZ7s\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RequestMappingsPanelOrder0\" value=\"0\" />\r\n    <property name=\"RequestMappingsPanelOrder1\" value=\"1\" />\r\n    <property name=\"RequestMappingsPanelWidth0\" value=\"75\" />\r\n    <property name=\"RequestMappingsPanelWidth1\" value=\"75\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Project\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.15\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.35665295\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"reference.settingsdialog.project.gradle\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"D:\\SEM\\sem-repo-15a\\Lecturer\\src\\main\\resources\" />\r\n      <recent name=\"D:\\SEM\\sem-repo-15a\\Lecturer\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"D:\\SEM\\sem-repo-15a\\Lecturer\\src\\test\\java\\repository\" />\r\n      <recent name=\"D:\\SEM\\sem-repo-15a\\Lecturer\\src\\main\\resources\\template\\config\" />\r\n      <recent name=\"D:\\SEM\\sem-repo-15a\\Lecturer\\src\\main\\resources\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunAnythingCache\">\r\n    <option name=\"myCommands\">\r\n      <command value=\"gradle Lecturer:checkstyleMain\" />\r\n      <command value=\"gradle Lecturer:checkstyleTest\" />\r\n      <command value=\"gradle clean\" />\r\n      <command value=\"gradle build\" />\r\n    </option>\r\n  </component>\r\n  <component name=\"RunDashboard\">\r\n    <option name=\"configurationTypes\">\r\n      <set>\r\n        <option value=\"SpringBootApplicationConfigurationType\" />\r\n      </set>\r\n    </option>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Gradle.sem-repo-15a [build]\">\r\n    <configuration default=\"true\" type=\"ArquillianTestNG\" factoryName=\"\" nameIsGenerated=\"true\">\r\n      <option name=\"arquillianRunConfiguration\">\r\n        <value>\r\n          <option name=\"containerStateName\" value=\"\" />\r\n        </value>\r\n      </option>\r\n      <option name=\"TEST_OBJECT\" value=\"CLASS\" />\r\n      <properties />\r\n      <listeners />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"LecturerRepositoryTest\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\r\n      <ExternalSystemSettings>\r\n        <option name=\"executionName\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\r\n        <option name=\"scriptParameters\" value=\"--tests &quot;template.repository.LecturerRepositoryTest&quot;\" />\r\n        <option name=\"taskDescriptions\">\r\n          <list />\r\n        </option>\r\n        <option name=\"taskNames\">\r\n          <list>\r\n            <option value=\":lecturer:test\" />\r\n          </list>\r\n        </option>\r\n        <option name=\"vmOptions\" />\r\n      </ExternalSystemSettings>\r\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\r\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\r\n      <DebugAllEnabled>false</DebugAllEnabled>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"sem-repo-15a [Lecturer:checkstyleMain]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\r\n      <ExternalSystemSettings>\r\n        <option name=\"executionName\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\r\n        <option name=\"scriptParameters\" value=\"\" />\r\n        <option name=\"taskDescriptions\">\r\n          <list />\r\n        </option>\r\n        <option name=\"taskNames\">\r\n          <list>\r\n            <option value=\"Lecturer:checkstyleMain\" />\r\n          </list>\r\n        </option>\r\n        <option name=\"vmOptions\" value=\"\" />\r\n      </ExternalSystemSettings>\r\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\r\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\r\n      <DebugAllEnabled>false</DebugAllEnabled>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"sem-repo-15a [Lecturer:checkstyleTest]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\r\n      <ExternalSystemSettings>\r\n        <option name=\"executionName\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\r\n        <option name=\"scriptParameters\" value=\"\" />\r\n        <option name=\"taskDescriptions\">\r\n          <list />\r\n        </option>\r\n        <option name=\"taskNames\">\r\n          <list>\r\n            <option value=\"Lecturer:checkstyleTest\" />\r\n          </list>\r\n        </option>\r\n        <option name=\"vmOptions\" value=\"\" />\r\n      </ExternalSystemSettings>\r\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\r\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\r\n      <DebugAllEnabled>false</DebugAllEnabled>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"sem-repo-15a [build]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\r\n      <ExternalSystemSettings>\r\n        <option name=\"executionName\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\r\n        <option name=\"scriptParameters\" value=\"\" />\r\n        <option name=\"taskDescriptions\">\r\n          <list />\r\n        </option>\r\n        <option name=\"taskNames\">\r\n          <list>\r\n            <option value=\"build\" />\r\n          </list>\r\n        </option>\r\n        <option name=\"vmOptions\" value=\"\" />\r\n      </ExternalSystemSettings>\r\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\r\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\r\n      <DebugAllEnabled>false</DebugAllEnabled>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"sem-repo-15a [clean]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\r\n      <ExternalSystemSettings>\r\n        <option name=\"executionName\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\r\n        <option name=\"scriptParameters\" value=\"\" />\r\n        <option name=\"taskDescriptions\">\r\n          <list />\r\n        </option>\r\n        <option name=\"taskNames\">\r\n          <list>\r\n            <option value=\"clean\" />\r\n          </list>\r\n        </option>\r\n        <option name=\"vmOptions\" value=\"\" />\r\n      </ExternalSystemSettings>\r\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\r\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\r\n      <DebugAllEnabled>false</DebugAllEnabled>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <module name=\"sem-repo-15a\" />\r\n      <option name=\"VM_PARAMETERS\" />\r\n      <option name=\"PROGRAM_PARAMETERS\" />\r\n      <option name=\"ALTERNATIVE_JRE_PATH_ENABLED\" value=\"false\" />\r\n      <option name=\"ALTERNATIVE_JRE_PATH\" />\r\n      <option name=\"PASS_PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"MAIN_CLASS_NAME\" />\r\n      <option name=\"WORKING_DIRECTORY\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <module name=\"sem-repo-15a\" />\r\n      <option name=\"filePath\" />\r\n      <option name=\"vmParameters\" />\r\n      <option name=\"alternativeJrePath\" />\r\n      <option name=\"programParameters\" />\r\n      <option name=\"passParentEnvs\" value=\"true\" />\r\n      <option name=\"workingDirectory\" />\r\n      <option name=\"isAlternativeJrePathEnabled\" value=\"false\" />\r\n      <option name=\"VM_PARAMETERS\" />\r\n      <option name=\"PROGRAM_PARAMETERS\" />\r\n      <option name=\"ALTERNATIVE_JRE_PATH_ENABLED\" value=\"false\" />\r\n      <option name=\"ALTERNATIVE_JRE_PATH\" />\r\n      <option name=\"PASS_PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"MAIN_CLASS_NAME\" />\r\n      <option name=\"WORKING_DIRECTORY\" />\r\n      <option name=\"filePath\" />\r\n      <option name=\"vmParameters\" />\r\n      <option name=\"alternativeJrePath\" />\r\n      <option name=\"programParameters\" />\r\n      <option name=\"passParentEnvs\" value=\"true\" />\r\n      <option name=\"workingDirectory\" />\r\n      <option name=\"isAlternativeJrePathEnabled\" value=\"false\" />\r\n      <option name=\"VM_PARAMETERS\" />\r\n      <option name=\"PROGRAM_PARAMETERS\" />\r\n      <option name=\"ALTERNATIVE_JRE_PATH_ENABLED\" value=\"false\" />\r\n      <option name=\"ALTERNATIVE_JRE_PATH\" />\r\n      <option name=\"PASS_PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"MAIN_CLASS_NAME\" />\r\n      <option name=\"WORKING_DIRECTORY\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Application (1)\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"template.Lecturer.main\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"template.Application\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Application (2)\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"lecturer.main\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"nl.tudelft.sem.template.Application\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Application (3)\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"lecturer.Lecturer.main\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"template.Application\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Application (4)\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"lecturer.Lecturer.main~1\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"template.Application\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Application\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"template.main\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"nl.tudelft.sem.template.Application\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Gradle.LecturerRepositoryTest\" />\r\n        <item itemvalue=\"Gradle.sem-repo-15a [clean]\" />\r\n        <item itemvalue=\"Gradle.sem-repo-15a [Lecturer:checkstyleTest]\" />\r\n        <item itemvalue=\"Gradle.sem-repo-15a [Lecturer:checkstyleMain]\" />\r\n        <item itemvalue=\"Gradle.sem-repo-15a [build]\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2650b30d-8662-4bbf-a555-2ff19b3d5a58\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1637838685202</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1637838685202</updated>\r\n      <workItem from=\"1637838688894\" duration=\"9820000\" />\r\n      <workItem from=\"1638432162625\" duration=\"2709000\" />\r\n      <workItem from=\"1638705403222\" duration=\"258000\" />\r\n      <workItem from=\"1638809539079\" duration=\"3101000\" />\r\n      <workItem from=\"1638915434173\" duration=\"2876000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"fixed building\">\r\n      <created>1637937136245</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1637937136245</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"added getters and setters\">\r\n      <created>1637938473055</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1637938473055</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Added needed endpoints for lecturer's work and exceptions\">\r\n      <created>1638051233161</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1638051233161</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Added basic tests and checkstyle\">\r\n      <created>1638053954834</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1638053954834</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"fix build by adding transient\">\r\n      <created>1638054380596</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1638054380596</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"tested lecturer service\">\r\n      <created>1638057518733</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1638057518733</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"fixed building\" />\r\n    <MESSAGE value=\"added getters and setters\" />\r\n    <MESSAGE value=\"Added needed endpoints for lecturer's work and exceptions\" />\r\n    <MESSAGE value=\"Added basic tests and checkstyle\" />\r\n    <MESSAGE value=\"fix build by adding transient\" />\r\n    <MESSAGE value=\"tested lecturer service\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"tested lecturer service\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\r\n    <SUITE FILE_PATH=\"coverage/template$LecturerServiceTest.ic\" NAME=\"LecturerServiceTest Coverage Results\" MODIFIED=\"1638057225040\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"idea\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" />\r\n    <SUITE FILE_PATH=\"coverage/template$LecturerClassTest.ic\" NAME=\"LecturerClassTest Coverage Results\" MODIFIED=\"1638053270536\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"idea\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision ab6fba79d4a05648100347be13f115085dfb0453)
++++ b/.idea/workspace.xml	(date 1638972067022)
+@@ -4,24 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="2650b30d-8662-4bbf-a555-2ff19b3d5a58" name="Default Changelist" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.Lecturer.test~1.iml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.main.iml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.iml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.main.iml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.test.iml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/modules/template.iml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/modules/template.main.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/modules/template.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/template.test.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/controllers/LecturerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/controllers/LecturerController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Student.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/services/LecturerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/services/LecturerService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/service/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/template/service/LecturerServiceTest.java" afterDir="false" />
+-    </list>
++    <list default="true" id="e9f85f17-5115-4847-a07c-7f59bdaaabf3" name="Default Changelist" comment="" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
