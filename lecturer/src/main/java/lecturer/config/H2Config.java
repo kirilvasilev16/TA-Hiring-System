@@ -1,4 +1,4 @@
-package template.config;
+package lecturer.config;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * The type H2 config. Configures the in memory H2 database.
  */
 @Configuration
-@EnableJpaRepositories("template")
+@EnableJpaRepositories("lecturer")
 @PropertySource("application-dev.properties")
 @EnableTransactionManagement
 public class H2Config {

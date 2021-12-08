@@ -1,4 +1,4 @@
-package template;
+package lecturer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

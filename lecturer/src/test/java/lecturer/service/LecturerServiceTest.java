@@ -1,4 +1,4 @@
-package template.service;
+package lecturer.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -6,16 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lecturer.entities.Course;
+import lecturer.entities.Lecturer;
+import lecturer.exceptions.CourseNotFoundException;
+import lecturer.exceptions.LecturerNotFoundException;
+import lecturer.repositories.LecturerRepository;
+import lecturer.services.LecturerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import template.entities.Course;
-import template.entities.Lecturer;
-import template.exceptions.CourseNotFoundException;
-import template.exceptions.LecturerNotFoundException;
-import template.repositories.LecturerRepository;
-import template.services.LecturerService;
 
 public class LecturerServiceTest {
     transient LecturerRepository lecturerRepository;
@@ -92,11 +92,11 @@ public class LecturerServiceTest {
         assertEquals(0, lecturerService.getCandidateTaList("1", course).size());
     }
 
-//    @Test
-//    void addCourse() {
-//        lecturerService.addSpecificCourse("2", course);
-//        ArgumentCaptor<Lecturer> argument = ArgumentCaptor.forClass(Lecturer.class);
-//        Mockito.verify(lecturerRepository).save(argument.capture());
-//        assertEquals(1, lecturer2.getCourses().size());
-//    }
+    //    @Test
+    //    void addCourse() {
+    //        lecturerService.addSpecificCourse("2", course);
+    //        ArgumentCaptor<Lecturer> argument = ArgumentCaptor.forClass(Lecturer.class);
+    //        Mockito.verify(lecturerRepository).save(argument.capture());
+    //        assertEquals(1, lecturer2.getCourses().size());
+    //    }
 }

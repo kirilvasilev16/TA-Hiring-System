@@ -1,4 +1,4 @@
-package template.entities;
+package lecturer.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

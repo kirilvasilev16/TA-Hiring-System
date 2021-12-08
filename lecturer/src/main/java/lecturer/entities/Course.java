@@ -1,4 +1,4 @@
-package template.entities;
+package lecturer.entities;
 
 import java.util.List;
 import javax.persistence.Entity;

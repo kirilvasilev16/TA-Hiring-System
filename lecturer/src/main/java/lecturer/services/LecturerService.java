@@ -1,4 +1,4 @@
-package template.services;
+package lecturer.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import template.entities.Course;
-import template.entities.Lecturer;
-import template.entities.Student;
-import template.exceptions.CourseNotFoundException;
-import template.exceptions.LecturerNotFoundException;
-import template.repositories.LecturerRepository;
+import lecturer.entities.Course;
+import lecturer.entities.Lecturer;
+import lecturer.entities.Student;
+import lecturer.exceptions.CourseNotFoundException;
+import lecturer.exceptions.LecturerNotFoundException;
+import lecturer.repositories.LecturerRepository;
 
 @Service
 public class LecturerService {

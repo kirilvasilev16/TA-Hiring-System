@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9f85f17-5115-4847-a07c-7f59bdaaabf3" name="Default Changelist" comment="" />
+    <list default="true" id="e9f85f17-5115-4847-a07c-7f59bdaaabf3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lecturer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lecturer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/config/H2Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/config/H2Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/controllers/LecturerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/controllers/LecturerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Lecturer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/exceptions/CourseNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/exceptions/CourseNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/exceptions/LecturerNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/exceptions/LecturerNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/repositories/LecturerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/repositories/LecturerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/services/LecturerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/services/LecturerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/resources/template/config/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/resources/lecturer/config/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/entities/LecturerClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/entities/LecturerClassTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/repository/LecturerRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/service/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/service/LecturerServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,7 +93,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.35665295" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
@@ -273,8 +291,8 @@
       </method>
     </configuration>
     <configuration name="Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="template.Lecturer.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="template.Application" />
+      <module name="lecturer.lecturer.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="lecturer.Application" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -287,15 +305,15 @@
       </method>
     </configuration>
     <configuration name="Application (3)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="lecturer.Lecturer.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="template.Application" />
+      <module name="lecturer.lecturer.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="lecturer.Application" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="Application (4)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="lecturer.Lecturer.main~1" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="template.Application" />
+      <module name="lecturer.lecturer.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="lecturer.Application" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

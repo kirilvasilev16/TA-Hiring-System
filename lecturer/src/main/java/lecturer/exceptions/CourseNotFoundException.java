@@ -1,4 +1,4 @@
-package template.exceptions;
+package lecturer.exceptions;
 
 import javax.persistence.EntityNotFoundException;
 

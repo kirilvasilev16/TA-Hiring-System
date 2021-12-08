@@ -1,4 +1,4 @@
-package template.controllers;
+package lecturer.controllers;
 
 import java.util.List;
 import javax.websocket.server.PathParam;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import template.entities.Course;
-import template.entities.Lecturer;
-import template.entities.Student;
-import template.services.LecturerService;
+import lecturer.entities.Course;
+import lecturer.entities.Lecturer;
+import lecturer.entities.Student;
+import lecturer.services.LecturerService;
 
 @SuppressWarnings("PMD")
 @RestController
