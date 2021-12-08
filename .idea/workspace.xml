@@ -22,8 +22,22 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2650b30d-8662-4bbf-a555-2ff19b3d5a58" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/api-gateway/.gitignore" afterDir="false" />
+    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.lecturer.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/authentication/template.authentication.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/authentication/template.authentication.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/authentication/template.authentication.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/course/template.course.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/management/template.management.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_12_8_2021_3_01_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_12_8_2021_3_01_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_8_2021_2_48_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_8_2021_2_48_PM__Default_Changelist_.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/api-gateway/.gitlab-ci.yml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/api-gateway/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/api-gateway/__MACOSX/._build.gradle" afterDir="false" />
@@ -31,22 +45,58 @@
       <change afterPath="$PROJECT_DIR$/api-gateway/config/checkstyle/checkstyle-suppressions.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/api-gateway/config/checkstyle/checkstyle.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/api-gateway/config/spotbugs/excludeFilter.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/gradlew.bat" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/nl/tudelft/sem/template/Application.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.properties" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/communication/Request.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/communication/ServerCommunication.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/entities/Management.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/Group-TA-15a-Assignment-1.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/Group-TA-15a-RequirementsEngineering.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lecturer/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lecturer/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lecturer/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lecturer/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management/src/main/java/management/deserializers/HoursDeserialization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management/src/main/java/management/entities/Hours.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management/src/test/java/management/deserializers/HoursDeserializationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management/src/test/java/management/entities/HoursTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management/src/test/java/management/serializers/ManagementSerializerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/exceptions/StudentNotEligibleException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.gitlab-ci.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/template.lecturer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.lecturer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.Lecturer.main~1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/course/course.template.course.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/course/course.template.course.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/student/template.student.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/student/template.student.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.Lecturer.test~1.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/.gitlab-ci.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/config/H2Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/config/H2Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/controllers/LecturerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Lecturer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Student.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/exceptions/CourseNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/exceptions/CourseNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/exceptions/LecturerNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/exceptions/LecturerNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/repositories/LecturerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/repositories/LecturerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/services/LecturerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/services/LecturerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/resources/lecturer/config/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/resources/template/config/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/template/entities/LecturerClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/entities/LecturerClassTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/repository/LecturerRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/template/service/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/service/LecturerServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/authentication/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/authentication/src/main/java/authentication/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/controller/AuthenticationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/SecurityConfig.java" afterDir="false" />
@@ -54,12 +104,23 @@
       <change beforePath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/course/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/resources/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lecturer/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/management/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/management/controllers/ManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/management/controllers/ManagementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/management/entities/Management.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/management/entities/Management.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/management/serializers/ManagementSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/management/serializers/ManagementSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/main/java/management/services/ManagementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/management/services/ManagementService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/management/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/test/java/management/controllers/ManagementControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/test/java/management/controllers/ManagementControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/test/java/management/entities/ManagementTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/test/java/management/entities/ManagementTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/src/test/java/management/services/ManagementServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/test/java/management/services/ManagementServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/config/DataConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/config/DataConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/controllers/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/entities/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/entities/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/repositories/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/repositories/StudentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/services/StudentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/resources/application.properties" afterDir="false" />
     </list>
-    <list id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,6 +161,29 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="template" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="course" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -150,14 +234,14 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources" />
+      <recent name="D:\SEM\sem-repo-15a\Lecturer" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\SEM\sem-repo-15a\Lecturer\src\test\java\repository" />
       <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources\template\config" />
       <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources" />
-      <recent name="D:\SEM\sem-repo-15a\Lecturer" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -237,7 +321,9 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <configuration name="sem-repo-15a:api-gateway [checkstyleTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -256,18 +342,13 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="sem-repo-15a" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -275,33 +356,6 @@
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="sem-repo-15a" />
       <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -478,7 +532,7 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/template$LecturerServiceTest.ic" NAME="LecturerServiceTest Coverage Results" MODIFIED="1638057225040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/template$LecturerClassTest.ic" NAME="LecturerClassTest Coverage Results" MODIFIED="1638053270536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/template$LecturerServiceTest.ic" NAME="LecturerServiceTest Coverage Results" MODIFIED="1638057225040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
