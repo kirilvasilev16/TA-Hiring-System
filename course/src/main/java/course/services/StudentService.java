@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class StudentService {
 
+    private static final CommunicationService communicationService = new CommunicationService();
 
     /**
      * Getter for candidate TAs.
@@ -89,7 +90,8 @@ public class StudentService {
 
         if (course.getCandidateTas().remove(studentId)) {
             course.getHiredTas().add(studentId);
-            //TODO: access management microservice to create management
+            //TODO: save management object?
+            communicationService.createManagement(course.getCourseId(), studentId, hours);
             return true;
         } else {
             if (containsTa(course, studentId)) {
