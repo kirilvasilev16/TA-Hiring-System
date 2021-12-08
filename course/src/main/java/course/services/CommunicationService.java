@@ -15,10 +15,10 @@ public class CommunicationService {
     private static final Gson gson = new GsonBuilder().create();
 
     private static final String apiGatewayService = "http://localhost:8761";
-    private static final String managementService = "http://localhost:8080";
-    private static final String authenticationService = "http://localhost:8081";
-    private static final String studentService = "http://localhost:8083";
-    private static final String lecturerService = "http://localhost:8084";
+    private static final String managementService = "http://localhost:8080/management";
+    private static final String authenticationService = "http://localhost:8081/authentication";
+    private static final String studentService = "http://localhost:8083/student";
+    private static final String lecturerService = "http://localhost:8084/lecturer";
 
     public CommunicationService() {
 
@@ -43,7 +43,7 @@ public class CommunicationService {
     }
 
     /**
-     * Request Mangament microservice to create new Management object.
+     * Request Management microservice to create new Management object.
      *
      * @param courseId String courseId
      * @param studentId String studentId
@@ -64,6 +64,8 @@ public class CommunicationService {
 
         return gson.fromJson(response.body(), Management.class);
     }
+
+
 
 
 

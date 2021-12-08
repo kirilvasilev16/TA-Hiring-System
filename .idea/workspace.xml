@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/course/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/CommunicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/CommunicationService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +152,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.CourseApplication (1)">
+  <component name="RunManager" selected="Gradle.sem-repo-15a:course [pmdMain]">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -327,11 +327,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.sem-repo-15a:course [pmdMain]" />
         <item itemvalue="Spring Boot.CourseApplication (1)" />
         <item itemvalue="Gradle.CourseCreationBodyTest" />
         <item itemvalue="Gradle.sem-repo-15a:course [pmdTest]" />
         <item itemvalue="Gradle.StudentServiceTest" />
-        <item itemvalue="Gradle.sem-repo-15a:course [pmdMain]" />
       </list>
     </recent_temporary>
   </component>
@@ -345,7 +345,7 @@
       <updated>1637838685202</updated>
       <workItem from="1637838688894" duration="9820000" />
       <workItem from="1638432162625" duration="2709000" />
-      <workItem from="1638973143173" duration="6238000" />
+      <workItem from="1638973143173" duration="9154000" />
     </task>
     <task id="LOCAL-00001" summary="fixed building">
       <created>1637937136245</created>
