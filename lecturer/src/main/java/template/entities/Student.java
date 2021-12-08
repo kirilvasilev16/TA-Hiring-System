@@ -1,7 +1,5 @@
 package template.entities;
 
-import org.springframework.http.ResponseEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 

@@ -47,7 +47,7 @@ public class LecturerController {
     @GetMapping("/courses/course")
     public Course getSpecificCourse(@PathParam("netId") String netId,
                                     @RequestBody Course course) {
-        return lecturerService.getSpecificCourse(netId, course);
+        return lecturerService.getSpecificCourseOfLecturer(netId, course);
     }
 
     @GetMapping("/courses/course/candidateTas")
@@ -66,16 +66,18 @@ public class LecturerController {
 
     @PatchMapping("/courses/addCourse")
     public Lecturer addSpecificCourse(@PathParam("netId") String netId,
-                                  @RequestBody Course course) {
-        return lecturerService.addSpecificCourse(netId, course);
+                                  @PathParam("courseId") String courseId) {
+        return lecturerService.addSpecificCourse(netId, courseId);
     }
 
     @GetMapping("/averageRating")
-    public double getAverageRating(@PathParam("netId") String netId, @RequestBody Course course, @PathParam("studentId") String studentId) {
+    public double getAverageRating(@PathParam("netId") String netId,
+                                   @RequestBody Course course,
+                                   @PathParam("studentId") String studentId) {
         return lecturerService.computeAverageRating(netId, course, studentId);
     }
 
-    @GetMapping("/courses//recommendations")
+    @GetMapping("/courses/recommendations")
     public List<Student> getRecommendations(@PathParam("netId") String netId,
                                             @RequestBody Course course) {
         return lecturerService.getRecommendation(netId, course);

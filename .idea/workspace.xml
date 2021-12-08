@@ -5,42 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2650b30d-8662-4bbf-a555-2ff19b3d5a58" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/management/template.management.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/management/template.management.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/management/template.management.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/template.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.Lecturer.test~1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/template.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/template.main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.lecturer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/template.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/template.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/template.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/template.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/.gitlab-ci.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/config/H2Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/config/H2Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/controllers/LecturerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Lecturer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/exceptions/CourseNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/exceptions/CourseNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/exceptions/LecturerNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/exceptions/LecturerNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/repositories/LecturerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/repositories/LecturerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/services/LecturerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/services/LecturerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/resources/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/resources/template/config/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/resources/template/config/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/template/entities/LecturerClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/template/entities/LecturerClassTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/template/service/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/template/service/LecturerServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/controllers/LecturerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/controllers/LecturerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/entities/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/main/java/template/services/LecturerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/template/services/LecturerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lecturer/src/test/java/template/service/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/template/service/LecturerServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,9 +93,9 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.35665295" />
-    <property name="settings.editor.selected.configurable" value="org.infernus.idea.checkstyle.CheckStyleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -130,20 +110,29 @@
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
-      <command value="gradle clean" />
       <command value="gradle Lecturer:checkstyleMain" />
       <command value="gradle Lecturer:checkstyleTest" />
+      <command value="gradle clean" />
       <command value="gradle build" />
     </option>
   </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
   <component name="RunManager" selected="Gradle.sem-repo-15a [build]">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -159,28 +148,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":Lecturer:test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="LecturerServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;service.LecturerServiceTest&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":Lecturer:test" />
+            <option value=":lecturer:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -244,6 +212,27 @@
         <option name="taskNames">
           <list>
             <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" value="" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="sem-repo-15a [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" value="" />
@@ -337,11 +326,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.sem-repo-15a [build]" />
+        <item itemvalue="Gradle.LecturerRepositoryTest" />
+        <item itemvalue="Gradle.sem-repo-15a [clean]" />
         <item itemvalue="Gradle.sem-repo-15a [Lecturer:checkstyleTest]" />
         <item itemvalue="Gradle.sem-repo-15a [Lecturer:checkstyleMain]" />
-        <item itemvalue="Gradle.LecturerServiceTest" />
-        <item itemvalue="Gradle.LecturerRepositoryTest" />
+        <item itemvalue="Gradle.sem-repo-15a [build]" />
       </list>
     </recent_temporary>
   </component>
@@ -357,6 +346,7 @@
       <workItem from="1638432162625" duration="2709000" />
       <workItem from="1638705403222" duration="258000" />
       <workItem from="1638809539079" duration="3101000" />
+      <workItem from="1638915434173" duration="2876000" />
     </task>
     <task id="LOCAL-00001" summary="fixed building">
       <created>1637937136245</created>

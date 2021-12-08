@@ -2,13 +2,10 @@ package template.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import template.entities.Course;
@@ -68,7 +65,7 @@ public class LecturerService {
      * @param course specific course
      * @return course if lecturer is supervising it
      */
-    public Course getSpecificCourse(String netId, Course course) {
+    public Course getSpecificCourseOfLecturer(String netId, Course course) {
         Lecturer lecturer = this.findLecturerById(netId);
         if (lecturer.getCourses().contains(course)) {
             return course;
@@ -96,7 +93,7 @@ public class LecturerService {
      * @return list of students that want to be a TA for a course
      */
     public List<Student> getCandidateTaList(String netId, Course course) {
-        return this.getSpecificCourse(netId, course).getCandidateTas();
+        return this.getSpecificCourseOfLecturer(netId, course).getCandidateTas();
     }
 
     /**
@@ -109,7 +106,7 @@ public class LecturerService {
      */
     public void chooseTa(String netId, Course course, String studentNetId) {
         ObjectMapper objectMapper = new ObjectMapper();
-        Course neededCourse = this.getSpecificCourse(netId, course);
+        Course neededCourse = this.getSpecificCourseOfLecturer(netId, course);
         try {
             restTemplate.postForEntity("http://localhost:8080/course/" + neededCourse.getId() + "/addTA/" + studentNetId, objectMapper.writeValueAsString(course), Course.class);
         } catch (JsonProcessingException e) {
@@ -122,18 +119,27 @@ public class LecturerService {
      * I expect here a request from course microservice with course as the request body.
      *
      * @param netId of a lecturer
-     * @param course specific course
+     * @param courseId specific course id
      */
-    public Lecturer addSpecificCourse(String netId, Course course) {
+    public Lecturer addSpecificCourse(String netId, String courseId) {
         Lecturer lecturer = this.findLecturerById(netId);
+        Course course = restTemplate.getForObject("http://localhost:9092/course/" + courseId, Course.class);
         lecturer.getCourses().add(course);
         lecturerRepository.save(lecturer);
         return lecturer;
     }
 
+    /**
+     * Gets average rating of a student.
+     *
+     * @param netId of a lecturer
+     * @param course specific course
+     * @param studentId id of a student
+     * @return average rating of a student
+     */
     public double computeAverageRating(String netId, Course course, String studentId) {
         List<Student> students = this.getCandidateTaList(netId, course);
-        for (Student student: students) {
+        for (Student student : students) {
             if (student.getId().equals(studentId)) {
                 return student.getAverageRating();
             }
@@ -141,18 +147,36 @@ public class LecturerService {
         return 0;
     }
 
+    /**
+     * Get recommendations of students for specific course.
+     *
+     * @param netId if of a lecturer
+     * @param course specific course
+     * @return list of recommended students
+     */
     public List<Student> getRecommendation(String netId, Course course) {
-        Course c = getSpecificCourse(netId, course);
-        if (c == null) return new ArrayList<>();
+        Course c = getSpecificCourseOfLecturer(netId, course);
+        if (c == null) {
+            return new ArrayList<>();
+        }
         Student[] sts = restTemplate.getForObject("http://localhost:8080/course/recommendations" + course.getId(), Student[].class);
-        if (sts == null) return new ArrayList<>();
+        if (sts == null) {
+            return new ArrayList<>();
+        }
         List<Student> targetList = new ArrayList<>();
         Collections.addAll(targetList, sts);
         return targetList;
     }
 
+    /**
+     * Get number of needed Ta's for course.
+     *
+     * @param netId id of a lecturer
+     * @param course specific course
+     * @return number of needed Ta's
+     */
     public int getNumberOfNeededTas(String netId, Course course) {
-        Course c = getSpecificCourse(netId, course);
-        return c.getSize()/20;
+        Course c = getSpecificCourseOfLecturer(netId, course);
+        return c.getSize() / 20;
     }
 }
