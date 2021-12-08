@@ -108,7 +108,7 @@ public class LecturerService {
         ObjectMapper objectMapper = new ObjectMapper();
         Course neededCourse = this.getSpecificCourseOfLecturer(netId, course);
         try {
-            restTemplate.postForEntity("http://localhost:8080/course/" + neededCourse.getId() + "/addTA/" + studentNetId, objectMapper.writeValueAsString(course), Course.class);
+            restTemplate.postForEntity("http://localhost:8082/course/" + neededCourse.getId() + "/addTA/" + studentNetId, objectMapper.writeValueAsString(course), Course.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -123,7 +123,7 @@ public class LecturerService {
      */
     public Lecturer addSpecificCourse(String netId, String courseId) {
         Lecturer lecturer = this.findLecturerById(netId);
-        Course course = restTemplate.getForObject("http://localhost:9092/course/" + courseId, Course.class);
+        Course course = restTemplate.getForObject("http://localhost:8082/course/" + courseId, Course.class);
         lecturer.getCourses().add(course);
         lecturerRepository.save(lecturer);
         return lecturer;
@@ -159,7 +159,7 @@ public class LecturerService {
         if (c == null) {
             return new ArrayList<>();
         }
-        Student[] sts = restTemplate.getForObject("http://localhost:8080/course/recommendations" + course.getId(), Student[].class);
+        Student[] sts = restTemplate.getForObject("http://localhost:8082/course/recommendations" + course.getId(), Student[].class);
         if (sts == null) {
             return new ArrayList<>();
         }
