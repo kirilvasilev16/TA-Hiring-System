@@ -26,7 +26,6 @@ class LecturerServiceTest {
 
     @BeforeEach
     void setUp() {
-        String lecturer1 = "lecturer1";
 
         lecturerSet = new HashSet<>();
         lecturerSet.add(lecturer1);

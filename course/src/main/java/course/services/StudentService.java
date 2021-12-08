@@ -85,6 +85,8 @@ public class StudentService {
     public static boolean hireTa(Course course, String studentId, float hours)
             throws InvalidHiringException {
 
+        //TODO: who checks hours is valid?
+
         if (course.getCandidateTas().remove(studentId)) {
             course.getHiredTas().add(studentId);
             //TODO: access management microservice to create management

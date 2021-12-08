@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/student/template.student.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/student/template.student.main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/test/java/course/entities/CourseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/test/java/course/entities/CourseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/course/src/test/java/course/services/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/test/java/course/services/LecturerServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -153,7 +153,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.Tests in 'course'">
+  <component name="RunManager" selected="Gradle.sem-repo-15a:course [pmdTest]">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -167,12 +167,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CourseTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="StudentServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;course.entities.CourseTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;course.services.StudentServiceTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -188,12 +188,12 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="CourseTest.getCourseId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="StudentServiceTest.addCandidateInvalid" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;course.entities.CourseTest.getCourseId&quot;" />
+        <option name="scriptParameters" value="--tests &quot;course.services.StudentServiceTest.addCandidateInvalid&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -209,12 +209,12 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="LecturerServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="StudentServiceTest.hireTa" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;course.services.LecturerServiceTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;course.services.StudentServiceTest.hireTa&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -315,24 +315,25 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Tests in 'course'" />
         <item itemvalue="Gradle.sem-repo-15a:course [pmdTest]" />
-        <item itemvalue="Gradle.LecturerServiceTest" />
-        <item itemvalue="Gradle.CourseTest" />
-        <item itemvalue="Gradle.CourseTest.getCourseId" />
+        <item itemvalue="Gradle.StudentServiceTest" />
+        <item itemvalue="Gradle.StudentServiceTest.hireTa" />
+        <item itemvalue="Gradle.StudentServiceTest.addCandidateInvalid" />
+        <item itemvalue="Gradle.Tests in 'course'" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="28a807a0-654f-4072-8a1c-44395d4297e6" name="Default Changelist" comment="" />
+      <changelist id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service" />
       <created>1637838685202</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637838685202</updated>
       <workItem from="1637838688894" duration="9820000" />
       <workItem from="1638432162625" duration="2709000" />
+      <workItem from="1638973143173" duration="2342000" />
     </task>
     <task id="LOCAL-00001" summary="fixed building">
       <created>1637937136245</created>
