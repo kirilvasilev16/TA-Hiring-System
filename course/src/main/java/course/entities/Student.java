@@ -10,6 +10,9 @@ public class Student {
     private Map<String, Float> passedCourses;
     private Set<String> taCourses;
 
+    /**
+     * Student Constructor.
+     */
     public Student(String netId, Map<String, Float> passedCourses, Set<String> taCourses) {
         this.netId = netId;
         this.passedCourses = passedCourses;

@@ -7,15 +7,18 @@ import course.controllers.CourseController;
 import course.entities.Course;
 import course.entities.Management;
 import course.entities.Student;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-public class RatingStrategy implements TARecommendationStrategy{
+public class RatingStrategy implements TaRecommendationStrategy {
     private static HttpClient client = HttpClient.newBuilder().build();
     private static Gson gson = new GsonBuilder()
             .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
@@ -26,20 +29,21 @@ public class RatingStrategy implements TARecommendationStrategy{
     }
 
     /**
-     * Sort students by rating
-     * @param candidateTAs Set of Students
+     * Sort students by rating.
+
+     * @param candidateTas Set of Students
      * @return List sorted by rating
      */
     @SuppressWarnings("PMD")
-    public List<String> getRecommendedTAs(Set<Student> candidateTAs){
+    public List<String> getRecommendedTas(Set<Student> candidateTas) {
         Map<Student, Float> studentRatingMap;
         studentRatingMap = new HashMap();
         HttpResponse<String> response;
 
-        for(Student s : candidateTAs){
-            float rating;
+        for (Student s : candidateTas) {
             HttpRequest request = HttpRequest.newBuilder().GET()
-                    .uri(URI.create("http://localhost:8080/management/get?courseId=" + course.getCourseId() + "&studentId" + s.getNetId()))
+                    .uri(URI.create("http://localhost:8080/management/get?courseId="
+                            + course.getCourseId() + "&studentId" + s.getNetId()))
                     .build();
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -53,11 +57,14 @@ public class RatingStrategy implements TARecommendationStrategy{
                 System.out.println("GET Status: " + response.statusCode());
             }
             System.out.println(response.body());
+            float rating;
             rating = gson.fromJson(response.body(), Management.class).getRating();
             studentRatingMap.put(s, rating);
         }
 
-        Comparator<Student> comparator = (Student s1, Student s2) -> studentRatingMap.get(s2) - studentRatingMap.get(s1) < 0 ? -1 : 1;
-        return candidateTAs.stream().sorted(comparator).map(s -> s.getNetId()).collect(Collectors.toList());
+        Comparator<Student> comparator = (Student s1, Student s2)
+                -> studentRatingMap.get(s2) - studentRatingMap.get(s1) < 0 ? -1 : 1;
+        return candidateTas.stream().sorted(comparator).map(s -> s.getNetId())
+                .collect(Collectors.toList());
     }
 }

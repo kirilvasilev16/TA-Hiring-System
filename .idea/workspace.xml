@@ -22,21 +22,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
-      <change afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/ExperienceStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/GradeStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/RatingStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/TARecommendationStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/course/template.course.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/course/template.course.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/course/template.course.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/course/template.course.test.iml" afterDir="false" />
+    <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="Merge strategies branch and resolve merge conflicts">
+      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/course/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/entities/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/entities/Lecturer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/entities/Management.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/entities/Management.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/ExperienceStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/ExperienceStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/GradeStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/GradeStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/RatingStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/RatingStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/TARecommendationStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/TaRecommendationStrategy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/course/src/main/java/course/entities/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/entities/Student.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/controllers/StudentController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +79,12 @@
                 <item name="template" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="template" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -136,7 +138,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Y1/Q3/CSE1105 OOPP/local/repository-template" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/config/checkstyle/checkstyle.xml" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -170,7 +172,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.sem-repo-15a [build]">
+  <component name="RunManager" selected="Application.CourseApplication">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -197,25 +199,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CourseCreationBodyTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;course.controllers.CourseCreationBodyTest&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":course:test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="sem-repo-15a [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -228,6 +211,25 @@
         <option name="taskNames">
           <list>
             <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="sem-repo-15a [checkstyleMain]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="checkstyleMain" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -371,11 +373,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.sem-repo-15a [checkstyleMain]" />
         <item itemvalue="Gradle.sem-repo-15a [build]" />
         <item itemvalue="Gradle.sem-repo-15a [clean]" />
         <item itemvalue="Application.CourseApplication" />
         <item itemvalue="Gradle.sem-repo-15a:course [pmdMain]" />
-        <item itemvalue="Gradle.CourseCreationBodyTest" />
       </list>
     </recent_temporary>
   </component>
@@ -458,25 +460,38 @@
     <MESSAGE value="Added basic tests and checkstyle" />
     <MESSAGE value="fix build by adding transient" />
     <MESSAGE value="tested lecturer service" />
-    <option name="LAST_COMMIT_MESSAGE" value="tested lecturer service" />
+    <MESSAGE value="Merge strategies branch and resolve merge conflicts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge strategies branch and resolve merge conflicts" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1234" height="316" key="GridCell.Tab.0.bottom" timestamp="1638998055206">
+    <state x="1060" y="281" key="FileChooserDialogImpl" timestamp="1638999029189">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1234" height="316" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1638998055206" />
-    <state width="1234" height="316" key="GridCell.Tab.0.center" timestamp="1638998055205">
+    <state x="1060" y="281" key="FileChooserDialogImpl/0.0.2560.1040@0.0.2560.1040" timestamp="1638999029189" />
+    <state width="2517" height="316" key="GridCell.Tab.0.bottom" timestamp="1638999047410">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1234" height="316" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1638998055205" />
-    <state width="1234" height="316" key="GridCell.Tab.0.left" timestamp="1638998055205">
+    <state width="2517" height="316" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1638999047410" />
+    <state width="2517" height="316" key="GridCell.Tab.0.center" timestamp="1638999047410">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1234" height="316" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1638998055205" />
-    <state width="1234" height="316" key="GridCell.Tab.0.right" timestamp="1638998055206">
+    <state width="2517" height="316" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1638999047410" />
+    <state width="2517" height="316" key="GridCell.Tab.0.left" timestamp="1638999047409">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="1234" height="316" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1638998055205" />
+    <state width="2517" height="316" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1638999047409" />
+    <state width="2517" height="316" key="GridCell.Tab.0.right" timestamp="1638999047410">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="316" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1638999047410" />
+    <state x="1558" y="285" key="MultipleFileMergeDialog" timestamp="1638998335203">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1558" y="285" key="MultipleFileMergeDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1638998335203" />
+    <state x="1049" y="132" key="SettingsEditor" timestamp="1638999041541">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1049" y="132" key="SettingsEditor/0.0.2560.1040@0.0.2560.1040" timestamp="1638999041541" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

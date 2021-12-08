@@ -6,12 +6,11 @@ import course.controllers.CourseController;
 import course.controllers.strategies.ExperienceStrategy;
 import course.controllers.strategies.GradeStrategy;
 import course.controllers.strategies.RatingStrategy;
-import course.controllers.strategies.TARecommendationStrategy;
+import course.controllers.strategies.TaRecommendationStrategy;
 import course.entities.Course;
+import course.entities.Student;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
-import course.entities.Student;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -93,17 +92,19 @@ public class StudentService {
     }
 
     /**
-     * Generate list of TA Recommendations
+     * Generate list of TA Recommendations.
+
      * @param course String studentID
      * @param strategy 1 -> By rating, 2 -> By experience, 3 -> By course grade
      * @return list containing student ids in desired order
      */
     @SuppressWarnings("PMD")
-    public static List<String> getTARecommendationList(Course course, Integer strategy){
+    public static List<String> getTaRecommendationList(Course course, Integer strategy) {
         //Make request (POST)
         /*String idJson = gson.toJson(c.getCandidateTAs());
 
-        HttpRequest request = HttpRequest.newBuilder().POST(HttpRequest.BodyPublishers.ofString(idJson))
+        HttpRequest request = HttpRequest.newBuilder()
+        .POST(HttpRequest.BodyPublishers.ofString(idJson))
                 .uri(URI.create("http://localhost:8083/student/getstudents"))
                 .build();
         HttpResponse<String> response = null;
@@ -122,9 +123,9 @@ public class StudentService {
         }.getType());*/
 
         Set<Student> students = new HashSet<>();
-        for(String sId : course.getCandidateTas()){
+        for (String studentId : course.getCandidateTas()) {
             HttpRequest request = HttpRequest.newBuilder().GET()
-                    .uri(URI.create("http://localhost:8083/student/get?id=" + sId))
+                    .uri(URI.create("http://localhost:8083/student/get?id=" + studentId))
                     .build();
             HttpResponse<String> response;
             try {
@@ -141,16 +142,16 @@ public class StudentService {
             students.add(gson.fromJson(response.body(), Student.class));
         }
 
-        TARecommendationStrategy strategyImplementation;
-        if(strategy == ratingStrat){
+        TaRecommendationStrategy strategyImplementation;
+        if (strategy == ratingStrat) {
             strategyImplementation = new RatingStrategy(course);
-        }else if(strategy == experienceStrat){
+        } else if (strategy == experienceStrat) {
             strategyImplementation = new ExperienceStrategy();
-        }else{
+        } else {
             strategyImplementation = new GradeStrategy(course);
         }
 
-        return strategyImplementation.getRecommendedTAs(students);
+        return strategyImplementation.getRecommendedTas(students);
     }
 
     /**

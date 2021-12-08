@@ -10,6 +10,8 @@ import course.exceptions.InvalidHiringException;
 import course.services.LecturerService;
 import course.services.StudentService;
 import course.services.interfaces.CourseService;
+import java.net.http.HttpClient;
+import java.util.List;
 import java.util.Set;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.http.HttpClient;
-import java.util.List;
 
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @RestController
@@ -139,31 +137,23 @@ public class CourseController {
         return c.getRequiredTas();
     }
 
-    // TODO: Will be further implemented for sprint 2
-
-    @GetMapping("taRecommendation")
-    public List<String> getTARecommendation(@PathParam("courseId") String courseId)
+    /**
+     * Retrieve list of recommended TA Id's.
+     *
+     * @param courseId courseId
+     * @return Ordered list of TA's
+     */
+    @GetMapping("{code}/taRecommendations")
+    public List<String> getTaRecommendationList(@PathParam("courseId") String courseId,
+                                                @PathParam("strategy") Integer strategy)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
         }
-        return StudentService.getTARecommendationList(c, 1);
-    }
 
-
-
-    @GetMapping("{code}/tarecommendations")
-    public List<String> getTARecommendationList(@PathVariable String code, @PathVariable Integer strategy)
-            throws CourseNotFoundException {
-        Course c = courseService.findByCourseId(code);
-
-        if (c == null) {
-            throw new CourseNotFoundException(code);
-        }
-
-        return StudentService.getTARecommendationList(c, strategy);
+        return StudentService.getTaRecommendationList(c, strategy);
     }
 
     /**
