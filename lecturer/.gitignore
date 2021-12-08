@@ -2,8 +2,6 @@
 
 .gradle
 build/
-.idea/
-*.iml
 gradle-app.setting
 !gradle/wrapper/gradle-wrapper.jar
 **/build/
@@ -12,7 +10,9 @@ gradle-app.setting
 ### Java ###
 # Compiled class file
 *.class
-
+## Directory-based project format:
+.idea/
+*.iml
 # Log file
 *.log
 
