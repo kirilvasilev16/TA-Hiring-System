@@ -1,5 +1,6 @@
 package nl.tudelft.sem.student.services;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -37,6 +38,10 @@ public class StudentService {
             throw new StudentNotFoundException("");
         }
         return student.get();
+    }
+
+    public List<Student> getAll() {
+        return studentRepository.findAll();
     }
 
     /**

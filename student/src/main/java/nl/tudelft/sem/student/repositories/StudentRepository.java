@@ -2,6 +2,7 @@ package nl.tudelft.sem.student.repositories;
 
 import java.util.Optional;
 import java.util.Set;
+import javax.transaction.Transactional;
 import nl.tudelft.sem.student.entities.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,6 +22,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
      * @param netId     the net id
      * @param candidate the updated set of candidate courses
      */
+    @Transactional
     @Modifying
     @Query("UPDATE Student s SET s.candidateCourses = :candidate WHERE s.netId = :netId")
     void updateCandidateCourses(@Param("netId") String netId,
@@ -32,6 +34,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
      * @param netId the net id
      * @param ta    the updated set of TA courses
      */
+    @Transactional
     @Modifying
     @Query("UPDATE Student s SET s.taCourses = :ta WHERE s.netId = :netId")
     void updateTaCourses(@Param("netId") String netId,
