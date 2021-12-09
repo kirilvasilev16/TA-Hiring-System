@@ -8,19 +8,19 @@ stages:
 authentication-build:
   stage: build
   script:
-    gradle build
+    gradle :authentication:build
 
 authentication-checkStyle:
   stage: staticAnalysis
   script:
-    gradle checkstyleMain checkStyleTest
+    gradle :authentication:checkstyleMain :authentication:checkStyleTest
 
 authentication-PMD:
   stage: staticAnalysis
   script:
-      gradle pmdMain pmdTest
+      gradle :authentication:pmdMain :authentication:pmdTest
 
 authentication-test:
   stage: test
   script:
-    gradle test
+    gradle :authentication:test

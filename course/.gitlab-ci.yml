@@ -5,22 +5,22 @@ stages:
   - staticAnalysis
   - test
 
-build:
+course-build:
   stage: build
   script:
-    gradle build
+    gradle :course:build
 
-checkStyle:
+course-checkStyle:
   stage: staticAnalysis
   script:
-    gradle checkstyleMain checkStyleTest
+    gradle :course:checkstyleMain :course:checkStyleTest
 
-PMD:
+course-PMD:
   stage: staticAnalysis
   script:
-      gradle pmdMain pmdTest
+      gradle :course:pmdMain :course:pmdTest
 
-test:
+course-test:
   stage: test
   script:
-    gradle test
+    gradle :course:test

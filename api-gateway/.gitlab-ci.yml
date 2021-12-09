@@ -5,22 +5,22 @@ stages:
   - staticAnalysis
   - test
 
-gateway-build:
+api-gateway-build:
   stage: build
   script:
-    gradle build
+    gradle :api-gateway:build
 
-gateway-checkStyle:
+api-gateway-checkStyle:
   stage: staticAnalysis
   script:
-    gradle checkstyleMain checkStyleTest
+    gradle :api-gateway:checkstyleMain :api-gateway:checkStyleTest
 
-gateway-PMD:
+api-gateway-PMD:
   stage: staticAnalysis
   script:
-      gradle pmdMain pmdTest
+      gradle :api-gateway:pmdMain :api-gateway:pmdTest
 
-gateway-test:
+api-gateway-test:
   stage: test
   script:
-    gradle test
+    gradle :api-gateway:test
