@@ -23,103 +23,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/template.lecturer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/authentication/template.authentication.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/authentication/template.authentication.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/authentication/template.authentication.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/course/template.course.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/lecturer.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/management/template.management.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_12_8_2021_3_01_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_12_8_2021_3_01_PM__Default_Changelist_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_8_2021_2_48_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_8_2021_2_48_PM__Default_Changelist_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/.gitlab-ci.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/__MACOSX/._build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/config/checkstyle/checkstyle-suppressions.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/config/checkstyle/checkstyle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/config/spotbugs/excludeFilter.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/nl/tudelft/sem/template/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/communication/Request.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/communication/ServerCommunication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/entities/Management.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/Group-TA-15a-Assignment-1.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/Group-TA-15a-RequirementsEngineering.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lecturer/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lecturer/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lecturer/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lecturer/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Student.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/main/java/management/deserializers/HoursDeserialization.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/main/java/management/entities/Hours.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/test/java/management/deserializers/HoursDeserializationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/test/java/management/entities/HoursTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management/src/test/java/management/serializers/ManagementSerializerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/exceptions/StudentNotEligibleException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.gitlab-ci.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.lecturer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.Lecturer.main~1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Lecturer/template.Lecturer.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/course/course.template.course.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/course/course.template.course.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/student/template.student.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/student/template.student.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Lecturer/lecturer.Lecturer.test~1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_12_8_2021_3_01_PM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_12_8_2021_3_01_PM__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_8_2021_2_48_PM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_8_2021_2_48_PM__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/.gitlab-ci.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/config/H2Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/config/H2Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/controllers/LecturerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/controllers/LecturerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/entities/Lecturer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/entities/Student.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/exceptions/CourseNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/exceptions/CourseNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/exceptions/LecturerNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/exceptions/LecturerNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/repositories/LecturerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/repositories/LecturerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/java/template/services/LecturerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/java/lecturer/services/LecturerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/resources/lecturer/config/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/main/resources/template/config/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/main/resources/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/template/entities/LecturerClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/entities/LecturerClassTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/template/repository/LecturerRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/repository/LecturerRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lecturer/src/test/java/template/service/LecturerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lecturer/src/test/java/lecturer/service/LecturerServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/src/main/java/authentication/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/controller/AuthenticationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/resources/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/resources/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/management/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/java/management/controllers/ManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/management/controllers/ManagementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/java/management/entities/Management.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/management/entities/Management.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/java/management/serializers/ManagementSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/management/serializers/ManagementSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/java/management/services/ManagementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/java/management/services/ManagementService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/main/resources/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/test/java/management/controllers/ManagementControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/test/java/management/controllers/ManagementControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/test/java/management/entities/ManagementTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/test/java/management/entities/ManagementTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management/src/test/java/management/services/ManagementServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/management/src/test/java/management/services/ManagementServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/config/DataConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/config/DataConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/controllers/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/entities/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/entities/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/repositories/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/repositories/StudentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/services/StudentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +159,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.sem-repo-15a:api-gateway [build]">
+  <component name="RunManager" selected="Application.Application (3)">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -292,6 +199,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Application (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="nl.tudelft.sem.student.Application" />
+      <module name="template.student.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="nl.tudelft.sem.student.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="management.Application" />
       <module name="template.management.main" />
@@ -321,34 +241,18 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="sem-repo-15a:api-gateway [checkstyleTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/api-gateway" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="checkstyleTest" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="sem-repo-15a" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -356,6 +260,33 @@
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="sem-repo-15a" />
       <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -390,11 +321,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Application (3)" />
         <item itemvalue="Gradle.sem-repo-15a:api-gateway [build]" />
         <item itemvalue="Application.Application (2)" />
         <item itemvalue="Application.Application (1)" />
         <item itemvalue="Application.Application" />
-        <item itemvalue="Gradle.sem-repo-15a:api-gateway [checkstyleTest]" />
       </list>
     </recent_temporary>
   </component>
@@ -404,7 +335,6 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2650b30d-8662-4bbf-a555-2ff19b3d5a58" name="Default Changelist" comment="" />
       <created>1637838685202</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -486,38 +416,46 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2647" y="344" key="#Notifications/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638960498528" />
-    <state width="1877" height="220" key="GridCell.Tab.0.bottom" timestamp="1638985273331">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1493" height="153" key="GridCell.Tab.0.bottom" timestamp="1639045029075">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="220" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638985273331" />
-    <state width="1877" height="220" key="GridCell.Tab.0.center" timestamp="1638985273331">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1493" height="153" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1639045029075" />
+    <state width="1493" height="153" key="GridCell.Tab.0.center" timestamp="1639045029074">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="220" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638985273331" />
-    <state width="1877" height="220" key="GridCell.Tab.0.left" timestamp="1638985273331">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1493" height="153" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1639045029074" />
+    <state width="1493" height="153" key="GridCell.Tab.0.left" timestamp="1639045029074">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="220" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638985273331" />
-    <state width="1877" height="220" key="GridCell.Tab.0.right" timestamp="1638985273331">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1493" height="153" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1639045029074" />
+    <state width="1493" height="153" key="GridCell.Tab.0.right" timestamp="1639045029074">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="220" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638985273331" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1638979230272">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1493" height="153" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1639045029074" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1639044246204">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638979230272" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1638979230272">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1639044246204">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638979230272" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1638979230272">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1639044246204">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638979230272" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1638979230272">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1639044246204">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638979230272" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
     <state x="2381" y="165" key="SettingsEditor" timestamp="1638972581280">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -532,7 +470,7 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/template$LecturerClassTest.ic" NAME="LecturerClassTest Coverage Results" MODIFIED="1638053270536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/template$LecturerServiceTest.ic" NAME="LecturerServiceTest Coverage Results" MODIFIED="1638057225040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/template$LecturerClassTest.ic" NAME="LecturerClassTest Coverage Results" MODIFIED="1638053270536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -1,6 +1,8 @@
 package authentication.security;
 
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.PUT;
+import static org.springframework.http.HttpMethod.POST;
 
 import authentication.filter.CustomAuthenticationFilter;
 import authentication.filter.CustomAuthorizationFilter;
@@ -53,6 +55,28 @@ public class  SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/login").permitAll();
+        http.authorizeRequests()
+                .antMatchers(GET, "/student/getAll").hasAnyAuthority("ROLE_admin");
+        http.authorizeRequests()
+                .antMatchers(POST, "/student/add").hasAnyAuthority("ROLE_admin");
+        http.authorizeRequests()
+                .antMatchers(GET, "/student/get").hasAnyAuthority("ROLE_student", "ROLE_admin", "ROLE_lecturer");
+        http.authorizeRequests()
+                .antMatchers(PUT, "/student/apply").hasAnyAuthority("ROLE_student");
+        http.authorizeRequests()
+                .antMatchers(PUT, "/student/accept").hasAnyAuthority("ROLE_admin", "ROLE_lecturer");
+        http.authorizeRequests()
+                .antMatchers(GET, "/student/getPassedCourses").hasAnyAuthority("ROLE_student", "ROLE_admin", "ROLE_lecturer");
+        http.authorizeRequests()
+                .antMatchers(GET, "/student/getCandidateCourses").hasAnyAuthority("ROLE_student", "ROLE_admin", "ROLE_lecturer");
+        http.authorizeRequests()
+                .antMatchers(GET, "/student/getTACourses").hasAnyAuthority("ROLE_student", "ROLE_admin", "ROLE_lecturer");
+        http.authorizeRequests()
+                .antMatchers(POST, "/courses/makeCourse").hasAnyAuthority("ROLE_admin");
+        http.authorizeRequests()
+                .antMatchers(PUT, "/courses/updateSize").hasAnyAuthority("ROLE_admin");
+        http.authorizeRequests()
+                .antMatchers(GET, "/courses/addLecturer").hasAnyAuthority("ROLE_admin", "ROLE_lecturer");
         http.authorizeRequests()
                 .antMatchers(GET, "/authentication/**").hasAnyAuthority("ROLE_admin");
         http.authorizeRequests()
