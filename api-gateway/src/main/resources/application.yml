@@ -1,0 +1,32 @@
+server:
+  port:
+    8761
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: authentication
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/authentication/**
+
+        - id: management
+          uri: http://localhost:8080/
+          predicates:
+            - Path=/management/**
+
+        - id: course
+          uri: http://localhost:8082/
+          predicates:
+              - Path=/courses/**
+
+        - id: student
+          uri: http://localhost:8083/
+          predicates:
+              - Path=/student/**
+
+        - id: lecturer
+          uri: http://localhost:8084/
+          predicates:
+              - Path=/lecturer/**
