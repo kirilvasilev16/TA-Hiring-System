@@ -2,9 +2,9 @@ package lecturer.entities;
 
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 @Entity
 public class Lecturer {
@@ -14,8 +14,8 @@ public class Lecturer {
     private String password;
     private String email;
 
-    @ManyToMany
-    List<Course> courses;
+    @ElementCollection
+    private List<String> courses;
 
     /**
      * Constructor.
@@ -31,7 +31,7 @@ public class Lecturer {
             String name,
             String password,
             String email,
-            List<Course> courses) {
+            List<String> courses) {
         this.netId = netId;
         this.name = name;
         this.password = password;
@@ -39,46 +39,97 @@ public class Lecturer {
         this.courses = courses;
     }
 
-    public Lecturer() {
-    }
+    /**
+     * Empty constructor.
+     */
+    public Lecturer() {}
 
+    /**
+     * Getter for netId.
+     *
+     * @return netId
+     */
     public String getNetId() {
         return netId;
     }
 
+    /**
+     * Getter for name.
+     *
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Getter for email.
+     *
+     * @return email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Getter for password.
+     *
+     * @return password
+     */
     public String getPassword() {
         return password;
     }
 
-    public List<Course> getCourses() {
+    /**
+     * Getter for courses.
+     *
+     * @return courses
+     */
+    public List<String> getCourses() {
         return courses;
     }
 
+    /**
+     * Setter for netId.
+     *
+     * @param netId of a lecturer
+     */
     public void setNetId(String netId) {
         this.netId = netId;
     }
 
+    /**
+     * Setter for name.
+     *
+     * @param name of a lecturer
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Setter for a password.
+     *
+     * @param password of a lecturer
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Setter for an email.
+     * @param email of a lecturer.
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setCourses(List<Course> courses) {
+    /**
+     * Setter for courses.
+     *
+     * @param courses of a lecturer
+     */
+    public void setCourses(List<String> courses) {
         this.courses = courses;
     }
 

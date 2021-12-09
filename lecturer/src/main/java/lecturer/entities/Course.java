@@ -8,7 +8,7 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Course {
     @Id
-    private Long id;
+    private String id;
     private int size;
     @ManyToMany
     private List<Student> candidateTas;
@@ -16,12 +16,12 @@ public class Course {
     public Course() {
     }
 
-    public Course(Long id, List<Student> candidateTas) {
+    public Course(String id, List<Student> candidateTas) {
         this.id = id;
         this.candidateTas = candidateTas;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -29,7 +29,7 @@ public class Course {
         return candidateTas;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

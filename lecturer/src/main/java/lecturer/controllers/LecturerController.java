@@ -2,13 +2,14 @@ package lecturer.controllers;
 
 import java.util.List;
 import javax.websocket.server.PathParam;
+
+import lecturer.entities.Course;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import lecturer.entities.Course;
 import lecturer.entities.Lecturer;
 import lecturer.entities.Student;
 import lecturer.services.LecturerService;
@@ -39,27 +40,27 @@ public class LecturerController {
         return lecturerService.findLecturerById(netId);
     }
 
-    @GetMapping("/courses")
-    public List<Course> getOwnCourses(@PathParam("netId") String netId) {
+    @GetMapping("/courses/getOwnCourses")
+    public List<String> getOwnCourses(@PathParam("netId") String netId) {
         return lecturerService.getOwnCourses(netId);
     }
 
-    @GetMapping("/courses/course")
+    @GetMapping("/courses/getSpecificCourse")
     public Course getSpecificCourse(@PathParam("netId") String netId,
-                                    @RequestBody Course course) {
+                                    @PathParam("CourseId") String course) {
         return lecturerService.getSpecificCourseOfLecturer(netId, course);
     }
 
-    @GetMapping("/courses/course/candidateTas")
+    @GetMapping("/courses/getCandidateTas")
     public List<Student> getCandidateTas(@PathParam("netId") String netId,
-                                         @RequestBody Course course) {
+                                         @PathParam("courseId") String course) {
         return lecturerService.getCandidateTaList(netId, course);
     }
 
-    @PatchMapping("/courses/course")
+    @PatchMapping("/courses/selectTa")
     public void selectTaForCourse(
             @PathParam("netId") String netId,
-            @RequestBody Course course,
+            @PathParam("courseId") String course,
             @PathParam("studentId") String studentNetId) {
         lecturerService.chooseTa(netId, course, studentNetId);
     }
@@ -70,22 +71,22 @@ public class LecturerController {
         return lecturerService.addSpecificCourse(netId, courseId);
     }
 
-    @GetMapping("/averageRating")
+    @GetMapping("/getAverageRating")
     public double getAverageRating(@PathParam("netId") String netId,
-                                   @RequestBody Course course,
+                                   @PathParam("courseId") String course,
                                    @PathParam("studentId") String studentId) {
         return lecturerService.computeAverageRating(netId, course, studentId);
     }
 
     @GetMapping("/courses/recommendations")
     public List<Student> getRecommendations(@PathParam("netId") String netId,
-                                            @RequestBody Course course) {
+                                            @PathParam("courseId") String course) {
         return lecturerService.getRecommendation(netId, course);
     }
 
-    @GetMapping("/courses")
+    @GetMapping("/courses/getSize")
     public int getNumberOfTa(@PathParam("netId") String netId,
-                             @RequestBody Course course) {
+                             @PathParam("courseId") String course) {
         return lecturerService.getNumberOfNeededTas(netId, course);
     }
 }
