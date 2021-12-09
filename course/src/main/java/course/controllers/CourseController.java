@@ -7,11 +7,14 @@ import course.entities.Course;
 import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
+import course.exceptions.TooManyCoursesException;
 import course.services.LecturerService;
 import course.services.StudentService;
 import course.services.interfaces.CourseService;
 import java.net.http.HttpClient;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,7 +173,7 @@ public class CourseController {
             return "Course with id " + body.getCourseId() + " already exists!";
         }
         c = new Course(body.getCourseId(), body.getName(), body.getCourseSize(),
-                body.getLecturerSet(), body.getStartingDate());
+                body.getLecturerSet(), body.getStartingDate(), body.getQuarter());
         this.courseService.save(c);
         return "Course added successfully";
     }
@@ -185,14 +188,16 @@ public class CourseController {
      */
     @PostMapping("addCandidateTa")
     public void addCandidateTa(@PathParam("courseId") String courseId,
-                               @PathParam("studentId") String student)
-            throws CourseNotFoundException, InvalidCandidateException {
+                               @PathParam("studentId") String student,
+                               @RequestBody Set<String> studentCourses)
+            throws CourseNotFoundException, InvalidCandidateException, TooManyCoursesException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
         }
 
+        StudentService.checkQuarterCapacity(courseService, courseId, studentCourses);
         StudentService.addCandidate(c, student);
     }
 

@@ -9,14 +9,19 @@ import course.controllers.strategies.RatingStrategy;
 import course.controllers.strategies.TaRecommendationStrategy;
 import course.entities.Course;
 import course.entities.Student;
+import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
+import course.exceptions.TooManyCoursesException;
+import course.services.interfaces.CourseService;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class StudentService {
@@ -246,5 +251,43 @@ public class StudentService {
      */
     public static int hiredTas(Course course) {
         return course.getHiredTas().size();
+    }
+
+    /**
+     * Checks to see the number of courses that the student is a TA/prospective TA for
+     * does not exceed 3 per quarter.
+     *
+     * @param courseService  the course service
+     * @param courseId       the course id
+     * @param studentCourses the student courses
+     */
+    public static void checkQuarterCapacity(CourseService courseService,
+                                            String courseId, Set<String> studentCourses) {
+        Map<String, Integer> coursesPerQuarter = new HashMap<>();
+        for (String id : studentCourses) {
+            Course current = courseService.findByCourseId(id);
+            if (current == null) {
+                throw new CourseNotFoundException(courseId);
+            }
+
+            StringBuilder builder = new StringBuilder();
+
+            String year = current.getCourseId().split("-")[1];
+            builder.append(year);
+            builder.append("-");
+            builder.append(current.getQuarter());
+            String yearQuarter = builder.toString();
+
+            if (coursesPerQuarter.get(yearQuarter) == null) {
+                coursesPerQuarter.put(yearQuarter, 0);
+            }
+            coursesPerQuarter.put(yearQuarter, coursesPerQuarter.get(yearQuarter) + 1);
+
+            if (coursesPerQuarter.get(yearQuarter) > 3) {
+                throw new TooManyCoursesException("Quarter "
+                        + current.getQuarter() + " has too many courses");
+            }
+
+        }
     }
 }

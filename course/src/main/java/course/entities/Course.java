@@ -19,6 +19,7 @@ public class Course {
     private String name;
     private Integer courseSize;
     private Integer requiredTas;
+    private Integer quarter;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar startingDate;
@@ -40,7 +41,7 @@ public class Course {
      * @param startingDate Calendar object course start date
      */
     public Course(String courseId, String name, int courseSize,
-                  Set<String> lecturerSet, Calendar startingDate) {
+                  Set<String> lecturerSet, Calendar startingDate, Integer quarter) {
         this.courseId = courseId;
         this.name = name;
         this.startingDate = startingDate;
@@ -50,6 +51,7 @@ public class Course {
         this.lecturerSet = lecturerSet;
         this.candidateTas = new HashSet<>();
         this.hiredTas = new HashSet<>();
+        this.quarter = quarter;
     }
 
     public Course() {
@@ -201,5 +203,23 @@ public class Course {
      */
     public void setHiredTas(Set<String> hiredTas) {
         this.hiredTas = hiredTas;
+    }
+
+    /**
+     * Gets quarter.
+     *
+     * @return the quarter
+     */
+    public Integer getQuarter() {
+        return quarter;
+    }
+
+    /**
+     * Sets quarter.
+     *
+     * @param quarter the quarter
+     */
+    public void setQuarter(Integer quarter) {
+        this.quarter = quarter;
     }
 }

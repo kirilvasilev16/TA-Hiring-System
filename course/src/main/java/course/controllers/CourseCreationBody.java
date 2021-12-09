@@ -4,12 +4,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 
+/**
+ * The type Course creation body.
+ */
 public class CourseCreationBody {
     private String courseId;
     private String name;
     private Calendar startingDate;
     private Integer courseSize;
     private Set<String> lecturerSet;
+    private Integer quarter;
 
     /**
      * CourseCreationBody Constructor, object used by admin to pass course information.
@@ -19,14 +23,16 @@ public class CourseCreationBody {
      * @param startingDate Calendar course start date
      * @param lecturerSet  Set of strings where strings are lecturerIDs
      * @param courseSize   Integer course student size
+     * @param quarter      the quarter
      */
     public CourseCreationBody(String courseId, String name, Calendar startingDate,
-                              Set<String> lecturerSet, Integer courseSize) {
+                              Set<String> lecturerSet, Integer courseSize, Integer quarter) {
         this.courseId = courseId;
         this.name = name;
         this.startingDate = startingDate;
         this.lecturerSet = lecturerSet;
         this.courseSize = courseSize;
+        this.quarter = quarter;
     }
 
     /**
@@ -117,5 +123,23 @@ public class CourseCreationBody {
      */
     public void setCourseSize(Integer courseSize) {
         this.courseSize = courseSize;
+    }
+
+    /**
+     * Gets quarter.
+     *
+     * @return the quarter
+     */
+    public Integer getQuarter() {
+        return quarter;
+    }
+
+    /**
+     * Sets quarter.
+     *
+     * @param quarter the quarter
+     */
+    public void setQuarter(Integer quarter) {
+        this.quarter = quarter;
     }
 }

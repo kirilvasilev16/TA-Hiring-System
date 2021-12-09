@@ -23,16 +23,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="Merge strategies branch and resolve merge conflicts">
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/course/src/main/java/course/exceptions/TooManyCoursesException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/ExperienceStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/ExperienceStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/GradeStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/GradeStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/RatingStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/RatingStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/TARecommendationStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/strategies/TaRecommendationStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/entities/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/entities/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseCreationBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/controllers/CourseCreationBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/main/java/course/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/entities/Course.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/main/java/course/services/StudentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/student/src/main/java/nl/tudelft/sem/student/controllers/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course/src/test/java/course/controllers/CourseCreationBodyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/course/src/test/java/course/controllers/CourseCreationBodyTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -464,26 +461,34 @@
     <option name="LAST_COMMIT_MESSAGE" value="Merge strategies branch and resolve merge conflicts" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="446" y="49" key="#com.intellij.ide.util.MemberChooser" timestamp="1639043171928">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="446" y="49" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1639043171928" />
     <state x="1060" y="281" key="FileChooserDialogImpl" timestamp="1638999029189">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1060" y="281" key="FileChooserDialogImpl/0.0.2560.1040@0.0.2560.1040" timestamp="1638999029189" />
-    <state width="2517" height="316" key="GridCell.Tab.0.bottom" timestamp="1638999047410">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1237" height="315" key="GridCell.Tab.0.bottom" timestamp="1639040592311">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="2517" height="316" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1638999047410" />
-    <state width="2517" height="316" key="GridCell.Tab.0.center" timestamp="1638999047410">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1237" height="315" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1639040592311" />
+    <state width="1234" height="316" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1639000006523" />
+    <state width="1237" height="315" key="GridCell.Tab.0.center" timestamp="1639040592311">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="2517" height="316" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1638999047410" />
-    <state width="2517" height="316" key="GridCell.Tab.0.left" timestamp="1638999047409">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1237" height="315" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1639040592311" />
+    <state width="1234" height="316" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1639000006522" />
+    <state width="1237" height="315" key="GridCell.Tab.0.left" timestamp="1639040592311">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="2517" height="316" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1638999047409" />
-    <state width="2517" height="316" key="GridCell.Tab.0.right" timestamp="1638999047410">
-      <screen x="0" y="0" width="2560" height="1040" />
+    <state width="1237" height="315" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1639040592311" />
+    <state width="1234" height="316" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1639000006522" />
+    <state width="1237" height="315" key="GridCell.Tab.0.right" timestamp="1639040592311">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="2517" height="316" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1638999047410" />
+    <state width="1237" height="315" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1639040592311" />
+    <state width="1234" height="316" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1639000006522" />
     <state x="1558" y="285" key="MultipleFileMergeDialog" timestamp="1638998335203">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -492,6 +497,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1049" y="132" key="SettingsEditor/0.0.2560.1040@0.0.2560.1040" timestamp="1638999041541" />
+    <state x="436" y="88" key="refactoring.ChangeSignatureDialog" timestamp="1639042474123">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="436" y="88" key="refactoring.ChangeSignatureDialog/0.0.1280.680@0.0.1280.680" timestamp="1639042474123" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
