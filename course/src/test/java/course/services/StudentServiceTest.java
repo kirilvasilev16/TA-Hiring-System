@@ -23,6 +23,7 @@ class StudentServiceTest {
     private transient String courseId;
     private transient String courseName;
     private transient int courseSize;
+    private transient int quarter;
 
     private transient Set<String> candidateSet;
     private transient Set<String> hireSet;
@@ -40,8 +41,9 @@ class StudentServiceTest {
         courseSize = 500;
         courseId = "CSE2115-2021";
         courseName = "SEM";
+        quarter = 2;
 
-        course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate);
+        course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate, quarter);
 
         candidateSet = new HashSet<>();
         candidateSet.add(student1);

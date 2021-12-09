@@ -17,6 +17,7 @@ class CourseTest {
     private transient String courseId;
     private transient String courseName;
     private transient int courseSize;
+    private transient int quarter;
 
     @BeforeEach
     void setUp() {
@@ -24,10 +25,11 @@ class CourseTest {
         lecturerSet.add("lecturer1");
         startingDate = new Calendar.Builder().setDate(2021, 11, 7).build();
         courseSize = 500;
+        quarter = 2;
         courseId = "CSE2115-2021";
         courseName = "SEM";
 
-        course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate);
+        course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate, quarter);
     }
 
     @Test

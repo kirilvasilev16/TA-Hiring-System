@@ -13,7 +13,7 @@ public class CourseExampleTest {
     @Test
     public void testGettersSetters() {
         Calendar date = new Calendar.Builder().setDate(2021, 11, 7).build();
-        Course c1 = new Course("CSE1000", "TestName", 5, new HashSet<>(), date);
+        Course c1 = new Course("CSE1000", "TestName", 5, new HashSet<>(), date, 3);
         assertEquals("TestName", c1.getName());
         /*CourseExample exampleTest = new CourseExample("name");
         assertEquals("name", exampleTest.getName());

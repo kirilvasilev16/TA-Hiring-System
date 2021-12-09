@@ -2,16 +2,16 @@ package lecturer.controllers;
 
 import java.util.List;
 import javax.websocket.server.PathParam;
+import lecturer.entities.Course;
+import lecturer.entities.Lecturer;
+import lecturer.entities.Student;
+import lecturer.services.LecturerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import lecturer.entities.Course;
-import lecturer.entities.Lecturer;
-import lecturer.entities.Student;
-import lecturer.services.LecturerService;
 
 @SuppressWarnings("PMD")
 @RestController

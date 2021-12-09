@@ -12,6 +12,7 @@ import course.entities.Student;
 import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
+import course.exceptions.InvalidStrategyException;
 import course.exceptions.TooManyCoursesException;
 import course.services.interfaces.CourseService;
 import java.net.URI;
@@ -33,6 +34,7 @@ public class StudentService {
     private static int ratingStrat = 1;
     private static int experienceStrat = 2;
     private static int gradeStrat = 3;
+    private static int maxCoursesPerQuarter = 3;
 
     /**
      * Getter for candidate TAs.
@@ -100,11 +102,11 @@ public class StudentService {
      * Generate list of TA Recommendations.
 
      * @param course String studentID
-     * @param strategy 1 -> By rating, 2 -> By experience, 3 -> By course grade
+     * @param strategy Choose from "rating", "experience" or "grade"
      * @return list containing student ids in desired order
      */
     @SuppressWarnings("PMD")
-    public static List<String> getTaRecommendationList(Course course, Integer strategy) {
+    public static List<String> getTaRecommendationList(Course course, String strategy) {
         //Make request (POST)
         /*String idJson = gson.toJson(c.getCandidateTAs());
 
@@ -148,12 +150,14 @@ public class StudentService {
         }
 
         TaRecommendationStrategy strategyImplementation;
-        if (strategy == ratingStrat) {
+        if (strategy.equals("rating")) {
             strategyImplementation = new RatingStrategy(course);
-        } else if (strategy == experienceStrat) {
+        } else if (strategy.equals("experience")) {
             strategyImplementation = new ExperienceStrategy();
-        } else {
+        } else if (strategy.equals("grade")) {
             strategyImplementation = new GradeStrategy(course);
+        } else {
+            throw new InvalidStrategyException(strategy + " is not a valid strategy");
         }
 
         return strategyImplementation.getRecommendedTas(students);
@@ -261,6 +265,7 @@ public class StudentService {
      * @param courseId       the course id
      * @param studentCourses the student courses
      */
+    @SuppressWarnings("PMD")
     public static void checkQuarterCapacity(CourseService courseService,
                                             String courseId, Set<String> studentCourses) {
         Map<String, Integer> coursesPerQuarter = new HashMap<>();
@@ -283,7 +288,7 @@ public class StudentService {
             }
             coursesPerQuarter.put(yearQuarter, coursesPerQuarter.get(yearQuarter) + 1);
 
-            if (coursesPerQuarter.get(yearQuarter) > 3) {
+            if (coursesPerQuarter.get(yearQuarter) > maxCoursesPerQuarter) {
                 throw new TooManyCoursesException("Quarter "
                         + current.getQuarter() + " has too many courses");
             }

@@ -15,7 +15,7 @@ public class DatabaseLoader {
      */
     public DatabaseLoader(CourseRepository courseRepo) {
         Calendar date = new Calendar.Builder().setDate(2021, 11, 7).build();
-        Course c1 = new Course("CSE5000", "Sample", 5, new HashSet<String>(), date);
+        Course c1 = new Course("CSE5000", "Sample", 5, new HashSet<String>(), date, 2);
         System.out.println("Adding");
 
         courseRepo.save(c1);

@@ -144,11 +144,12 @@ public class CourseController {
      * Retrieve list of recommended TA Id's.
      *
      * @param courseId courseId
+     * @param strategy desired sorting strategy
      * @return Ordered list of TA's
      */
     @GetMapping("{code}/taRecommendations")
     public List<String> getTaRecommendationList(@PathParam("courseId") String courseId,
-                                                @PathParam("strategy") Integer strategy)
+                                                @PathParam("strategy") String strategy)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseId(courseId);
 
