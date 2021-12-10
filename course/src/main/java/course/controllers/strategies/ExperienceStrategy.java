@@ -18,7 +18,7 @@ public class ExperienceStrategy implements TaRecommendationStrategy {
     public List<String> getRecommendedTas(Set<Student> candidateTas) {
         Comparator<Student> comparator = (Student s1, Student s2)
                 -> s2.getTaCourses().size() - s1.getTaCourses().size();
-        return candidateTas.stream().sorted(comparator).map(s -> s.getNetId())
+        return candidateTas.stream().sorted(comparator).map(s -> s.getNetId()).limit(10)
                 .collect(Collectors.toList());
     }
 }

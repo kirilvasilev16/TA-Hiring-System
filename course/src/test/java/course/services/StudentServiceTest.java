@@ -1,10 +1,5 @@
 package course.services;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import course.entities.Course;
 import course.exceptions.DeadlinePastException;
 import course.exceptions.InvalidCandidateException;
@@ -12,8 +7,12 @@ import course.exceptions.InvalidHiringException;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
+
+import course.exceptions.TooManyCoursesException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class StudentServiceTest {
@@ -262,5 +261,53 @@ class StudentServiceTest {
     void hiredTas() {
         StudentService.addTaSet(course, hireSet);
         assertEquals(2, StudentService.hiredTas(course));
+    }
+
+    @Test
+    void withinQuarterCapacity() {
+        Set<Course> courseSet = new HashSet<>();
+        Course c = new Course();
+        c.setCourseId("CSE0001-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0002-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0003-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0001-2020");
+        c.setQuarter(2);
+        courseSet.add(c);
+        assertDoesNotThrow(() -> {
+            StudentService.checkQuarterCapacity(courseSet);
+        });
+    }
+
+    @Test
+    void outsideQuarterCapacity() {
+        Set<Course> courseSet = new HashSet<>();
+        Course c = new Course();
+        c.setCourseId("CSE0001-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0002-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0003-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0004-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        assertThrows(TooManyCoursesException.class, () -> {
+            StudentService.checkQuarterCapacity(courseSet);
+        });
     }
 }

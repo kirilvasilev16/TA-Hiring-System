@@ -2,11 +2,16 @@ package course.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import course.controllers.CourseController;
 import course.entities.Management;
+import course.entities.Student;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class CommunicationService {
 
@@ -22,6 +27,42 @@ public class CommunicationService {
 
     public CommunicationService() {
 
+    }
+
+    /**
+     * Gets the ratings of all the candidate TAs from the Management microservice.
+     *
+     * @param candidateTas the candidate tas
+     * @param courseId     the course id
+     * @return the ratings
+     */
+    public Map<Student, Float> getRatings(Set<Student> candidateTas, String courseId) {
+        Map<Student, Float> studentRatingMap = new HashMap<>();
+        HttpResponse<String> response;
+
+        for (Student s : candidateTas) {
+            HttpRequest request = HttpRequest.newBuilder().GET()
+                    .uri(URI.create("http://localhost:8080/management/get?courseId="
+                            + courseId + "&studentId" + s.getNetId()))
+                    .build();
+            try {
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return studentRatingMap;
+            }
+
+
+            if (response.statusCode() != CourseController.successCode) {
+                System.out.println("GET Status: " + response.statusCode());
+            }
+            System.out.println(response.body());
+            float rating;
+            rating = gson.fromJson(response.body(), Management.class).getRating();
+            studentRatingMap.put(s, rating);
+        }
+
+        return studentRatingMap;
     }
 
     /**

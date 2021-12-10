@@ -9,13 +9,21 @@ import course.controllers.strategies.RatingStrategy;
 import course.controllers.strategies.TaRecommendationStrategy;
 import course.entities.Course;
 import course.entities.Student;
-import course.exceptions.*;
-import course.services.interfaces.CourseService;
+import course.exceptions.DeadlinePastException;
+import course.exceptions.InvalidCandidateException;
+import course.exceptions.InvalidHiringException;
+import course.exceptions.InvalidStrategyException;
+import course.exceptions.TooManyCoursesException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class StudentService {
 
@@ -64,7 +72,7 @@ public class StudentService {
             throw new InvalidCandidateException("Student already hired as TA");
         }
 
-        if(course.getStartingDate().getTimeInMillis() - today.getTimeInMillis() < week3) {
+        if (course.getStartingDate().getTimeInMillis() - today.getTimeInMillis() < week3) {
             throw new DeadlinePastException("Deadline for TA application has past");
         }
         course.getCandidateTas().add(studentId);
@@ -150,7 +158,7 @@ public class StudentService {
 
         TaRecommendationStrategy strategyImplementation;
         if (strategy.equals("rating")) {
-            strategyImplementation = new RatingStrategy(course);
+            strategyImplementation = new RatingStrategy(course, communicationService);
         } else if (strategy.equals("experience")) {
             strategyImplementation = new ExperienceStrategy();
         } else if (strategy.equals("grade")) {
@@ -260,20 +268,12 @@ public class StudentService {
      * Checks to see the number of courses that the student is a TA/prospective TA for
      * does not exceed 3 per quarter.
      *
-     * @param courseService  the course service
-     * @param courseId       the course id
      * @param studentCourses the student courses
      */
     @SuppressWarnings("PMD")
-    public static void checkQuarterCapacity(CourseService courseService,
-                                            String courseId, Set<String> studentCourses) {
+    public static void checkQuarterCapacity(Set<Course> studentCourses) {
         Map<String, Integer> coursesPerQuarter = new HashMap<>();
-        for (String id : studentCourses) {
-            Course current = courseService.findByCourseId(id);
-            if (current == null) {
-                throw new CourseNotFoundException(courseId);
-            }
-
+        for (Course current : studentCourses) {
             StringBuilder builder = new StringBuilder();
 
             String year = current.getCourseId().split("-")[1];

@@ -12,7 +12,10 @@ import course.services.LecturerService;
 import course.services.StudentService;
 import course.services.interfaces.CourseService;
 import java.net.http.HttpClient;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -195,7 +198,17 @@ public class CourseController {
             throw new CourseNotFoundException(courseId);
         }
 
-        StudentService.checkQuarterCapacity(courseService, courseId, studentCourses);
+        //validate input
+        Set<Course> courses = new HashSet<>();
+        for (String id : studentCourses) {
+            Course current = courseService.findByCourseId(id);
+            if (current == null) {
+                throw new CourseNotFoundException(courseId);
+            }
+            courses.add(current);
+        }
+
+        StudentService.checkQuarterCapacity(courses);
         StudentService.addCandidate(c, student, Calendar.getInstance());
     }
 

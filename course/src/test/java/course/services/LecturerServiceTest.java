@@ -35,7 +35,7 @@ class LecturerServiceTest {
         courseName = "SEM";
         quarter = 2;
 
-        course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate, 2);
+        course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate, quarter);
     }
 
     @Test
