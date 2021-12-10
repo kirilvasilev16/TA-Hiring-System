@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import course.entities.Course;
+import course.exceptions.DeadlinePastException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
 import java.util.Calendar;
@@ -31,6 +32,7 @@ class StudentServiceTest {
     private transient String student1 = "student1";
     private transient String student2 = "student2";
     private transient String student3 = "student3";
+    private transient Calendar applicationDate;
 
     @BeforeEach
     void setUp() {
@@ -53,6 +55,8 @@ class StudentServiceTest {
         hireSet.add(student3);
         hireSet.add("student4");
 
+        applicationDate = new Calendar.Builder().setDate(2021, 9, 6).build();
+
     }
 
     @Test
@@ -68,8 +72,8 @@ class StudentServiceTest {
 
     @Test
     void addCandidate() {
-        StudentService.addCandidate(course, student1);
-        StudentService.addCandidate(course, student2);
+        StudentService.addCandidate(course, student1, applicationDate);
+        StudentService.addCandidate(course, student2, applicationDate);
         assertEquals(candidateSet, StudentService.getCandidates(course));
     }
 
@@ -77,9 +81,61 @@ class StudentServiceTest {
     void addCandidateInvalid() { //student already hired
         StudentService.addTaSet(course, hireSet);
         assertThrows(InvalidCandidateException.class, () -> {
-            StudentService.addCandidate(course, student3);
+            StudentService.addCandidate(course, student3, applicationDate);
         });
     }
+
+    @Test
+    void addCandidateExactly3Weeks() {
+        Calendar date = new Calendar.Builder().setDate(2021, 10, 16).build();
+        StudentService.addCandidate(course, student1, date);
+        StudentService.addCandidate(course, student2, date);
+        assertEquals(candidateSet, StudentService.getCandidates(course));
+    }
+
+    @Test
+    void addCandidate1DayLate() {
+        Calendar date = new Calendar.Builder().setDate(2021, 10, 17).build();
+
+        assertThrows(DeadlinePastException.class, () -> {
+            StudentService.addCandidate(course, student1, date);
+        });
+    }
+
+    @Test
+    void addCandidateLate() {
+        Calendar date = new Calendar.Builder().setDate(2021, 11, 17).build();
+
+        assertThrows(DeadlinePastException.class, () -> {
+            StudentService.addCandidate(course, student1, date);
+        });
+    }
+
+    @Test
+    void addCandidateYearCrossoverRegion() {
+        Calendar newDate = new Calendar.Builder().setDate(2022, 0, 1).build();
+        Calendar date = new Calendar.Builder().setDate(2021, 11, 11).build();
+
+        course.setStartingDate(newDate);
+
+        StudentService.addCandidate(course, student1, date);
+        StudentService.addCandidate(course, student2, date);
+        assertEquals(candidateSet, StudentService.getCandidates(course));
+    }
+
+    @Test
+    void addCandidateYearCrossoverRegionLate() {
+        Calendar newDate = new Calendar.Builder().setDate(2022, 0, 1).build();
+        Calendar date = new Calendar.Builder().setDate(2021, 11, 12).build();
+
+        course.setStartingDate(newDate);
+
+        assertThrows(DeadlinePastException.class, () -> {
+            StudentService.addCandidate(course, student1, date);
+        });
+    }
+
+
 
     @Test
     void removeCandidate() {
@@ -102,7 +158,7 @@ class StudentServiceTest {
 
     @Test
     void containsCandidateTrue() {
-        StudentService.addCandidate(course, student1);
+        StudentService.addCandidate(course, student1, applicationDate);
         assertTrue(StudentService.containsCandidate(course, student1));
     }
 

@@ -12,10 +12,7 @@ import course.services.LecturerService;
 import course.services.StudentService;
 import course.services.interfaces.CourseService;
 import java.net.http.HttpClient;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -199,7 +196,7 @@ public class CourseController {
         }
 
         StudentService.checkQuarterCapacity(courseService, courseId, studentCourses);
-        StudentService.addCandidate(c, student);
+        StudentService.addCandidate(c, student, Calendar.getInstance());
     }
 
     /**
