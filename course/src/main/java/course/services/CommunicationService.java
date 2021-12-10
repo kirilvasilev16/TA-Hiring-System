@@ -36,6 +36,7 @@ public class CommunicationService {
      * @param courseId     the course id
      * @return the ratings
      */
+    @SuppressWarnings("PMD")
     public Map<Student, Float> getRatings(Set<Student> candidateTas, String courseId) {
         Map<Student, Float> studentRatingMap = new HashMap<>();
         HttpResponse<String> response;

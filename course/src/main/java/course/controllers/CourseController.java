@@ -187,6 +187,7 @@ public class CourseController {
      * @throws CourseNotFoundException   if Course not found
      * @throws InvalidCandidateException if student already hired as TA
      */
+    @SuppressWarnings("PMD")
     @PostMapping("addCandidateTa")
     public void addCandidateTa(@PathParam("courseId") String courseId,
                                @PathParam("studentId") String student,

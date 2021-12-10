@@ -1,19 +1,21 @@
 package course.services;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import course.entities.Course;
 import course.exceptions.DeadlinePastException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
+import course.exceptions.TooManyCoursesException;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
-
-import course.exceptions.TooManyCoursesException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 class StudentServiceTest {
 

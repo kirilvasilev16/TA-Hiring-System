@@ -21,6 +21,7 @@ public class GradeStrategy implements TaRecommendationStrategy {
      * @return List sorted by course grade
      */
     @Override
+    @SuppressWarnings("PMD")
     public List<String> getRecommendedTas(Set<Student> candidateTas) {
         Comparator<Student> comparator = new Comparator<Student>() {
             @Override
