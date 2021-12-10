@@ -9,21 +9,13 @@ import course.controllers.strategies.RatingStrategy;
 import course.controllers.strategies.TaRecommendationStrategy;
 import course.entities.Course;
 import course.entities.Student;
-import course.exceptions.CourseNotFoundException;
-import course.exceptions.InvalidCandidateException;
-import course.exceptions.InvalidHiringException;
-import course.exceptions.InvalidStrategyException;
-import course.exceptions.TooManyCoursesException;
+import course.exceptions.*;
 import course.services.interfaces.CourseService;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class StudentService {
 
@@ -35,6 +27,8 @@ public class StudentService {
     private static int experienceStrat = 2;
     private static int gradeStrat = 3;
     private static int maxCoursesPerQuarter = 3;
+    private static final long week3 = new Calendar.Builder().setDate(1970, 0, 22)
+            .build().getTimeInMillis();
 
     /**
      * Getter for candidate TAs.
@@ -62,11 +56,16 @@ public class StudentService {
      * @param course    Course Object
      * @param studentId String studentId
      * @throws InvalidCandidateException if Student already hired as TA
+     * @throws DeadlinePastException if deadline for TA application has past
      */
-    public static void addCandidate(Course course, String studentId)
+    public static void addCandidate(Course course, String studentId, Calendar today)
             throws InvalidCandidateException {
         if (containsTa(course, studentId)) {
             throw new InvalidCandidateException("Student already hired as TA");
+        }
+
+        if(course.getStartingDate().getTimeInMillis() - today.getTimeInMillis() < week3) {
+            throw new DeadlinePastException("Deadline for TA application has past");
         }
         course.getCandidateTas().add(studentId);
     }
