@@ -9,13 +9,23 @@ import course.controllers.strategies.RatingStrategy;
 import course.controllers.strategies.TaRecommendationStrategy;
 import course.entities.Course;
 import course.entities.Student;
-import course.exceptions.*;
+import course.exceptions.CourseNotFoundException;
+import course.exceptions.DeadlinePastException;
+import course.exceptions.InvalidCandidateException;
+import course.exceptions.InvalidHiringException;
+import course.exceptions.InvalidStrategyException;
+import course.exceptions.TooManyCoursesException;
 import course.services.interfaces.CourseService;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class StudentService {
 
@@ -64,7 +74,7 @@ public class StudentService {
             throw new InvalidCandidateException("Student already hired as TA");
         }
 
-        if(course.getStartingDate().getTimeInMillis() - today.getTimeInMillis() < week3) {
+        if (course.getStartingDate().getTimeInMillis() - today.getTimeInMillis() < week3) {
             throw new DeadlinePastException("Deadline for TA application has past");
         }
         course.getCandidateTas().add(studentId);
