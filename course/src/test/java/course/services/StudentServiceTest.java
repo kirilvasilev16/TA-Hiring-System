@@ -9,6 +9,7 @@ import course.entities.Course;
 import course.exceptions.DeadlinePastException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
+import course.exceptions.InvalidLecturerException;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,13 +33,14 @@ class StudentServiceTest {
     private transient String student1 = "student1";
     private transient String student2 = "student2";
     private transient String student3 = "student3";
+    private transient String lecturer1 = "lecturer1";
     private transient Calendar applicationDate;
 
     @BeforeEach
     void setUp() {
 
         lecturerSet = new HashSet<>();
-        lecturerSet.add("lecturer1");
+        lecturerSet.add(lecturer1);
         startingDate = new Calendar.Builder().setDate(2021, 11, 7).build();
         courseSize = 500;
         courseId = "CSE2115-2021";
@@ -173,7 +175,7 @@ class StudentServiceTest {
         StudentService.addCandidateSet(course, candidateSet);
         StudentService.addTaSet(course, hireSet);
 
-        assertTrue(StudentService.hireTa(course, studentToHire, 1));
+        assertTrue(StudentService.hireTa(course, studentToHire, lecturer1, 1));
         assertTrue(StudentService.containsTa(course, studentToHire));
         assertFalse(StudentService.containsCandidate(course, studentToHire));
     }
@@ -185,7 +187,7 @@ class StudentServiceTest {
         StudentService.addTaSet(course, hireSet);
 
         assertThrows(InvalidHiringException.class, () -> {
-            StudentService.hireTa(course, studentToHire, 1);
+            StudentService.hireTa(course, studentToHire, lecturer1, 1);
         });
     }
 
@@ -196,7 +198,19 @@ class StudentServiceTest {
         StudentService.addTaSet(course, hireSet);
 
         assertThrows(InvalidHiringException.class, () -> {
-            StudentService.hireTa(course, studentToHire, 1);
+            StudentService.hireTa(course, studentToHire, lecturer1, 1);
+        });
+    }
+
+    @Test
+    void hireTaInvalidLecturer() {
+        String fraudLecturer = "lecturer0";
+        String studentToHire = student2;
+        StudentService.addCandidateSet(course, candidateSet);
+        StudentService.addTaSet(course, hireSet);
+
+        assertThrows(InvalidLecturerException.class, () -> {
+            StudentService.hireTa(course, studentToHire, fraudLecturer, 1);
         });
     }
 

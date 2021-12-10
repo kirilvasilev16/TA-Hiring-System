@@ -318,14 +318,16 @@ public class CourseController {
      * Hire candidate TA as TA.
      *
      * @param courseId String courseId
-     * @param student  String studentId
+     * @param studentId  String studentId
+     * @param lecturerId String lecturerId
      * @param hours    float contract hours
      * @throws CourseNotFoundException if no courses found
      * @throws InvalidHiringException  if student already hired or not in course
      */
     @PostMapping("hireTa")
     public void hireTa(@PathParam("courseId") String courseId,
-                       @PathParam("studentId") String student,
+                       @PathParam("studentId") String studentId,
+                       @PathParam("lectuerId") String lecturerId,
                        @PathParam("hours") float hours)
             throws CourseNotFoundException, InvalidHiringException {
         Course c = courseService.findByCourseId(courseId);
@@ -334,7 +336,7 @@ public class CourseController {
             throw new CourseNotFoundException(courseId);
         }
 
-        StudentService.hireTa(c, student, hours);
+        StudentService.hireTa(c, studentId, lecturerId, hours);
     }
 
 
