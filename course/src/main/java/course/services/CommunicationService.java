@@ -10,6 +10,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -108,8 +109,33 @@ public class CommunicationService {
     }
 
 
+    /**
+     * Gets full list of students from the Student microservice.
+     *
+     * @param candidateTas the candidate ta strings
+     * @return the students
+     */
+    @SuppressWarnings("PMD")
+    public Set<Student> getStudents(Set<String> candidateTas) {
+        Set<Student> students = new HashSet<>();
+        for (String studentId : candidateTas) {
+            HttpRequest request = HttpRequest.newBuilder().GET()
+                    .uri(URI.create("http://localhost:8083/student/get?id=" + studentId))
+                    .build();
+            HttpResponse<String> response;
+            try {
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return students;
+            }
 
-
-
-
+            if (response.statusCode() != CourseController.successCode) {
+                System.out.println("GET Status: " + response.statusCode());
+            }
+            System.out.println(response.body());
+            students.add(gson.fromJson(response.body(), Student.class));
+        }
+        return students;
+    }
 }

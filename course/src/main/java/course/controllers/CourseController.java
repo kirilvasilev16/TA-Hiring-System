@@ -8,6 +8,7 @@ import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
 import course.exceptions.TooManyCoursesException;
+import course.services.CommunicationService;
 import course.services.LecturerService;
 import course.services.StudentService;
 import course.services.interfaces.CourseService;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CourseController {
 
     private final transient CourseService courseService;
+    private final transient CommunicationService communicationService;
 
     private static HttpClient client = HttpClient.newBuilder().build();
     private static Gson gson = new GsonBuilder()
@@ -43,6 +45,7 @@ public class CourseController {
     @Autowired
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
+        this.communicationService = new CommunicationService();
     }
 
     /**
@@ -157,7 +160,7 @@ public class CourseController {
             throw new CourseNotFoundException(courseId);
         }
 
-        return StudentService.getTaRecommendationList(c, strategy);
+        return StudentService.getTaRecommendationList(c, strategy, communicationService);
     }
 
     /**
@@ -346,7 +349,7 @@ public class CourseController {
             throw new CourseNotFoundException(courseId);
         }
 
-        StudentService.hireTa(c, student, hours);
+        StudentService.hireTa(c, student, hours, communicationService);
     }
 
 
