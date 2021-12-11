@@ -12,6 +12,7 @@ import course.entities.Student;
 import course.exceptions.DeadlinePastException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
+import course.exceptions.InvalidLecturerException;
 import course.exceptions.InvalidStrategyException;
 import course.exceptions.TooManyCoursesException;
 import java.net.URI;
@@ -158,17 +159,20 @@ public class StudentService {
      *
      * @param course    Course Object
      * @param studentId String studentId
+     * @param lecturerId String lecturerId
      * @param hours     float for contract hours
      * @return true if hired, false otherwise
      * @throws InvalidHiringException if student already hired or not in course
+     * @throws InvalidLecturerException if lecturer not course staff
      */
-    public static boolean hireTa(Course course,
-                                 String studentId,
+    public static boolean hireTa(Course course, String studentId, String lecturerId,
                                  float hours,
                                  CommunicationService communicationService)
             throws InvalidHiringException {
 
-        //TODO: who checks hours is valid?
+        if (!LecturerService.containsLecturer(course, lecturerId)) {
+            throw new InvalidLecturerException("Lecturer not a staff of this course");
+        }
 
         if (course.getCandidateTas().remove(studentId)) {
             course.getHiredTas().add(studentId);
