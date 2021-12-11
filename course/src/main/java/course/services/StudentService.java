@@ -284,4 +284,23 @@ public class StudentService {
 
         }
     }
+
+    /**
+     * Gets average worked hours from the Management microservice.
+     *
+     * @param c                    the course
+     * @param communicationService the communication service
+     * @return the average worked hours
+     */
+    public static float getAverageWorkedHours(Course c, CommunicationService communicationService) {
+        float avg = 0;
+
+        Set<Float> hourSet = communicationService.getHoursList(c.getHiredTas(), c.getCourseId());
+
+        for (float hours : hourSet) {
+            avg += hours;
+        }
+
+        return hourSet.size() > 0 ? avg / hourSet.size() : 0f;
+    }
 }

@@ -89,13 +89,6 @@ class CourseTest {
     }
 
     @Test
-    void setRequiredTas() {
-        int required = 10;
-        course.setRequiredTas(required);
-        assertEquals(required, course.getRequiredTas());
-    }
-
-    @Test
     void getLecturerSet() {
         assertEquals(lecturerSet, course.getLecturerSet());
     }
