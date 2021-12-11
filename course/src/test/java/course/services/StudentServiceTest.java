@@ -13,6 +13,7 @@ import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
 import course.exceptions.InvalidStrategyException;
 import course.exceptions.TooManyCoursesException;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -266,22 +267,6 @@ class StudentServiceTest {
     }
 
     @Test
-    void enoughTasTrue() {
-        course.setRequiredTas(2);
-        StudentService.addTaSet(course, hireSet);
-
-        assertTrue(StudentService.enoughTas(course));
-    }
-
-    @Test
-    void enoughTasFalse() {
-        course.setRequiredTas(3);
-        StudentService.addTaSet(course, hireSet);
-
-        assertFalse(StudentService.enoughTas(course));
-    }
-
-    @Test
     void hiredTas() {
         StudentService.addTaSet(course, hireSet);
         assertEquals(2, StudentService.hiredTas(course));
@@ -358,5 +343,24 @@ class StudentServiceTest {
         assertThrows(InvalidStrategyException.class, () -> {
             StudentService.getTaRecommendationList(course, "random", mockComm);
         });
+    }
+
+    @Test
+    void averageWorkedHoursTest() {
+        Set<Float> hours = new HashSet<>(Arrays.asList(5f, 7f, 9f, 10f));
+        mockComm = Mockito.mock(CommunicationService.class);
+        Mockito.when(mockComm.getHoursList(Mockito.any(), Mockito.anyString()))
+                .thenReturn(hours);
+
+        assertEquals(7.75f, StudentService.getAverageWorkedHours(course, mockComm));
+    }
+
+    @Test
+    void averageWorkedHoursEmpty() {
+        mockComm = Mockito.mock(CommunicationService.class);
+        Mockito.when(mockComm.getHoursList(Mockito.any(), Mockito.anyString()))
+                .thenReturn(new HashSet<>());
+
+        assertEquals(0, StudentService.getAverageWorkedHours(course, mockComm));
     }
 }

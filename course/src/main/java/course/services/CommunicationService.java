@@ -44,7 +44,7 @@ public class CommunicationService {
 
         for (Student s : candidateTas) {
             HttpRequest request = HttpRequest.newBuilder().GET()
-                    .uri(URI.create("http://localhost:8080/management/get?courseId="
+                    .uri(URI.create(managementService + "/get?courseId="
                             + courseId + "&studentId" + s.getNetId()))
                     .build();
             try {
@@ -120,7 +120,7 @@ public class CommunicationService {
         Set<Student> students = new HashSet<>();
         for (String studentId : candidateTas) {
             HttpRequest request = HttpRequest.newBuilder().GET()
-                    .uri(URI.create("http://localhost:8083/student/get?id=" + studentId))
+                    .uri(URI.create(studentService + "/get?id=" + studentId))
                     .build();
             HttpResponse<String> response;
             try {
@@ -137,5 +137,38 @@ public class CommunicationService {
             students.add(gson.fromJson(response.body(), Student.class));
         }
         return students;
+    }
+
+    /**
+     * Gets list of hours from the Management microservice.
+     *
+     * @param hiredTas the hired tas
+     * @param courseId the course id
+     * @return the hours list
+     */
+    @SuppressWarnings("PMD")
+    public Set<Float> getHoursList(Set<String> hiredTas, String courseId) {
+        Set<Float> hourSet = new HashSet<>();
+
+        for (String ta : hiredTas) {
+            HttpRequest request = HttpRequest.newBuilder().GET()
+                    .uri(URI.create(managementService + "/getAmountOfHours?courseId="
+                            + courseId + "&studentId=" + ta))
+                    .build();
+            HttpResponse<String> response;
+            try {
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return hourSet;
+            }
+
+            if (response.statusCode() != CourseController.successCode) {
+                System.out.println("GET Status: " + response.statusCode());
+            }
+            System.out.println(response.body());
+            hourSet.add(gson.fromJson(response.body(), Float.class));
+        }
+        return hourSet;
     }
 }

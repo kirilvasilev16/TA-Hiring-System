@@ -2,12 +2,11 @@ package course.services;
 
 import course.entities.Course;
 import course.repositories.CourseRepository;
-import course.services.interfaces.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CourseServiceImpl implements CourseService {
+public class CourseService {
     private final transient CourseRepository courseRepository;
 
     /**
@@ -16,7 +15,7 @@ public class CourseServiceImpl implements CourseService {
      * @param courseRepository CourseRepository object
      */
     @Autowired
-    public CourseServiceImpl(CourseRepository courseRepository) {
+    public CourseService(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
 
@@ -26,7 +25,6 @@ public class CourseServiceImpl implements CourseService {
      * @param name String course name
      * @return Course object if found, else null
      */
-    @Override
     public Course findByName(String name) {
         return courseRepository.findByName(name);
     }
@@ -37,7 +35,6 @@ public class CourseServiceImpl implements CourseService {
      * @param id String courseID
      * @return Course object if found, else null
      */
-    @Override
     public Course findByCourseId(String id) {
         return courseRepository.findByCourseId(id);
     }
@@ -47,7 +44,6 @@ public class CourseServiceImpl implements CourseService {
      *
      * @param c Course object
      */
-    @Override
     public void save(Course c) {
         courseRepository.save(c);
     }
@@ -57,9 +53,8 @@ public class CourseServiceImpl implements CourseService {
      *
      * @param courseSize Integer course size
      */
-    @Override
-    public void updateCourseSize(Integer courseSize) {
-        courseRepository.updateCourseSize(courseSize);
+    public void updateCourseSize(String courseId, Integer courseSize) {
+        courseRepository.updateCourseSize(courseId, courseSize);
     }
 
 }

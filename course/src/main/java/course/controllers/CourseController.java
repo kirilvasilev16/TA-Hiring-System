@@ -9,9 +9,9 @@ import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
 import course.exceptions.TooManyCoursesException;
 import course.services.CommunicationService;
+import course.services.CourseService;
 import course.services.LecturerService;
 import course.services.StudentService;
-import course.services.interfaces.CourseService;
 import java.net.http.HttpClient;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -96,13 +96,14 @@ public class CourseController {
     public void updateCourseSize(@PathParam("courseId") String courseId,
                                  @PathParam("size") Integer courseSize)
             throws CourseNotFoundException {
-        Course c = courseService.findByName(courseId);
+        Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
         }
+        c.setCourseSize(courseSize);
 
-        courseService.updateCourseSize(courseSize);
+        courseService.updateCourseSize(courseId, courseSize);
 
     }
 
@@ -186,14 +187,14 @@ public class CourseController {
      * Add student as Candidate TA for specific course.
      *
      * @param courseId String courseID
-     * @param student  String studentID
+     * @param studentId  String studentID
      * @throws CourseNotFoundException   if Course not found
      * @throws InvalidCandidateException if student already hired as TA
      */
     @SuppressWarnings("PMD")
     @PostMapping("addCandidateTa")
     public void addCandidateTa(@PathParam("courseId") String courseId,
-                               @PathParam("studentId") String student,
+                               @PathParam("studentId") String studentId,
                                @RequestBody Set<String> studentCourses)
             throws CourseNotFoundException, InvalidCandidateException, TooManyCoursesException {
         Course c = courseService.findByCourseId(courseId);
@@ -213,21 +214,21 @@ public class CourseController {
         }
 
         StudentService.checkQuarterCapacity(courses);
-        StudentService.addCandidate(c, student, Calendar.getInstance());
+        StudentService.addCandidate(c, studentId, Calendar.getInstance());
     }
 
     /**
      * Remove student as candidate TA for specific course.
      *
      * @param courseId String courseID
-     * @param student  String studentID
+     * @param studentId  String studentID
      * @throws CourseNotFoundException   if course not found
      * @throws InvalidCandidateException if student not a candidate TA
      */
     @DeleteMapping("removeAsCandidate")
     @Transactional
     public void removeAsCandidate(@PathParam("courseId") String courseId,
-                                  @PathParam("studentId") String student)
+                                  @PathParam("studentId") String studentId)
             throws CourseNotFoundException, InvalidCandidateException {
         Course c = courseService.findByCourseId(courseId);
 
@@ -235,7 +236,8 @@ public class CourseController {
             throw new CourseNotFoundException(courseId);
         }
 
-        StudentService.removeCandidate(c, student);
+        StudentService.removeCandidate(c, studentId);
+        courseService.save(c);
     }
 
     /**
@@ -257,16 +259,8 @@ public class CourseController {
             return 0;
         }
 
-        float avg = 0;
+        return StudentService.getAverageWorkedHours(c, communicationService);
 
-        /*
-        for(Management m : c.getHiredTAs()){
-            avg += m.getWorkedHours
-        }
-         */
-        avg /= StudentService.hiredTas(c);
-
-        return avg;
     }
 
 
@@ -274,12 +268,12 @@ public class CourseController {
      * Add lecturer to a specific course.
      *
      * @param courseId String courseId
-     * @param lecturer String lecturerId
+     * @param lecturerId String lecturerId
      * @throws CourseNotFoundException if course not found
      */
     @PostMapping("addLecturer")
     public void addLecturer(@PathParam("courseId") String courseId,
-                            @PathParam("lecturerId") String lecturer)
+                            @PathParam("lecturerId") String lecturerId)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseId(courseId);
 
@@ -287,7 +281,8 @@ public class CourseController {
             throw new CourseNotFoundException(courseId);
         }
 
-        LecturerService.addLecturer(c, lecturer);
+        LecturerService.addLecturer(c, lecturerId);
+        courseService.save(c);
     }
 
     /**
@@ -350,6 +345,7 @@ public class CourseController {
         }
 
         StudentService.hireTa(c, student, hours, communicationService);
+        courseService.save(c);
     }
 
 

@@ -1,7 +1,6 @@
 package course.entities;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.ElementCollection;
@@ -18,7 +17,6 @@ public class Course {
     private String courseId;
     private String name;
     private Integer courseSize;
-    private Integer requiredTas;
     private Integer quarter;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -46,8 +44,6 @@ public class Course {
         this.name = name;
         this.startingDate = startingDate;
         this.courseSize = courseSize;
-        this.requiredTas = Math.max(1, courseSize / 20);
-
         this.lecturerSet = lecturerSet;
         this.candidateTas = new HashSet<>();
         this.hiredTas = new HashSet<>();
@@ -129,7 +125,6 @@ public class Course {
      */
     public void setCourseSize(Integer courseSize) {
         this.courseSize = courseSize;
-        setRequiredTas(Math.max(1, courseSize / 20));
     }
 
 
@@ -139,16 +134,7 @@ public class Course {
      * @return int
      */
     public Integer getRequiredTas() {
-        return requiredTas;
-    }
-
-    /**
-     * Setter for required TAs.
-     *
-     * @param requiredTas Integer number of required TAs
-     */
-    public void setRequiredTas(Integer requiredTas) {
-        this.requiredTas = requiredTas;
+        return Math.max(1, courseSize / 20);
     }
 
     /**
