@@ -1,21 +1,25 @@
 package course.services;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import course.entities.Course;
+import course.entities.Management;
 import course.exceptions.DeadlinePastException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
 import course.exceptions.InvalidLecturerException;
+import course.exceptions.InvalidStrategyException;
+import course.exceptions.TooManyCoursesException;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.mockito.Mockito;
 
 class StudentServiceTest {
 
@@ -35,6 +39,8 @@ class StudentServiceTest {
     private transient String student3 = "student3";
     private transient String lecturer1 = "lecturer1";
     private transient Calendar applicationDate;
+
+    private transient CommunicationService mockComm;
 
     @BeforeEach
     void setUp() {
@@ -171,34 +177,50 @@ class StudentServiceTest {
 
     @Test
     void hireTa() { // TODO: add mocks for management and lecturer interaction
+        mockComm = Mockito.mock(CommunicationService.class);
+        Mockito.when(mockComm.createManagement(Mockito.any(),
+                Mockito.anyString(),
+                Mockito.anyFloat()))
+                .thenReturn(new Management());
         String studentToHire = student2;
         StudentService.addCandidateSet(course, candidateSet);
         StudentService.addTaSet(course, hireSet);
-
-        assertTrue(StudentService.hireTa(course, studentToHire, lecturer1, 1));
+        assertTrue(StudentService.hireTa(course, studentToHire, lecturer1, 1, mockComm));
         assertTrue(StudentService.containsTa(course, studentToHire));
         assertFalse(StudentService.containsCandidate(course, studentToHire));
     }
 
     @Test
     void hireTaInvalidAlreadyHired() {
+        mockComm = Mockito.mock(CommunicationService.class);
+        Mockito.when(mockComm.createManagement(Mockito.any(),
+                Mockito.anyString(),
+                Mockito.anyFloat()))
+                .thenReturn(new Management());
+
         String studentToHire = student3;
         StudentService.addCandidateSet(course, candidateSet);
         StudentService.addTaSet(course, hireSet);
 
         assertThrows(InvalidHiringException.class, () -> {
-            StudentService.hireTa(course, studentToHire, lecturer1, 1);
+            StudentService.hireTa(course, studentToHire, lecturer1,1, mockComm);
         });
     }
 
     @Test
     void hireTaInvalidNotInCourse() {
+        mockComm = Mockito.mock(CommunicationService.class);
+        Mockito.when(mockComm.createManagement(Mockito.any(),
+                Mockito.anyString(),
+                Mockito.anyFloat()))
+                .thenReturn(new Management());
+
         String studentToHire = "student5";
         StudentService.addCandidateSet(course, candidateSet);
         StudentService.addTaSet(course, hireSet);
 
         assertThrows(InvalidHiringException.class, () -> {
-            StudentService.hireTa(course, studentToHire, lecturer1, 1);
+            StudentService.hireTa(course, studentToHire, lecturer1, 1, mockComm);
         });
     }
 
@@ -210,7 +232,7 @@ class StudentServiceTest {
         StudentService.addTaSet(course, hireSet);
 
         assertThrows(InvalidLecturerException.class, () -> {
-            StudentService.hireTa(course, studentToHire, fraudLecturer, 1);
+            StudentService.hireTa(course, studentToHire, fraudLecturer,1, mockComm);
         });
     }
 
@@ -276,5 +298,78 @@ class StudentServiceTest {
     void hiredTas() {
         StudentService.addTaSet(course, hireSet);
         assertEquals(2, StudentService.hiredTas(course));
+    }
+
+    @Test
+    void withinQuarterCapacity() {
+        Set<Course> courseSet = new HashSet<>();
+        Course c = new Course();
+        c.setCourseId("CSE0001-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0002-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0003-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0001-2020");
+        c.setQuarter(2);
+        courseSet.add(c);
+        assertDoesNotThrow(() -> {
+            StudentService.checkQuarterCapacity(courseSet);
+        });
+    }
+
+    @Test
+    void outsideQuarterCapacity() {
+        Set<Course> courseSet = new HashSet<>();
+        Course c = new Course();
+        c.setCourseId("CSE0001-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0002-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0003-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        c = new Course();
+        c.setCourseId("CSE0004-2021");
+        c.setQuarter(2);
+        courseSet.add(c);
+        assertThrows(TooManyCoursesException.class, () -> {
+            StudentService.checkQuarterCapacity(courseSet);
+        });
+    }
+
+    @Test
+    void taRecommendationTestEmpty() {
+        mockComm = Mockito.mock(CommunicationService.class);
+        Mockito.when(mockComm.getStudents(Mockito.any()))
+                .thenReturn(new HashSet<>());
+
+        assertTrue(StudentService
+                .getTaRecommendationList(course, "grade", mockComm).isEmpty());
+        assertTrue(StudentService
+                .getTaRecommendationList(course, "experience", mockComm).isEmpty());
+        assertTrue(StudentService
+                .getTaRecommendationList(course, "rating", mockComm).isEmpty());
+    }
+
+    @Test
+    void taRecommendationTestNoMethod() {
+        mockComm = Mockito.mock(CommunicationService.class);
+        Mockito.when(mockComm.getStudents(Mockito.any()))
+                .thenReturn(new HashSet<>());
+
+        assertThrows(InvalidStrategyException.class, () -> {
+            StudentService.getTaRecommendationList(course, "random", mockComm);
+        });
     }
 }

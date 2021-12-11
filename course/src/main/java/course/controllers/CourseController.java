@@ -8,11 +8,13 @@ import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
 import course.exceptions.TooManyCoursesException;
+import course.services.CommunicationService;
 import course.services.LecturerService;
 import course.services.StudentService;
 import course.services.interfaces.CourseService;
 import java.net.http.HttpClient;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.websocket.server.PathParam;
@@ -32,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CourseController {
 
     private final transient CourseService courseService;
+    private final transient CommunicationService communicationService;
 
     private static HttpClient client = HttpClient.newBuilder().build();
     private static Gson gson = new GsonBuilder()
@@ -42,6 +45,7 @@ public class CourseController {
     @Autowired
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
+        this.communicationService = new CommunicationService();
     }
 
     /**
@@ -156,7 +160,7 @@ public class CourseController {
             throw new CourseNotFoundException(courseId);
         }
 
-        return StudentService.getTaRecommendationList(c, strategy);
+        return StudentService.getTaRecommendationList(c, strategy, communicationService);
     }
 
     /**
@@ -186,6 +190,7 @@ public class CourseController {
      * @throws CourseNotFoundException   if Course not found
      * @throws InvalidCandidateException if student already hired as TA
      */
+    @SuppressWarnings("PMD")
     @PostMapping("addCandidateTa")
     public void addCandidateTa(@PathParam("courseId") String courseId,
                                @PathParam("studentId") String student,
@@ -197,7 +202,17 @@ public class CourseController {
             throw new CourseNotFoundException(courseId);
         }
 
-        StudentService.checkQuarterCapacity(courseService, courseId, studentCourses);
+        //validate input
+        Set<Course> courses = new HashSet<>();
+        for (String id : studentCourses) {
+            Course current = courseService.findByCourseId(id);
+            if (current == null) {
+                throw new CourseNotFoundException(courseId);
+            }
+            courses.add(current);
+        }
+
+        StudentService.checkQuarterCapacity(courses);
         StudentService.addCandidate(c, student, Calendar.getInstance());
     }
 
@@ -327,7 +342,7 @@ public class CourseController {
     @PostMapping("hireTa")
     public void hireTa(@PathParam("courseId") String courseId,
                        @PathParam("studentId") String studentId,
-                       @PathParam("lectuerId") String lecturerId,
+                       @PathParam("lecturerId") String lecturerId,
                        @PathParam("hours") float hours)
             throws CourseNotFoundException, InvalidHiringException {
         Course c = courseService.findByCourseId(courseId);
@@ -335,8 +350,7 @@ public class CourseController {
         if (c == null) {
             throw new CourseNotFoundException(courseId);
         }
-
-        StudentService.hireTa(c, studentId, lecturerId, hours);
+        StudentService.hireTa(c, studentId, lecturerId ,hours, communicationService);
     }
 
 

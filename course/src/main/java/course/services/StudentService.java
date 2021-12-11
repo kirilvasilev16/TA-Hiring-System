@@ -9,8 +9,12 @@ import course.controllers.strategies.RatingStrategy;
 import course.controllers.strategies.TaRecommendationStrategy;
 import course.entities.Course;
 import course.entities.Student;
-import course.exceptions.*;
-import course.services.interfaces.CourseService;
+import course.exceptions.DeadlinePastException;
+import course.exceptions.InvalidCandidateException;
+import course.exceptions.InvalidHiringException;
+import course.exceptions.InvalidLecturerException;
+import course.exceptions.InvalidStrategyException;
+import course.exceptions.TooManyCoursesException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -24,7 +28,6 @@ import java.util.Set;
 
 public class StudentService {
 
-    private static final CommunicationService communicationService = new CommunicationService();
     private static HttpClient client = HttpClient.newBuilder().build();
     private static Gson gson = new GsonBuilder()
             .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
@@ -110,7 +113,9 @@ public class StudentService {
      * @return list containing student ids in desired order
      */
     @SuppressWarnings("PMD")
-    public static List<String> getTaRecommendationList(Course course, String strategy) {
+    public static List<String> getTaRecommendationList(Course course,
+                                                       String strategy,
+                                                       CommunicationService communicationService) {
         //Make request (POST)
         /*String idJson = gson.toJson(c.getCandidateTAs());
 
@@ -133,29 +138,11 @@ public class StudentService {
         Set<Student> students = gson.fromJson(response.body(), new TypeToken<Set<Student>>() {
         }.getType());*/
 
-        Set<Student> students = new HashSet<>();
-        for (String studentId : course.getCandidateTas()) {
-            HttpRequest request = HttpRequest.newBuilder().GET()
-                    .uri(URI.create("http://localhost:8083/student/get?id=" + studentId))
-                    .build();
-            HttpResponse<String> response;
-            try {
-                response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            } catch (Exception e) {
-                e.printStackTrace();
-                return List.of();
-            }
-
-            if (response.statusCode() != CourseController.successCode) {
-                System.out.println("GET Status: " + response.statusCode());
-            }
-            System.out.println(response.body());
-            students.add(gson.fromJson(response.body(), Student.class));
-        }
+        Set<Student> students = communicationService.getStudents(course.getCandidateTas());
 
         TaRecommendationStrategy strategyImplementation;
         if (strategy.equals("rating")) {
-            strategyImplementation = new RatingStrategy(course);
+            strategyImplementation = new RatingStrategy(course, communicationService);
         } else if (strategy.equals("experience")) {
             strategyImplementation = new ExperienceStrategy();
         } else if (strategy.equals("grade")) {
@@ -178,7 +165,9 @@ public class StudentService {
      * @throws InvalidHiringException if student already hired or not in course
      * @throws InvalidLecturerException if lecturer not course staff
      */
-    public static boolean hireTa(Course course, String studentId, String lecturerId, float hours)
+    public static boolean hireTa(Course course, String studentId, String lecturerId,
+                                 float hours,
+                                 CommunicationService communicationService)
             throws InvalidHiringException {
 
         if (!LecturerService.containsLecturer(course, lecturerId)) {
@@ -269,20 +258,12 @@ public class StudentService {
      * Checks to see the number of courses that the student is a TA/prospective TA for
      * does not exceed 3 per quarter.
      *
-     * @param courseService  the course service
-     * @param courseId       the course id
      * @param studentCourses the student courses
      */
     @SuppressWarnings("PMD")
-    public static void checkQuarterCapacity(CourseService courseService,
-                                            String courseId, Set<String> studentCourses) {
+    public static void checkQuarterCapacity(Set<Course> studentCourses) {
         Map<String, Integer> coursesPerQuarter = new HashMap<>();
-        for (String id : studentCourses) {
-            Course current = courseService.findByCourseId(id);
-            if (current == null) {
-                throw new CourseNotFoundException(courseId);
-            }
-
+        for (Course current : studentCourses) {
             StringBuilder builder = new StringBuilder();
 
             String year = current.getCourseId().split("-")[1];
