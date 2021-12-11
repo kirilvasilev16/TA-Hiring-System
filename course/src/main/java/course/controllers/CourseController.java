@@ -350,7 +350,7 @@ public class CourseController {
         if (c == null) {
             throw new CourseNotFoundException(courseId);
         }
-        StudentService.hireTa(c, studentId, lecturerId ,hours, communicationService);
+        StudentService.hireTa(c, studentId, lecturerId, hours, communicationService);
     }
 
 

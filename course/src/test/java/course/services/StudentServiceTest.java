@@ -144,7 +144,6 @@ class StudentServiceTest {
     }
 
 
-
     @Test
     void removeCandidate() {
         StudentService.addCandidateSet(course, candidateSet);
@@ -179,8 +178,8 @@ class StudentServiceTest {
     void hireTa() { // TODO: add mocks for management and lecturer interaction
         mockComm = Mockito.mock(CommunicationService.class);
         Mockito.when(mockComm.createManagement(Mockito.any(),
-                Mockito.anyString(),
-                Mockito.anyFloat()))
+                        Mockito.anyString(),
+                        Mockito.anyFloat()))
                 .thenReturn(new Management());
         String studentToHire = student2;
         StudentService.addCandidateSet(course, candidateSet);
@@ -194,8 +193,8 @@ class StudentServiceTest {
     void hireTaInvalidAlreadyHired() {
         mockComm = Mockito.mock(CommunicationService.class);
         Mockito.when(mockComm.createManagement(Mockito.any(),
-                Mockito.anyString(),
-                Mockito.anyFloat()))
+                        Mockito.anyString(),
+                        Mockito.anyFloat()))
                 .thenReturn(new Management());
 
         String studentToHire = student3;
@@ -203,7 +202,7 @@ class StudentServiceTest {
         StudentService.addTaSet(course, hireSet);
 
         assertThrows(InvalidHiringException.class, () -> {
-            StudentService.hireTa(course, studentToHire, lecturer1,1, mockComm);
+            StudentService.hireTa(course, studentToHire, lecturer1, 1, mockComm);
         });
     }
 
@@ -211,8 +210,8 @@ class StudentServiceTest {
     void hireTaInvalidNotInCourse() {
         mockComm = Mockito.mock(CommunicationService.class);
         Mockito.when(mockComm.createManagement(Mockito.any(),
-                Mockito.anyString(),
-                Mockito.anyFloat()))
+                        Mockito.anyString(),
+                        Mockito.anyFloat()))
                 .thenReturn(new Management());
 
         String studentToHire = "student5";
@@ -232,7 +231,7 @@ class StudentServiceTest {
         StudentService.addTaSet(course, hireSet);
 
         assertThrows(InvalidLecturerException.class, () -> {
-            StudentService.hireTa(course, studentToHire, fraudLecturer,1, mockComm);
+            StudentService.hireTa(course, studentToHire, fraudLecturer, 1, mockComm);
         });
     }
 
