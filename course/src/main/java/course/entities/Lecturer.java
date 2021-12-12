@@ -2,7 +2,6 @@ package course.entities;
 
 
 public class Lecturer {
-
     private String lecturerId;
 
     /**

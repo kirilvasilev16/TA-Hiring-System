@@ -1,0 +1,26 @@
+image: gradle:6.7-jdk15
+
+stages:
+  - build
+  - staticAnalysis
+  - test
+
+api-gateway-build:
+  stage: build
+  script:
+    gradle :api-gateway:build
+
+api-gateway-checkStyle:
+  stage: staticAnalysis
+  script:
+    gradle :api-gateway:checkstyleMain :api-gateway:checkStyleTest
+
+api-gateway-PMD:
+  stage: staticAnalysis
+  script:
+      gradle :api-gateway:pmdMain :api-gateway:pmdTest
+
+api-gateway-test:
+  stage: test
+  script:
+    gradle :api-gateway:test

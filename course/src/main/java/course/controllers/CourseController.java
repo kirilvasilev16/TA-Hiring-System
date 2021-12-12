@@ -1,12 +1,17 @@
 package course.controllers;
 
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import course.entities.Course;
 import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
-import course.entities.Course;
 import course.services.LecturerService;
 import course.services.StudentService;
 import course.services.interfaces.CourseService;
+import java.net.http.HttpClient;
+import java.util.List;
 import java.util.Set;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +30,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CourseController {
 
     private final transient CourseService courseService;
+
+    private static HttpClient client = HttpClient.newBuilder().build();
+    private static Gson gson = new GsonBuilder()
+            .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
+
+    public static int successCode = 200;
 
     @Autowired
     public CourseController(CourseService courseService) {
@@ -126,20 +137,24 @@ public class CourseController {
         return c.getRequiredTas();
     }
 
-    // TODO: Will be further implemented for sprint 2
-    /*
-    @GetMapping("taRecommendation")
-    public Integer getTARecommendation(@PathParam("courseId") String courseId)
+    /**
+     * Retrieve list of recommended TA Id's.
+     *
+     * @param courseId courseId
+     * @return Ordered list of TA's
+     */
+    @GetMapping("{code}/taRecommendations")
+    public List<String> getTaRecommendationList(@PathParam("courseId") String courseId,
+                                                @PathParam("strategy") Integer strategy)
             throws CourseNotFoundException {
-        Course c = courseService.findByCourseID(courseId);
+        Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
         }
-        return 1;
-    }
-    */
 
+        return StudentService.getTaRecommendationList(c, strategy);
+    }
 
     /**
      * Create and Persist new Course in system.

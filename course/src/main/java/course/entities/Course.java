@@ -1,5 +1,6 @@
 package course.entities;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class Course {
     private Integer requiredTas;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date startingDate;
+    private Calendar startingDate;
 
     @ElementCollection
     private Set<String> lecturerSet;
@@ -35,11 +36,11 @@ public class Course {
      * @param courseId     String courseID
      * @param name         String course name
      * @param courseSize   int course student size
-     * @param lecturerSet  et of strings where strings are lecturerIDs
-     * @param startingDate Date course start date
+     * @param lecturerSet  set of strings where strings are lecturerIDs
+     * @param startingDate Calendar object course start date
      */
     public Course(String courseId, String name, int courseSize,
-                  Set<String> lecturerSet, Date startingDate) {
+                  Set<String> lecturerSet, Calendar startingDate) {
         this.courseId = courseId;
         this.name = name;
         this.startingDate = startingDate;
@@ -95,9 +96,9 @@ public class Course {
     /**
      * Getter for course starting date.
      *
-     * @return Date object
+     * @return Calendar object
      */
-    public Date getStartingDate() {
+    public Calendar getStartingDate() {
         return this.startingDate;
     }
 
@@ -106,7 +107,7 @@ public class Course {
      *
      * @param startingDate Date object new starting date
      */
-    public void setStartingDate(Date startingDate) {
+    public void setStartingDate(Calendar startingDate) {
         this.startingDate = startingDate;
     }
 
