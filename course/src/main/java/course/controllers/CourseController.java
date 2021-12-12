@@ -216,8 +216,8 @@ public class CourseController {
         StudentService.checkQuarterCapacity(courses);
         StudentService.addCandidate(c, studentId, Calendar.getInstance());
 
-        courseService.updateCandidateTas(courseId, c.getCandidateTas());
-        //courseService.save(c);
+        //courseService.updateCandidateTas(courseId, c.getCandidateTas());
+        courseService.save(c);
     }
 
     /**
@@ -240,8 +240,9 @@ public class CourseController {
         }
 
         StudentService.removeCandidate(c, studentId);
-        courseService.updateCandidateTas(courseId, c.getCandidateTas());
-        //courseService.save(c);
+
+        //courseService.updateCandidateTas(courseId, c.getCandidateTas());
+        courseService.save(c);
     }
 
     /**
@@ -286,8 +287,9 @@ public class CourseController {
         }
 
         LecturerService.addLecturer(c, lecturerId);
-        courseService.updateLecturerSet(courseId, c.getLecturerSet());
-        //courseService.save(c);
+
+        //courseService.updateLecturerSet(courseId, c.getLecturerSet());
+        courseService.save(c);
     }
 
     /**
@@ -352,9 +354,10 @@ public class CourseController {
         }
 
         StudentService.hireTa(c, studentId, lecturerId, hours, communicationService);
-        courseService.updateHireTas(courseId, c.getHiredTas());
-        courseService.updateCandidateTas(courseId, c.getCandidateTas());
-        //courseService.save(c);
+
+        //courseService.updateHireTas(courseId, c.getHiredTas());
+        //courseService.updateCandidateTas(courseId, c.getCandidateTas());
+        courseService.save(c);
     }
 
 

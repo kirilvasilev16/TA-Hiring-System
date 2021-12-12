@@ -82,24 +82,24 @@ class CourseServiceTest {
         verify(courseRepository, times(1)).updateCourseSize(courseId, newSize);
     }
 
-    @Test
-    void updateCandidateTas() {
-        courseService.updateCandidateTas(courseId, candidateSet);
-
-        verify(courseRepository, times(1)).updateCandidateTas(courseId, candidateSet);
-    }
-
-    @Test
-    void updateLecturerSet() {
-        courseService.updateLecturerSet(courseId, lecturerSet);
-
-        verify(courseRepository, times((1))).updateLecturerSet(courseId, lecturerSet);
-    }
-
-    @Test
-    void updateHireTas() {
-        courseService.updateHireTas(courseId, hireSet);
-
-        verify(courseRepository, times(1)).updateHireTas(courseId, hireSet);
-    }
+    //    @Test
+    //    void updateCandidateTas() {
+    //        courseService.updateCandidateTas(courseId, candidateSet);
+    //
+    //        verify(courseRepository, times(1)).updateCandidateTas(courseId, candidateSet);
+    //    }
+    //
+    //    @Test
+    //    void updateLecturerSet() {
+    //        courseService.updateLecturerSet(courseId, lecturerSet);
+    //
+    //        verify(courseRepository, times((1))).updateLecturerSet(courseId, lecturerSet);
+    //    }
+    //
+    //    @Test
+    //    void updateHireTas() {
+    //        courseService.updateHireTas(courseId, hireSet);
+    //
+    //        verify(courseRepository, times(1)).updateHireTas(courseId, hireSet);
+    //    }
 }
