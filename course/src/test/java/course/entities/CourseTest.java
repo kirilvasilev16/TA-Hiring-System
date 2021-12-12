@@ -138,7 +138,7 @@ class CourseTest {
         int courseSizeOther = 500;
         int quarterOther = 2;
         String courseIdOther = "CSE2115-2021";
-        String courseNameOther = "SEM";
+        String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
                 courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
@@ -154,7 +154,7 @@ class CourseTest {
         int courseSizeOther = 200;
         int quarterOther = 4;
         String courseIdOther = "CSE2115-2020";
-        String courseNameOther = "SEM";
+        String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
                 courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
@@ -194,7 +194,7 @@ class CourseTest {
         int courseSizeOther = 500;
         int quarterOther = 2;
         String courseIdOther = "CSE2115-2021";
-        String courseNameOther = "SEM";
+        String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
                 courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
@@ -210,7 +210,7 @@ class CourseTest {
         int courseSizeOther = 200;
         int quarterOther = 4;
         String courseIdOther = "CSE2115-2020";
-        String courseNameOther = "SEM";
+        String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
                 courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
