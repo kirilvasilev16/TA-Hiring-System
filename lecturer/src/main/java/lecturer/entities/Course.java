@@ -22,7 +22,7 @@ public class Course {
         this.id = id;
         this.candidateTas = candidateTas;
         this.size = size;
-        this.numberOfTa = size/20;
+        this.numberOfTa = size / 20;
     }
 
     public String getId() {

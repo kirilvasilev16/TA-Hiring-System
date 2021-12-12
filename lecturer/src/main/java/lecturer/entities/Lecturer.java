@@ -118,6 +118,7 @@ public class Lecturer {
 
     /**
      * Setter for an email.
+     *
      * @param email of a lecturer.
      */
     public void setEmail(String email) {

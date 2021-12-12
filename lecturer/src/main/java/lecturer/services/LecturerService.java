@@ -2,11 +2,16 @@ package lecturer.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.util.List;
 import java.util.Optional;
-
+import javax.persistence.EntityNotFoundException;
 import lecturer.entities.Contract;
+import lecturer.entities.Course;
+import lecturer.entities.Lecturer;
+import lecturer.entities.Student;
+import lecturer.exceptions.CourseNotFoundException;
+import lecturer.exceptions.LecturerNotFoundException;
+import lecturer.repositories.LecturerRepository;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -14,14 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import lecturer.entities.Course;
-import lecturer.entities.Lecturer;
-import lecturer.entities.Student;
-import lecturer.exceptions.CourseNotFoundException;
-import lecturer.exceptions.LecturerNotFoundException;
-import lecturer.repositories.LecturerRepository;
-
-import javax.persistence.EntityNotFoundException;
 
 @Service
 public class LecturerService {
@@ -58,7 +55,6 @@ public class LecturerService {
 
     /**
      * Find all courses of a lecturer.
-     * Issue 15.
      *
      * @param netId of a lecturer
      * @return list of courses belonging to a lecturer
@@ -74,6 +70,7 @@ public class LecturerService {
         throw new CourseNotFoundException("Course with id "
                 + courseId + " is not taught by lecturer");
     }
+
     /**
      * Find specific course of a lecturer.
      *
@@ -84,7 +81,7 @@ public class LecturerService {
     public Course getSpecificCourseOfLecturer(String netId, String courseId) {
         this.verifyThatApplicableCourse(netId, courseId);
         ResponseEntity<Course> course = restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=" + courseId, Course.class);
-        if (course == null || course.getStatusCode()!=HttpStatus.OK) {
+        if (course == null || course.getStatusCode() != HttpStatus.OK) {
             throw new CourseNotFoundException("Course was not found.");
         }
         return course.getBody();
@@ -101,7 +98,6 @@ public class LecturerService {
 
     /**
      * Get list of candidates for a specific course.
-     * Issue 17.
      *
      * @param netId of a lecturer
      * @param courseId specific course
@@ -113,7 +109,6 @@ public class LecturerService {
 
     /**
      * Choose TA for a course. I send post request to a course microservice to save changes there.
-     * Issue 18.
      *
      * @param netId of a lecturer
      * @param courseId specific course
@@ -127,8 +122,7 @@ public class LecturerService {
             ResponseEntity<Course> course = restTemplate.postForEntity("http://localhost:8082/courses/hireTA?courseId=" + courseId + "&studentId=" + studentNetId + "&hours=" + hours, objectMapper.writeValueAsString(contract), Course.class);
             if (course == null) {
                 throw new CourseNotFoundException("Course was not found");
-            }
-            else if (course.getStatusCode()!=HttpStatus.OK) {
+            } else if (course.getStatusCode() != HttpStatus.OK) {
                 throw new HttpClientErrorException(course.getStatusCode());
             }
         } catch (JsonProcessingException e) {
@@ -179,7 +173,7 @@ public class LecturerService {
     public List<Student> getRecommendation(String netId, String courseId) {
         this.verifyThatApplicableCourse(netId, courseId);
         ResponseEntity<List<Student>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations/" + courseId, HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {});
-        if (sts.getStatusCode()!=HttpStatus.OK) {
+        if (sts.getStatusCode() != HttpStatus.OK) {
             throw new HttpClientErrorException(sts.getStatusCode());
         }
         return sts.getBody();
