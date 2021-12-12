@@ -1,13 +1,12 @@
 package course.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class CourseTest {
@@ -129,5 +128,61 @@ class CourseTest {
         newHiredTas.add("student2");
         course.setHiredTas(newHiredTas);
         assertEquals(newHiredTas, course.getHiredTas());
+    }
+
+    @Test
+    void testEqualsTrue() {
+        Set<String> lecturerSetOther = new HashSet<>();
+        lecturerSetOther.add("lecturer1");
+        Calendar startingDateOther = new Calendar.Builder().setDate(2021, 11, 7).build();
+        int courseSizeOther = 500;
+        int quarterOther = 2;
+        String courseIdOther = "CSE2115-2021";
+        String courseNameOther = "SEM";
+
+        Course courseOther = new Course(courseIdOther, courseNameOther,
+                courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
+
+        assertEquals(course, courseOther);
+    }
+
+    @Test
+    void testEqualsFalse() {
+        Set<String> lecturerSetOther = new HashSet<>();
+        lecturerSetOther.add("lecturer2");
+        Calendar startingDateOther = new Calendar.Builder().setDate(2021, 11, 6).build();
+        int courseSizeOther = 200;
+        int quarterOther = 4;
+        String courseIdOther = "CSE2115-2020";
+        String courseNameOther = "SEM";
+
+        Course courseOther = new Course(courseIdOther, courseNameOther,
+                courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
+
+        assertNotEquals(course, courseOther);
+    }
+
+    @Test
+    void testEqualsTrueSelf() {
+        assertEquals(course, course);
+    }
+
+    @Test
+    void testEqualsFalseNull() {
+        assertNotEquals(course, null);
+    }
+
+
+    @Test
+    void getQuarter() {
+        assertEquals(quarter, course.getQuarter());
+    }
+
+    @Test
+    void setQuarter() {
+        int newQuarter = 1;
+        course.setQuarter(newQuarter);
+
+        assertEquals(newQuarter, course.getQuarter());
     }
 }
