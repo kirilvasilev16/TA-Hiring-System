@@ -235,4 +235,14 @@ public class Course {
                 && hiredTas.equals(course.hiredTas);
     }
 
+    /**
+     * Hash method for Course object.
+     *
+     * @return hash value
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(courseId, name, courseSize, quarter,
+                startingDate, lecturerSet, candidateTas, hiredTas);
+    }
 }

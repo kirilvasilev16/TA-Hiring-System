@@ -185,4 +185,38 @@ class CourseTest {
 
         assertEquals(newQuarter, course.getQuarter());
     }
+
+    @Test
+    void testHashCodeEqual() {
+        Set<String> lecturerSetOther = new HashSet<>();
+        lecturerSetOther.add("lecturer1");
+        Calendar startingDateOther = new Calendar.Builder().setDate(2021, 11, 7).build();
+        int courseSizeOther = 500;
+        int quarterOther = 2;
+        String courseIdOther = "CSE2115-2021";
+        String courseNameOther = "SEM";
+
+        Course courseOther = new Course(courseIdOther, courseNameOther,
+                courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
+
+        assertEquals(course.hashCode(), courseOther.hashCode());
+    }
+
+    @Test
+    void testHashCodeNotEqual() {
+        Set<String> lecturerSetOther = new HashSet<>();
+        lecturerSetOther.add("lecturer2");
+        Calendar startingDateOther = new Calendar.Builder().setDate(2021, 11, 6).build();
+        int courseSizeOther = 200;
+        int quarterOther = 4;
+        String courseIdOther = "CSE2115-2020";
+        String courseNameOther = "SEM";
+
+        Course courseOther = new Course(courseIdOther, courseNameOther,
+                courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
+
+        assertNotEquals(course.hashCode(), courseOther.hashCode());
+    }
+
+
 }

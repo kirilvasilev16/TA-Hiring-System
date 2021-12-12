@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-
+@SuppressWarnings("PMD")
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
     Course findByCourseId(String name);
