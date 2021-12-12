@@ -3,22 +3,16 @@ package lecturer.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import com.sun.jdi.request.InvalidRequestStateException;
-import lecturer.controllers.LecturerController;
+import lecturer.entities.Contract;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import lecturer.entities.Course;
 import lecturer.entities.Lecturer;
@@ -73,6 +67,13 @@ public class LecturerService {
         return this.findLecturerById(netId).getCourses();
     }
 
+    public void verifyThatApplicableCourse(String netId, String courseId) {
+        if (this.getOwnCourses(netId).contains(courseId)) {
+            return;
+        }
+        throw new CourseNotFoundException("Course with id "
+                + courseId + " is not taught by lecturer");
+    }
     /**
      * Find specific course of a lecturer.
      *
@@ -81,17 +82,12 @@ public class LecturerService {
      * @return course if lecturer is supervising it
      */
     public Course getSpecificCourseOfLecturer(String netId, String courseId) {
-        Lecturer lecturer = this.findLecturerById(netId);
-        if (lecturer.getCourses().contains(courseId)) {
-            ResponseEntity<Course> course = restTemplate.getForEntity("http://localhost:8082/courses/get/" + courseId, Course.class);
-            if (course.getStatusCode()!=HttpStatus.OK) {
-                throw new CourseNotFoundException("Course was not found.");
-            }
-            return course.getBody();
-        } else {
-            throw new CourseNotFoundException("Course with id "
-                    + courseId + " is not taught by lecturer");
+        this.verifyThatApplicableCourse(netId, courseId);
+        ResponseEntity<Course> course = restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=" + courseId, Course.class);
+        if (course == null || course.getStatusCode()!=HttpStatus.OK) {
+            throw new CourseNotFoundException("Course was not found.");
         }
+        return course.getBody();
     }
 
     /**
@@ -123,11 +119,18 @@ public class LecturerService {
      * @param courseId specific course
      * @param studentNetId netId of a student
      */
-    public void chooseTa(String netId, String courseId, String studentNetId) {
+    public void chooseTa(String netId, String courseId, String studentNetId, int hours) {
         ObjectMapper objectMapper = new ObjectMapper();
-        Course neededCourse = this.getSpecificCourseOfLecturer(netId, courseId);
+        this.verifyThatApplicableCourse(netId, courseId);
+        Contract contract = new Contract(netId, courseId, studentNetId, hours);
         try {
-            restTemplate.postForEntity("http://localhost:8082/course/addTA/" + courseId + "/" + studentNetId, objectMapper.writeValueAsString(neededCourse), Course.class);
+            ResponseEntity<Course> course = restTemplate.postForEntity("http://localhost:8082/courses/hireTA?courseId=" + courseId + "&studentId=" + studentNetId + "&hours=" + hours, objectMapper.writeValueAsString(contract), Course.class);
+            if (course == null) {
+                throw new CourseNotFoundException("Course was not found");
+            }
+            else if (course.getStatusCode()!=HttpStatus.OK) {
+                throw new HttpClientErrorException(course.getStatusCode());
+            }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -172,14 +175,12 @@ public class LecturerService {
      * @param courseId specific course
      * @return list of recommended students
      */
+    //todo
     public List<Student> getRecommendation(String netId, String courseId) {
-        Course c = getSpecificCourseOfLecturer(netId, courseId);
-        if (c == null) {
-            return new ArrayList<>();
-        }
-        ResponseEntity<List<Student>> sts = restTemplate.exchange("http://localhost:8082/course/recommendations" + courseId, HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {});
+        this.verifyThatApplicableCourse(netId, courseId);
+        ResponseEntity<List<Student>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations/" + courseId, HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {});
         if (sts.getStatusCode()!=HttpStatus.OK) {
-            throw new InvalidRequestStateException();
+            throw new HttpClientErrorException(sts.getStatusCode());
         }
         return sts.getBody();
     }
@@ -193,6 +194,6 @@ public class LecturerService {
      */
     public int getNumberOfNeededTas(String netId, String courseId) {
         Course course = this.getSpecificCourseOfLecturer(netId, courseId);
-        return course.getSize()/20;
+        return course.getNumberOfTa();
     }
 }

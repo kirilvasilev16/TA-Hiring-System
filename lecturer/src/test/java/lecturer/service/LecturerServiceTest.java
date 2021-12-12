@@ -19,9 +19,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.stubbing.OngoingStubbing;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityNotFoundException;
@@ -60,7 +62,9 @@ public class LecturerServiceTest {
         Mockito.when(lecturerRepository.findLecturerByNetId("2"))
                 .thenReturn(java.util.Optional.ofNullable(lecturer2));
         Mockito.when(lecturerRepository.findLecturerByNetId("3")).thenReturn(Optional.empty());
-        Mockito.when(lecturerRepository.save(lecturer1)).thenReturn(lecturer1);
+
+        Mockito.when(lecturerRepository.save(lecturer1))
+                .thenReturn(lecturer1);
     }
 
     @Test
@@ -86,8 +90,8 @@ public class LecturerServiceTest {
 
     @Test
     void getSpecificCourse() {
-        Course courseEntity = new Course("CSE", new ArrayList<Student>());
-        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get/" + courseEntity.getId(), Course.class))
+        Course courseEntity = new Course("CSE", new ArrayList<Student>(), 0);
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=" + courseEntity.getId(), Course.class))
                 .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
         Course c = lecturerService.getSpecificCourseOfLecturer("1", course);
         assertEquals("CSE", c.getId());
@@ -95,7 +99,7 @@ public class LecturerServiceTest {
 
     @Test
     void getSpecificNullCourse() {
-        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get/CSE", Course.class))
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=CSE", Course.class))
                 .thenReturn(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         assertThrows(CourseNotFoundException.class,
                 () -> lecturerService.getSpecificCourseOfLecturer("1", "CSE"));
@@ -103,7 +107,7 @@ public class LecturerServiceTest {
 
     @Test
     void getSpecificNotContainedCourse() {
-        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get/11", Course.class))
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=11", Course.class))
                 .thenReturn(new ResponseEntity<>(HttpStatus.OK));
         assertThrows(CourseNotFoundException.class,
                 () -> lecturerService.getSpecificCourseOfLecturer("1", "11"));
@@ -119,8 +123,8 @@ public class LecturerServiceTest {
 
     @Test
     void getTaCandidates() {
-        Course courseEntity = new Course("CSE", new ArrayList<Student>());
-        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get/" + courseEntity.getId(), Course.class))
+        Course courseEntity = new Course("CSE", new ArrayList<Student>(), 0);
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=" + courseEntity.getId(), Course.class))
                 .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
         assertEquals(0, lecturerService.getCandidateTaList("1", course).size());
     }
@@ -137,8 +141,8 @@ public class LecturerServiceTest {
     void computeRating() {
         List<Student> l = new ArrayList<Student>();
         l.add(new Student("1", 7.8));
-        Course courseEntity = new Course("CSE", l);
-        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get/" + courseEntity.getId(), Course.class))
+        Course courseEntity = new Course("CSE", l, 0);
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=" + courseEntity.getId(), Course.class))
                 .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
         assertEquals(7.8, lecturerService.computeAverageRating("1", "CSE", "1"));
     }
@@ -147,9 +151,53 @@ public class LecturerServiceTest {
     void computeNotCandidateRating() {
         List<Student> l = new ArrayList<Student>();
         l.add(new Student("1", 7.8));
-        Course courseEntity = new Course("CSE", l);
-        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get/" + courseEntity.getId(), Course.class))
+        Course courseEntity = new Course("CSE", l, 0);
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=" + courseEntity.getId(), Course.class))
                 .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
         assertThrows(EntityNotFoundException.class, () -> lecturerService.computeAverageRating("1", "CSE", "2"));
+    }
+
+    @Test
+    void getRecommendation() {
+        Course courseEntity = new Course("CSE", new ArrayList<Student>(), 0);
+        List<Student> l = new ArrayList<Student>();
+        l.add(new Student("1", 7.8));
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId/" + courseEntity.getId(), Course.class))
+                .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
+        Mockito.when(restTemplate.exchange("http://localhost:8082/courses/taRecommendations/CSE", HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {}))
+                .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.OK));
+        assertEquals(l, lecturerService.getRecommendation("1", "CSE"));
+    }
+
+    @Test
+    void getNonExistingRecommendation() {
+        Course courseEntity = new Course("4", new ArrayList<Student>(), 0);
+        List<Student> l = new ArrayList<Student>();
+        l.add(new Student("1", 7.8));
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=4", Course.class))
+                .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
+        Mockito.when(restTemplate.exchange("http://localhost:8082/courses/taRecommendations/CSE", HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {}))
+                .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.OK));
+        assertThrows(CourseNotFoundException.class, () -> lecturerService.getRecommendation("1", "4"));
+    }
+
+    @Test
+    void invalidRequestRecommendation() {
+        Course courseEntity = new Course("CSE", new ArrayList<Student>(), 0);
+        List<Student> l = new ArrayList<Student>();
+        l.add(new Student("1", 7.8));
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=CSE", Course.class))
+                .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
+        Mockito.when(restTemplate.exchange("http://localhost:8082/courses/taRecommendations/CSE", HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {}))
+                .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.BAD_REQUEST));
+        assertThrows(HttpClientErrorException.class, () -> lecturerService.getRecommendation("1", "CSE"));
+    }
+
+    @Test
+    void getSize() {
+        Course courseEntity = new Course("CSE", new ArrayList<Student>(), 20);
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=CSE", Course.class))
+                .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
+        assertEquals(1, lecturerService.getNumberOfNeededTas("1", "CSE"));
     }
 }

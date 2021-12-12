@@ -61,8 +61,9 @@ public class LecturerController {
     public void selectTaForCourse(
             @PathParam("netId") String netId,
             @PathParam("courseId") String course,
-            @PathParam("studentId") String studentNetId) {
-        lecturerService.chooseTa(netId, course, studentNetId);
+            @PathParam("studentId") String studentNetId,
+            @PathParam("hours") int hours) {
+        lecturerService.chooseTa(netId, course, studentNetId, hours);
     }
 
     @PatchMapping("/courses/addCourse")
