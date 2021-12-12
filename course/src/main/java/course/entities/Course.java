@@ -1,5 +1,7 @@
 package course.entities;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Objects;
@@ -13,6 +15,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "courses")
+@DynamicUpdate
 public class Course {
     @Id
     private String courseId;

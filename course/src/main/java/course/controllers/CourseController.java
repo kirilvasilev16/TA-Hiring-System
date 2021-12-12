@@ -151,7 +151,7 @@ public class CourseController {
      * @param strategy desired sorting strategy
      * @return Ordered list of TA's
      */
-    @GetMapping("{code}/taRecommendations")
+    @GetMapping("taRecommendations")
     public List<String> getTaRecommendationList(@PathParam("courseId") String courseId,
                                                 @PathParam("strategy") String strategy)
             throws CourseNotFoundException {
