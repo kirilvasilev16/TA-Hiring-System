@@ -186,8 +186,8 @@ public class CourseController {
     /**
      * Add student as Candidate TA for specific course.
      *
-     * @param courseId String courseID
-     * @param studentId  String studentID
+     * @param courseId  String courseID
+     * @param studentId String studentID
      * @throws CourseNotFoundException   if Course not found
      * @throws InvalidCandidateException if student already hired as TA
      */
@@ -215,13 +215,16 @@ public class CourseController {
 
         StudentService.checkQuarterCapacity(courses);
         StudentService.addCandidate(c, studentId, Calendar.getInstance());
+
+        courseService.updateCandidateTas(courseId, c.getCandidateTas());
+        //courseService.save(c);
     }
 
     /**
      * Remove student as candidate TA for specific course.
      *
-     * @param courseId String courseID
-     * @param studentId  String studentID
+     * @param courseId  String courseID
+     * @param studentId String studentID
      * @throws CourseNotFoundException   if course not found
      * @throws InvalidCandidateException if student not a candidate TA
      */
@@ -237,7 +240,8 @@ public class CourseController {
         }
 
         StudentService.removeCandidate(c, studentId);
-        courseService.save(c);
+        courseService.updateCandidateTas(courseId, c.getCandidateTas());
+        //courseService.save(c);
     }
 
     /**
@@ -267,7 +271,7 @@ public class CourseController {
     /**
      * Add lecturer to a specific course.
      *
-     * @param courseId String courseId
+     * @param courseId   String courseId
      * @param lecturerId String lecturerId
      * @throws CourseNotFoundException if course not found
      */
@@ -282,7 +286,8 @@ public class CourseController {
         }
 
         LecturerService.addLecturer(c, lecturerId);
-        courseService.save(c);
+        courseService.updateLecturerSet(courseId, c.getLecturerSet());
+        //courseService.save(c);
     }
 
     /**
@@ -327,10 +332,10 @@ public class CourseController {
     /**
      * Hire candidate TA as TA.
      *
-     * @param courseId String courseId
+     * @param courseId   String courseId
      * @param studentId  String studentId
      * @param lecturerId String lecturerId
-     * @param hours    float contract hours
+     * @param hours      float contract hours
      * @throws CourseNotFoundException if no courses found
      * @throws InvalidHiringException  if student already hired or not in course
      */
@@ -347,7 +352,9 @@ public class CourseController {
         }
 
         StudentService.hireTa(c, studentId, lecturerId, hours, communicationService);
-        courseService.save(c);
+        courseService.updateHireTas(courseId, c.getHiredTas());
+        courseService.updateCandidateTas(courseId, c.getCandidateTas());
+        //courseService.save(c);
     }
 
 
