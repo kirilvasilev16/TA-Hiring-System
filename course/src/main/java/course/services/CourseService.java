@@ -20,16 +20,6 @@ public class CourseService {
     }
 
     /**
-     * Query and find Course by course name.
-     *
-     * @param name String course name
-     * @return Course object if found, else null
-     */
-    public Course findByName(String name) {
-        return courseRepository.findByName(name);
-    }
-
-    /**
      * Query and find Course by courseID.
      *
      * @param id String courseID
