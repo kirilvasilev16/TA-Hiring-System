@@ -1,18 +1,18 @@
 package course.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import course.entities.Course;
 import course.repositories.CourseRepository;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 class CourseServiceTest {
 
@@ -26,6 +26,8 @@ class CourseServiceTest {
     private transient String courseName;
     private transient int courseSize;
     private transient int quarter;
+    private transient Set<String> candidateSet;
+    private transient Set<String> hireSet;
 
     @BeforeEach
     void setUp() {
@@ -41,8 +43,11 @@ class CourseServiceTest {
         courseName = "SEM";
         course1 = new Course(courseId, courseName, courseSize, lecturerSet, startingDate, quarter);
 
+        candidateSet = new HashSet<>();
+        candidateSet.add("student1");
 
-
+        hireSet = new HashSet<>();
+        hireSet.add("student2");
 
     }
 
@@ -75,5 +80,26 @@ class CourseServiceTest {
         courseService.updateCourseSize(courseId, newSize);
 
         verify(courseRepository, times(1)).updateCourseSize(courseId, newSize);
+    }
+
+    @Test
+    void updateCandidateTas() {
+        courseService.updateCandidateTas(courseId, candidateSet);
+
+        verify(courseRepository, times(1)).updateCandidateTas(courseId, candidateSet);
+    }
+
+    @Test
+    void updateLecturerSet() {
+        courseService.updateLecturerSet(courseId, lecturerSet);
+
+        verify(courseRepository, times((1))).updateLecturerSet(courseId, lecturerSet);
+    }
+
+    @Test
+    void updateHireTas() {
+        courseService.updateHireTas(courseId, hireSet);
+
+        verify(courseRepository, times(1)).updateHireTas(courseId, hireSet);
     }
 }
