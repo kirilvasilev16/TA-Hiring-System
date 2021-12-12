@@ -25,6 +25,14 @@ public class Contract {
         return hours;
     }
 
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
     public void setNetId(String netId) {
         this.netId = netId;
     }
