@@ -1,18 +1,13 @@
 package course.controllers;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import course.entities.Course;
 import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
 import course.exceptions.TooManyCoursesException;
-import course.services.CommunicationService;
-import course.services.CourseService;
-import course.services.LecturerService;
-import course.services.StudentService;
-import java.net.http.HttpClient;
+import course.services.*;
+
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -35,17 +30,13 @@ public class CourseController {
 
     private final transient CourseService courseService;
     private final transient CommunicationService communicationService;
-
-    private static HttpClient client = HttpClient.newBuilder().build();
-    private static Gson gson = new GsonBuilder()
-            .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
-
-    public static int successCode = 200;
+    private final transient DateService dateService;
 
     @Autowired
-    public CourseController(CourseService courseService) {
+    public CourseController(CourseService courseService, CommunicationService communicationService, DateService dateService) {
         this.courseService = courseService;
-        this.communicationService = new CommunicationService();
+        this.communicationService = communicationService;
+        this.dateService = dateService;
     }
 
     /**
@@ -151,7 +142,7 @@ public class CourseController {
      * @param strategy desired sorting strategy
      * @return Ordered list of TA's
      */
-    @GetMapping("{code}/taRecommendations")
+    @GetMapping("/taRecommendations")
     public List<String> getTaRecommendationList(@PathParam("courseId") String courseId,
                                                 @PathParam("strategy") String strategy)
             throws CourseNotFoundException {
@@ -208,13 +199,13 @@ public class CourseController {
         for (String id : studentCourses) {
             Course current = courseService.findByCourseId(id);
             if (current == null) {
-                throw new CourseNotFoundException(courseId);
+                throw new CourseNotFoundException(id);
             }
             courses.add(current);
         }
 
         StudentService.checkQuarterCapacity(courses);
-        StudentService.addCandidate(c, studentId, Calendar.getInstance());
+        StudentService.addCandidate(c, studentId, dateService.getTodayDate());
 
         //courseService.updateCandidateTas(courseId, c.getCandidateTas());
         courseService.save(c);
