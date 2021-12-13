@@ -42,13 +42,24 @@ public class Request {
      * @param url that which the request is made
      * @return response body
      */
-    public static String post(String url) throws InterruptedIOException {
+    public static String post(String url, String body) throws InterruptedIOException {
+
         try {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.noBody())
-                    .build();
+            HttpRequest request;
+            if (body == null || body.length() == 0) {
+                 request = HttpRequest.newBuilder()
+                        .uri(URI.create(url))
+                        .header("Content-Type", "application/json")
+                        .POST(HttpRequest.BodyPublishers.noBody())
+                        .build();
+            } else {
+                request = HttpRequest.newBuilder()
+                        .uri(URI.create(url))
+                        .header("Content-Type", "application/json")
+                        .POST(HttpRequest.BodyPublishers.ofString(body))
+                        .build();
+            }
+
             HttpResponse<String> response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
             return response.body();
@@ -63,13 +74,23 @@ public class Request {
      * @param url that which the request is made
      * @return response body
      */
-    public static String put(String url) throws InterruptedIOException {
+    public static String put(String url, String body) throws InterruptedIOException {
         try {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .header("Content-Type", "application/json")
-                    .PUT(HttpRequest.BodyPublishers.noBody())
-                    .build();
+            HttpRequest request;
+            if (body == null || body.length() == 0) {
+                request = HttpRequest.newBuilder()
+                        .uri(URI.create(url))
+                        .header("Content-Type", "application/json")
+                        .PUT(HttpRequest.BodyPublishers.noBody())
+                        .build();
+            } else {
+                request = HttpRequest.newBuilder()
+                        .uri(URI.create(url))
+                        .header("Content-Type", "application/json")
+                        .PUT(HttpRequest.BodyPublishers.ofString(body))
+                        .build();
+            }
+
             HttpResponse<String> response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
             return response.body();

@@ -18,13 +18,13 @@ public class ServerCommunication extends authentication.communication.Request {
         return response;
     }
 
-    public static String putRequest(String path) throws IOException {
-        String response = put("http://localhost:8761" + path);
+    public static String putRequest(String path, String body) throws IOException {
+        String response = put("http://localhost:8761" + path, body);
         return response;
     }
 
-    public static String postRequest(String path) throws IOException {
-        String response = post("http://localhost:8761" + path);
+    public static String postRequest(String path, String body) throws IOException {
+        String response = post("http://localhost:8761" + path, body);
         return response;
     }
     /*

@@ -3,6 +3,7 @@ package authentication.controller;
 import authentication.communication.ServerCommunication;
 import authentication.service.AuthenticationService;
 import java.io.IOException;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,8 +42,9 @@ public class AuthenticationController {
      */
     @PutMapping("/**")
     public String put(HttpServletRequest request) throws IOException {
+        String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         return ServerCommunication.putRequest(request.getRequestURI()
-                + "?" + request.getQueryString());
+                + "?" + request.getQueryString(), body);
     }
 
     /**
@@ -54,8 +56,9 @@ public class AuthenticationController {
      */
     @PostMapping("/**")
     public String post(HttpServletRequest request) throws IOException {
+        String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         return ServerCommunication.postRequest(request.getRequestURI()
-                + "?" + request.getQueryString());
+                + "?" + request.getQueryString(), body);
     }
 
 }
