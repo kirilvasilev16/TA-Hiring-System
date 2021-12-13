@@ -232,8 +232,6 @@ public class StudentService {
         return course.getHiredTas().contains(studentId);
     }
 
-    //TODO: getAvgWorkedHOurs
-
     /**
      * Check if enough TA have been hired.
      *

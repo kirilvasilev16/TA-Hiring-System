@@ -1,7 +1,10 @@
 package course.entities;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -12,6 +15,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "courses")
+@DynamicUpdate
 public class Course {
     @Id
     private String courseId;
@@ -207,5 +211,41 @@ public class Course {
      */
     public void setQuarter(Integer quarter) {
         this.quarter = quarter;
+    }
+
+    /**
+     * Equals method for Course object.
+     *
+     * @param o Object
+     * @return true if equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Course course = (Course) o;
+        return courseId.equals(course.courseId)
+                && name.equals(course.name)
+                && courseSize.equals(course.courseSize)
+                && quarter.equals(course.quarter)
+                && startingDate.equals(course.startingDate)
+                && lecturerSet.equals(course.lecturerSet)
+                && candidateTas.equals(course.candidateTas)
+                && hiredTas.equals(course.hiredTas);
+    }
+
+    /**
+     * Hash method for Course object.
+     *
+     * @return hash value
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(courseId, name, courseSize, quarter,
+                startingDate, lecturerSet, candidateTas, hiredTas);
     }
 }

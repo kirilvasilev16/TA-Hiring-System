@@ -1,8 +1,9 @@
 package course.services;
 
+
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import course.controllers.CourseController;
 import course.entities.Management;
 import course.entities.Student;
 import java.net.URI;
@@ -13,12 +14,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommunicationService {
 
     private static final HttpClient client = HttpClient.newBuilder().build();
 
     private static final Gson gson = new GsonBuilder().create();
+
+    public static int successCode = 200;
 
     private static final String apiGatewayService = "http://localhost:8761";
     private static final String managementService = "http://localhost:8080/management";
@@ -55,7 +60,7 @@ public class CommunicationService {
             }
 
 
-            if (response.statusCode() != CourseController.successCode) {
+            if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
             System.out.println(response.body());
@@ -88,8 +93,8 @@ public class CommunicationService {
     /**
      * Request Management microservice to create new Management object.
      *
-     * @param courseId String courseId
-     * @param studentId String studentId
+     * @param courseId      String courseId
+     * @param studentId     String studentId
      * @param contractHours float contractHours
      * @return created Management object if successful else null
      */
@@ -130,7 +135,7 @@ public class CommunicationService {
                 return students;
             }
 
-            if (response.statusCode() != CourseController.successCode) {
+            if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
             System.out.println(response.body());
@@ -163,7 +168,7 @@ public class CommunicationService {
                 return hourSet;
             }
 
-            if (response.statusCode() != CourseController.successCode) {
+            if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
             System.out.println(response.body());

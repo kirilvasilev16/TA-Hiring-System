@@ -1,8 +1,6 @@
 package course.controllers;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import course.entities.Course;
 import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
@@ -10,10 +8,9 @@ import course.exceptions.InvalidHiringException;
 import course.exceptions.TooManyCoursesException;
 import course.services.CommunicationService;
 import course.services.CourseService;
+import course.services.DateService;
 import course.services.LecturerService;
 import course.services.StudentService;
-import java.net.http.HttpClient;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,17 +32,21 @@ public class CourseController {
 
     private final transient CourseService courseService;
     private final transient CommunicationService communicationService;
+    private final transient DateService dateService;
 
-    private static HttpClient client = HttpClient.newBuilder().build();
-    private static Gson gson = new GsonBuilder()
-            .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
-
-    public static int successCode = 200;
-
+    /**
+     * Course Controller constructor.
+     *
+     * @param courseService        CourseService object
+     * @param communicationService CommunicationService object
+     * @param dateService          DateService object
+     */
     @Autowired
-    public CourseController(CourseService courseService) {
+    public CourseController(CourseService courseService, CommunicationService communicationService,
+                            DateService dateService) {
         this.courseService = courseService;
-        this.communicationService = new CommunicationService();
+        this.communicationService = communicationService;
+        this.dateService = dateService;
     }
 
     /**
@@ -151,7 +152,7 @@ public class CourseController {
      * @param strategy desired sorting strategy
      * @return Ordered list of TA's
      */
-    @GetMapping("{code}/taRecommendations")
+    @GetMapping("taRecommendations")
     public List<String> getTaRecommendationList(@PathParam("courseId") String courseId,
                                                 @PathParam("strategy") String strategy)
             throws CourseNotFoundException {
@@ -186,8 +187,8 @@ public class CourseController {
     /**
      * Add student as Candidate TA for specific course.
      *
-     * @param courseId String courseID
-     * @param studentId  String studentID
+     * @param courseId  String courseID
+     * @param studentId String studentID
      * @throws CourseNotFoundException   if Course not found
      * @throws InvalidCandidateException if student already hired as TA
      */
@@ -208,20 +209,23 @@ public class CourseController {
         for (String id : studentCourses) {
             Course current = courseService.findByCourseId(id);
             if (current == null) {
-                throw new CourseNotFoundException(courseId);
+                throw new CourseNotFoundException(id);
             }
             courses.add(current);
         }
 
         StudentService.checkQuarterCapacity(courses);
-        StudentService.addCandidate(c, studentId, Calendar.getInstance());
+        StudentService.addCandidate(c, studentId, dateService.getTodayDate());
+
+        //courseService.updateCandidateTas(courseId, c.getCandidateTas());
+        courseService.save(c);
     }
 
     /**
      * Remove student as candidate TA for specific course.
      *
-     * @param courseId String courseID
-     * @param studentId  String studentID
+     * @param courseId  String courseID
+     * @param studentId String studentID
      * @throws CourseNotFoundException   if course not found
      * @throws InvalidCandidateException if student not a candidate TA
      */
@@ -237,6 +241,8 @@ public class CourseController {
         }
 
         StudentService.removeCandidate(c, studentId);
+
+        //courseService.updateCandidateTas(courseId, c.getCandidateTas());
         courseService.save(c);
     }
 
@@ -267,7 +273,7 @@ public class CourseController {
     /**
      * Add lecturer to a specific course.
      *
-     * @param courseId String courseId
+     * @param courseId   String courseId
      * @param lecturerId String lecturerId
      * @throws CourseNotFoundException if course not found
      */
@@ -282,6 +288,8 @@ public class CourseController {
         }
 
         LecturerService.addLecturer(c, lecturerId);
+
+        //courseService.updateLecturerSet(courseId, c.getLecturerSet());
         courseService.save(c);
     }
 
@@ -327,10 +335,10 @@ public class CourseController {
     /**
      * Hire candidate TA as TA.
      *
-     * @param courseId String courseId
+     * @param courseId   String courseId
      * @param studentId  String studentId
      * @param lecturerId String lecturerId
-     * @param hours    float contract hours
+     * @param hours      float contract hours
      * @throws CourseNotFoundException if no courses found
      * @throws InvalidHiringException  if student already hired or not in course
      */
@@ -347,6 +355,9 @@ public class CourseController {
         }
 
         StudentService.hireTa(c, studentId, lecturerId, hours, communicationService);
+
+        //courseService.updateHireTas(courseId, c.getHiredTas());
+        //courseService.updateCandidateTas(courseId, c.getCandidateTas());
         courseService.save(c);
     }
 
