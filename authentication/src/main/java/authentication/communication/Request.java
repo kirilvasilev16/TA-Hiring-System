@@ -1,7 +1,5 @@
 package authentication.communication;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.URI;
@@ -9,6 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class Request {
 
     private static final HttpClient client = HttpClient.newBuilder().build();
@@ -47,7 +46,7 @@ public class Request {
         try {
             HttpRequest request;
             if (body == null || body.length() == 0) {
-                 request = HttpRequest.newBuilder()
+                request = HttpRequest.newBuilder()
                         .uri(URI.create(url))
                         .header("Content-Type", "application/json")
                         .POST(HttpRequest.BodyPublishers.noBody())

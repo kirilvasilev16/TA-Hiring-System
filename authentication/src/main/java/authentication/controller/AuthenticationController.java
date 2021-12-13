@@ -42,7 +42,8 @@ public class AuthenticationController {
      */
     @PutMapping("/**")
     public String put(HttpServletRequest request) throws IOException {
-        String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        String body = request.getReader().lines()
+                .collect(Collectors.joining(System.lineSeparator()));
         return ServerCommunication.putRequest(request.getRequestURI()
                 + "?" + request.getQueryString(), body);
     }
@@ -56,7 +57,8 @@ public class AuthenticationController {
      */
     @PostMapping("/**")
     public String post(HttpServletRequest request) throws IOException {
-        String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        String body = request.getReader().lines()
+                .collect(Collectors.joining(System.lineSeparator()));
         return ServerCommunication.postRequest(request.getRequestURI()
                 + "?" + request.getQueryString(), body);
     }

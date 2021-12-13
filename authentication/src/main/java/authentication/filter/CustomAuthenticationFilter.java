@@ -59,13 +59,12 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
      * @param chain          of filters that we have, for authentication and authorization
      * @param authentication Authentication object of Spring Security
      * @throws IOException      io exception
-     * @throws ServletException servlet exception
      */
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response, FilterChain chain,
                                             Authentication authentication)
-            throws IOException, ServletException {
+            throws IOException {
         User user = (User) authentication.getPrincipal();
         //unsafe ask
         Algorithm algorithm = Algorithm.HMAC256("sem15a".getBytes());
