@@ -6,9 +6,11 @@ import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
 import course.exceptions.TooManyCoursesException;
-import course.services.*;
-
-import java.util.Calendar;
+import course.services.CommunicationService;
+import course.services.CourseService;
+import course.services.DateService;
+import course.services.LecturerService;
+import course.services.StudentService;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,8 +34,16 @@ public class CourseController {
     private final transient CommunicationService communicationService;
     private final transient DateService dateService;
 
+    /**
+     * Course Controller constructor.
+     *
+     * @param courseService        CourseService object
+     * @param communicationService CommunicationService object
+     * @param dateService          DateService object
+     */
     @Autowired
-    public CourseController(CourseService courseService, CommunicationService communicationService, DateService dateService) {
+    public CourseController(CourseService courseService, CommunicationService communicationService,
+                            DateService dateService) {
         this.courseService = courseService;
         this.communicationService = communicationService;
         this.dateService = dateService;
