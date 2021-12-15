@@ -23,14 +23,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33876876-7ca4-4062-b51d-d7c2d6fd8a2d" name="Changes" comment="tested lecturer service">
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/AuthenticationRoleValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/FilterValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/LoginValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/Validator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/src/main/java/authentication/filter/CustomAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/filter/CustomAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/src/main/java/authentication/filter/CustomAuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/filter/CustomAuthorizationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/src/main/java/authentication/communication/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/communication/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/src/main/java/authentication/communication/ServerCommunication.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/communication/ServerCommunication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/src/main/java/authentication/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/controller/AuthenticationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/authentication/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/AuthenticationTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/RoleTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/src/test/java/nl/tudelft/sem/test/SecurityConfigTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/management/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/management/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,6 +134,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="ToolWindowDebug.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../tatu" />
@@ -137,17 +142,17 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources" />
-      <recent name="D:\SEM\sem-repo-15a\Lecturer" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\SEM\sem-repo-15a\Lecturer\src\test\java\repository" />
       <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources\template\config" />
       <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\SEM\sem-repo-15a\Lecturer\src\main\resources" />
+      <recent name="D:\SEM\sem-repo-15a\Lecturer" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -172,20 +177,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Application (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="nl.tudelft.sem.template.Application" />
-      <module name="template.api-gateway.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="nl.tudelft.sem.template.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Application (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="authentication.Application" />
       <module name="template.authentication.main" />
       <extension name="coverage">
@@ -198,36 +190,61 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Application (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="nl.tudelft.sem.student.Application" />
-      <module name="template.student.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="nl.tudelft.sem.student.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="sem-repo-15a:api-gateway [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AuthenticationControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/api-gateway" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="--tests &quot;authentication.AuthenticationControllerTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="build" />
+            <option value=":authentication:test" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="AuthenticationControllerTest.getStudentMSWithAdminRoleForbidden" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;authentication.AuthenticationControllerTest.getStudentMSWithAdminRoleForbidden&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":authentication:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="SecurityConfigTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;authentication.SecurityConfigTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":authentication:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration name="sem-repo-15a:authentication [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -324,13 +341,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="aws.lambda" factoryName="Remote">
+      <option name="credentialProviderId" />
+      <option name="regionId" />
+      <option name="functionName" />
+      <option name="input" />
+      <option name="inputIsFile" value="false" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.sem-repo-15a:authentication [build]" />
-        <item itemvalue="Application.Application (3)" />
-        <item itemvalue="Gradle.sem-repo-15a:api-gateway [build]" />
-        <item itemvalue="Application.Application (2)" />
-        <item itemvalue="Application.Application (1)" />
+        <item itemvalue="Application.Application" />
+        <item itemvalue="Gradle.SecurityConfigTest" />
+        <item itemvalue="Gradle.AuthenticationControllerTest" />
+        <item itemvalue="Gradle.AuthenticationControllerTest.getStudentMSWithAdminRoleForbidden" />
       </list>
     </recent_temporary>
   </component>
@@ -425,61 +450,71 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2360" y="94" key="#Project_Structure/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639417926123" />
-    <state x="2685" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1639424414364">
+    <state x="2012" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1639525380547">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2685" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639424414364" />
-    <state width="1877" height="175" key="GridCell.Tab.0.bottom" timestamp="1639424919888">
+    <state x="2012" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639525380546" />
+    <state x="2685" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1639425451016">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="175" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639424919888" />
+    <state x="2685" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639425451016" />
+    <state width="1877" height="166" key="GridCell.Tab.0.bottom" timestamp="1639590087071">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1639575882790" />
+    <state width="1877" height="166" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639590087071" />
     <state width="1493" height="87" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1639045806904" />
-    <state width="1877" height="175" key="GridCell.Tab.0.center" timestamp="1639424919888">
+    <state width="1877" height="166" key="GridCell.Tab.0.center" timestamp="1639590087071">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="175" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639424919888" />
+    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1639575882789" />
+    <state width="1877" height="166" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639590087071" />
     <state width="1493" height="87" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1639045806904" />
-    <state width="1877" height="175" key="GridCell.Tab.0.left" timestamp="1639424919888">
+    <state width="1877" height="166" key="GridCell.Tab.0.left" timestamp="1639590087071">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="175" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639424919888" />
+    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1639575882789" />
+    <state width="1877" height="166" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639590087071" />
     <state width="1493" height="87" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1639045806904" />
-    <state width="1877" height="175" key="GridCell.Tab.0.right" timestamp="1639424919888">
+    <state width="1877" height="166" key="GridCell.Tab.0.right" timestamp="1639590087071">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="175" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639424919888" />
+    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1639575882790" />
+    <state width="1877" height="166" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639590087071" />
     <state width="1493" height="87" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1639045806904" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1639044246204">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638979230272" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1639044246204">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638979230272" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1639044246204">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638979230272" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1639044246204">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638979230272" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
-    <state x="2381" y="165" key="SettingsEditor" timestamp="1638972581280">
+    <state width="1877" height="231" key="GridCell.Tab.1.bottom" timestamp="1639581069842">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2381" y="165" key="SettingsEditor/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638972581280" />
+    <state width="1877" height="231" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639581069842" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
+    <state width="1877" height="231" key="GridCell.Tab.1.center" timestamp="1639581069842">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="231" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639581069842" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
+    <state width="1877" height="231" key="GridCell.Tab.1.left" timestamp="1639581069842">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="231" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639581069842" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
+    <state width="1877" height="231" key="GridCell.Tab.1.right" timestamp="1639581069842">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="231" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639581069842" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1639044246204" />
+    <state x="2381" y="165" key="SettingsEditor" timestamp="1639575949419">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="369" y="115" key="SettingsEditor/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1639575841303" />
+    <state x="2381" y="165" key="SettingsEditor/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639575949419" />
     <state x="-390" y="18" width="1550" height="882" key="dock-window-1" timestamp="1638983231537">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="-390" y="18" width="1550" height="882" key="dock-window-1/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1638983231537" />
-    <state x="478" y="145" width="579" height="534" key="find.popup" timestamp="1639045862992">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="2518" y="183" width="724" height="674" key="find.popup" timestamp="1639527779060">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
+    <state x="2518" y="183" width="724" height="674" key="find.popup/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1639527779060" />
     <state x="478" y="145" width="579" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1639045862992" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

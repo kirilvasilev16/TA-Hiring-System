@@ -7,23 +7,25 @@ import java.io.IOException;
 public class ServerCommunication extends authentication.communication.Request {
     private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
+    public ServerCommunication() {}
+
     /**
      * Retrieves a quote from the server.
      *
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
-    public static String getRequest(String path) throws IOException {
+    public String getRequest(String path) throws IOException {
         String response = get("http://localhost:8761" + path);
         return response;
     }
 
-    public static String putRequest(String path, String body) throws IOException {
+    public String putRequest(String path, String body) throws IOException {
         String response = put("http://localhost:8761" + path, body);
         return response;
     }
 
-    public static String postRequest(String path, String body) throws IOException {
+    public String postRequest(String path, String body) throws IOException {
         String response = post("http://localhost:8761" + path, body);
         return response;
     }

@@ -58,8 +58,6 @@ public class  SecurityConfig extends WebSecurityConfigurerAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     /**

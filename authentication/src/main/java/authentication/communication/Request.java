@@ -30,7 +30,8 @@ public class Request {
             System.out.println("response: " + response.body());
             return response.body();
         } catch (Exception e) {
-            throw new InterruptedIOException();
+            e.printStackTrace();
+            return "err";
 
         }
     }
