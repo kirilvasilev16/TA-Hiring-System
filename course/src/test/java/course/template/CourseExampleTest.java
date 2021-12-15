@@ -16,7 +16,8 @@ public class CourseExampleTest {
     @Test
     public void testGettersSetters() {
         LocalDateTime date = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
-        Course c1 = new Course("CSE1000", "TestName", 5, new HashSet<>(), date);
+        Course c1 = new Course("CSE1000", "TestName", 5, new HashSet<>(), date, 3);
+
         assertEquals("TestName", c1.getName());
         /*CourseExample exampleTest = new CourseExample("name");
         assertEquals("name", exampleTest.getName());

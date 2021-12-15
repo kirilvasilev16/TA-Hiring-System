@@ -24,7 +24,7 @@ class LecturerServiceTest {
     private transient String courseId;
     private transient String courseName;
     private transient int courseSize;
-
+    private transient int quarter;
     private transient String lecturer1 = "lecturer1";
 
     @BeforeEach
@@ -36,8 +36,9 @@ class LecturerServiceTest {
         courseSize = 500;
         courseId = "CSE2115-2021";
         courseName = "SEM";
+        quarter = 2;
 
-        course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate);
+        course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate, quarter);
     }
 
     @Test

@@ -20,6 +20,7 @@ class CourseCreationBodyTest {
     private transient String name;
     private transient LocalDateTime startingDate;
     private transient Integer courseSize;
+    private transient Integer quarter;
     private transient Set<String> lecturerSet;
     private transient CourseCreationBody course;
 
@@ -29,11 +30,13 @@ class CourseCreationBodyTest {
         name = "Calculus";
         startingDate = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
         courseSize = 100;
+        quarter = 2;
         lecturerSet = new HashSet<>();
         lecturerSet.add("lecturer1");
         lecturerSet.add("lecturer2");
 
-        course = new CourseCreationBody(courseId, name, startingDate, lecturerSet, courseSize);
+        course = new CourseCreationBody(courseId,
+                name, startingDate, lecturerSet, courseSize, quarter);
     }
 
     @Test
