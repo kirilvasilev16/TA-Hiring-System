@@ -1,18 +1,29 @@
 package course.services;
 
+
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import course.entities.Management;
+import course.entities.Student;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommunicationService {
 
     private static final HttpClient client = HttpClient.newBuilder().build();
 
     private static final Gson gson = new GsonBuilder().create();
+
+    public static int successCode = 200;
 
     private static final String apiGatewayService = "http://localhost:8761";
     private static final String managementService = "http://localhost:8080/management";
@@ -22,6 +33,43 @@ public class CommunicationService {
 
     public CommunicationService() {
 
+    }
+
+    /**
+     * Gets the ratings of all the candidate TAs from the Management microservice.
+     *
+     * @param candidateTas the candidate tas
+     * @param courseId     the course id
+     * @return the ratings
+     */
+    @SuppressWarnings("PMD")
+    public Map<Student, Float> getRatings(Set<Student> candidateTas, String courseId) {
+        Map<Student, Float> studentRatingMap = new HashMap<>();
+        HttpResponse<String> response;
+
+        for (Student s : candidateTas) {
+            HttpRequest request = HttpRequest.newBuilder().GET()
+                    .uri(URI.create(managementService + "/get?courseId="
+                            + courseId + "&studentId" + s.getNetId()))
+                    .build();
+            try {
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return studentRatingMap;
+            }
+
+
+            if (response.statusCode() != successCode) {
+                System.out.println("GET Status: " + response.statusCode());
+            }
+            System.out.println(response.body());
+            float rating;
+            rating = gson.fromJson(response.body(), Management.class).getRating();
+            studentRatingMap.put(s, rating);
+        }
+
+        return studentRatingMap;
     }
 
     /**
@@ -45,8 +93,8 @@ public class CommunicationService {
     /**
      * Request Management microservice to create new Management object.
      *
-     * @param courseId String courseId
-     * @param studentId String studentId
+     * @param courseId      String courseId
+     * @param studentId     String studentId
      * @param contractHours float contractHours
      * @return created Management object if successful else null
      */
@@ -66,8 +114,66 @@ public class CommunicationService {
     }
 
 
+    /**
+     * Gets full list of students from the Student microservice.
+     *
+     * @param candidateTas the candidate ta strings
+     * @return the students
+     */
+    @SuppressWarnings("PMD")
+    public Set<Student> getStudents(Set<String> candidateTas) {
+        Set<Student> students = new HashSet<>();
+        for (String studentId : candidateTas) {
+            HttpRequest request = HttpRequest.newBuilder().GET()
+                    .uri(URI.create(studentService + "/get?id=" + studentId))
+                    .build();
+            HttpResponse<String> response;
+            try {
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return students;
+            }
 
+            if (response.statusCode() != successCode) {
+                System.out.println("GET Status: " + response.statusCode());
+            }
+            System.out.println(response.body());
+            students.add(gson.fromJson(response.body(), Student.class));
+        }
+        return students;
+    }
 
+    /**
+     * Gets list of hours from the Management microservice.
+     *
+     * @param hiredTas the hired tas
+     * @param courseId the course id
+     * @return the hours list
+     */
+    @SuppressWarnings("PMD")
+    public Set<Float> getHoursList(Set<String> hiredTas, String courseId) {
+        Set<Float> hourSet = new HashSet<>();
 
+        for (String ta : hiredTas) {
+            HttpRequest request = HttpRequest.newBuilder().GET()
+                    .uri(URI.create(managementService + "/getAmountOfHours?courseId="
+                            + courseId + "&studentId=" + ta))
+                    .build();
+            HttpResponse<String> response;
+            try {
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return hourSet;
+            }
 
+            if (response.statusCode() != successCode) {
+                System.out.println("GET Status: " + response.statusCode());
+            }
+            System.out.println(response.body());
+            hourSet.add(gson.fromJson(response.body(), Float.class));
+        }
+        return hourSet;
+    }
 }

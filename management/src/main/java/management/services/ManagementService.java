@@ -65,7 +65,7 @@ public class ManagementService {
      *
      * @param hoursList arraylist with declarations
      */
-    @Transactional(rollbackOn = Exception.class)
+    @Transactional(rollbackOn = {InvalidIdException.class, InvalidContractHoursException.class})
     public void declareHours(List<Hours> hoursList) {
         for (Hours hourObject : hoursList) {
             float hours = hourObject.getAmountOfHours();
@@ -95,7 +95,7 @@ public class ManagementService {
      *
      * @param hoursList arraylist with declarations
      */
-    @Transactional(rollbackOn = Exception.class)
+    @Transactional(rollbackOn = {InvalidIdException.class, InvalidApprovedHoursException.class})
     public void approveHours(List<Hours> hoursList) {
         for (Hours hourObject : hoursList) {
             float hours = hourObject.getAmountOfHours();

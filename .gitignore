@@ -13,7 +13,7 @@ gradle-app.setting
 *.class
 
 ## Directory-based project format:
-.idea/
+**/idea/
 
 # Log file
 *.log

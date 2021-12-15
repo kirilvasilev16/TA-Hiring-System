@@ -49,9 +49,21 @@ public class StudentController {
      *
      * @return list of all students
      */
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public List<Student> getAll() {
         return studentService.getAll();
+    }
+
+    /**
+     * Gets all students corresponding to given ids from http request body.
+     * Used by course microservice.
+     *
+     * @param ids the ids
+     * @return set of students
+     */
+    @PostMapping("/getMultiple")
+    public Set<Student> getMultiple(@RequestBody Set<String> ids) {
+        return studentService.getMultiple(ids);
     }
 
     /**

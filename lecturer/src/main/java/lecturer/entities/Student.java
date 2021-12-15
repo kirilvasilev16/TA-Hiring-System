@@ -9,6 +9,11 @@ public class Student {
     private String id;
     private double averageRating;
 
+    public Student(String id, double averageRating) {
+        this.id = id;
+        this.averageRating = averageRating;
+    }
+
     public double getAverageRating() {
         return averageRating;
     }
