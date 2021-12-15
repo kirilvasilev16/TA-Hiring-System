@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +19,7 @@ import org.junit.jupiter.api.Test;
 class CourseTest {
     private transient Course course;
     private transient Set<String> lecturerSet;
-    private transient Calendar startingDate;
+    private transient LocalDateTime startingDate;
     private transient String courseId;
     private transient String courseName;
     private transient int courseSize;
@@ -26,7 +29,7 @@ class CourseTest {
     void setUp() {
         lecturerSet = new HashSet<>();
         lecturerSet.add("lecturer1");
-        startingDate = new Calendar.Builder().setDate(2021, 11, 7).build();
+        startingDate = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
         courseSize = 500;
         quarter = 2;
         courseId = "CSE2115-2021";
@@ -66,7 +69,7 @@ class CourseTest {
 
     @Test
     void setStartingDate() {
-        Calendar newDate = new Calendar.Builder().setDate(2021, 11, 6).build();
+        LocalDateTime newDate = LocalDateTime.of(LocalDate.of(2021, 11, 6), LocalTime.NOON);
         course.setStartingDate(newDate);
         assertEquals(newDate, course.getStartingDate());
     }
@@ -138,7 +141,8 @@ class CourseTest {
     void testEqualsTrue() {
         Set<String> lecturerSetOther = new HashSet<>();
         lecturerSetOther.add("lecturer1");
-        Calendar startingDateOther = new Calendar.Builder().setDate(2021, 11, 7).build();
+        LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
+                LocalTime.NOON);
         int courseSizeOther = 500;
         int quarterOther = 2;
         String courseIdOther = "CSE2115-2021";
@@ -154,7 +158,8 @@ class CourseTest {
     void testEqualsFalse() {
         Set<String> lecturerSetOther = new HashSet<>();
         lecturerSetOther.add("lecturer2");
-        Calendar startingDateOther = new Calendar.Builder().setDate(2021, 11, 6).build();
+        LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 6),
+                LocalTime.NOON);
         int courseSizeOther = 200;
         int quarterOther = 4;
         String courseIdOther = "CSE2115-2020";
@@ -194,7 +199,8 @@ class CourseTest {
     void testHashCodeEqual() {
         Set<String> lecturerSetOther = new HashSet<>();
         lecturerSetOther.add("lecturer1");
-        Calendar startingDateOther = new Calendar.Builder().setDate(2021, 11, 7).build();
+        LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
+                LocalTime.NOON);
         int courseSizeOther = 500;
         int quarterOther = 2;
         String courseIdOther = "CSE2115-2021";
@@ -210,7 +216,8 @@ class CourseTest {
     void testHashCodeNotEqual() {
         Set<String> lecturerSetOther = new HashSet<>();
         lecturerSetOther.add("lecturer2");
-        Calendar startingDateOther = new Calendar.Builder().setDate(2021, 11, 6).build();
+        LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 6),
+                LocalTime.NOON);
         int courseSizeOther = 200;
         int quarterOther = 4;
         String courseIdOther = "CSE2115-2020";

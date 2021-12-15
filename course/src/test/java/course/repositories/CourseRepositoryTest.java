@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import course.entities.Course;
-import course.entities.Student;
-import course.services.StudentService;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.AfterEach;
@@ -26,7 +26,7 @@ class CourseRepositoryTest {
     private transient CourseRepository courseRepository;
     private transient Course course;
     private transient Set<String> lecturerSet;
-    private transient Calendar startingDate;
+    private transient LocalDateTime startingDate;
     private transient String courseId;
     private transient String courseName;
 
@@ -43,7 +43,7 @@ class CourseRepositoryTest {
 
         lecturerSet = new HashSet<>();
         lecturerSet.add("lecturer1");
-        startingDate = new Calendar.Builder().setDate(2021, 11, 7).build();
+        startingDate = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
         courseSize = 500;
         quarter = 2;
         courseId = "CSE2115-2021";

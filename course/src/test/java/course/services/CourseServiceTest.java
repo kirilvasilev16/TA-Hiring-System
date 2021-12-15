@@ -6,7 +6,9 @@ import static org.mockito.Mockito.verify;
 
 import course.entities.Course;
 import course.repositories.CourseRepository;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +23,7 @@ class CourseServiceTest {
 
     private transient Course course1;
     private transient Set<String> lecturerSet;
-    private transient Calendar startingDate;
+    private transient LocalDateTime startingDate;
     private transient String courseId;
     private transient String courseName;
     private transient int courseSize;
@@ -36,7 +38,7 @@ class CourseServiceTest {
 
         lecturerSet = new HashSet<>();
         lecturerSet.add("lecturer1");
-        startingDate = new Calendar.Builder().setDate(2021, 11, 7).build();
+        startingDate = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
         courseSize = 500;
         quarter = 2;
         courseId = "CSE2115-2021";

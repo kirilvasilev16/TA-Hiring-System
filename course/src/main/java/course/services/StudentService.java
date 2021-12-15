@@ -1,8 +1,9 @@
 package course.services;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import course.controllers.CourseController;
 import course.controllers.strategies.ExperienceStrategy;
 import course.controllers.strategies.GradeStrategy;
 import course.controllers.strategies.RatingStrategy;
@@ -15,16 +16,15 @@ import course.exceptions.InvalidHiringException;
 import course.exceptions.InvalidLecturerException;
 import course.exceptions.InvalidStrategyException;
 import course.exceptions.TooManyCoursesException;
-import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+
+
 
 public class StudentService {
 
@@ -35,8 +35,6 @@ public class StudentService {
     private static int experienceStrat = 2;
     private static int gradeStrat = 3;
     private static int maxCoursesPerQuarter = 3;
-    private static final long week3 = new Calendar.Builder().setDate(1970, 0, 22)
-            .build().getTimeInMillis();
 
     /**
      * Getter for candidate TAs.
@@ -66,13 +64,13 @@ public class StudentService {
      * @throws InvalidCandidateException if Student already hired as TA
      * @throws DeadlinePastException if deadline for TA application has past
      */
-    public static void addCandidate(Course course, String studentId, Calendar today)
+    public static void addCandidate(Course course, String studentId, LocalDateTime today)
             throws InvalidCandidateException {
         if (containsTa(course, studentId)) {
             throw new InvalidCandidateException("Student already hired as TA");
         }
 
-        if (course.getStartingDate().getTimeInMillis() - today.getTimeInMillis() < week3) {
+        if (DAYS.between(today, course.getStartingDate()) < 21) {
             throw new DeadlinePastException("Deadline for TA application has past");
         }
         course.getCandidateTas().add(studentId);

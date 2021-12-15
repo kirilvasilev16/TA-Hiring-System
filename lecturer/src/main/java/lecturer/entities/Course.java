@@ -1,6 +1,8 @@
 package lecturer.entities;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -8,20 +10,34 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Course {
     @Id
-    private Long id;
+    private String id;
     private int size;
-    @ManyToMany
+    private int numberOfTa;
+    @ElementCollection
     private List<Student> candidateTas;
 
     public Course() {
     }
 
-    public Course(Long id, List<Student> candidateTas) {
-        this.id = id;
-        this.candidateTas = candidateTas;
+    public int getNumberOfTa() {
+        return numberOfTa;
     }
 
-    public Long getId() {
+    /**
+     * Constructor.
+     *
+     * @param id course id
+     * @param candidateTas candidates TAs
+     * @param size size of course
+     */
+    public Course(String id, List<Student> candidateTas, int size) {
+        this.id = id;
+        this.candidateTas = candidateTas;
+        this.size = size;
+        this.numberOfTa = size / 20;
+    }
+
+    public String getId() {
         return id;
     }
 
@@ -29,7 +45,7 @@ public class Course {
         return candidateTas;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,5 +59,9 @@ public class Course {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public void setNumberOfTa(int numberOfTa) {
+        this.numberOfTa = numberOfTa;
     }
 }

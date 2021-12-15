@@ -7,9 +7,11 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import management.entities.Hours;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 class HoursDeserializationTest {
 
+    @Autowired
     private static Gson gson = new Gson();
 
     @Test

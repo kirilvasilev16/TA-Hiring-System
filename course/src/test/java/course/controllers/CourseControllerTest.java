@@ -22,8 +22,10 @@ import course.entities.Student;
 import course.services.CommunicationService;
 import course.services.CourseService;
 import course.services.DateService;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -58,7 +60,7 @@ class CourseControllerTest {
 
     private transient Course course;
     private transient Set<String> lecturerSet;
-    private transient Calendar startingDate;
+    private transient LocalDateTime startingDate;
     private transient String courseId;
     private transient String courseName;
     private transient int courseSize;
@@ -75,7 +77,7 @@ class CourseControllerTest {
 
         lecturerSet = new HashSet<>();
         lecturerSet.add("lecturer1");
-        startingDate = new Calendar.Builder().setDate(2021, 11, 7).build();
+        startingDate = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
         courseSize = 500;
         quarter = 2;
         courseId = "CSE2115-2021";
@@ -218,7 +220,7 @@ class CourseControllerTest {
     @Test
     void addCandidateTa() throws Exception {
 
-        Calendar applyDate = new Calendar.Builder().setDate(2021, 9, 7).build();
+        LocalDateTime applyDate = LocalDateTime.of(LocalDate.of(2021, 9, 7), LocalTime.NOON);
 
         when(courseService.findByCourseId(courseId)).thenReturn(course);
         when(dateService.getTodayDate()).thenReturn(applyDate);
