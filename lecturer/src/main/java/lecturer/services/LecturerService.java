@@ -13,6 +13,7 @@ import lecturer.exceptions.CourseNotFoundException;
 import lecturer.exceptions.LecturerNotFoundException;
 import lecturer.repositories.LecturerRepository;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -172,11 +173,15 @@ public class LecturerService {
     //todo
     public List<Student> getRecommendation(String netId, String courseId) {
         this.verifyThatApplicableCourse(netId, courseId);
-        ResponseEntity<List<Student>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations/" + courseId, HttpMethod.GET, null, new ParameterizedTypeReference<List<Student>>() {});
+        ResponseEntity<List<String>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations/" + courseId, HttpMethod.GET, null, new ParameterizedTypeReference<List<String>>() {});
         if (sts.getStatusCode() != HttpStatus.OK) {
             throw new HttpClientErrorException(sts.getStatusCode());
         }
-        return sts.getBody();
+        ResponseEntity<List<Student>> stL = restTemplate.exchange("http://localhost:8083/student/getMultiple", HttpMethod.GET, new HttpEntity<>((sts.getBody())), new ParameterizedTypeReference<List<Student>>() {});
+        if (stL.getStatusCode() != HttpStatus.OK) {
+            throw new HttpClientErrorException(stL.getStatusCode());
+        }
+        return stL.getBody();
     }
 
     /**
@@ -189,5 +194,13 @@ public class LecturerService {
     public int getNumberOfNeededTas(String netId, String courseId) {
         Course course = this.getSpecificCourseOfLecturer(netId, courseId);
         return course.getNumberOfTa();
+    }
+
+    public Student viewStudent(String id) {
+        ResponseEntity<Student> studentResponseEntity = restTemplate.getForEntity("http://localhost:8083/student/get?id=" + id, Student.class);
+        if (studentResponseEntity.getStatusCode()!=HttpStatus.OK) {
+            throw new EntityNotFoundException();
+        }
+        return studentResponseEntity.getBody();
     }
 }
