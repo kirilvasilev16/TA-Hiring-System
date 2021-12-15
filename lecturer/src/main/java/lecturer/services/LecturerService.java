@@ -168,6 +168,9 @@ public class LecturerService {
     public List<Student> getRecommendation(String netId, String courseId, int strategy) {
         this.verifyThatApplicableCourse(netId, courseId);
         ResponseEntity<List<String>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations?courseId=" + courseId + "&strategy=" + strategy, HttpMethod.GET, null, new ParameterizedTypeReference<List<String>>() {});
+        if (sts == null) {
+            throw new EntityNotFoundException();
+        }
         if (sts.getStatusCode() != HttpStatus.OK) {
             throw new HttpClientErrorException(sts.getStatusCode());
         }
@@ -190,6 +193,12 @@ public class LecturerService {
         return course.getNumberOfTa();
     }
 
+    /**
+     * Approve hours for a student.
+     *
+     * @param netId of a lecturer
+     * @param contract includes courseId, studentId and hours
+     */
     public void approveHours(String netId, Contract contract) {
         this.verifyThatApplicableCourse(netId, contract.getCourseId());
         ObjectMapper objectMapper = new ObjectMapper();

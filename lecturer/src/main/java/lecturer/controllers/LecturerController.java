@@ -48,7 +48,7 @@ public class LecturerController {
 
     @GetMapping("/courses/getSpecificCourse")
     public Course getSpecificCourse(@PathParam("netId") String netId,
-                                    @PathParam("CourseId") String course) {
+                                    @PathParam("courseId") String course) {
         return lecturerService.getSpecificCourseOfLecturer(netId, course);
     }
 

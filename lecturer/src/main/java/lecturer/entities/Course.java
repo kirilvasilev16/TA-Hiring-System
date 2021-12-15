@@ -1,5 +1,6 @@
 package lecturer.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -16,6 +17,10 @@ public class Course {
     private List<Student> candidateTas;
 
     public Course() {
+    }
+
+    public int getNumberOfTa() {
+        return numberOfTa;
     }
 
     public Course(String id, List<Student> candidateTas, int size) {
@@ -47,10 +52,6 @@ public class Course {
 
     public void setSize(int size) {
         this.size = size;
-    }
-
-    public int getNumberOfTa() {
-        return numberOfTa;
     }
 
     public void setNumberOfTa(int numberOfTa) {
