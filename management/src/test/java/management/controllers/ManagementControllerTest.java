@@ -25,7 +25,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @WebMvcTest
 class ManagementControllerTest {
 
@@ -43,15 +42,17 @@ class ManagementControllerTest {
     private transient String findOneResult;
     private transient String courseId = "CSE1200";
     private transient String studentId = "kvasilev";
+    private transient String courseIdString = "courseId";
+    private transient String studentIdString = "studentId";
 
     @BeforeEach
     void setUp() {
-        management1 = new Management("CSE1200", "kvasilev", 120);
+        management1 = new Management(courseId, studentId, 120);
         management1.setId(1);
         management1.setRating(10.0f);
         management1.setDeclaredHours(20);
         management1.setApprovedHours(50);
-        management2 = new Management("CSE1200", "aatanasov", 70);
+        management2 = new Management(courseId, "aatanasov", 70);
         management2.setId(2);
         managements = new ArrayList<>();
         managements.add(management1);
@@ -83,8 +84,9 @@ class ManagementControllerTest {
     void getOne() throws Exception {
         when(managementService.getOne(courseId, studentId)).thenReturn(management1);
 
-        this.mockMvc.perform(get("/management/get?courseId=" + courseId
-        + "&studentId=" + studentId))
+        this.mockMvc.perform(get("/management/get?"
+                + courseIdString + "=" + courseId
+                + "&" + studentIdString + "=" + studentId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(findOneResult));
     }
@@ -93,8 +95,9 @@ class ManagementControllerTest {
     void getRating() throws Exception {
         when(managementService.getOne(courseId, studentId)).thenReturn(management1);
 
-        this.mockMvc.perform(get("/management/getRating?courseId=" + courseId
-                + "&studentId=" + studentId))
+        this.mockMvc.perform(get("/management/getRating?"
+                + courseIdString + "=" + courseId
+                + "&" + studentIdString + "=" + studentId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(String.valueOf(management1.getRating())));
     }
@@ -103,8 +106,9 @@ class ManagementControllerTest {
     void getAmountOfHours() throws Exception {
         when(managementService.getOne(courseId, studentId)).thenReturn(management1);
 
-        this.mockMvc.perform(get("/management/getAmountOfHours?courseId=" + courseId
-                + "&studentId=" + studentId))
+        this.mockMvc.perform(get("/management/getAmountOfHours?"
+                + courseIdString + "=" + courseId
+                + "&" + studentIdString + "=" + studentId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(String.valueOf(management1.getAmountOfHours())));
     }
@@ -113,8 +117,9 @@ class ManagementControllerTest {
     void getDeclaredHours() throws Exception {
         when(managementService.getOne(courseId, studentId)).thenReturn(management1);
 
-        this.mockMvc.perform(get("/management/getDeclaredHours?courseId=" + courseId
-                + "&studentId=" + studentId))
+        this.mockMvc.perform(get("/management/getDeclaredHours?"
+                + courseIdString + "=" + courseId
+                + "&" + studentIdString + "=" + studentId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(String.valueOf(management1.getDeclaredHours())));
     }
@@ -123,8 +128,9 @@ class ManagementControllerTest {
     void getApprovedHours() throws Exception {
         when(managementService.getOne(courseId, studentId)).thenReturn(management1);
 
-        this.mockMvc.perform(get("/management/getApprovedHours?courseId=" + courseId
-                + "&studentId=" + studentId))
+        this.mockMvc.perform(get("/management/getApprovedHours?"
+                + courseIdString + "=" + courseId
+                + "&" + studentIdString + "=" + studentId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(String.valueOf(management1.getApprovedHours())));
     }
@@ -135,8 +141,10 @@ class ManagementControllerTest {
                 .thenReturn(management1);
 
         this.mockMvc
-                .perform(post("/management/create?courseId=CSE1200&"
-                        + "studentId=kvasilev&amountOfHours=120"))
+                .perform(post("/management/create?"
+                        + courseIdString + "=" + courseId
+                        + "&" + studentIdString + "=" + studentId
+                        + "&amountOfHours=120"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(findOneResult));
     }
@@ -146,12 +154,30 @@ class ManagementControllerTest {
         this.mockMvc
                 .perform(put("/management/declareHours")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("[{\"courseId\":" + courseId
+                        .content("[{" + courseIdString + ":" + courseId
                                 + ",\"studentId\":" + studentId + ",\"hours\":20.0}]")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk());
-        verify(managementService, only()).declareHours(List.of(new Hours(courseId, studentId, 20)));
+        verify(managementService, only())
+                .declareHours(List.of(new Hours(courseId, studentId, 20)));
+    }
+
+    @Test
+    void declareHoursMultiple() throws Exception {
+        this.mockMvc
+                .perform(put("/management/declareHours")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[{" + courseIdString + ":" + courseId
+                                + "," + studentIdString + ":" + studentId + ",\"hours\":10.0},"
+                                + "{\"courseId\":" + "\"CSE1200\""
+                                + ",\"studentId\":" + "\"kvasilev\"" + ",\"hours\":30.0}]")
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk());
+        verify(managementService, only())
+                .declareHours(List.of(new Hours(courseId, studentId, 10),
+                    new Hours("CSE1200", "kvasilev", 30)));
     }
 
     @Test
@@ -159,28 +185,53 @@ class ManagementControllerTest {
         this.mockMvc
                 .perform(put("/management/approveHours")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("[{\"courseId\":" + courseId
-                                + ",\"studentId\":" + studentId + ",\"hours\":20.0}]")
+                        .content("[{" + courseIdString + ":" + courseId
+                                + "," + studentIdString + ":" + studentId + ",\"hours\":20.0}]")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(managementService, only()).approveHours(List.of(new Hours(courseId, studentId, 20)));
+        verify(managementService, only())
+                .approveHours(List.of(new Hours(courseId, studentId, 20)));
+    }
+
+    @Test
+    void approveHoursMultiple() throws Exception {
+        this.mockMvc
+                .perform(put("/management/approveHours")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[{" + courseIdString + ":" + courseId
+                                + "," + studentIdString + ":" + studentId + ",\"hours\":10.0},"
+                                + "{" + courseIdString + ":" + courseId
+                                + "," + studentIdString + ":" + "\"kvasilev\""
+                                + ",\"hours\":30.0}]")
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk());
+        verify(managementService, only())
+                .approveHours(List.of(new Hours(courseId, studentId, 10),
+                    new Hours("CSE1200", "kvasilev", 30)));
     }
 
     @Test
     void rate() throws Exception {
         this.mockMvc
-                .perform(put("/management/rate?courseId=" + courseId
-                        + "&studentId=" + studentId + "&rating=2.5"))
+                .perform(put("/management/rate?"
+                        + courseIdString + "=" + courseId
+                        + "&" + studentIdString + "=" + studentId
+                        + "&rating=2.5"))
                 .andExpect(status().isOk());
-        verify(managementService, only()).rateStudent(courseId, studentId, 2.5f);
+        verify(managementService, only())
+                .rateStudent(courseId, studentId, 2.5f);
     }
 
     @Test
     void sendContract() throws Exception {
         this.mockMvc
-                .perform(get("/management/sendContract?courseId=" + courseId
-                        + "&studentId=" + studentId + "&email=email@gmail.com"))
+                .perform(get("/management/sendContract?"
+                        + courseIdString + "=" + courseId
+                        + "&" + studentIdString + "=" + studentId
+                        + "&email=email@gmail.com"))
                 .andExpect(status().isOk());
-        verify(managementService, only()).sendContract(courseId, studentId, "email@gmail.com");
+        verify(managementService, only())
+                .sendContract(courseId, studentId, "email@gmail.com");
     }
 }
