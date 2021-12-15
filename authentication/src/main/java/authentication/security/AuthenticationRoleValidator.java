@@ -9,6 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class AuthenticationRoleValidator extends BaseValidator {
 
+
+    /**
+     * add roles to certain endpoints to restrict access.
+     *
+     * @param http configures security
+     */
     @Override
     public void handle(HttpSecurity http) throws Exception {
         http.authorizeRequests()

@@ -100,8 +100,11 @@ public class AuthenticationControllerTest {
     @Test
     @WithMockUser(roles = "admin")
     void addRoleToUserTest() {
-        when(authenticationService.addRoleToAuthentication("net1@id.nl", "ROLE_student")).thenReturn("Role added successfully");
-        assertEquals("Role added successfully", authenticationController.addRoleToUser("net1@id.nl", "ROLE_student"));
+        when(authenticationService
+                .addRoleToAuthentication("net1@id.nl", "ROLE_student"))
+                .thenReturn("Role added successfully");
+        assertEquals("Role added successfully",
+                authenticationController.addRoleToUser("net1@id.nl", "ROLE_student"));
     }
 
     @Test

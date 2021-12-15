@@ -14,6 +14,11 @@ public class FilterValidator extends BaseValidator {
         this.authenticationManager = authenticationManager;
     }
 
+    /**
+     * add the filters for authentication and authorization.
+     *
+     * @param http configures security
+     */
     @Override
     public void handle(HttpSecurity http) {
         http.addFilter(new CustomAuthenticationFilter(authenticationManager));
@@ -21,10 +26,20 @@ public class FilterValidator extends BaseValidator {
                 UsernamePasswordAuthenticationFilter.class);
     }
 
+    /**
+     * getter for authentication manager.
+     *
+     * @return authenticationManager
+     */
     public AuthenticationManager getAuthenticationManager() {
         return authenticationManager;
     }
 
+    /**
+     * setter for authenticationManager.
+     *
+     * @param authenticationManager new authenticationManager
+     */
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
