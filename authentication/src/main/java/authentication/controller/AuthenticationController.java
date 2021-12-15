@@ -5,21 +5,27 @@ import authentication.entities.Authentication;
 import authentication.entities.Role;
 import authentication.service.AuthenticationService;
 import java.io.IOException;
-import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 @SuppressWarnings("AvoidFieldNameMatchingMethodName")
 @RestController("Authentication")
 @RequestMapping("/")
 public class AuthenticationController {
+
     @Autowired
     private transient AuthenticationService authenticationService;
+
     @Autowired
     private transient ServerCommunication serverCommunication;
 
