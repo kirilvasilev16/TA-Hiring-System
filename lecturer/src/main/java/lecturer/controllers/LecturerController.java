@@ -82,8 +82,9 @@ public class LecturerController {
 
     @GetMapping("/courses/recommendations")
     public List<Student> getRecommendations(@PathParam("netId") String netId,
-                                            @PathParam("courseId") String course) {
-        return lecturerService.getRecommendation(netId, course);
+                                            @PathParam("courseId") String course,
+                                            @PathParam("strategy") int strategy) {
+        return lecturerService.getRecommendation(netId, course, strategy);
     }
 
     @GetMapping("/courses/getSize")

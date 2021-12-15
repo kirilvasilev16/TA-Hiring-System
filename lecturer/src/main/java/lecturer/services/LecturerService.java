@@ -117,7 +117,6 @@ public class LecturerService {
      * @param studentNetId netId of a student
      */
     public void chooseTa(String netId, String courseId, String studentNetId, int hours) {
-        ObjectMapper objectMapper = new ObjectMapper();
         this.verifyThatApplicableCourse(netId, courseId);
         ResponseEntity<Course> course = restTemplate.postForEntity("http://localhost:8082/courses/hireTA?courseId=" + courseId + "&studentId=" + studentNetId + "&hours=" + hours, null, Course.class);
         if (course == null) {
@@ -166,10 +165,9 @@ public class LecturerService {
      * @param courseId specific course
      * @return list of recommended students
      */
-    //todo
-    public List<Student> getRecommendation(String netId, String courseId) {
+    public List<Student> getRecommendation(String netId, String courseId, int strategy) {
         this.verifyThatApplicableCourse(netId, courseId);
-        ResponseEntity<List<String>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations/" + courseId, HttpMethod.GET, null, new ParameterizedTypeReference<List<String>>() {});
+        ResponseEntity<List<String>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations?courseId=" + courseId + "&strategy=" + strategy, HttpMethod.GET, null, new ParameterizedTypeReference<List<String>>() {});
         if (sts.getStatusCode() != HttpStatus.OK) {
             throw new HttpClientErrorException(sts.getStatusCode());
         }
@@ -200,6 +198,5 @@ public class LecturerService {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
     }
 }
