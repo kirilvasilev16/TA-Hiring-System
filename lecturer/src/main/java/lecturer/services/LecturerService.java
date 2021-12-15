@@ -65,6 +65,12 @@ public class LecturerService {
         return this.findLecturerById(netId).getCourses();
     }
 
+    /**
+     * Verify if course belongs to a lecturer.
+     *
+     * @param netId net id of lecturer
+     * @param courseId course id
+     */
     public void verifyThatApplicableCourse(String netId, String courseId) {
         if (this.getOwnCourses(netId).contains(courseId)) {
             return;
@@ -203,7 +209,8 @@ public class LecturerService {
         this.verifyThatApplicableCourse(netId, contract.getCourseId());
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            restTemplate.postForEntity("management/approveHours", objectMapper.writeValueAsString(contract), Management.class);
+            restTemplate.postForEntity("management/approveHours",
+                    objectMapper.writeValueAsString(contract), Management.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

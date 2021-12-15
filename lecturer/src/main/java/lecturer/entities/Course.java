@@ -23,6 +23,13 @@ public class Course {
         return numberOfTa;
     }
 
+    /**
+     * Constructor.
+     *
+     * @param id course id
+     * @param candidateTas candidates TAs
+     * @param size size of course
+     */
     public Course(String id, List<Student> candidateTas, int size) {
         this.id = id;
         this.candidateTas = candidateTas;

@@ -2,7 +2,6 @@ package lecturer.controllers;
 
 import java.util.List;
 import javax.websocket.server.PathParam;
-
 import lecturer.entities.Contract;
 import lecturer.entities.Course;
 import lecturer.entities.Lecturer;

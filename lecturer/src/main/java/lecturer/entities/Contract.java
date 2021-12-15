@@ -5,6 +5,13 @@ public class Contract {
     private int hours;
     private String courseId;
 
+    /**
+     * Constructor.
+     *
+     * @param courseId course id
+     * @param studentId student id
+     * @param hours hours
+     */
     public Contract(String courseId, String studentId, int hours) {
         this.courseId = courseId;
         this.studentId = studentId;
