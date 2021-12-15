@@ -1,6 +1,10 @@
 package nl.tudelft.sem.student.entities;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -144,8 +148,12 @@ public class Student {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Student student = (Student) o;
         return Objects.equals(getNetId(), student.getNetId())
                 && Objects.equals(getName(), student.getName())
@@ -156,6 +164,7 @@ public class Student {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getNetId(), getName(), getPassedCourses(), getCandidateCourses(), getTaCourses());
+        return Objects.hash(getNetId(), getName(), getPassedCourses(),
+                getCandidateCourses(), getTaCourses());
     }
 }
