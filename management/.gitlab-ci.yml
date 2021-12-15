@@ -8,19 +8,19 @@ stages:
 management-build:
   stage: build
   script:
-    gradle build
+    gradle :management:build
 
 management-checkStyle:
   stage: staticAnalysis
   script:
-    gradle checkstyleMain checkStyleTest
+    gradle :management:checkstyleMain :management:checkStyleTest
 
 management-PMD:
   stage: staticAnalysis
   script:
-      gradle pmdMain pmdTest
+      gradle :management:pmdMain :management:pmdTest
 
 management-test:
   stage: test
   script:
-    gradle test
+    gradle :management:test
