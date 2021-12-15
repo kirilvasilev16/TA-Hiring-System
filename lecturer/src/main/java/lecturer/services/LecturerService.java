@@ -8,6 +8,7 @@ import javax.persistence.EntityNotFoundException;
 import lecturer.entities.Contract;
 import lecturer.entities.Course;
 import lecturer.entities.Lecturer;
+import lecturer.entities.Management;
 import lecturer.entities.Student;
 import lecturer.exceptions.CourseNotFoundException;
 import lecturer.exceptions.LecturerNotFoundException;
@@ -118,16 +119,11 @@ public class LecturerService {
     public void chooseTa(String netId, String courseId, String studentNetId, int hours) {
         ObjectMapper objectMapper = new ObjectMapper();
         this.verifyThatApplicableCourse(netId, courseId);
-        Contract contract = new Contract(netId, courseId, studentNetId, hours);
-        try {
-            ResponseEntity<Course> course = restTemplate.postForEntity("http://localhost:8082/courses/hireTA?courseId=" + courseId + "&studentId=" + studentNetId + "&hours=" + hours, objectMapper.writeValueAsString(contract), Course.class);
-            if (course == null) {
-                throw new CourseNotFoundException("Course was not found");
-            } else if (course.getStatusCode() != HttpStatus.OK) {
-                throw new HttpClientErrorException(course.getStatusCode());
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        ResponseEntity<Course> course = restTemplate.postForEntity("http://localhost:8082/courses/hireTA?courseId=" + courseId + "&studentId=" + studentNetId + "&hours=" + hours, null, Course.class);
+        if (course == null) {
+            throw new CourseNotFoundException("Course was not found");
+        } else if (course.getStatusCode() != HttpStatus.OK) {
+            throw new HttpClientErrorException(course.getStatusCode());
         }
     }
 
@@ -196,11 +192,14 @@ public class LecturerService {
         return course.getNumberOfTa();
     }
 
-    public Student viewStudent(String id) {
-        ResponseEntity<Student> studentResponseEntity = restTemplate.getForEntity("http://localhost:8083/student/get?id=" + id, Student.class);
-        if (studentResponseEntity.getStatusCode()!=HttpStatus.OK) {
-            throw new EntityNotFoundException();
+    public void approveHours(String netId, Contract contract) {
+        this.verifyThatApplicableCourse(netId, contract.getCourseId());
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            restTemplate.postForEntity("management/approveHours", objectMapper.writeValueAsString(contract), Management.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
-        return studentResponseEntity.getBody();
+
     }
 }

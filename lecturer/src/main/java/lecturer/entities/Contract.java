@@ -1,20 +1,14 @@
 package lecturer.entities;
 
 public class Contract {
-    private String netId;
     private String studentId;
     private int hours;
     private String courseId;
 
-    public Contract(String netId, String courseId, String studentId, int hours) {
-        this.netId = netId;
+    public Contract(String courseId, String studentId, int hours) {
         this.courseId = courseId;
         this.studentId = studentId;
         this.hours = hours;
-    }
-
-    public String getNetId() {
-        return netId;
     }
 
     public String getStudentId() {
@@ -31,10 +25,6 @@ public class Contract {
 
     public void setCourseId(String courseId) {
         this.courseId = courseId;
-    }
-
-    public void setNetId(String netId) {
-        this.netId = netId;
     }
 
     public void setStudentId(String studentId) {

@@ -2,6 +2,8 @@ package lecturer.controllers;
 
 import java.util.List;
 import javax.websocket.server.PathParam;
+
+import lecturer.entities.Contract;
 import lecturer.entities.Course;
 import lecturer.entities.Lecturer;
 import lecturer.entities.Student;
@@ -88,5 +90,11 @@ public class LecturerController {
     public int getNumberOfTa(@PathParam("netId") String netId,
                              @PathParam("courseId") String course) {
         return lecturerService.getNumberOfNeededTas(netId, course);
+    }
+
+    @GetMapping("approveHours")
+    public void approveHours(@PathParam("netId") String netId,
+                             @RequestBody Contract contract) {
+        lecturerService.approveHours(netId, contract);
     }
 }
