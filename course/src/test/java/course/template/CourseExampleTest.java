@@ -3,7 +3,6 @@ package course.template;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import course.entities.Course;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
