@@ -1,45 +1,30 @@
 package management.serializers;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import java.io.IOException;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import java.lang.reflect.Type;
 import management.entities.Management;
-import management.services.ManagementService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class ManagementSerializer extends StdSerializer<Management> {
-
-    static final long serialVersionUID = 1L;
-
-    @Autowired
-    private ManagementService managementService;
-
-    public ManagementSerializer() {
-        this(null);
-    }
-
-    public ManagementSerializer(Class<Management> t) {
-        super(t);
-    }
+public class ManagementSerializer implements JsonSerializer<Management> {
 
     @Override
-    public void serialize(Management management, JsonGenerator gen, SerializerProvider provider)
-            throws IOException {
+    public JsonElement serialize(Management management, Type typeOfSrc,
+                                 JsonSerializationContext context) {
+        JsonObject jsonObject = new JsonObject();
 
-        gen.writeStartObject();
+        jsonObject.addProperty("id", management.getId());
+        jsonObject.addProperty("courseId", management.getCourseId());
+        jsonObject.addProperty("studentId", management.getStudentId());
 
-        gen.writeNumberField("id", management.getId());
-        gen.writeStringField("courseId", management.getCourseId());
-        gen.writeStringField("studentId", management.getStudentId());
+        jsonObject.addProperty("amountOfHours", management.getAmountOfHours());
+        jsonObject.addProperty("approvedHours", management.getApprovedHours());
+        jsonObject.addProperty("declaredHours", management.getDeclaredHours());
 
-        gen.writeNumberField("amountOfHours", management.getAmountOfHours());
-        gen.writeNumberField("approvedHours", management.getApprovedHours());
-        gen.writeNumberField("declaredHours", management.getDeclaredHours());
+        jsonObject.addProperty("rating", management.getRating());
 
-        gen.writeNumberField("rating", management.getRating());
-
-        gen.writeEndObject();
+        return jsonObject;
     }
 }

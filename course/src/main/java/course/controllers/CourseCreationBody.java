@@ -1,12 +1,13 @@
 package course.controllers;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 
 public class CourseCreationBody {
     private String courseId;
     private String name;
-    private Date startingDate;
+    private Calendar startingDate;
     private Integer courseSize;
     private Set<String> lecturerSet;
 
@@ -15,11 +16,11 @@ public class CourseCreationBody {
      *
      * @param courseId     String courseID
      * @param name         String course name
-     * @param startingDate Date course start date
+     * @param startingDate Calendar course start date
      * @param lecturerSet  Set of strings where strings are lecturerIDs
      * @param courseSize   Integer course student size
      */
-    public CourseCreationBody(String courseId, String name, Date startingDate,
+    public CourseCreationBody(String courseId, String name, Calendar startingDate,
                               Set<String> lecturerSet, Integer courseSize) {
         this.courseId = courseId;
         this.name = name;
@@ -69,7 +70,7 @@ public class CourseCreationBody {
      *
      * @return Date object
      */
-    public Date getStartingDate() {
+    public Calendar getStartingDate() {
         return startingDate;
     }
 
@@ -78,7 +79,7 @@ public class CourseCreationBody {
      *
      * @param startingDate Date object new starting date
      */
-    public void setStartingDate(Date startingDate) {
+    public void setStartingDate(Calendar startingDate) {
         this.startingDate = startingDate;
     }
 

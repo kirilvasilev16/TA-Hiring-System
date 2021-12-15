@@ -4,14 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class ManagementTest {
 
     private transient Management management;
-    private final transient String courseId = "CSE1200";
-    private final transient String netId = "kvasilev";
+    private static final transient String courseId = "CSE1200";
+    private static final transient String netId = "kvasilev";
 
     @BeforeEach
     void setUp() {
@@ -106,15 +110,40 @@ public class ManagementTest {
         assertEquals(5, management.getRating());
     }
 
-    @Test
-    void equalsTest() {
-        Management management1 = new Management(courseId, netId, 120);
-        assertEquals(management, management1);
+    @ParameterizedTest
+    @MethodSource("generatorEquals")
+    void equalsNot(Object management1) {
+        assertNotEquals(management, management1);
+    }
+
+    private static Stream<Arguments> generatorEquals() {
+
+        Management wrongId = new Management(courseId, netId, 120);
+        wrongId.setId(4L);
+        Management wrongRating = new Management(courseId, netId, 120);
+        wrongRating.setRating(4.0f);
+        Management wrongDeclaredHours = new Management(courseId, netId, 120);
+        wrongDeclaredHours.setDeclaredHours(20);
+        Management wrongApprovedHours = new Management(courseId, netId, 120);
+        wrongApprovedHours.setApprovedHours(30);
+        Management nullManagement = null;
+        return Stream.of(
+                Arguments.of(nullManagement),
+                Arguments.of(wrongId),
+                Arguments.of(wrongRating),
+                Arguments.of(wrongDeclaredHours),
+                Arguments.of(wrongApprovedHours),
+                Arguments.of(3),
+                Arguments.of(new Management(courseId + "C", netId, 120)),
+                Arguments.of(new Management(courseId, netId + "C", 120)),
+                Arguments.of(new Management(courseId, netId, 123))
+        );
     }
 
     @Test
-    void equalsNull() {
-        assertNotEquals(management, null);
+    void equalsManagement() {
+        Management management1 = new Management(courseId, netId, 120);
+        assertEquals(management, management1);
     }
 
     @Test
@@ -123,14 +152,15 @@ public class ManagementTest {
     }
 
     @Test
-    void equalsNot() {
-        Management management1 = new Management(courseId, "aatanasov", 120);
-        assertNotEquals(management, management1);
-    }
-
-    @Test
     void hashCodeTest() {
         Management management1 = new Management(courseId, netId, 120);
         assertEquals(management.hashCode(), management1.hashCode());
+    }
+
+    @Test
+    void hashCodeTestFail() {
+        Management management1 = new Management(courseId, netId, 120);
+        management.setId(11);
+        assertNotEquals(management.hashCode(), management1.hashCode());
     }
 }

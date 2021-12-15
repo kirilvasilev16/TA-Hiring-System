@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
+import management.entities.Hours;
 import management.entities.Management;
 import management.services.ManagementService;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @WebMvcTest
@@ -43,6 +48,9 @@ class ManagementControllerTest {
     void setUp() {
         management1 = new Management("CSE1200", "kvasilev", 120);
         management1.setId(1);
+        management1.setRating(10.0f);
+        management1.setDeclaredHours(20);
+        management1.setApprovedHours(50);
         management2 = new Management("CSE1200", "aatanasov", 70);
         management2.setId(2);
         managements = new ArrayList<>();
@@ -50,12 +58,16 @@ class ManagementControllerTest {
         managements.add(management2);
 
         findAllResult = "[{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
-                + ":120.0,\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0},"
+                + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0},"
                 + "{\"id\":2,\"courseId\":CSE1200,\"studentId\":aatanasov,\"amountOfHours\":70.0,"
                 + "\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0}]";
 
         findOneResult = "{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
-                + ":120.0,\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0}";
+                + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0}";
+
+        this.mockMvc = MockMvcBuilders.standaloneSetup(this.managementController)
+                .setMessageConverters(new GsonHttpMessageConverter())
+                .build();
     }
 
     @Test
@@ -78,6 +90,46 @@ class ManagementControllerTest {
     }
 
     @Test
+    void getRating() throws Exception {
+        when(managementService.getOne(courseId, studentId)).thenReturn(management1);
+
+        this.mockMvc.perform(get("/management/getRating?courseId=" + courseId
+                + "&studentId=" + studentId))
+                .andExpect(status().isOk())
+                .andExpect(content().json(String.valueOf(management1.getRating())));
+    }
+
+    @Test
+    void getAmountOfHours() throws Exception {
+        when(managementService.getOne(courseId, studentId)).thenReturn(management1);
+
+        this.mockMvc.perform(get("/management/getAmountOfHours?courseId=" + courseId
+                + "&studentId=" + studentId))
+                .andExpect(status().isOk())
+                .andExpect(content().json(String.valueOf(management1.getAmountOfHours())));
+    }
+
+    @Test
+    void getDeclaredHours() throws Exception {
+        when(managementService.getOne(courseId, studentId)).thenReturn(management1);
+
+        this.mockMvc.perform(get("/management/getDeclaredHours?courseId=" + courseId
+                + "&studentId=" + studentId))
+                .andExpect(status().isOk())
+                .andExpect(content().json(String.valueOf(management1.getDeclaredHours())));
+    }
+
+    @Test
+    void getApprovedHours() throws Exception {
+        when(managementService.getOne(courseId, studentId)).thenReturn(management1);
+
+        this.mockMvc.perform(get("/management/getApprovedHours?courseId=" + courseId
+                + "&studentId=" + studentId))
+                .andExpect(status().isOk())
+                .andExpect(content().json(String.valueOf(management1.getApprovedHours())));
+    }
+
+    @Test
     void create() throws Exception {
         when(managementService.createManagement(courseId, studentId, 120))
                 .thenReturn(management1);
@@ -92,19 +144,26 @@ class ManagementControllerTest {
     @Test
     void declareHours() throws Exception {
         this.mockMvc
-                .perform(put("/management/declareHours?courseId=" + courseId
-                        + "&studentId=" + studentId + "&hours=10"))
+                .perform(put("/management/declareHours")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[{\"courseId\":" + courseId
+                                + ",\"studentId\":" + studentId + ",\"hours\":20.0}]")
+                        .accept(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isOk());
-        verify(managementService, only()).declareHours(courseId, studentId, 10);
+        verify(managementService, only()).declareHours(List.of(new Hours(courseId, studentId, 20)));
     }
 
     @Test
     void approveHours() throws Exception {
         this.mockMvc
-                .perform(put("/management/approveHours?courseId=" + courseId
-                        + "&studentId=" + studentId + "&hours=20"))
+                .perform(put("/management/approveHours")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[{\"courseId\":" + courseId
+                                + ",\"studentId\":" + studentId + ",\"hours\":20.0}]")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(managementService, only()).approveHours(courseId, studentId, 20);
+        verify(managementService, only()).approveHours(List.of(new Hours(courseId, studentId, 20)));
     }
 
     @Test
