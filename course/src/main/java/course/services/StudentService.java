@@ -35,6 +35,7 @@ public class StudentService {
     private static int experienceStrat = 2;
     private static int gradeStrat = 3;
     private static int maxCoursesPerQuarter = 3;
+    private static int weeks3InDays = 21;
 
     /**
      * Getter for candidate TAs.
@@ -70,7 +71,7 @@ public class StudentService {
             throw new InvalidCandidateException("Student already hired as TA");
         }
 
-        if (DAYS.between(today, course.getStartingDate()) < 21) {
+        if (DAYS.between(today, course.getStartingDate()) < weeks3InDays) {
             throw new DeadlinePastException("Deadline for TA application has past");
         }
         course.getCandidateTas().add(studentId);
