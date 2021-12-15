@@ -1,17 +1,18 @@
 package authentication.controller;
 
 import authentication.communication.ServerCommunication;
+import authentication.entities.Authentication;
+import authentication.entities.Role;
 import authentication.service.AuthenticationService;
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @SuppressWarnings("AvoidFieldNameMatchingMethodName")
 @RestController("Authentication")
@@ -23,6 +24,38 @@ public class AuthenticationController {
     private transient ServerCommunication serverCommunication;
 
     public AuthenticationController() {}
+
+    /**
+     * saves user to the local database.
+     *
+     * @param auth object representing the user.
+     */
+    @PostMapping("/authentication/saveAuth")
+    public Authentication saveUser(@RequestBody Authentication auth) {
+        return authenticationService.saveAuth(auth);
+    }
+
+    /**
+     * saves role to the local database.
+     *
+     * @param role object representing the user.
+     */
+    @PostMapping("/authentication/saveRole")
+    public Role saveRole(@RequestBody Role role) {
+        return authenticationService.saveRole(role);
+    }
+
+    /**
+     * add role to the auth object.
+     *
+     * @param netId of the auth object which represents the user
+     * @param roleName name of the role
+     */
+    @PutMapping("/authentication/saveRole")
+    public String addRoleToUser(@PathParam("netId") String netId,
+                              @PathParam("roleName") String roleName) {
+        return authenticationService.addRoleToAuthentication(netId, roleName);
+    }
 
     /**
      * get request handler, sends get request to api-gateway.

@@ -1,5 +1,6 @@
 package authentication;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -53,7 +54,9 @@ public class AuthenticationControllerTest {
 
     private transient Authentication authTa;
     private transient Authentication authLecturer;
+    private transient Authentication authAdmin;
     private transient String findAllResult;
+    private transient Role role;
     private transient String courseId = "CSE1200";
     private transient String studentId = "kvasilev";
 
@@ -64,11 +67,13 @@ public class AuthenticationControllerTest {
 
     @BeforeEach
     void setUp() {
+        role = new Role("ROLE_lecturer");
         authTa = new Authentication("net2@id.nl", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_ta"))));
         authLecturer = new Authentication("net2@id.nl", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_lecturer"))));
-
+        authAdmin = new Authentication("net2@id.nl", "pass2", "name",
+                new ArrayList<Role>(Arrays.asList(new Role("ROLE_admin"))));
         findAllResult = "{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
                 + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0}";
 
@@ -78,6 +83,26 @@ public class AuthenticationControllerTest {
 
 
 
+    @Test
+    @WithMockUser(roles = "admin")
+    void saveUserTest() {
+        when(authenticationService.saveAuth(authTa)).thenReturn(authTa);
+        assertEquals(authTa, authenticationController.saveUser(authTa));
+    }
+
+    @Test
+    @WithMockUser(roles = "admin")
+    void saveRoleTest() {
+        when(authenticationService.saveRole(role)).thenReturn(role);
+        assertEquals(role, authenticationController.saveRole(role));
+    }
+
+    @Test
+    @WithMockUser(roles = "admin")
+    void addRoleToUserTest() {
+        when(authenticationService.addRoleToAuthentication("net1@id.nl", "ROLE_student")).thenReturn("Role added successfully");
+        assertEquals("Role added successfully", authenticationController.addRoleToUser("net1@id.nl", "ROLE_student"));
+    }
 
     @Test
     @WithMockUser(roles = "admin")
