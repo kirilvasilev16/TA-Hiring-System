@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import javax.persistence.EntityNotFoundException;
 import lecturer.entities.Contract;
 import lecturer.entities.Course;
@@ -111,7 +112,7 @@ public class LecturerService {
      * @param courseId specific course
      * @return list of students that want to be a TA for a course
      */
-    public List<Student> getCandidateTaList(String netId, String courseId) {
+    public Set<String> getCandidateTaList(String netId, String courseId) {
         return this.getSpecificCourseOfLecturer(netId, courseId).getCandidateTas();
     }
 
@@ -155,12 +156,12 @@ public class LecturerService {
      * @return average rating of a student
      */
     public double computeAverageRating(String netId, String course, String studentId) {
-        List<Student> students = this.getCandidateTaList(netId, course);
-        for (Student student : students) {
-            if (student.getId().equals(studentId)) {
-                return student.getAverageRating();
-            }
-        }
+//        Set<String> students = this.getCandidateTaList(netId, course);
+//        for (String student : students) {
+//            if (student.getId().equals(studentId)) {
+//                return student.getAverageRating();
+//            }
+//        }
         throw new EntityNotFoundException();
     }
 
@@ -196,7 +197,7 @@ public class LecturerService {
      */
     public int getNumberOfNeededTas(String netId, String courseId) {
         Course course = this.getSpecificCourseOfLecturer(netId, courseId);
-        return course.getNumberOfTa();
+        return (int) Math.floor(course.getCourseSize()/20.0);
     }
 
     /**

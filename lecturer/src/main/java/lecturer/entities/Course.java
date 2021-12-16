@@ -1,67 +1,54 @@
 package lecturer.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
+import java.util.Set;
+
 public class Course {
-    @Id
-    private String id;
-    private int size;
-    private int numberOfTa;
-    @ElementCollection
-    private List<Student> candidateTas;
+    @JsonProperty("courseId")
+    private String courseId;
+    @JsonProperty("courseSize")
+    private int courseSize;
+    @JsonProperty("candidateTas")
+    private Set<String> candidateTas;
 
     public Course() {
-    }
-
-    public int getNumberOfTa() {
-        return numberOfTa;
     }
 
     /**
      * Constructor.
      *
-     * @param id course id
+     * @param courseId course id
      * @param candidateTas candidates TAs
-     * @param size size of course
+     * @param courseSize size of course
      */
-    public Course(String id, List<Student> candidateTas, int size) {
-        this.id = id;
+    public Course(String courseId, Set<String> candidateTas, int courseSize) {
+        this.courseId = courseId;
         this.candidateTas = candidateTas;
-        this.size = size;
-        this.numberOfTa = size / 20;
+        this.courseSize = courseSize;
     }
 
-    public String getId() {
-        return id;
+    public String getCourseId() {
+        return courseId;
     }
 
-    public List<Student> getCandidateTas() {
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
+    public int getCourseSize() {
+        return courseSize;
+    }
+
+    public void setCourseSize(int courseSize) {
+        this.courseSize = courseSize;
+    }
+
+    public Set<String> getCandidateTas() {
         return candidateTas;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setCandidateTas(List<Student> candidateTas) {
+    public void setCandidateTas(Set<String> candidateTas) {
         this.candidateTas = candidateTas;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public void setNumberOfTa(int numberOfTa) {
-        this.numberOfTa = numberOfTa;
     }
 }

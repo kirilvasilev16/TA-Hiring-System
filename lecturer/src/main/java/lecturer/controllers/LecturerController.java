@@ -1,6 +1,7 @@
 package lecturer.controllers;
 
 import java.util.List;
+import java.util.Set;
 import javax.websocket.server.PathParam;
 import lecturer.entities.Contract;
 import lecturer.entities.Course;
@@ -47,14 +48,14 @@ public class LecturerController {
 
     @GetMapping("/courses/getSpecificCourse")
     public Course getSpecificCourse(@PathParam("netId") String netId,
-                                    @PathParam("courseId") String course) {
-        return lecturerService.getSpecificCourseOfLecturer(netId, course);
+                                    @PathParam("courseId") String courseId) {
+        return lecturerService.getSpecificCourseOfLecturer(netId, courseId);
     }
 
     @GetMapping("/courses/getCandidateTas")
-    public List<Student> getCandidateTas(@PathParam("netId") String netId,
-                                         @PathParam("courseId") String course) {
-        return lecturerService.getCandidateTaList(netId, course);
+    public Set<String> getCandidateTas(@PathParam("netId") String netId,
+                                       @PathParam("courseId") String courseId) {
+        return lecturerService.getCandidateTaList(netId, courseId);
     }
 
     @PatchMapping("/courses/selectTa")
