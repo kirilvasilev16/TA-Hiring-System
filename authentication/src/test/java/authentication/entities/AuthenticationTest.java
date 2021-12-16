@@ -14,11 +14,12 @@ class AuthenticationTest {
     private transient Authentication auth;
     private transient String netId = "net@id.nl";
     private transient String name = "name";
+    private transient String email = "email@email.co";
     private transient String password = "password";
 
     @BeforeEach
     void setUp() {
-        auth = new Authentication(netId, password, name, new ArrayList<>());
+        auth = new Authentication(netId, email, password, name, new ArrayList<>());
     }
 
     @Test

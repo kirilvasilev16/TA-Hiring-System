@@ -53,9 +53,9 @@ public class  SecurityConfigTest {
 
     @BeforeEach
     void setUp() {
-        authTa = new Authentication("net2@id.nl", "pass2", "name",
+        authTa = new Authentication("net2@id.nl", "email@email.co", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_ta"))));
-        authLecturer = new Authentication("net2@id.nl", "pass2", "name",
+        authLecturer = new Authentication("net2@id.nl", "email@email.co", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_lecturer"))));
 
         findAllResult = "{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""

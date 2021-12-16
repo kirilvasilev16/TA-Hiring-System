@@ -35,15 +35,15 @@ public class AuthenticationServiceTest {
         authenticationService = new AuthenticationService(authenticationRepository, roleRepository);
         role = new Role("ROLE_ta");
 
-        testStudent = new Authentication("stu@id.nl", "stupass", "password1",
+        testStudent = new Authentication("stu@id.nl", "email@email.co", "stupass", "password1",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_student"))));
-        testLecturer = new Authentication("lec@id.nl", "lecpass", "password2",
+        testLecturer = new Authentication("lec@id.nl", "email@email.co", "lecpass", "password2",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_lecturer"))));
-        testTa = new Authentication("ta@id.nl", "modpass", "password3",
+        testTa = new Authentication("ta@id.nl", "email@email.co", "modpass", "password3",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_ta"))));
-        testAdmin = new Authentication("adm@id.nl", "admpass", "password4",
+        testAdmin = new Authentication("adm@id.nl", "email@email.co", "admpass", "password4",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_admin"))));
-        testTaNoRole = new Authentication("stu@id.nl", "stupass", "password5",
+        testTaNoRole = new Authentication("stu@id.nl", "email@email.co", "stupass", "password5",
                 new ArrayList<>());
     }
 

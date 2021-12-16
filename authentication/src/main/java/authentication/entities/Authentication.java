@@ -19,6 +19,7 @@ public class Authentication {
     private Long id;
     private String netId;
     private String password;
+    private String email;
     private String name;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles;
@@ -33,8 +34,9 @@ public class Authentication {
      * @param name of the user
      * @param roles granted for the user like student/ta/admin/lecturer
      */
-    public Authentication(String netId, String password, String name, Collection<Role> roles) {
+    public Authentication(String netId, String email, String password, String name, Collection<Role> roles) {
         this.netId = netId;
+        this.email = email;
         this.password = password;
         this.name = name;
         this.roles = roles;

@@ -1,11 +1,14 @@
 package authentication.communication;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.security.Security;
 
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class Request {
@@ -19,10 +22,12 @@ public class Request {
      * @return String with the responseBody
      */
     public static String get(String url) throws IOException {
+
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
+                    .header("netId", String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal()))
                     .GET()
                     .build();
             HttpResponse<String> response = client
@@ -50,12 +55,14 @@ public class Request {
                 request = HttpRequest.newBuilder()
                         .uri(URI.create(url))
                         .header("Content-Type", "application/json")
+                        .header("netId", String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal()))
                         .POST(HttpRequest.BodyPublishers.noBody())
                         .build();
             } else {
                 request = HttpRequest.newBuilder()
                         .uri(URI.create(url))
                         .header("Content-Type", "application/json")
+                        .header("netId", String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal()))
                         .POST(HttpRequest.BodyPublishers.ofString(body))
                         .build();
             }
@@ -81,12 +88,14 @@ public class Request {
                 request = HttpRequest.newBuilder()
                         .uri(URI.create(url))
                         .header("Content-Type", "application/json")
+                        .header("netId", String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal()))
                         .PUT(HttpRequest.BodyPublishers.noBody())
                         .build();
             } else {
                 request = HttpRequest.newBuilder()
                         .uri(URI.create(url))
                         .header("Content-Type", "application/json")
+                        .header("netId", String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal()))
                         .PUT(HttpRequest.BodyPublishers.ofString(body))
                         .build();
             }
