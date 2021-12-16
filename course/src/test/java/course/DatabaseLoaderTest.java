@@ -3,8 +3,6 @@ package course;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
-import course.DatabaseLoader;
 import course.entities.Course;
 import course.repositories.CourseRepository;
 import org.junit.jupiter.api.Test;
