@@ -1,4 +1,4 @@
-package authentication;
+package authentication.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
