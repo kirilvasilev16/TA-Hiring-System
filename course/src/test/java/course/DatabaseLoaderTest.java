@@ -1,4 +1,4 @@
-package course.template;
+package course;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
