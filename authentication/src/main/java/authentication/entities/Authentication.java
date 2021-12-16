@@ -122,4 +122,20 @@ public class Authentication {
     public void setId(Long id) {
         this.id = id;
     }
+
+    /**
+     * email getter.
+     *
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * email setter.
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
