@@ -89,22 +89,22 @@ public class CourseController {
      * Update specific course student size.
      *
      * @param courseId   String courseID
-     * @param courseSize Integer course size
+     * @param size Integer course size
      * @throws CourseNotFoundException if course not found
      */
     @PatchMapping("updateSize")
     @Transactional
     public void updateCourseSize(@PathParam("courseId") String courseId,
-                                 @PathParam("size") Integer courseSize)
+                                 @PathParam("size") Integer size)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
         }
-        c.setCourseSize(courseSize);
+        c.setCourseSize(size);
 
-        courseService.updateCourseSize(courseId, courseSize);
+        courseService.updateCourseSize(courseId, size);
 
     }
 

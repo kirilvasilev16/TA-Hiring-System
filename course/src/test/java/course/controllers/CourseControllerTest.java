@@ -9,9 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -129,17 +127,16 @@ class CourseControllerTest {
                 .andExpect(content().json(gson.toJson(course.getCourseSize())));
     }
 
-    /*
+
     @Test
     void updateCourseSize() throws Exception {
-    //TODO: fix failing test
 
         Integer newSize = 1000;
 
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
         this.mockMvc.perform(patch("/courses/updateSize?courseId=" + courseId
-                + "&size=1000")
+                + "&size=" + newSize)
                         .contentType("application/json-patch+json"))
                 .andExpect(status().isOk());
 
@@ -147,7 +144,7 @@ class CourseControllerTest {
         verify(courseService, times(1)).updateCourseSize(courseId, newSize);
 
     }
-    */
+
 
     @Test
     void getLecturerSet() throws Exception {
