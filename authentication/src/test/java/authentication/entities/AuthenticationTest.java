@@ -3,13 +3,12 @@ package authentication.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import authentication.entities.Authentication;
-import authentication.entities.Role;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 class AuthenticationTest {
     private transient Authentication auth;
     private transient String netId = "net@id.nl";

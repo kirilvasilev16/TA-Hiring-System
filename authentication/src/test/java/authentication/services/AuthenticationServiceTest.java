@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class AuthenticationServiceTest {
 
     private transient AuthenticationService authenticationService;
