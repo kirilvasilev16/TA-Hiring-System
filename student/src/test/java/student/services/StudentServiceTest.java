@@ -1,4 +1,9 @@
-package nl.tudelft.sem.student.services;
+package student.services;
+
+import student.entities.Student;
+import student.exceptions.StudentNotEligibleException;
+import student.exceptions.StudentNotFoundException;
+import student.repositories.StudentRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,10 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import nl.tudelft.sem.student.entities.Student;
-import nl.tudelft.sem.student.exceptions.StudentNotEligibleException;
-import nl.tudelft.sem.student.exceptions.StudentNotFoundException;
-import nl.tudelft.sem.student.repositories.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

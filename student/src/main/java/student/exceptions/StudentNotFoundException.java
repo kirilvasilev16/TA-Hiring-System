@@ -1,4 +1,4 @@
-package nl.tudelft.sem.student.exceptions;
+package student.exceptions;
 
 import javax.persistence.EntityNotFoundException;
 

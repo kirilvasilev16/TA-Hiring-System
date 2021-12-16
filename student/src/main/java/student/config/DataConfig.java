@@ -1,11 +1,12 @@
-package nl.tudelft.sem.student.config;
+package student.config;
+
+import student.entities.Student;
+import student.repositories.StudentRepository;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import nl.tudelft.sem.student.entities.Student;
-import nl.tudelft.sem.student.repositories.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,11 +1,11 @@
-package nl.tudelft.sem.student.controllers;
+package student.controllers;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.websocket.server.PathParam;
-import nl.tudelft.sem.student.entities.Student;
-import nl.tudelft.sem.student.services.StudentService;
+import student.entities.Student;
+import student.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

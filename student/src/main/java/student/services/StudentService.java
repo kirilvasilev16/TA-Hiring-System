@@ -1,19 +1,17 @@
-package nl.tudelft.sem.student.services;
+package student.services;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import student.exceptions.StudentNotEligibleException;
+import student.exceptions.StudentNotFoundException;
+import student.repositories.StudentRepository;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
-import nl.tudelft.sem.student.entities.Student;
-import nl.tudelft.sem.student.exceptions.StudentNotEligibleException;
-import nl.tudelft.sem.student.exceptions.StudentNotFoundException;
-import nl.tudelft.sem.student.repositories.StudentRepository;
+
+import student.entities.Student;
+
 import org.springframework.stereotype.Service;
 
 /**
