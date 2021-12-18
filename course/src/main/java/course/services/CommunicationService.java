@@ -86,6 +86,7 @@ public class CommunicationService {
      * @return created Management object if successful else null
      * @throws FailedContractCreationException if request to Management microservice fails
      */
+    @SuppressWarnings("PMD")
     public Management createManagement(String courseId, String studentId, float contractHours) {
 
         HttpRequest request = HttpRequest.newBuilder().POST(HttpRequest.BodyPublishers.noBody())
