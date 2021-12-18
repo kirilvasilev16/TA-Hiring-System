@@ -38,6 +38,7 @@ class ManagementServiceTest {
         management1.setId(1);
         management2 = new Management(courseId, studentId, 70);
         management2.setId(2);
+        management2.setRating(5);
         managements = new ArrayList<>();
         managements.add(management1);
         managements.add(management2);
@@ -46,6 +47,9 @@ class ManagementServiceTest {
         Mockito.when(managementRepository.getManagementByCourseAndStudent(courseId, studentId))
                 .thenReturn(management2);
         Mockito.when(managementRepository.save(any(Management.class))).thenReturn(management2);
+        Mockito.when(managementRepository.getAverageTaRating(studentId))
+                .thenReturn(management2.getRating());
+        Mockito.when(managementRepository.getTaRecords(studentId)).thenReturn(1);
     }
 
     @Test
@@ -58,6 +62,18 @@ class ManagementServiceTest {
     void getOne() {
         Management foundManagement = managementService.getOne(courseId, studentId);
         assertEquals(management2, foundManagement);
+    }
+
+    @Test
+    void getAverageRating() {
+        float rating = managementService.getAverageRating(studentId);
+        assertEquals(management2.getRating(), rating);
+    }
+
+    @Test
+    void getAverageRatingInvalid() {
+        assertThrows(InvalidIdException.class,
+                () -> managementService.getAverageRating("invalid"));
     }
 
     @Test

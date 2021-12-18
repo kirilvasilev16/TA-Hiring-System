@@ -152,4 +152,17 @@ public class ManagementService {
                 + "Hours in contract: " + management.getAmountOfHours() + "\n";
         System.out.println(contract);
     }
+
+    /**
+     * Gets the average rating of a TA.
+     *
+     * @param studentId id of student
+     * @return the management object
+     */
+    public float getAverageRating(String studentId) {
+        if (managementRepository.getTaRecords(studentId) == 0) {
+            throw new InvalidIdException("StudentId not found");
+        }
+        return managementRepository.getAverageTaRating(studentId);
+    }
 }

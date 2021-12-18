@@ -59,6 +59,17 @@ public class ManagementController {
     }
 
     /**
+     * Gets the average rating of a TA.
+     *
+     * @param studentId id of student
+     * @return the management object
+     */
+    @GetMapping("getAverageRating")
+    public float getAverageRating(@PathParam(AnnotationHelper.studentId) String studentId) {
+        return managementService.getAverageRating(studentId);
+    }
+
+    /**
      * Gets the contract hours of a student for a course.
      *
      * @param courseId id of course
