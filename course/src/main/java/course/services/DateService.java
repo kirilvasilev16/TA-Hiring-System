@@ -1,5 +1,6 @@
 package course.services;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class DateService {
      *
      * @return Calendar object
      */
-    public Calendar getTodayDate() {
-        return Calendar.getInstance();
+    public LocalDateTime getTodayDate() {
+        return LocalDateTime.now();
     }
 }

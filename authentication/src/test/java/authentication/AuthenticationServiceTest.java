@@ -1,4 +1,4 @@
-package nl.tudelft.sem.test;
+package authentication;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

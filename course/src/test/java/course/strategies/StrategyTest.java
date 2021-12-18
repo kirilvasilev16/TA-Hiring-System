@@ -12,8 +12,10 @@ import course.entities.Course;
 import course.entities.Student;
 import course.exceptions.CourseNotPassedException;
 import course.services.CommunicationService;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -26,7 +28,7 @@ import org.mockito.Mockito;
 public class StrategyTest {
     private transient Course course;
     private transient Set<String> lecturerSet;
-    private transient Calendar startingDate;
+    private transient LocalDateTime startingDate;
     private transient String courseId;
     private transient String courseName;
     private transient int courseSize;
@@ -40,7 +42,7 @@ public class StrategyTest {
     void setUp() {
         lecturerSet = new HashSet<>();
         lecturerSet.add(lecturer1);
-        startingDate = new Calendar.Builder().setDate(2021, 11, 7).build();
+        startingDate = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
         courseSize = 500;
         courseId = "CSE2115-2021";
         courseName = "SEM";

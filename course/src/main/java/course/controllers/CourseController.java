@@ -5,6 +5,7 @@ import course.entities.Course;
 import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
+import course.exceptions.InvalidLecturerException;
 import course.exceptions.TooManyCoursesException;
 import course.services.CommunicationService;
 import course.services.CourseService;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -89,22 +91,22 @@ public class CourseController {
      * Update specific course student size.
      *
      * @param courseId   String courseID
-     * @param courseSize Integer course size
+     * @param size Integer course size
      * @throws CourseNotFoundException if course not found
      */
     @PatchMapping("updateSize")
     @Transactional
     public void updateCourseSize(@PathParam("courseId") String courseId,
-                                 @PathParam("size") Integer courseSize)
+                                 @PathParam("size") Integer size)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
         }
-        c.setCourseSize(courseSize);
+        c.setCourseSize(size);
 
-        courseService.updateCourseSize(courseId, courseSize);
+        courseService.updateCourseSize(courseId, size);
 
     }
 
@@ -150,16 +152,22 @@ public class CourseController {
      *
      * @param courseId courseId
      * @param strategy desired sorting strategy
+     * @param netId netId of lecturer
      * @return Ordered list of TA's
      */
     @GetMapping("taRecommendations")
     public List<String> getTaRecommendationList(@PathParam("courseId") String courseId,
-                                                @PathParam("strategy") String strategy)
-            throws CourseNotFoundException {
+                                                @PathParam("strategy") String strategy,
+                                                @RequestHeader("netId") String netId)
+            throws CourseNotFoundException, InvalidLecturerException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
+        }
+
+        if (!LecturerService.containsLecturer(c, netId)) {
+            throw new InvalidLecturerException("Lecturer not a staff of this course");
         }
 
         return StudentService.getTaRecommendationList(c, strategy, communicationService);
@@ -297,16 +305,22 @@ public class CourseController {
      * Retrieve all candidate TAs of specific course.
      *
      * @param courseId String courseId
+     * @param netId String lecturer netId
      * @return Set of strings (studentIds)
      * @throws CourseNotFoundException if course not found
      */
     @GetMapping("candidates")
-    public Set<String> getCandidateSet(@PathParam("courseId") String courseId)
-            throws CourseNotFoundException {
+    public Set<String> getCandidateSet(@PathParam("courseId") String courseId,
+                                       @RequestHeader("netId") String netId)
+            throws CourseNotFoundException, InvalidLecturerException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
+        }
+
+        if (!LecturerService.containsLecturer(c, netId)) {
+            throw new InvalidLecturerException("Lecturer not a staff of this course");
         }
 
         return StudentService.getCandidates(c);
@@ -316,16 +330,22 @@ public class CourseController {
      * Retrieve all hired TAs of specific course.
      *
      * @param courseId String courseId
+     * @param netId String lecturerId
      * @return Set of strings (studentIds)
      * @throws CourseNotFoundException if course not found
      */
     @GetMapping("tas")
-    public Set<String> getTaSet(@PathParam("courseId") String courseId)
-            throws CourseNotFoundException {
+    public Set<String> getTaSet(@PathParam("courseId") String courseId,
+                                @RequestHeader("netId") String netId)
+            throws CourseNotFoundException, InvalidLecturerException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
+        }
+
+        if (!LecturerService.containsLecturer(c, netId)) {
+            throw new InvalidLecturerException("Lecturer not a staff of this course");
         }
 
         return StudentService.getTaSet(c);
@@ -337,16 +357,16 @@ public class CourseController {
      *
      * @param courseId   String courseId
      * @param studentId  String studentId
-     * @param lecturerId String lecturerId
      * @param hours      float contract hours
+     * @param netId String lecturer netId
      * @throws CourseNotFoundException if no courses found
      * @throws InvalidHiringException  if student already hired or not in course
      */
     @PostMapping("hireTa")
     public void hireTa(@PathParam("courseId") String courseId,
                        @PathParam("studentId") String studentId,
-                       @PathParam("lecturerId") String lecturerId,
-                       @PathParam("hours") float hours)
+                       @PathParam("hours") float hours,
+                       @RequestHeader("netId") String netId)
             throws CourseNotFoundException, InvalidHiringException {
         Course c = courseService.findByCourseId(courseId);
 
@@ -354,7 +374,11 @@ public class CourseController {
             throw new CourseNotFoundException(courseId);
         }
 
-        StudentService.hireTa(c, studentId, lecturerId, hours, communicationService);
+        if (!LecturerService.containsLecturer(c, netId)) {
+            throw new InvalidLecturerException("Lecturer not a staff of this course");
+        }
+
+        StudentService.hireTa(c, studentId, hours, communicationService);
 
         //courseService.updateHireTas(courseId, c.getHiredTas());
         //courseService.updateCandidateTas(courseId, c.getCandidateTas());

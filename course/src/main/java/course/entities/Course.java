@@ -1,6 +1,7 @@
 package course.entities;
 
-import java.util.Calendar;
+
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -22,8 +23,8 @@ public class Course {
     private Integer courseSize;
     private Integer quarter;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar startingDate;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime startingDate;
 
     @ElementCollection
     private Set<String> lecturerSet;
@@ -41,8 +42,8 @@ public class Course {
      * @param lecturerSet  set of strings where strings are lecturerIDs
      * @param startingDate Calendar object course start date
      */
-    public Course(String courseId, String name, int courseSize,
-                  Set<String> lecturerSet, Calendar startingDate, Integer quarter) {
+    public Course(String courseId, String name, int courseSize, Set<String> lecturerSet,
+                  LocalDateTime startingDate, Integer quarter) {
         this.courseId = courseId;
         this.name = name;
         this.startingDate = startingDate;
@@ -99,7 +100,7 @@ public class Course {
      *
      * @return Calendar object
      */
-    public Calendar getStartingDate() {
+    public LocalDateTime getStartingDate() {
         return this.startingDate;
     }
 
@@ -108,7 +109,7 @@ public class Course {
      *
      * @param startingDate Date object new starting date
      */
-    public void setStartingDate(Calendar startingDate) {
+    public void setStartingDate(LocalDateTime startingDate) {
         this.startingDate = startingDate;
     }
 

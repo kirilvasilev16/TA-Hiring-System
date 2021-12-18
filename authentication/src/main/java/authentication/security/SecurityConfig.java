@@ -1,9 +1,5 @@
 package authentication.security;
 
-import static org.springframework.http.HttpMethod.GET;
-
-import authentication.filter.CustomAuthenticationFilter;
-import authentication.filter.CustomAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,11 +7,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @Configuration
 @EnableWebSecurity
 public class  SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -50,23 +45,19 @@ public class  SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println("HttpSecurityConfig config");
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/login").permitAll();
-        http.authorizeRequests()
-                .antMatchers(GET, "/authentication/**").hasAnyAuthority("ROLE_admin");
-        http.authorizeRequests()
-                .antMatchers(GET, "/student/**").hasAnyAuthority("ROLE_student", "ROLE_ta");
-        http.authorizeRequests()
-                .antMatchers(GET, "/lecturer/**").hasAnyAuthority("ROLE_lecturer");
-        http.authorizeRequests()
-                .antMatchers(GET, "/courses/**").hasAnyAuthority("ROLE_admin");
-        http.authorizeRequests()
-                .antMatchers(GET, "/management/**").hasAnyAuthority("ROLE_lecturer", "ROLE_admin");
-        http.authorizeRequests().anyRequest().authenticated();
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
-        http.addFilterBefore(new CustomAuthorizationFilter(),
-                UsernamePasswordAuthenticationFilter.class);
+
+        Validator loginHandler = new LoginValidator();
+        Validator authenticationRoleHandler = new AuthenticationRoleValidator();
+        Validator filterHandler = new FilterValidator(authenticationManagerBean());
+
+        loginHandler.setNext(authenticationRoleHandler);
+        authenticationRoleHandler.setNext(filterHandler);
+
+        try {
+            loginHandler.handle(http);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -77,8 +77,8 @@ public class LecturerClassTest {
 
     @Test
     void setCourses() {
-        List<Course> courses = new ArrayList<>();
-        courses.add(new Course());
+        List<String> courses = new ArrayList<>();
+        courses.add("cse");
         lecturer.setCourses(courses);
         assertEquals(courses, lecturer.getCourses());
     }

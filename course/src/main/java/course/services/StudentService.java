@@ -1,8 +1,9 @@
 package course.services;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import course.controllers.CourseController;
 import course.controllers.strategies.ExperienceStrategy;
 import course.controllers.strategies.GradeStrategy;
 import course.controllers.strategies.RatingStrategy;
@@ -15,16 +16,15 @@ import course.exceptions.InvalidHiringException;
 import course.exceptions.InvalidLecturerException;
 import course.exceptions.InvalidStrategyException;
 import course.exceptions.TooManyCoursesException;
-import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+
+
 
 public class StudentService {
 
@@ -35,8 +35,7 @@ public class StudentService {
     private static int experienceStrat = 2;
     private static int gradeStrat = 3;
     private static int maxCoursesPerQuarter = 3;
-    private static final long week3 = new Calendar.Builder().setDate(1970, 0, 22)
-            .build().getTimeInMillis();
+    private static int weeks3InDays = 21;
 
     /**
      * Getter for candidate TAs.
@@ -66,13 +65,13 @@ public class StudentService {
      * @throws InvalidCandidateException if Student already hired as TA
      * @throws DeadlinePastException if deadline for TA application has past
      */
-    public static void addCandidate(Course course, String studentId, Calendar today)
+    public static void addCandidate(Course course, String studentId, LocalDateTime today)
             throws InvalidCandidateException {
         if (containsTa(course, studentId)) {
             throw new InvalidCandidateException("Student already hired as TA");
         }
 
-        if (course.getStartingDate().getTimeInMillis() - today.getTimeInMillis() < week3) {
+        if (DAYS.between(today, course.getStartingDate()) < weeks3InDays) {
             throw new DeadlinePastException("Deadline for TA application has past");
         }
         course.getCandidateTas().add(studentId);
@@ -159,20 +158,13 @@ public class StudentService {
      *
      * @param course    Course Object
      * @param studentId String studentId
-     * @param lecturerId String lecturerId
      * @param hours     float for contract hours
      * @return true if hired, false otherwise
      * @throws InvalidHiringException if student already hired or not in course
-     * @throws InvalidLecturerException if lecturer not course staff
      */
-    public static boolean hireTa(Course course, String studentId, String lecturerId,
-                                 float hours,
+    public static boolean hireTa(Course course, String studentId, float hours,
                                  CommunicationService communicationService)
             throws InvalidHiringException {
-
-        if (!LecturerService.containsLecturer(course, lecturerId)) {
-            throw new InvalidLecturerException("Lecturer not a staff of this course");
-        }
 
         if (course.getCandidateTas().remove(studentId)) {
             course.getHiredTas().add(studentId);

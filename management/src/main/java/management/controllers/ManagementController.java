@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @RestController("Management")
 @RequestMapping("management")
 public class ManagementController {
@@ -41,8 +40,8 @@ public class ManagementController {
      * @return the management object
      */
     @GetMapping("get")
-    public Management getOne(@PathParam("courseId") String courseId,
-                             @PathParam("studentId") String studentId) {
+    public Management getOne(@PathParam(AnnotationHelper.courseId) String courseId,
+                             @PathParam(AnnotationHelper.studentId) String studentId) {
         return managementService.getOne(courseId, studentId);
     }
 
@@ -54,8 +53,8 @@ public class ManagementController {
      * @return the management object
      */
     @GetMapping("getRating")
-    public float getRating(@PathParam("courseId") String courseId,
-                             @PathParam("studentId") String studentId) {
+    public float getRating(@PathParam(AnnotationHelper.courseId) String courseId,
+                             @PathParam(AnnotationHelper.studentId) String studentId) {
         return managementService.getOne(courseId, studentId).getRating();
     }
 
@@ -67,8 +66,8 @@ public class ManagementController {
      * @return the management object
      */
     @GetMapping("getAmountOfHours")
-    public float getAmountOfHours(@PathParam("courseId") String courseId,
-                                  @PathParam("studentId") String studentId) {
+    public float getAmountOfHours(@PathParam(AnnotationHelper.courseId) String courseId,
+                                  @PathParam(AnnotationHelper.studentId) String studentId) {
         return managementService.getOne(courseId, studentId).getAmountOfHours();
     }
 
@@ -80,8 +79,8 @@ public class ManagementController {
      * @return the management object
      */
     @GetMapping("getDeclaredHours")
-    public float getDeclaredHours(@PathParam("courseId") String courseId,
-                           @PathParam("studentId") String studentId) {
+    public float getDeclaredHours(@PathParam(AnnotationHelper.courseId) String courseId,
+                           @PathParam(AnnotationHelper.studentId) String studentId) {
         return managementService.getOne(courseId, studentId).getDeclaredHours();
     }
 
@@ -93,8 +92,8 @@ public class ManagementController {
      * @return the management object
      */
     @GetMapping("getApprovedHours")
-    public float getApprovedHours(@PathParam("courseId") String courseId,
-                                  @PathParam("studentId") String studentId) {
+    public float getApprovedHours(@PathParam(AnnotationHelper.courseId) String courseId,
+                                  @PathParam(AnnotationHelper.studentId) String studentId) {
         return managementService.getOne(courseId, studentId).getApprovedHours();
     }
 
@@ -107,8 +106,8 @@ public class ManagementController {
      * @return the management object
      */
     @PostMapping("create")
-    public Management create(@PathParam("courseId") String courseId,
-                                 @PathParam("studentId") String studentId,
+    public Management create(@PathParam(AnnotationHelper.courseId) String courseId,
+                                 @PathParam(AnnotationHelper.studentId) String studentId,
                                  @PathParam("amountOfHours") float amountOfHours) {
         return managementService.createManagement(courseId, studentId, amountOfHours);
     }
@@ -141,8 +140,8 @@ public class ManagementController {
      * @param rating new rating
      */
     @PutMapping("rate")
-    public void rate(@PathParam("courseId") String courseId,
-                     @PathParam("studentId") String studentId,
+    public void rate(@PathParam(AnnotationHelper.courseId) String courseId,
+                     @PathParam(AnnotationHelper.studentId) String studentId,
                      @PathParam("rating") float rating) {
         managementService.rateStudent(courseId, studentId, rating);
     }
@@ -155,8 +154,8 @@ public class ManagementController {
      * @param email the email
      */
     @GetMapping("sendContract")
-    public void sendContract(@PathParam("courseId") String courseId,
-                             @PathParam("studentId") String studentId,
+    public void sendContract(@PathParam(AnnotationHelper.courseId) String courseId,
+                             @PathParam(AnnotationHelper.studentId) String studentId,
                              @PathParam("email") String email) {
         managementService.sendContract(courseId, studentId, email);
     }

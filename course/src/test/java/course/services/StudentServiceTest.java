@@ -14,8 +14,10 @@ import course.exceptions.InvalidHiringException;
 import course.exceptions.InvalidLecturerException;
 import course.exceptions.InvalidStrategyException;
 import course.exceptions.TooManyCoursesException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +28,7 @@ class StudentServiceTest {
 
     private transient Course course;
     private transient Set<String> lecturerSet;
-    private transient Calendar startingDate;
+    private transient LocalDateTime startingDate;
     private transient String courseId;
     private transient String courseName;
     private transient int courseSize;
@@ -39,7 +41,7 @@ class StudentServiceTest {
     private transient String student2 = "student2";
     private transient String student3 = "student3";
     private transient String lecturer1 = "lecturer1";
-    private transient Calendar applicationDate;
+    private transient LocalDateTime applicationDate;
 
     private transient CommunicationService mockComm;
 
@@ -48,7 +50,7 @@ class StudentServiceTest {
 
         lecturerSet = new HashSet<>();
         lecturerSet.add(lecturer1);
-        startingDate = new Calendar.Builder().setDate(2021, 11, 7).build();
+        startingDate = LocalDateTime.of(LocalDate.of(2021, 12, 7), LocalTime.NOON);
         courseSize = 500;
         courseId = "CSE2115-2021";
         courseName = "SEM";
@@ -64,8 +66,7 @@ class StudentServiceTest {
         hireSet.add(student3);
         hireSet.add("student4");
 
-        applicationDate = new Calendar.Builder().setDate(2021, 9, 6).build();
-
+        applicationDate = LocalDateTime.of(LocalDate.of(2021, 10, 6), LocalTime.NOON);
     }
 
     @Test
@@ -96,7 +97,7 @@ class StudentServiceTest {
 
     @Test
     void addCandidateExactly3Weeks() {
-        Calendar date = new Calendar.Builder().setDate(2021, 10, 16).build();
+        LocalDateTime date = LocalDateTime.of(LocalDate.of(2021, 11, 16), LocalTime.NOON);
         StudentService.addCandidate(course, student1, date);
         StudentService.addCandidate(course, student2, date);
         assertEquals(candidateSet, StudentService.getCandidates(course));
@@ -104,7 +105,7 @@ class StudentServiceTest {
 
     @Test
     void addCandidate1DayLate() {
-        Calendar date = new Calendar.Builder().setDate(2021, 10, 17).build();
+        LocalDateTime date = LocalDateTime.of(LocalDate.of(2021, 11, 17), LocalTime.NOON);
 
         assertThrows(DeadlinePastException.class, () -> {
             StudentService.addCandidate(course, student1, date);
@@ -113,7 +114,7 @@ class StudentServiceTest {
 
     @Test
     void addCandidateLate() {
-        Calendar date = new Calendar.Builder().setDate(2021, 11, 17).build();
+        LocalDateTime date = LocalDateTime.of(LocalDate.of(2021, 11, 17), LocalTime.NOON);
 
         assertThrows(DeadlinePastException.class, () -> {
             StudentService.addCandidate(course, student1, date);
@@ -122,8 +123,9 @@ class StudentServiceTest {
 
     @Test
     void addCandidateYearCrossoverRegion() {
-        Calendar newDate = new Calendar.Builder().setDate(2022, 0, 1).build();
-        Calendar date = new Calendar.Builder().setDate(2021, 11, 11).build();
+
+        LocalDateTime newDate = LocalDateTime.of(LocalDate.of(2022, 1, 1), LocalTime.NOON);
+        LocalDateTime date = LocalDateTime.of(LocalDate.of(2021, 12, 11), LocalTime.NOON);
 
         course.setStartingDate(newDate);
 
@@ -134,8 +136,9 @@ class StudentServiceTest {
 
     @Test
     void addCandidateYearCrossoverRegionLate() {
-        Calendar newDate = new Calendar.Builder().setDate(2022, 0, 1).build();
-        Calendar date = new Calendar.Builder().setDate(2021, 11, 12).build();
+
+        LocalDateTime newDate = LocalDateTime.of(LocalDate.of(2022, 1, 1), LocalTime.NOON);
+        LocalDateTime date = LocalDateTime.of(LocalDate.of(2021, 12, 12), LocalTime.NOON);
 
         course.setStartingDate(newDate);
 
@@ -175,6 +178,7 @@ class StudentServiceTest {
         assertFalse(StudentService.containsCandidate(course, student1));
     }
 
+
     @Test
     void hireTa() { // TODO: add mocks for management and lecturer interaction
         mockComm = Mockito.mock(CommunicationService.class);
@@ -185,7 +189,7 @@ class StudentServiceTest {
         String studentToHire = student2;
         StudentService.addCandidateSet(course, candidateSet);
         StudentService.addTaSet(course, hireSet);
-        assertTrue(StudentService.hireTa(course, studentToHire, lecturer1, 1, mockComm));
+        assertTrue(StudentService.hireTa(course, studentToHire, 1, mockComm));
         assertTrue(StudentService.containsTa(course, studentToHire));
         assertFalse(StudentService.containsCandidate(course, studentToHire));
     }
@@ -203,7 +207,7 @@ class StudentServiceTest {
         StudentService.addTaSet(course, hireSet);
 
         assertThrows(InvalidHiringException.class, () -> {
-            StudentService.hireTa(course, studentToHire, lecturer1, 1, mockComm);
+            StudentService.hireTa(course, studentToHire, 1, mockComm);
         });
     }
 
@@ -220,22 +224,9 @@ class StudentServiceTest {
         StudentService.addTaSet(course, hireSet);
 
         assertThrows(InvalidHiringException.class, () -> {
-            StudentService.hireTa(course, studentToHire, lecturer1, 1, mockComm);
+            StudentService.hireTa(course, studentToHire, 1, mockComm);
         });
     }
-
-    @Test
-    void hireTaInvalidLecturer() {
-        String fraudLecturer = "lecturer0";
-        String studentToHire = student2;
-        StudentService.addCandidateSet(course, candidateSet);
-        StudentService.addTaSet(course, hireSet);
-
-        assertThrows(InvalidLecturerException.class, () -> {
-            StudentService.hireTa(course, studentToHire, fraudLecturer, 1, mockComm);
-        });
-    }
-
 
     @Test
     void getTaSet() {

@@ -2,6 +2,7 @@ package lecturer.controllers;
 
 import java.util.List;
 import javax.websocket.server.PathParam;
+import lecturer.entities.Contract;
 import lecturer.entities.Course;
 import lecturer.entities.Lecturer;
 import lecturer.entities.Student;
@@ -39,29 +40,30 @@ public class LecturerController {
         return lecturerService.findLecturerById(netId);
     }
 
-    @GetMapping("/courses")
-    public List<Course> getOwnCourses(@PathParam("netId") String netId) {
+    @GetMapping("/courses/getOwnCourses")
+    public List<String> getOwnCourses(@PathParam("netId") String netId) {
         return lecturerService.getOwnCourses(netId);
     }
 
-    @GetMapping("/courses/course")
+    @GetMapping("/courses/getSpecificCourse")
     public Course getSpecificCourse(@PathParam("netId") String netId,
-                                    @RequestBody Course course) {
+                                    @PathParam("courseId") String course) {
         return lecturerService.getSpecificCourseOfLecturer(netId, course);
     }
 
-    @GetMapping("/courses/course/candidateTas")
+    @GetMapping("/courses/getCandidateTas")
     public List<Student> getCandidateTas(@PathParam("netId") String netId,
-                                         @RequestBody Course course) {
+                                         @PathParam("courseId") String course) {
         return lecturerService.getCandidateTaList(netId, course);
     }
 
-    @PatchMapping("/courses/course")
+    @PatchMapping("/courses/selectTa")
     public void selectTaForCourse(
             @PathParam("netId") String netId,
-            @RequestBody Course course,
-            @PathParam("studentId") String studentNetId) {
-        lecturerService.chooseTa(netId, course, studentNetId);
+            @PathParam("courseId") String course,
+            @PathParam("studentId") String studentNetId,
+            @PathParam("hours") int hours) {
+        lecturerService.chooseTa(netId, course, studentNetId, hours);
     }
 
     @PatchMapping("/courses/addCourse")
@@ -70,22 +72,29 @@ public class LecturerController {
         return lecturerService.addSpecificCourse(netId, courseId);
     }
 
-    @GetMapping("/averageRating")
+    @GetMapping("/getAverageRating")
     public double getAverageRating(@PathParam("netId") String netId,
-                                   @RequestBody Course course,
+                                   @PathParam("courseId") String course,
                                    @PathParam("studentId") String studentId) {
         return lecturerService.computeAverageRating(netId, course, studentId);
     }
 
     @GetMapping("/courses/recommendations")
     public List<Student> getRecommendations(@PathParam("netId") String netId,
-                                            @RequestBody Course course) {
-        return lecturerService.getRecommendation(netId, course);
+                                            @PathParam("courseId") String course,
+                                            @PathParam("strategy") int strategy) {
+        return lecturerService.getRecommendation(netId, course, strategy);
     }
 
-    @GetMapping("/courses")
+    @GetMapping("/courses/getSize")
     public int getNumberOfTa(@PathParam("netId") String netId,
-                             @RequestBody Course course) {
+                             @PathParam("courseId") String course) {
         return lecturerService.getNumberOfNeededTas(netId, course);
+    }
+
+    @GetMapping("approveHours")
+    public void approveHours(@PathParam("netId") String netId,
+                             @RequestBody Contract contract) {
+        lecturerService.approveHours(netId, contract);
     }
 }
