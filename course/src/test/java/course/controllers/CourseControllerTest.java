@@ -71,13 +71,14 @@ class CourseControllerTest {
 
     private transient String notFoundException = "Could not find a course with id ";
     private transient String student1 = "student1";
+    private transient String lecturer1 = "lecturer1";
 
 
     @BeforeEach
     void setUp() {
 
         lecturerSet = new HashSet<>();
-        lecturerSet.add("lecturer1");
+        lecturerSet.add(lecturer1);
         startingDate = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
         courseSize = 500;
         quarter = 2;
@@ -184,7 +185,7 @@ class CourseControllerTest {
         expect.add(student1);
 
         this.mockMvc.perform(get("/courses/taRecommendations?courseId=" + courseId
-                        + "&strategy=grade"))
+                        + "&strategy=grade").header("netId", lecturer1))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(expect)));
     }
@@ -394,7 +395,8 @@ class CourseControllerTest {
     void getCandidateSet() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(get("/courses/candidates?courseId=" + courseId))
+        this.mockMvc.perform(get("/courses/candidates?courseId=" + courseId)
+                        .header("netId", lecturer1))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(course.getCandidateTas())));
     }
@@ -403,7 +405,8 @@ class CourseControllerTest {
     void getTaSet() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(get("/courses/tas?courseId=" + courseId))
+        this.mockMvc.perform(get("/courses/tas?courseId=" + courseId)
+                        .header("netId", lecturer1))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(course.getHiredTas())));
     }
@@ -415,7 +418,8 @@ class CourseControllerTest {
         float hours = 1.F;
 
         this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                        + "&studentId=student1&lecturerId=lecturer1&hours=" + hours))
+                        + "&studentId=student1&hours=" + hours)
+                        .header("netId", lecturer1))
                 .andExpect(status().isOk());
 
         verify(communicationService, times(1)).createManagement(courseId, student1, hours);
@@ -434,7 +438,8 @@ class CourseControllerTest {
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
             this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student1&lecturerId=lecturerFraud&hours=" + hours));
+                    + "&studentId=student1&hours=" + hours)
+                    .header("netId", "lecturerFraud"));
         });
 
         String expect = "Lecturer not a staff of this course";
@@ -453,7 +458,8 @@ class CourseControllerTest {
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
             this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student2&lecturerId=lecturer1&hours=" + hours));
+                    + "&studentId=student2&hours=" + hours)
+                    .header("netId", lecturer1));
         });
 
         String expect = "Student already hired";
@@ -472,7 +478,8 @@ class CourseControllerTest {
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
             this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student3&lecturerId=lecturer1&hours=" + hours));
+                    + "&studentId=student3&hours=" + hours)
+                    .header("netId", lecturer1));
         });
 
         String expect = "Student not in course";

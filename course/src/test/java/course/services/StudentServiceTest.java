@@ -189,7 +189,7 @@ class StudentServiceTest {
         String studentToHire = student2;
         StudentService.addCandidateSet(course, candidateSet);
         StudentService.addTaSet(course, hireSet);
-        assertTrue(StudentService.hireTa(course, studentToHire, lecturer1, 1, mockComm));
+        assertTrue(StudentService.hireTa(course, studentToHire, 1, mockComm));
         assertTrue(StudentService.containsTa(course, studentToHire));
         assertFalse(StudentService.containsCandidate(course, studentToHire));
     }
@@ -207,7 +207,7 @@ class StudentServiceTest {
         StudentService.addTaSet(course, hireSet);
 
         assertThrows(InvalidHiringException.class, () -> {
-            StudentService.hireTa(course, studentToHire, lecturer1, 1, mockComm);
+            StudentService.hireTa(course, studentToHire, 1, mockComm);
         });
     }
 
@@ -224,22 +224,9 @@ class StudentServiceTest {
         StudentService.addTaSet(course, hireSet);
 
         assertThrows(InvalidHiringException.class, () -> {
-            StudentService.hireTa(course, studentToHire, lecturer1, 1, mockComm);
+            StudentService.hireTa(course, studentToHire, 1, mockComm);
         });
     }
-
-    @Test
-    void hireTaInvalidLecturer() {
-        String fraudLecturer = "lecturer0";
-        String studentToHire = student2;
-        StudentService.addCandidateSet(course, candidateSet);
-        StudentService.addTaSet(course, hireSet);
-
-        assertThrows(InvalidLecturerException.class, () -> {
-            StudentService.hireTa(course, studentToHire, fraudLecturer, 1, mockComm);
-        });
-    }
-
 
     @Test
     void getTaSet() {
