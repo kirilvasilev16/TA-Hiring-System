@@ -1,33 +1,41 @@
 package course.services;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import course.controllers.CourseController;
 import course.controllers.strategies.ExperienceStrategy;
 import course.controllers.strategies.GradeStrategy;
 import course.controllers.strategies.RatingStrategy;
 import course.controllers.strategies.TaRecommendationStrategy;
 import course.entities.Course;
 import course.entities.Student;
+import course.exceptions.DeadlinePastException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
-import java.net.URI;
+import course.exceptions.InvalidLecturerException;
+import course.exceptions.InvalidStrategyException;
+import course.exceptions.TooManyCoursesException;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.HashSet;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+
+
 
 public class StudentService {
 
-    private static final CommunicationService communicationService = new CommunicationService();
     private static HttpClient client = HttpClient.newBuilder().build();
     private static Gson gson = new GsonBuilder()
             .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
     private static int ratingStrat = 1;
     private static int experienceStrat = 2;
     private static int gradeStrat = 3;
+    private static int maxCoursesPerQuarter = 3;
+    private static int weeks3InDays = 21;
 
     /**
      * Getter for candidate TAs.
@@ -55,11 +63,16 @@ public class StudentService {
      * @param course    Course Object
      * @param studentId String studentId
      * @throws InvalidCandidateException if Student already hired as TA
+     * @throws DeadlinePastException if deadline for TA application has past
      */
-    public static void addCandidate(Course course, String studentId)
+    public static void addCandidate(Course course, String studentId, LocalDateTime today)
             throws InvalidCandidateException {
         if (containsTa(course, studentId)) {
             throw new InvalidCandidateException("Student already hired as TA");
+        }
+
+        if (DAYS.between(today, course.getStartingDate()) < weeks3InDays) {
+            throw new DeadlinePastException("Deadline for TA application has past");
         }
         course.getCandidateTas().add(studentId);
     }
@@ -95,11 +108,13 @@ public class StudentService {
      * Generate list of TA Recommendations.
 
      * @param course String studentID
-     * @param strategy 1 -> By rating, 2 -> By experience, 3 -> By course grade
+     * @param strategy Choose from "rating", "experience" or "grade"
      * @return list containing student ids in desired order
      */
     @SuppressWarnings("PMD")
-    public static List<String> getTaRecommendationList(Course course, Integer strategy) {
+    public static List<String> getTaRecommendationList(Course course,
+                                                       String strategy,
+                                                       CommunicationService communicationService) {
         //Make request (POST)
         /*String idJson = gson.toJson(c.getCandidateTAs());
 
@@ -122,33 +137,17 @@ public class StudentService {
         Set<Student> students = gson.fromJson(response.body(), new TypeToken<Set<Student>>() {
         }.getType());*/
 
-        Set<Student> students = new HashSet<>();
-        for (String studentId : course.getCandidateTas()) {
-            HttpRequest request = HttpRequest.newBuilder().GET()
-                    .uri(URI.create("http://localhost:8083/student/get?id=" + studentId))
-                    .build();
-            HttpResponse<String> response;
-            try {
-                response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            } catch (Exception e) {
-                e.printStackTrace();
-                return List.of();
-            }
-
-            if (response.statusCode() != CourseController.successCode) {
-                System.out.println("GET Status: " + response.statusCode());
-            }
-            System.out.println(response.body());
-            students.add(gson.fromJson(response.body(), Student.class));
-        }
+        Set<Student> students = communicationService.getStudents(course.getCandidateTas());
 
         TaRecommendationStrategy strategyImplementation;
-        if (strategy == ratingStrat) {
-            strategyImplementation = new RatingStrategy(course);
-        } else if (strategy == experienceStrat) {
+        if (strategy.equals("rating")) {
+            strategyImplementation = new RatingStrategy(course, communicationService);
+        } else if (strategy.equals("experience")) {
             strategyImplementation = new ExperienceStrategy();
-        } else {
+        } else if (strategy.equals("grade")) {
             strategyImplementation = new GradeStrategy(course);
+        } else {
+            throw new InvalidStrategyException(strategy + " is not a valid strategy");
         }
 
         return strategyImplementation.getRecommendedTas(students);
@@ -159,14 +158,20 @@ public class StudentService {
      *
      * @param course    Course Object
      * @param studentId String studentId
+     * @param lecturerId String lecturerId
      * @param hours     float for contract hours
      * @return true if hired, false otherwise
      * @throws InvalidHiringException if student already hired or not in course
+     * @throws InvalidLecturerException if lecturer not course staff
      */
-    public static boolean hireTa(Course course, String studentId, float hours)
+    public static boolean hireTa(Course course, String studentId, String lecturerId,
+                                 float hours,
+                                 CommunicationService communicationService)
             throws InvalidHiringException {
 
-        //TODO: who checks hours is valid?
+        if (!LecturerService.containsLecturer(course, lecturerId)) {
+            throw new InvalidLecturerException("Lecturer not a staff of this course");
+        }
 
         if (course.getCandidateTas().remove(studentId)) {
             course.getHiredTas().add(studentId);
@@ -226,8 +231,6 @@ public class StudentService {
         return course.getHiredTas().contains(studentId);
     }
 
-    //TODO: getAvgWorkedHOurs
-
     /**
      * Check if enough TA have been hired.
      *
@@ -246,5 +249,55 @@ public class StudentService {
      */
     public static int hiredTas(Course course) {
         return course.getHiredTas().size();
+    }
+
+    /**
+     * Checks to see the number of courses that the student is a TA/prospective TA for
+     * does not exceed 3 per quarter.
+     *
+     * @param studentCourses the student courses
+     */
+    @SuppressWarnings("PMD")
+    public static void checkQuarterCapacity(Set<Course> studentCourses) {
+        Map<String, Integer> coursesPerQuarter = new HashMap<>();
+        for (Course current : studentCourses) {
+            StringBuilder builder = new StringBuilder();
+
+            String year = current.getCourseId().split("-")[1];
+            builder.append(year);
+            builder.append("-");
+            builder.append(current.getQuarter());
+            String yearQuarter = builder.toString();
+
+            if (coursesPerQuarter.get(yearQuarter) == null) {
+                coursesPerQuarter.put(yearQuarter, 0);
+            }
+            coursesPerQuarter.put(yearQuarter, coursesPerQuarter.get(yearQuarter) + 1);
+
+            if (coursesPerQuarter.get(yearQuarter) > maxCoursesPerQuarter) {
+                throw new TooManyCoursesException("Quarter "
+                        + current.getQuarter() + " has too many courses");
+            }
+
+        }
+    }
+
+    /**
+     * Gets average worked hours from the Management microservice.
+     *
+     * @param c                    the course
+     * @param communicationService the communication service
+     * @return the average worked hours
+     */
+    public static float getAverageWorkedHours(Course c, CommunicationService communicationService) {
+        float avg = 0;
+
+        Set<Float> hourSet = communicationService.getHoursList(c.getHiredTas(), c.getCourseId());
+
+        for (float hours : hourSet) {
+            avg += hours;
+        }
+
+        return hourSet.size() > 0 ? avg / hourSet.size() : 0f;
     }
 }

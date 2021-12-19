@@ -18,8 +18,7 @@ public class DatabaseLoader {
      */
     public DatabaseLoader(CourseRepository courseRepo) {
         LocalDateTime date = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
-        Course c1 = new Course("CSE5000", "Sample", 5, new HashSet<String>(), date);
-        //System.out.println("Adding");
+        Course c1 = new Course("CSE5000", "Sample", 5, new HashSet<String>(), date, 2);
 
         courseRepo.save(c1);
 
