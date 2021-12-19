@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("Management")
 @RequestMapping("management")
 public class ManagementController {
+
     private final transient ManagementService managementService;
 
     public ManagementController(ManagementService managementService) {
