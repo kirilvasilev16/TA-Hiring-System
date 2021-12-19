@@ -11,7 +11,6 @@ public class Lecturer {
     @Id
     private String netId;
     private String name;
-    private String password;
     private String email;
 
     @ElementCollection
@@ -22,19 +21,16 @@ public class Lecturer {
      *
      * @param netId of a lecturer
      * @param name name
-     * @param password password
      * @param email email
      * @param courses list of courses
      */
     public Lecturer(
             String netId,
             String name,
-            String password,
             String email,
             List<String> courses) {
         this.netId = netId;
         this.name = name;
-        this.password = password;
         this.email = email;
         this.courses = courses;
     }
@@ -72,15 +68,6 @@ public class Lecturer {
     }
 
     /**
-     * Getter for password.
-     *
-     * @return password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
      * Getter for courses.
      *
      * @return courses
@@ -105,15 +92,6 @@ public class Lecturer {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Setter for a password.
-     *
-     * @param password of a lecturer
-     */
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     /**
@@ -145,13 +123,12 @@ public class Lecturer {
         Lecturer lecturer = (Lecturer) o;
         return Objects.equals(netId, lecturer.netId)
                 && Objects.equals(name, lecturer.name)
-                && Objects.equals(password, lecturer.password)
                 && Objects.equals(email, lecturer.email)
                 && Objects.equals(courses, lecturer.courses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(netId, name, password, email, courses);
+        return Objects.hash(netId, name, email, courses);
     }
 }

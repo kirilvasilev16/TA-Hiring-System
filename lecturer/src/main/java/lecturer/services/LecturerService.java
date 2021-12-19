@@ -156,12 +156,12 @@ public class LecturerService {
      * @return average rating of a student
      */
     public double computeAverageRating(String netId, String course, String studentId) {
-//        Set<String> students = this.getCandidateTaList(netId, course);
-//        for (String student : students) {
-//            if (student.getId().equals(studentId)) {
-//                return student.getAverageRating();
-//            }
-//        }
+        //        Set<String> students = this.getCandidateTaList(netId, course);
+        //        for (String student : students) {
+        //            if (student.getId().equals(studentId)) {
+        //                return student.getAverageRating();
+        //            }
+        //        }
         throw new EntityNotFoundException();
     }
 
@@ -197,7 +197,7 @@ public class LecturerService {
      */
     public int getNumberOfNeededTas(String netId, String courseId) {
         Course course = this.getSpecificCourseOfLecturer(netId, courseId);
-        return (int) Math.floor(course.getCourseSize()/20.0);
+        return (int) Math.floor(course.getCourseSize() / 20.0);
     }
 
     /**

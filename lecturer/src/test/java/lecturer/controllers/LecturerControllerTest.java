@@ -36,11 +36,11 @@ public class LecturerControllerTest {
     void setUp() {
         courses.add("CSE2215");
         courses.add("CSE2315");
-        lecturer1 = new Lecturer("1", "name", "password", "email", courses);
-        lecturer2 = new Lecturer("2", "name", "password", "email", new ArrayList<>());
+        lecturer1 = new Lecturer("1", "name", "email", courses);
+        lecturer2 = new Lecturer("2", "name", "email", new ArrayList<>());
         lecturers.add(lecturer1);
         lecturers.add(lecturer2);
-        findAll = "[{\"netId\": \"1\",\"name\": \"name\", \"password\": \"password\", "
+        findAll = "[{\"netId\": \"1\",\"name\": \"name\","
                 +
                 "\"email\": \"email\",\"courses\": [\"CSE2215\", \"CSE2315\"]},"
                 +
@@ -48,16 +48,12 @@ public class LecturerControllerTest {
                 +
                 "                \"name\": \"name\",\n"
                 +
-                "                \"password\": \"password\",\n"
-                +
                 "                \"email\": \"email\",\n"
                 +
                 "                \"courses\": []}]";
         findOne = "{\"netId\": \"2\",\n"
                 +
                 "                \"name\": \"name\",\n"
-                +
-                "                \"password\": \"password\",\n"
                 +
                 "                \"email\": \"email\",\n"
                 +

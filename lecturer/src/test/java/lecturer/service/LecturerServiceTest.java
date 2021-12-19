@@ -54,8 +54,8 @@ public class LecturerServiceTest {
 
         lecturerService = new LecturerService(lecturerRepository, restTemplate);
 
-        lecturer1 = new Lecturer("1", "name", "password", "email", courses);
-        lecturer2 = new Lecturer("2", "name", "password", "email", new ArrayList<>());
+        lecturer1 = new Lecturer("1", "name", "email", courses);
+        lecturer2 = new Lecturer("2", "name", "email", new ArrayList<>());
 
         lecturers.add(lecturer1);
         lecturers.add(lecturer2);

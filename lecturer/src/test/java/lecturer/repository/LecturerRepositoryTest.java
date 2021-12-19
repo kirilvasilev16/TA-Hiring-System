@@ -24,7 +24,7 @@ public class LecturerRepositoryTest {
     @BeforeEach
     void setUp() {
         assertNotNull(lecturerRepository);
-        lecturer = new Lecturer("netId", "name", "password", "email", new ArrayList<>());
+        lecturer = new Lecturer("netId", "name", "email", new ArrayList<>());
         lecturerRepository.save(lecturer);
     }
 

@@ -1,7 +1,6 @@
 package lecturer.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.Set;
 
 public class Course {
