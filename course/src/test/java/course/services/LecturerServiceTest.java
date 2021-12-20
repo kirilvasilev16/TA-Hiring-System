@@ -1,9 +1,5 @@
 package course.services;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import course.entities.Course;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,6 +10,7 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class LecturerServiceTest {
@@ -39,6 +36,11 @@ class LecturerServiceTest {
         quarter = 2;
 
         course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate, quarter);
+    }
+
+    @Test
+    void constructor() {
+        assertNotNull(new LecturerService());
     }
 
     @Test
