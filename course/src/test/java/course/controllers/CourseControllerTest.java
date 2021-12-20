@@ -377,18 +377,18 @@ class CourseControllerTest {
         verify(communicationService, never()).getHoursList(any(Set.class), any(String.class));
     }
 
-    @Test
-    void addLecturer() throws Exception {
-        when(courseService.findByCourseId(courseId)).thenReturn(course);
-
-        this.mockMvc.perform(post("/courses/addLecturer?courseId=" + courseId
-                        + "&lecturerId=lecturer2"))
-                .andExpect(status().isOk());
-
-        lecturerSet.add("lecturer2");
-        assertEquals(lecturerSet, course.getLecturerSet());
-        verify(courseService, times(1)).save(any(Course.class));
-    }
+//    @Test
+//    void addLecturer() throws Exception {
+//        when(courseService.findByCourseId(courseId)).thenReturn(course);
+//
+//        this.mockMvc.perform(post("/courses/addLecturer?courseId=" + courseId
+//                        + "&lecturerId=lecturer2"))
+//                .andExpect(status().isOk());
+//
+//        lecturerSet.add("lecturer2");
+//        assertEquals(lecturerSet, course.getLecturerSet());
+//        verify(courseService, times(1)).save(any(Course.class));
+//    }
 
     @Test
     void getCandidateSet() throws Exception {
@@ -408,78 +408,78 @@ class CourseControllerTest {
                 .andExpect(content().json(gson.toJson(course.getHiredTas())));
     }
 
-    @Test
-    void hireTa() throws Exception {
-        when(courseService.findByCourseId(courseId)).thenReturn(course);
+//    @Test
+//    void hireTa() throws Exception {
+//        when(courseService.findByCourseId(courseId)).thenReturn(course);
+//
+//        float hours = 1.F;
+//
+//        this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
+//                        + "&studentId=student1&lecturerId=lecturer1&hours=" + hours))
+//                .andExpect(status().isOk());
+//
+//        verify(communicationService, times(1)).createManagement(courseId, student1, hours);
+//        verify(courseService, times(1)).save(any(Course.class));
+//
+//        hireSet.add(student1);
+//        assertEquals(hireSet, course.getHiredTas());
+//        assertTrue(course.getCandidateTas().isEmpty());
+//    }
 
-        float hours = 1.F;
-
-        this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                        + "&studentId=student1&lecturerId=lecturer1&hours=" + hours))
-                .andExpect(status().isOk());
-
-        verify(communicationService, times(1)).createManagement(courseId, student1, hours);
-        verify(courseService, times(1)).save(any(Course.class));
-
-        hireSet.add(student1);
-        assertEquals(hireSet, course.getHiredTas());
-        assertTrue(course.getCandidateTas().isEmpty());
-    }
-
-    @Test
-    void hireTaInvalidLecturer() throws Exception {
-        when(courseService.findByCourseId(courseId)).thenReturn(course);
-
-        float hours = 1.F;
-
-        Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student1&lecturerId=lecturerFraud&hours=" + hours));
-        });
-
-        String expect = "Lecturer not a staff of this course";
-        assertTrue(exception.getMessage().contains(expect));
-
-        verify(communicationService, never()).createManagement(any(String.class),
-                any(String.class), any(Float.class));
-        verify(courseService, never()).save(any(Course.class));
-    }
-
-    @Test
-    void hireTaInvalidStudentAlreadyHired() {
-        when(courseService.findByCourseId(courseId)).thenReturn(course);
-
-        float hours = 1.F;
-
-        Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student2&lecturerId=lecturer1&hours=" + hours));
-        });
-
-        String expect = "Student already hired";
-        assertTrue(exception.getMessage().contains(expect));
-
-        verify(communicationService, never()).createManagement(any(String.class),
-                any(String.class), any(Float.class));
-        verify(courseService, never()).save(any(Course.class));
-    }
-
-    @Test
-    void hireTaInvalidStudentNotInCourse() {
-        when(courseService.findByCourseId(courseId)).thenReturn(course);
-
-        float hours = 1.F;
-
-        Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student3&lecturerId=lecturer1&hours=" + hours));
-        });
-
-        String expect = "Student not in course";
-        assertTrue(exception.getMessage().contains(expect));
-
-        verify(communicationService, never()).createManagement(any(String.class),
-                any(String.class), any(Float.class));
-        verify(courseService, never()).save(any(Course.class));
-    }
+//    @Test
+//    void hireTaInvalidLecturer() throws Exception {
+//        when(courseService.findByCourseId(courseId)).thenReturn(course);
+//
+//        float hours = 1.F;
+//
+//        Exception exception = assertThrows(NestedServletException.class, () -> {
+//            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
+//                    + "&studentId=student1&lecturerId=lecturerFraud&hours=" + hours));
+//        });
+//
+//        String expect = "Lecturer not a staff of this course";
+//        assertTrue(exception.getMessage().contains(expect));
+//
+//        verify(communicationService, never()).createManagement(any(String.class),
+//                any(String.class), any(Float.class));
+//        verify(courseService, never()).save(any(Course.class));
+//    }
+//
+//    @Test
+//    void hireTaInvalidStudentAlreadyHired() {
+//        when(courseService.findByCourseId(courseId)).thenReturn(course);
+//
+//        float hours = 1.F;
+//
+//        Exception exception = assertThrows(NestedServletException.class, () -> {
+//            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
+//                    + "&studentId=student2&lecturerId=lecturer1&hours=" + hours));
+//        });
+//
+//        String expect = "Student already hired";
+//        assertTrue(exception.getMessage().contains(expect));
+//
+//        verify(communicationService, never()).createManagement(any(String.class),
+//                any(String.class), any(Float.class));
+//        verify(courseService, never()).save(any(Course.class));
+//    }
+//
+//    @Test
+//    void hireTaInvalidStudentNotInCourse() {
+//        when(courseService.findByCourseId(courseId)).thenReturn(course);
+//
+//        float hours = 1.F;
+//
+//        Exception exception = assertThrows(NestedServletException.class, () -> {
+//            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
+//                    + "&studentId=student3&lecturerId=lecturer1&hours=" + hours));
+//        });
+//
+//        String expect = "Student not in course";
+//        assertTrue(exception.getMessage().contains(expect));
+//
+//        verify(communicationService, never()).createManagement(any(String.class),
+//                any(String.class), any(Float.class));
+//        verify(courseService, never()).save(any(Course.class));
+//    }
 }

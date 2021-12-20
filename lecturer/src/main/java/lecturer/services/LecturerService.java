@@ -125,12 +125,12 @@ public class LecturerService {
      */
     public void chooseTa(String netId, String courseId, String studentNetId, float hours) {
         this.verifyThatApplicableCourse(netId, courseId);
-        restTemplate.postForEntity("http://localhost:8082/courses/hireTa?courseId=" + courseId + "&studentId=" + studentNetId + "&lecturerId=" + netId + "&hours=" + hours, null, Void.class);
-//        if (course == null) {
-//            throw new CourseNotFoundException("Course was not found");
-//        } else if (course.getStatusCode() != HttpStatus.OK) {
-//            throw new HttpClientErrorException(course.getStatusCode());
-//        }
+        ResponseEntity<Course> course = restTemplate.exchange("http://localhost:8082/courses/hireTa?courseId=" + courseId + "&studentId=" + studentNetId + "&lecturerId=" + netId + "&hours=" + hours, HttpMethod.PUT, null, Course.class);
+        if (course == null) {
+            throw new CourseNotFoundException("Course was not found");
+        } else if (course.getStatusCode() != HttpStatus.OK) {
+            throw new HttpClientErrorException(course.getStatusCode());
+        }
     }
 
     /**
@@ -144,6 +144,7 @@ public class LecturerService {
         Lecturer lecturer = this.findLecturerById(netId);
         lecturer.getCourses().add(courseId);
         lecturerRepository.save(lecturer);
+        restTemplate.put("http://localhost:8082/courses/addLecturer?courseId=" + courseId + "&lecturerId=" + netId, null, Void.class);
         return lecturer;
     }
 
@@ -197,7 +198,7 @@ public class LecturerService {
      */
     public int getNumberOfNeededTas(String netId, String courseId) {
         Course course = this.getSpecificCourseOfLecturer(netId, courseId);
-        return (int) Math.floor(course.getCourseSize() / 20.0);
+        return (int) Math.ceil(course.getCourseSize() / 20.0);
     }
 
     /**
@@ -210,7 +211,7 @@ public class LecturerService {
         this.verifyThatApplicableCourse(netId, contract.getCourseId());
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            restTemplate.postForEntity("management/approveHours",
+            restTemplate.postForEntity("http://localhost:8080/management/approveHours",
                     objectMapper.writeValueAsString(contract), Management.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

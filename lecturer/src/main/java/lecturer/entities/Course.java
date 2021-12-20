@@ -10,6 +10,8 @@ public class Course {
     private int courseSize;
     @JsonProperty("candidateTas")
     private Set<String> candidateTas;
+    @JsonProperty("hiredTas")
+    private Set<String> hiredTas;
 
     public Course() {
     }
@@ -49,5 +51,13 @@ public class Course {
 
     public void setCandidateTas(Set<String> candidateTas) {
         this.candidateTas = candidateTas;
+    }
+
+    public Set<String> getHiredTas() {
+        return hiredTas;
+    }
+
+    public void setHiredTas(Set<String> hiredTas) {
+        this.hiredTas = hiredTas;
     }
 }

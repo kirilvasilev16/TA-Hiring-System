@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -277,7 +278,7 @@ public class CourseController {
      * @param lecturerId String lecturerId
      * @throws CourseNotFoundException if course not found
      */
-    @PostMapping("addLecturer")
+    @PutMapping("addLecturer")
     public void addLecturer(@PathParam("courseId") String courseId,
                             @PathParam("lecturerId") String lecturerId)
             throws CourseNotFoundException {
@@ -342,8 +343,8 @@ public class CourseController {
      * @throws CourseNotFoundException if no courses found
      * @throws InvalidHiringException  if student already hired or not in course
      */
-    @PostMapping("hireTa")
-    public void hireTa(@PathParam("courseId") String courseId,
+    @PutMapping("hireTa")
+    public Course hireTa(@PathParam("courseId") String courseId,
                        @PathParam("studentId") String studentId,
                        @PathParam("lecturerId") String lecturerId,
                        @PathParam("hours") float hours)
@@ -359,6 +360,7 @@ public class CourseController {
         //courseService.updateHireTas(courseId, c.getHiredTas());
         //courseService.updateCandidateTas(courseId, c.getCandidateTas());
         courseService.save(c);
+        return c;
     }
 
 

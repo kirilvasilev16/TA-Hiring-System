@@ -11,6 +11,7 @@ import lecturer.services.LecturerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,7 +59,7 @@ public class LecturerController {
         return lecturerService.getCandidateTaList(netId, courseId);
     }
 
-    @PostMapping("/courses/selectTa")
+    @PutMapping("/courses/selectTa")
     public void selectTaForCourse(
             @PathParam("netId") String netId,
             @PathParam("courseId") String courseId,
@@ -69,7 +70,7 @@ public class LecturerController {
 
     @PatchMapping("/courses/addCourse")
     public Lecturer addSpecificCourse(@PathParam("netId") String netId,
-                                  @PathParam("courseId") String courseId) {
+                                      @PathParam("courseId") String courseId) {
         return lecturerService.addSpecificCourse(netId, courseId);
     }
 
