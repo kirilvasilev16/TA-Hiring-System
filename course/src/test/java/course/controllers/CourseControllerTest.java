@@ -11,8 +11,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -139,10 +139,11 @@ class CourseControllerTest {
 
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(patch("/courses/updateSize?courseId=" + courseId
+        this.mockMvc.perform(put("/courses/updateSize?courseId=" + courseId
                 + "&size=" + newSize)
                         .contentType("application/json-patch+json"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         assertEquals(newSize, course.getCourseSize());
         verify(courseService, times(1)).updateCourseSize(courseId, newSize);
@@ -193,12 +194,17 @@ class CourseControllerTest {
     @Test
     void makeCourse() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
+        CourseCreationBody courseCreation = new CourseCreationBody(
+                courseId, courseName, startingDate, lecturerSet, courseSize, quarter);
+
+        Course expect = new Course(
+                courseId, courseName, courseSize, lecturerSet, startingDate, quarter);
 
         this.mockMvc.perform(post("/courses/makeCourse")
                         .contentType(APPLICATION_JSON)
-                        .content(gson.toJson(course)))
+                        .content(gson.toJson(courseCreation)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(gson.toJson("Course added successfully")));
+                .andExpect(content().json(gson.toJson(expect)));
 
         verify(courseService, times(1)).save(any(Course.class));
     }
@@ -207,13 +213,17 @@ class CourseControllerTest {
     void makeCourseExists() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        String expect = "Course with id " + courseId + " already exists!";
+        CourseCreationBody courseCreation = new CourseCreationBody(
+                courseId, courseName, startingDate, lecturerSet, courseSize, quarter);
 
-        this.mockMvc.perform(post("/courses/makeCourse")
-                        .contentType(APPLICATION_JSON)
-                        .content(gson.toJson(course)))
-                .andExpect(status().isOk())
-                .andExpect(content().json(gson.toJson(expect)));
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(post("/courses/makeCourse")
+                    .contentType(APPLICATION_JSON)
+                    .content(gson.toJson(courseCreation)));
+        });
+
+        String expect = courseId;
+        assertTrue(exception.getMessage().contains(expect));
 
         verify(courseService, never()).save(any(Course.class));
     }
@@ -227,11 +237,12 @@ class CourseControllerTest {
         when(dateService.getTodayDate()).thenReturn(applyDate);
 
 
-        this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
+        this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
                         + "&studentId=student3")
                         .contentType(APPLICATION_JSON)
                         .content(gson.toJson(new HashSet<String>())))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         candidateSet.add("student3");
         assertEquals(candidateSet, course.getCandidateTas());
@@ -249,7 +260,7 @@ class CourseControllerTest {
         when(courseService.findByCourseId(fakeCourse)).thenReturn(null);
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
+            this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
                     + "&studentId=student3")
                     .contentType(APPLICATION_JSON)
                     .content(gson.toJson(studentCourse)));
@@ -291,7 +302,7 @@ class CourseControllerTest {
         when(courseService.findByCourseId(course4Id)).thenReturn(course4);
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
+            this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
                     + "&studentId=student3")
                     .contentType(APPLICATION_JSON)
                     .content(gson.toJson(studentCourse)));
@@ -309,7 +320,7 @@ class CourseControllerTest {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
+            this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
                     + "&studentId=student2")
                     .contentType(APPLICATION_JSON)
                     .content(gson.toJson(new HashSet<String>())));
@@ -327,7 +338,7 @@ class CourseControllerTest {
         when(dateService.getTodayDate()).thenReturn(startingDate);
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
+            this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
                     + "&studentId=student3")
                     .contentType(APPLICATION_JSON)
                     .content(gson.toJson(new HashSet<String>())));
@@ -382,9 +393,10 @@ class CourseControllerTest {
     void addLecturer() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(post("/courses/addLecturer?courseId=" + courseId
+        this.mockMvc.perform(put("/courses/addLecturer?courseId=" + courseId
                         + "&lecturerId=lecturer2"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         lecturerSet.add("lecturer2");
         assertEquals(lecturerSet, course.getLecturerSet());
@@ -417,10 +429,11 @@ class CourseControllerTest {
 
         float hours = 1.F;
 
-        this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
+        this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
                         + "&studentId=student1&hours=" + hours)
                         .header("netId", lecturer1))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         verify(communicationService, times(1)).createManagement(courseId, student1, hours);
         verify(courseService, times(1)).save(any(Course.class));
@@ -437,7 +450,7 @@ class CourseControllerTest {
         float hours = 1.F;
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
+            this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
                     + "&studentId=student1&hours=" + hours)
                     .header("netId", "lecturerFraud"));
         });
@@ -457,7 +470,7 @@ class CourseControllerTest {
         float hours = 1.F;
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
+            this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
                     + "&studentId=student2&hours=" + hours)
                     .header("netId", lecturer1));
         });
@@ -477,7 +490,7 @@ class CourseControllerTest {
         float hours = 1.F;
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
+            this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
                     + "&studentId=student3&hours=" + hours)
                     .header("netId", lecturer1));
         });

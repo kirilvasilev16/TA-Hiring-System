@@ -10,7 +10,6 @@ import course.exceptions.FailedContractCreationException;
 import course.exceptions.FailedGetHoursException;
 import course.exceptions.FailedGetStudentListException;
 import course.exceptions.FailedGetStudentRatingsException;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -61,7 +60,8 @@ public class CommunicationService {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
                 e.printStackTrace();
-                throw new FailedGetStudentRatingsException("Failed to get " + s.getNetId() + " ratings");
+                throw new FailedGetStudentRatingsException(
+                        "Failed to get "  + s.getNetId() + " ratings");
             }
 
 
