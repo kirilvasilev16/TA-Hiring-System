@@ -2,6 +2,8 @@ package management.services;
 
 import java.util.List;
 import javax.transaction.Transactional;
+import management.email.EmailSender;
+import management.email.MailboxProvider;
 import management.entities.Hours;
 import management.entities.Management;
 import management.exceptions.InvalidApprovedHoursException;
@@ -15,9 +17,11 @@ import org.springframework.stereotype.Service;
 public class ManagementService {
 
     private final transient ManagementRepository managementRepository;
+    private final transient EmailSender emailSender;
 
-    public ManagementService(ManagementRepository managementRepository) {
+    public ManagementService(ManagementRepository managementRepository, EmailSender emailSender) {
         this.managementRepository = managementRepository;
+        this.emailSender = emailSender;
     }
 
     /**
@@ -148,8 +152,19 @@ public class ManagementService {
     public void sendContract(String courseId, String studentId, String email) {
         Management management = getOne(courseId, studentId);
 
-        String contract = "Contract:\n"
-                + "Hours in contract: " + management.getAmountOfHours() + "\n";
-        System.out.println(contract);
+        emailSender.sendEmail(email, courseId, studentId, management.getAmountOfHours());
+    }
+
+    /**
+     * Gets the average rating of a TA.
+     *
+     * @param studentId id of student
+     * @return the management object
+     */
+    public float getAverageRating(String studentId) {
+        if (managementRepository.getTaRecords(studentId) == 0) {
+            throw new InvalidIdException("StudentId not found");
+        }
+        return managementRepository.getAverageTaRating(studentId);
     }
 }
