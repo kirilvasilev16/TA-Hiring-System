@@ -1,5 +1,8 @@
 package course.entities;
 
+import course.controllers.CourseCreationBody;
+import course.services.StudentService;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -172,6 +175,135 @@ class CourseTest {
     }
 
     @Test
+    void testEqualsFalse1() {
+        Set<String> lecturerSetOther = new HashSet<>();
+        lecturerSetOther.add("lecturer1");
+        LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
+                LocalTime.NOON);
+        int courseSizeOther = 500;
+        int quarterOther = 2;
+        String courseIdOther = "CSE2115-2021";
+        String courseNameOther = "otherName";
+
+        Course courseOther = new Course(courseIdOther, courseNameOther,
+                courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
+
+        assertNotEquals(course, courseOther);
+    }
+
+    @Test
+    void testEqualsFalse2() {
+        Set<String> lecturerSetOther = new HashSet<>();
+        lecturerSetOther.add("lecturer1");
+        LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
+                LocalTime.NOON);
+        int courseSizeOther = 200;
+        int quarterOther = 2;
+        String courseIdOther = "CSE2115-2021";
+        String courseNameOther = courseName;
+
+        Course courseOther = new Course(courseIdOther, courseNameOther,
+                courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
+
+        assertNotEquals(course, courseOther);
+    }
+
+    @Test
+    void testEqualsFalse3() {
+        Set<String> lecturerSetOther = new HashSet<>();
+        lecturerSetOther.add("lecturer1");
+        LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
+                LocalTime.NOON);
+        int courseSizeOther = 500;
+        int quarterOther = 4;
+        String courseIdOther = "CSE2115-2021";
+        String courseNameOther = courseName;
+
+        Course courseOther = new Course(courseIdOther, courseNameOther,
+                courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
+
+        assertNotEquals(course, courseOther);
+    }
+
+    @Test
+    void testEqualsFalse4() {
+        Set<String> lecturerSetOther = new HashSet<>();
+        lecturerSetOther.add("lecturer1");
+        LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 10, 7),
+                LocalTime.NOON);
+        int courseSizeOther = 500;
+        int quarterOther = 2;
+        String courseIdOther = "CSE2115-2021";
+        String courseNameOther = courseName;
+
+        Course courseOther = new Course(courseIdOther, courseNameOther,
+                courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
+
+        assertNotEquals(course, courseOther);
+    }
+
+    @Test
+    void testEqualsFalse5() {
+        Set<String> lecturerSetOther = new HashSet<>();
+        lecturerSetOther.add("lecturer2");
+        LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
+                LocalTime.NOON);
+        int courseSizeOther = 500;
+        int quarterOther = 2;
+        String courseIdOther = "CSE2115-2021";
+        String courseNameOther = courseName;
+
+        Course courseOther = new Course(courseIdOther, courseNameOther,
+                courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
+
+        assertNotEquals(course, courseOther);
+    }
+
+    @Test
+    void testEqualsFalse6() {
+        Set<String> lecturerSetOther = new HashSet<>();
+        lecturerSetOther.add("lecturer1");
+        LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
+                LocalTime.NOON);
+        int courseSizeOther = 500;
+        int quarterOther = 2;
+        String courseIdOther = "CSE2115-2021";
+        String courseNameOther = courseName;
+
+        Course courseOther = new Course(courseIdOther, courseNameOther,
+                courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
+
+        Set<String> candidateSet = new HashSet<>();
+        candidateSet.add("student1");
+
+        StudentService.addCandidateSet(courseOther, candidateSet);
+
+        assertNotEquals(course, courseOther);
+    }
+
+    @Test
+    void testEqualsFalse7() {
+        Set<String> lecturerSetOther = new HashSet<>();
+        lecturerSetOther.add("lecturer1");
+        LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
+                LocalTime.NOON);
+        int courseSizeOther = 500;
+        int quarterOther = 2;
+        String courseIdOther = "CSE2115-2021";
+        String courseNameOther = courseName;
+
+        Course courseOther = new Course(courseIdOther, courseNameOther,
+                courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
+
+        Set<String> taSet = new HashSet<>();
+        taSet.add("student1");
+
+        StudentService.addTaSet(courseOther, taSet);
+
+        assertNotEquals(course, courseOther);
+    }
+
+    @Test
     void testEqualsTrueSelf() {
         assertEquals(course, course);
     }
@@ -179,6 +311,14 @@ class CourseTest {
     @Test
     void testEqualsFalseNull() {
         assertNotEquals(course, null);
+    }
+
+    @Test
+    void testEqualsFalseOtherObject() {
+        CourseCreationBody courseOther = new CourseCreationBody(
+                courseId, courseName, startingDate, lecturerSet, courseSize, quarter);
+
+        assertNotEquals(course, courseOther);
     }
 
 
