@@ -1,11 +1,17 @@
 package course.services;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import course.entities.Course;
 import course.entities.Management;
 import course.exceptions.DeadlinePastException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
-import course.exceptions.InvalidLecturerException;
 import course.exceptions.InvalidStrategyException;
 import course.exceptions.TooManyCoursesException;
 import java.time.LocalDate;
@@ -18,7 +24,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class StudentServiceTest {
 
@@ -372,7 +377,7 @@ class StudentServiceTest {
     void enoughTasTrue() {
         Set<String> taSet = new HashSet<>();
 
-        for(int i = 0; i < course.getRequiredTas(); i++) {
+        for (int i = 0; i < course.getRequiredTas(); i++) {
             taSet.add("student" + i);
         }
 
@@ -385,7 +390,7 @@ class StudentServiceTest {
     void enoughTasFalse() {
         Set<String> taSet = new HashSet<>();
 
-        for(int i = 0; i < course.getRequiredTas() - 1; i++) {
+        for (int i = 0; i < course.getRequiredTas() - 1; i++) {
             taSet.add("student" + i);
         }
 

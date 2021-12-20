@@ -1,25 +1,22 @@
 package course.entities;
 
-import course.controllers.CourseCreationBody;
-import course.services.StudentService;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import course.controllers.CourseCreationBody;
+import course.services.StudentService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-
-
 class CourseTest {
+
     private transient Course course;
     private transient Set<String> lecturerSet;
     private transient LocalDateTime startingDate;
@@ -28,14 +25,19 @@ class CourseTest {
     private transient int courseSize;
     private transient int quarter;
 
+    private final transient String lecturer1 = "lecturer1";
+    private final transient String courseId1 = "CSE2115-2021";
+    private final transient String lecturer2 = "lecturer2";
+    private final transient String student1 = "student1";
+
     @BeforeEach
     void setUp() {
         lecturerSet = new HashSet<>();
-        lecturerSet.add("lecturer1");
+        lecturerSet.add(lecturer1);
         startingDate = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
         courseSize = 500;
         quarter = 2;
-        courseId = "CSE2115-2021";
+        courseId = courseId1;
         courseName = "SEM";
 
         course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate, quarter);
@@ -105,8 +107,8 @@ class CourseTest {
     @Test
     void setLecturerSet() {
         Set<String> newLecturerSet = new HashSet<>();
-        newLecturerSet.add("lecture1");
-        newLecturerSet.add("lecturer2");
+        newLecturerSet.add(lecturer1);
+        newLecturerSet.add(lecturer2);
 
         course.setLecturerSet(newLecturerSet);
         assertEquals(newLecturerSet, course.getLecturerSet());
@@ -120,7 +122,7 @@ class CourseTest {
     @Test
     void setCandidateTas() {
         Set<String> newCandidateTas = new HashSet<>();
-        newCandidateTas.add("student1");
+        newCandidateTas.add(student1);
         newCandidateTas.add("student2");
         course.setCandidateTas(newCandidateTas);
         assertEquals(newCandidateTas, course.getCandidateTas());
@@ -134,7 +136,7 @@ class CourseTest {
     @Test
     void setHiredTas() {
         Set<String> newHiredTas = new HashSet<>();
-        newHiredTas.add("student1");
+        newHiredTas.add(student1);
         newHiredTas.add("student2");
         course.setHiredTas(newHiredTas);
         assertEquals(newHiredTas, course.getHiredTas());
@@ -143,12 +145,12 @@ class CourseTest {
     @Test
     void testEqualsTrue() {
         Set<String> lecturerSetOther = new HashSet<>();
-        lecturerSetOther.add("lecturer1");
+        lecturerSetOther.add(lecturer1);
         LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
                 LocalTime.NOON);
         int courseSizeOther = 500;
         int quarterOther = 2;
-        String courseIdOther = "CSE2115-2021";
+        String courseIdOther = courseId1;
         String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
@@ -160,7 +162,7 @@ class CourseTest {
     @Test
     void testEqualsFalse() {
         Set<String> lecturerSetOther = new HashSet<>();
-        lecturerSetOther.add("lecturer2");
+        lecturerSetOther.add(lecturer2);
         LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 6),
                 LocalTime.NOON);
         int courseSizeOther = 200;
@@ -177,12 +179,12 @@ class CourseTest {
     @Test
     void testEqualsFalse1() {
         Set<String> lecturerSetOther = new HashSet<>();
-        lecturerSetOther.add("lecturer1");
+        lecturerSetOther.add(lecturer1);
         LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
                 LocalTime.NOON);
         int courseSizeOther = 500;
         int quarterOther = 2;
-        String courseIdOther = "CSE2115-2021";
+        String courseIdOther = courseId1;
         String courseNameOther = "otherName";
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
@@ -194,12 +196,12 @@ class CourseTest {
     @Test
     void testEqualsFalse2() {
         Set<String> lecturerSetOther = new HashSet<>();
-        lecturerSetOther.add("lecturer1");
+        lecturerSetOther.add(lecturer1);
         LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
                 LocalTime.NOON);
         int courseSizeOther = 200;
         int quarterOther = 2;
-        String courseIdOther = "CSE2115-2021";
+        String courseIdOther = courseId1;
         String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
@@ -211,12 +213,12 @@ class CourseTest {
     @Test
     void testEqualsFalse3() {
         Set<String> lecturerSetOther = new HashSet<>();
-        lecturerSetOther.add("lecturer1");
+        lecturerSetOther.add(lecturer1);
         LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
                 LocalTime.NOON);
         int courseSizeOther = 500;
         int quarterOther = 4;
-        String courseIdOther = "CSE2115-2021";
+        String courseIdOther = courseId1;
         String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
@@ -228,12 +230,12 @@ class CourseTest {
     @Test
     void testEqualsFalse4() {
         Set<String> lecturerSetOther = new HashSet<>();
-        lecturerSetOther.add("lecturer1");
+        lecturerSetOther.add(lecturer1);
         LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 10, 7),
                 LocalTime.NOON);
         int courseSizeOther = 500;
         int quarterOther = 2;
-        String courseIdOther = "CSE2115-2021";
+        String courseIdOther = courseId1;
         String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
@@ -245,12 +247,12 @@ class CourseTest {
     @Test
     void testEqualsFalse5() {
         Set<String> lecturerSetOther = new HashSet<>();
-        lecturerSetOther.add("lecturer2");
+        lecturerSetOther.add(lecturer2);
         LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
                 LocalTime.NOON);
         int courseSizeOther = 500;
         int quarterOther = 2;
-        String courseIdOther = "CSE2115-2021";
+        String courseIdOther = courseId1;
         String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
@@ -262,19 +264,19 @@ class CourseTest {
     @Test
     void testEqualsFalse6() {
         Set<String> lecturerSetOther = new HashSet<>();
-        lecturerSetOther.add("lecturer1");
+        lecturerSetOther.add(lecturer1);
         LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
                 LocalTime.NOON);
         int courseSizeOther = 500;
         int quarterOther = 2;
-        String courseIdOther = "CSE2115-2021";
+        String courseIdOther = courseId1;
         String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
                 courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
 
         Set<String> candidateSet = new HashSet<>();
-        candidateSet.add("student1");
+        candidateSet.add(student1);
 
         StudentService.addCandidateSet(courseOther, candidateSet);
 
@@ -284,19 +286,19 @@ class CourseTest {
     @Test
     void testEqualsFalse7() {
         Set<String> lecturerSetOther = new HashSet<>();
-        lecturerSetOther.add("lecturer1");
+        lecturerSetOther.add(lecturer1);
         LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
                 LocalTime.NOON);
         int courseSizeOther = 500;
         int quarterOther = 2;
-        String courseIdOther = "CSE2115-2021";
+        String courseIdOther = courseId1;
         String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
                 courseSizeOther, lecturerSetOther, startingDateOther, quarterOther);
 
         Set<String> taSet = new HashSet<>();
-        taSet.add("student1");
+        taSet.add(student1);
 
         StudentService.addTaSet(courseOther, taSet);
 
@@ -338,12 +340,12 @@ class CourseTest {
     @Test
     void testHashCodeEqual() {
         Set<String> lecturerSetOther = new HashSet<>();
-        lecturerSetOther.add("lecturer1");
+        lecturerSetOther.add(lecturer1);
         LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 7),
                 LocalTime.NOON);
         int courseSizeOther = 500;
         int quarterOther = 2;
-        String courseIdOther = "CSE2115-2021";
+        String courseIdOther = courseId1;
         String courseNameOther = courseName;
 
         Course courseOther = new Course(courseIdOther, courseNameOther,
@@ -355,7 +357,7 @@ class CourseTest {
     @Test
     void testHashCodeNotEqual() {
         Set<String> lecturerSetOther = new HashSet<>();
-        lecturerSetOther.add("lecturer2");
+        lecturerSetOther.add(lecturer2);
         LocalDateTime startingDateOther = LocalDateTime.of(LocalDate.of(2021, 11, 6),
                 LocalTime.NOON);
         int courseSizeOther = 200;
