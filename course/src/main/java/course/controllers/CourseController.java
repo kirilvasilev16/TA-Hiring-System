@@ -2,9 +2,11 @@ package course.controllers;
 
 
 import course.entities.Course;
+import course.exceptions.CourseAlreadyExistException;
 import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
+import course.exceptions.InvalidLecturerException;
 import course.exceptions.TooManyCoursesException;
 import course.services.CommunicationService;
 import course.services.CourseService;
@@ -19,10 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -90,23 +92,23 @@ public class CourseController {
      * Update specific course student size.
      *
      * @param courseId   String courseID
-     * @param courseSize Integer course size
+     * @param size Integer course size
      * @throws CourseNotFoundException if course not found
      */
-    @PatchMapping("updateSize")
+    @PutMapping("updateSize")
     @Transactional
-    public void updateCourseSize(@PathParam("courseId") String courseId,
-                                 @PathParam("size") Integer courseSize)
+    public Boolean updateCourseSize(@PathParam("courseId") String courseId,
+                                 @PathParam("size") Integer size)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
         }
-        c.setCourseSize(courseSize);
+        c.setCourseSize(size);
 
-        courseService.updateCourseSize(courseId, courseSize);
-
+        courseService.updateCourseSize(courseId, size);
+        return true;
     }
 
     /**
@@ -151,16 +153,22 @@ public class CourseController {
      *
      * @param courseId courseId
      * @param strategy desired sorting strategy
+     * @param netId netId of lecturer
      * @return Ordered list of TA's
      */
     @GetMapping("taRecommendations")
     public List<String> getTaRecommendationList(@PathParam("courseId") String courseId,
-                                                @PathParam("strategy") String strategy)
-            throws CourseNotFoundException {
+                                                @PathParam("strategy") String strategy,
+                                                @RequestHeader("netId") String netId)
+            throws CourseNotFoundException, InvalidLecturerException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
+        }
+
+        if (!LecturerService.containsLecturer(c, netId)) {
+            throw new InvalidLecturerException("Lecturer not a staff of this course");
         }
 
         return StudentService.getTaRecommendationList(c, strategy, communicationService);
@@ -171,18 +179,19 @@ public class CourseController {
      *
      * @param body CourseCreationBody object containing course information
      * @return String execution result message
+     * @throws CourseAlreadyExistException if course already exists
      */
     @PostMapping("makeCourse")
-    public String makeCourse(@RequestBody CourseCreationBody body) {
+    public Course makeCourse(@RequestBody CourseCreationBody body) {
         Course c = courseService.findByCourseId(body.getCourseId());
 
         if (c != null) {
-            return "Course with id " + body.getCourseId() + " already exists!";
+            throw new CourseAlreadyExistException(c.getCourseId());
         }
         c = new Course(body.getCourseId(), body.getName(), body.getCourseSize(),
                 body.getLecturerSet(), body.getStartingDate(), body.getQuarter());
         this.courseService.save(c);
-        return "Course added successfully";
+        return c;
     }
 
     /**
@@ -194,8 +203,8 @@ public class CourseController {
      * @throws InvalidCandidateException if student already hired as TA
      */
     @SuppressWarnings("PMD")
-    @PostMapping("addCandidateTa")
-    public void addCandidateTa(@PathParam("courseId") String courseId,
+    @PutMapping("addCandidateTa")
+    public Boolean addCandidateTa(@PathParam("courseId") String courseId,
                                @PathParam("studentId") String studentId,
                                @RequestBody Set<String> studentCourses)
             throws CourseNotFoundException, InvalidCandidateException, TooManyCoursesException {
@@ -220,6 +229,7 @@ public class CourseController {
 
         //courseService.updateCandidateTas(courseId, c.getCandidateTas());
         courseService.save(c);
+        return true;
     }
 
     /**
@@ -279,7 +289,7 @@ public class CourseController {
      * @throws CourseNotFoundException if course not found
      */
     @PutMapping("addLecturer")
-    public void addLecturer(@PathParam("courseId") String courseId,
+    public Boolean addLecturer(@PathParam("courseId") String courseId,
                             @PathParam("lecturerId") String lecturerId)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseId(courseId);
@@ -292,22 +302,29 @@ public class CourseController {
 
         //courseService.updateLecturerSet(courseId, c.getLecturerSet());
         courseService.save(c);
+        return true;
     }
 
     /**
      * Retrieve all candidate TAs of specific course.
      *
      * @param courseId String courseId
+     * @param netId String lecturer netId
      * @return Set of strings (studentIds)
      * @throws CourseNotFoundException if course not found
      */
     @GetMapping("candidates")
-    public Set<String> getCandidateSet(@PathParam("courseId") String courseId)
-            throws CourseNotFoundException {
+    public Set<String> getCandidateSet(@PathParam("courseId") String courseId,
+                                       @RequestHeader("netId") String netId)
+            throws CourseNotFoundException, InvalidLecturerException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
+        }
+
+        if (!LecturerService.containsLecturer(c, netId)) {
+            throw new InvalidLecturerException("Lecturer not a staff of this course");
         }
 
         return StudentService.getCandidates(c);
@@ -317,16 +334,22 @@ public class CourseController {
      * Retrieve all hired TAs of specific course.
      *
      * @param courseId String courseId
+     * @param netId String lecturerId
      * @return Set of strings (studentIds)
      * @throws CourseNotFoundException if course not found
      */
     @GetMapping("tas")
-    public Set<String> getTaSet(@PathParam("courseId") String courseId)
-            throws CourseNotFoundException {
+    public Set<String> getTaSet(@PathParam("courseId") String courseId,
+                                @RequestHeader("netId") String netId)
+            throws CourseNotFoundException, InvalidLecturerException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
             throw new CourseNotFoundException(courseId);
+        }
+
+        if (!LecturerService.containsLecturer(c, netId)) {
+            throw new InvalidLecturerException("Lecturer not a staff of this course");
         }
 
         return StudentService.getTaSet(c);
@@ -338,16 +361,16 @@ public class CourseController {
      *
      * @param courseId   String courseId
      * @param studentId  String studentId
-     * @param lecturerId String lecturerId
      * @param hours      float contract hours
+     * @param netId String lecturer netId
      * @throws CourseNotFoundException if no courses found
      * @throws InvalidHiringException  if student already hired or not in course
      */
     @PutMapping("hireTa")
-    public Course hireTa(@PathParam("courseId") String courseId,
+    public Boolean hireTa(@PathParam("courseId") String courseId,
                        @PathParam("studentId") String studentId,
-                       @PathParam("lecturerId") String lecturerId,
-                       @PathParam("hours") float hours)
+                       @PathParam("hours") float hours,
+                       @RequestHeader("netId") String netId)
             throws CourseNotFoundException, InvalidHiringException {
         Course c = courseService.findByCourseId(courseId);
 
@@ -355,12 +378,16 @@ public class CourseController {
             throw new CourseNotFoundException(courseId);
         }
 
-        StudentService.hireTa(c, studentId, lecturerId, hours, communicationService);
+        if (!LecturerService.containsLecturer(c, netId)) {
+            throw new InvalidLecturerException("Lecturer not a staff of this course");
+        }
+
+        StudentService.hireTa(c, studentId, hours, communicationService);
 
         //courseService.updateHireTas(courseId, c.getHiredTas());
         //courseService.updateCandidateTas(courseId, c.getCandidateTas());
         courseService.save(c);
-        return c;
+        return true;
     }
 
 

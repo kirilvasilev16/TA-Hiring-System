@@ -6,6 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import course.entities.Management;
 import course.entities.Student;
+import course.exceptions.FailedContractCreationException;
+import course.exceptions.FailedGetHoursException;
+import course.exceptions.FailedGetStudentListException;
+import course.exceptions.FailedGetStudentRatingsException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -56,7 +60,8 @@ public class CommunicationService {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
                 e.printStackTrace();
-                return studentRatingMap;
+                throw new FailedGetStudentRatingsException(
+                        "Failed to get "  + s.getNetId() + " ratings");
             }
 
 
@@ -73,41 +78,28 @@ public class CommunicationService {
     }
 
     /**
-     * process send and receive of HTTP request and response body.
-     *
-     * @param request - HttpRequest body
-     * @return True if response valid (200OK), false otherwise
-     */
-    public HttpResponse<String> requestSend(HttpRequest request) {
-        try {
-            return client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Communication with server failed");
-            return null; //TODO: proper exception handling
-        }
-
-    }
-
-    /**
      * Request Management microservice to create new Management object.
      *
      * @param courseId      String courseId
      * @param studentId     String studentId
      * @param contractHours float contractHours
      * @return created Management object if successful else null
+     * @throws FailedContractCreationException if request to Management microservice fails
      */
+    @SuppressWarnings("PMD")
     public Management createManagement(String courseId, String studentId, float contractHours) {
 
         HttpRequest request = HttpRequest.newBuilder().POST(HttpRequest.BodyPublishers.noBody())
                 .uri(URI.create(managementService + "/create?courseId=" + courseId + "&studentId="
                         + studentId + "&amountOfHours=" + contractHours)).build();
 
-        HttpResponse<String> response = requestSend(request);
-
-        if (response == null) {
-            return null;
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new FailedContractCreationException("Could not create " + courseId
+                    + " TA Work Contract for " + studentId);
         }
 
         return gson.fromJson(response.body(), Management.class);
@@ -132,7 +124,7 @@ public class CommunicationService {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
                 e.printStackTrace();
-                return students;
+                throw new FailedGetStudentListException("Failed to get student " + studentId);
             }
 
             if (response.statusCode() != successCode) {
@@ -165,7 +157,7 @@ public class CommunicationService {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
                 e.printStackTrace();
-                return hourSet;
+                throw new FailedGetHoursException("Failed to get worked hours for student " + ta);
             }
 
             if (response.statusCode() != successCode) {
