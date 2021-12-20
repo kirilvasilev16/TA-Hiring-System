@@ -1,4 +1,4 @@
-package authentication;
+package authentication.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -68,11 +68,11 @@ public class AuthenticationControllerTest {
     @BeforeEach
     void setUp() {
         role = new Role("ROLE_lecturer");
-        authTa = new Authentication("net2@id.nl", "pass2", "name",
+        authTa = new Authentication("net2@id.nl", "email@email.co", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_ta"))));
-        authLecturer = new Authentication("net2@id.nl", "pass2", "name",
+        authLecturer = new Authentication("net2@id.nl", "email@email.co", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_lecturer"))));
-        authAdmin = new Authentication("net2@id.nl", "pass2", "name",
+        authAdmin = new Authentication("net2@id.nl", "email@email.co", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_admin"))));
         findAllResult = "{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
                 + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0}";

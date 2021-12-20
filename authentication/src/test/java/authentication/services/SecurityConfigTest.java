@@ -1,4 +1,4 @@
-package authentication;
+package authentication.services;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -53,9 +53,9 @@ public class  SecurityConfigTest {
 
     @BeforeEach
     void setUp() {
-        authTa = new Authentication("net2@id.nl", "pass2", "name",
+        authTa = new Authentication("net2@id.nl", "email@email.co", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_ta"))));
-        authLecturer = new Authentication("net2@id.nl", "pass2", "name",
+        authLecturer = new Authentication("net2@id.nl", "email@email.co", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_lecturer"))));
 
         findAllResult = "{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
