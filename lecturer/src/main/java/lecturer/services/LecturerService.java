@@ -123,14 +123,14 @@ public class LecturerService {
      * @param courseId specific course
      * @param studentNetId netId of a student
      */
-    public void chooseTa(String netId, String courseId, String studentNetId, int hours) {
+    public void chooseTa(String netId, String courseId, String studentNetId, float hours) {
         this.verifyThatApplicableCourse(netId, courseId);
-        ResponseEntity<Course> course = restTemplate.postForEntity("http://localhost:8082/courses/hireTA?courseId=" + courseId + "&studentId=" + studentNetId + "&hours=" + hours, null, Course.class);
-        if (course == null) {
-            throw new CourseNotFoundException("Course was not found");
-        } else if (course.getStatusCode() != HttpStatus.OK) {
-            throw new HttpClientErrorException(course.getStatusCode());
-        }
+        restTemplate.postForEntity("http://localhost:8082/courses/hireTa?courseId=" + courseId + "&studentId=" + studentNetId + "&lecturerId=" + netId + "&hours=" + hours, null, Void.class);
+//        if (course == null) {
+//            throw new CourseNotFoundException("Course was not found");
+//        } else if (course.getStatusCode() != HttpStatus.OK) {
+//            throw new HttpClientErrorException(course.getStatusCode());
+//        }
     }
 
     /**

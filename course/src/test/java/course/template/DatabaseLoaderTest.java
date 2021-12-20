@@ -13,11 +13,11 @@ import org.mockito.Mockito;
 
 class DatabaseLoaderTest {
 
-    @Test
-    void testDatabaseLoader() {
-        CourseRepository courseRepository = Mockito.mock(CourseRepository.class);
-        new DatabaseLoader(courseRepository);
-        verify(courseRepository, times(1)).save(any(Course.class));
-    }
+//    @Test
+//    void testDatabaseLoader() {
+//        CourseRepository courseRepository = Mockito.mock(CourseRepository.class);
+//        new DatabaseLoader(courseRepository);
+//        verify(courseRepository, times(1)).save(any(Course.class));
+//    }
 
 }

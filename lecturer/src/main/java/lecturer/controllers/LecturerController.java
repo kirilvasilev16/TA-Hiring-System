@@ -58,13 +58,13 @@ public class LecturerController {
         return lecturerService.getCandidateTaList(netId, courseId);
     }
 
-    @PatchMapping("/courses/selectTa")
+    @PostMapping("/courses/selectTa")
     public void selectTaForCourse(
             @PathParam("netId") String netId,
-            @PathParam("courseId") String course,
-            @PathParam("studentId") String studentNetId,
-            @PathParam("hours") int hours) {
-        lecturerService.chooseTa(netId, course, studentNetId, hours);
+            @PathParam("courseId") String courseId,
+            @PathParam("studentId") String studentId,
+            @PathParam("hours") float hours) {
+        lecturerService.chooseTa(netId, courseId, studentId, hours);
     }
 
     @PatchMapping("/courses/addCourse")
