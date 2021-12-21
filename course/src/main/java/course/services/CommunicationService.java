@@ -1,7 +1,6 @@
 package course.services;
 
 
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import course.entities.Management;
@@ -10,6 +9,7 @@ import course.exceptions.FailedContractCreationException;
 import course.exceptions.FailedGetHoursException;
 import course.exceptions.FailedGetStudentListException;
 import course.exceptions.FailedGetStudentRatingsException;
+import course.exceptions.FailedUpdateStudentEmploymentException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -69,7 +69,7 @@ public class CommunicationService {
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new FailedGetStudentRatingsException(
-                        "Failed to get "  + s.getNetId() + " ratings");
+                        "Failed to get " + s.getNetId() + " ratings");
             }
 
 
@@ -175,5 +175,30 @@ public class CommunicationService {
             hourSet.add(gson.fromJson(response.body(), Float.class));
         }
         return hourSet;
+    }
+
+    /**
+     * Update Student microservice on employment of student.
+     *
+     * @param studentId String student netId
+     * @param courseId  String courseId
+     * @return true is update successful
+     * @throws FailedUpdateStudentEmploymentException if updating Student microservice fails
+     */
+    @SuppressWarnings("PMD")
+    public boolean updateStudentEmployment(String studentId, String courseId) {
+        HttpRequest request = HttpRequest.newBuilder().PUT(HttpRequest.BodyPublishers.noBody())
+                .uri(URI.create(studentService + "/apply?netId=" + studentId
+                        + "&courseId=" + courseId)).build();
+
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new FailedUpdateStudentEmploymentException(studentId);
+        }
+
+        return true;
     }
 }

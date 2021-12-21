@@ -166,10 +166,13 @@ public class StudentService {
                                  CommunicationService communicationService)
             throws InvalidHiringException {
 
-        if (course.getCandidateTas().remove(studentId)) {
-            course.getHiredTas().add(studentId);
-            //TODO: save management object?
+        if (course.getCandidateTas().contains(studentId)) {
             communicationService.createManagement(course.getCourseId(), studentId, hours);
+            communicationService.updateStudentEmployment(studentId, course.getCourseId());
+
+            course.getCandidateTas().remove(studentId);
+            course.getHiredTas().add(studentId);
+
             return true;
         } else {
             if (containsTa(course, studentId)) {

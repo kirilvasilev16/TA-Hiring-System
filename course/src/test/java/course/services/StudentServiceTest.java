@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import course.entities.Course;
 import course.entities.Management;
 import course.exceptions.DeadlinePastException;
+import course.exceptions.FailedContractCreationException;
+import course.exceptions.FailedUpdateStudentEmploymentException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
 import course.exceptions.InvalidStrategyException;
@@ -186,12 +188,15 @@ class StudentServiceTest {
 
 
     @Test
-    void hireTa() { // TODO: add mocks for management and lecturer interaction
+    void hireTa() {
         mockComm = Mockito.mock(CommunicationService.class);
         Mockito.when(mockComm.createManagement(Mockito.any(),
                         Mockito.anyString(),
                         Mockito.anyFloat()))
                 .thenReturn(new Management());
+        Mockito.when(mockComm.updateStudentEmployment(Mockito.anyString(), Mockito.anyString()))
+                .thenReturn(true);
+
         String studentToHire = student2;
         StudentService.addCandidateSet(course, candidateSet);
         StudentService.addTaSet(course, hireSet);
@@ -215,6 +220,9 @@ class StudentServiceTest {
         assertThrows(InvalidHiringException.class, () -> {
             StudentService.hireTa(course, studentToHire, 1, mockComm);
         });
+
+        assertFalse(StudentService.containsCandidate(course, studentToHire));
+        assertTrue(StudentService.containsTa(course, studentToHire));
     }
 
     @Test
@@ -232,7 +240,53 @@ class StudentServiceTest {
         assertThrows(InvalidHiringException.class, () -> {
             StudentService.hireTa(course, studentToHire, 1, mockComm);
         });
+
+        assertFalse(StudentService.containsCandidate(course, studentToHire));
+        assertFalse(StudentService.containsTa(course, studentToHire));
     }
+
+    @Test
+    void hireTaFailedManagementComm() {
+        mockComm = Mockito.mock(CommunicationService.class);
+        Mockito.when(mockComm.createManagement(Mockito.any(),
+                        Mockito.anyString(),
+                        Mockito.anyFloat()))
+                .thenThrow(FailedContractCreationException.class);
+
+        String studentToHire = student1;
+        StudentService.addCandidateSet(course, candidateSet);
+        StudentService.addTaSet(course, hireSet);
+
+        assertThrows(FailedContractCreationException.class, () -> {
+            StudentService.hireTa(course, studentToHire, 1, mockComm);
+        });
+
+        assertTrue(StudentService.containsCandidate(course, studentToHire));
+        assertFalse(StudentService.containsTa(course, studentToHire));
+    }
+
+    @Test
+    void hireTaFailedStudentComm() {
+        mockComm = Mockito.mock(CommunicationService.class);
+        Mockito.when(mockComm.createManagement(Mockito.any(),
+                        Mockito.anyString(),
+                        Mockito.anyFloat()))
+                .thenReturn(new Management());
+        Mockito.when(mockComm.updateStudentEmployment(Mockito.anyString(), Mockito.anyString()))
+                .thenThrow(FailedUpdateStudentEmploymentException.class);
+
+        String studentToHire = student1;
+        StudentService.addCandidateSet(course, candidateSet);
+        StudentService.addTaSet(course, hireSet);
+
+        assertThrows(FailedUpdateStudentEmploymentException.class, () -> {
+            StudentService.hireTa(course, studentToHire, 1, mockComm);
+        });
+
+        assertTrue(StudentService.containsCandidate(course, studentToHire));
+        assertFalse(StudentService.containsTa(course, studentToHire));
+    }
+
 
     @Test
     void getTaSet() {

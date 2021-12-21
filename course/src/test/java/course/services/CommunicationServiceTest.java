@@ -12,9 +12,11 @@ import course.exceptions.FailedContractCreationException;
 import course.exceptions.FailedGetHoursException;
 import course.exceptions.FailedGetStudentListException;
 import course.exceptions.FailedGetStudentRatingsException;
+import course.exceptions.FailedUpdateStudentEmploymentException;
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +25,7 @@ import org.mockito.Mockito;
 
 
 class CommunicationServiceTest {
+    private final transient String student1 = "student1";
     transient CommunicationService communicationService;
     transient Gson gson;
     transient String studentIdSample;
@@ -118,7 +121,7 @@ class CommunicationServiceTest {
 
         Mockito.when(response.statusCode()).thenReturn(200);
         Mockito.<HttpResponse<? extends String>>
-                when(client.send(Mockito.any(), Mockito.any()))
+                        when(client.send(Mockito.any(), Mockito.any()))
                 .thenReturn(response);
 
         Management m = new Management();
@@ -273,4 +276,43 @@ class CommunicationServiceTest {
             communicationService.getHoursList(hiredTas, "Cid");
         });
     }
+
+    @Test
+    void updateStudentEmployment() throws IOException, InterruptedException {
+        HttpClient client = Mockito.mock(HttpClient.class);
+        HttpResponse<String> response = Mockito.mock(HttpResponse.class);
+
+        Mockito.when(response.statusCode()).thenReturn(200);
+        Mockito.<HttpResponse<? extends String>>
+                        when(client.send(Mockito.any(), Mockito.any()))
+                .thenReturn(response);
+
+        Student s = new Student(student1, new HashMap<String, Float>(), new HashSet<String>());
+        Mockito.when(response.body()).thenReturn(gson.toJson(s));
+
+        communicationService.setClient(client);
+
+        assertTrue(communicationService.updateStudentEmployment(student1, "course1"));
+    }
+
+    @Test
+    void updateStudentEmploymentFail() throws IOException, InterruptedException {
+        HttpClient client = Mockito.mock(HttpClient.class);
+        HttpResponse<String> response = Mockito.mock(HttpResponse.class);
+
+        Mockito.when(response.statusCode()).thenReturn(200);
+        Mockito.<HttpResponse<? extends String>>when(client.send(Mockito.any(), Mockito.any()))
+                .thenThrow(new IOException());
+
+        Student s = new Student(student1, new HashMap<String, Float>(), new HashSet<String>());
+        Mockito.when(response.body()).thenReturn(gson.toJson(s));
+
+        communicationService.setClient(client);
+
+        assertThrows(FailedUpdateStudentEmploymentException.class, () -> {
+            communicationService.updateStudentEmployment(student1, "course1");
+        });
+    }
+
+
 }
