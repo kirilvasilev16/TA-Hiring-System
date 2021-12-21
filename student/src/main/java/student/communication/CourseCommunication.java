@@ -2,7 +2,6 @@ package student.communication;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -10,6 +9,7 @@ import java.net.http.HttpResponse;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 
+@SuppressWarnings("PMD")
 @Service
 public class CourseCommunication {
 
@@ -22,7 +22,7 @@ public class CourseCommunication {
     }
 
     /**
-     * Sends a request to the course service, to apply a student for a course
+     * Sends a request to the course service, to apply a student for a course.
      *
      * @param netId    the net id of the student
      * @param courseId the course id to apply for

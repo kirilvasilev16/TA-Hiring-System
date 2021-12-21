@@ -1,23 +1,11 @@
 package student.services;
 
-import student.communication.CourseCommunication;
-import student.entities.Student;
-import student.exceptions.StudentNotEligibleException;
-import student.exceptions.StudentNotFoundException;
-import student.repositories.StudentRepository;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpHeaders;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,10 +13,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import javax.net.ssl.SSLSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import student.communication.CourseCommunication;
+import student.entities.Student;
+import student.exceptions.StudentNotEligibleException;
+import student.exceptions.StudentNotFoundException;
+import student.repositories.StudentRepository;
 
 
 public class StudentServiceTest {
@@ -55,16 +47,17 @@ public class StudentServiceTest {
         student.setPassedCourses(passed);
         student.setCandidateCourses(candidate);
         student.setTaCourses(ta);
-        Optional<Student> optionalStudent = Optional.of(student);
 
         studentRepository = Mockito.mock(StudentRepository.class);
         courseCommunication = Mockito.mock(CourseCommunication.class);
         studentService = new StudentService(studentRepository, courseCommunication);
+        Optional<Student> optionalStudent = Optional.of(student);
         Mockito.when(studentRepository.findStudentByNetId(netId)).thenReturn(optionalStudent);
         Mockito.when(studentRepository.findStudentByNetId(not(eq(netId))))
                 .thenReturn(Optional.empty());
         Mockito.when(studentRepository.findAll()).thenReturn(List.of(student));
-        Mockito.when(courseCommunication.checkApplyRequirement(any(), any(), any())).thenReturn(true);
+        Mockito.when(courseCommunication.checkApplyRequirement(any(), any(), any()))
+                .thenReturn(true);
     }
 
     @Test
