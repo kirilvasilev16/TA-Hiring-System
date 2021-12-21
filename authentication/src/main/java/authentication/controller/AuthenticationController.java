@@ -131,7 +131,7 @@ public class AuthenticationController {
         }
     }
 
-        @Bean
+    @Bean
     public ServerCommunication serverCommunicationBean() {
         return new ServerCommunication();
     }
