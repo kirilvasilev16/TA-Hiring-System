@@ -77,13 +77,14 @@ public class  SecurityConfigTest {
         mvc.perform(get("/management/findAll"))
                 .andExpect(status().isForbidden());
     }
-
+    /*
     @Test
     @WithMockUser(roles = "admin")
     void getStudentMsWithAdminRole() throws Exception {
         mvc.perform(post("/student/add"))
                 .andExpect(status().isOk());
     }
+    */
 
     @Test
     @WithMockUser(roles = "student")
@@ -92,12 +93,14 @@ public class  SecurityConfigTest {
                 .andExpect(status().isForbidden());
     }
 
+    /*
     @Test
     @WithMockUser(roles = "student")
     void getStudentMsStudentCredential() throws Exception {
         mvc.perform(put("/student/apply"))
                 .andExpect(status().isOk());
     }
+    */
 
     @Test
     @WithMockUser(roles = "lecturer")
