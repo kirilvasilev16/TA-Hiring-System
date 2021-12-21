@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommunicationService {
 
-    private static final HttpClient client = HttpClient.newBuilder().build();
+    private static HttpClient client = HttpClient.newBuilder().build();
 
     private static final Gson gson = new GsonBuilder().create();
 
@@ -37,6 +37,14 @@ public class CommunicationService {
 
     public CommunicationService() {
 
+    }
+
+    public static void setClient(HttpClient client) {
+        CommunicationService.client = client;
+    }
+
+    public static HttpClient getClient() {
+        return client;
     }
 
     /**

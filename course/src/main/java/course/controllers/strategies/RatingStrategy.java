@@ -13,9 +13,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class RatingStrategy implements TaRecommendationStrategy {
-    private static HttpClient client = HttpClient.newBuilder().build();
-    private static Gson gson = new GsonBuilder()
-            .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
     private transient Course course;
     private transient CommunicationService communicationService;
 
