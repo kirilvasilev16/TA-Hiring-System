@@ -2,17 +2,11 @@ package course.controllers.strategies;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import course.controllers.CourseController;
 import course.entities.Course;
-import course.entities.Management;
 import course.entities.Student;
-import java.net.URI;
+import course.services.CommunicationService;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,9 +17,11 @@ public class RatingStrategy implements TaRecommendationStrategy {
     private static Gson gson = new GsonBuilder()
             .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
     private transient Course course;
+    private transient CommunicationService communicationService;
 
-    public RatingStrategy(Course course) {
+    public RatingStrategy(Course course, CommunicationService communicationService) {
         this.course = course;
+        this.communicationService = communicationService;
     }
 
     /**
@@ -36,35 +32,12 @@ public class RatingStrategy implements TaRecommendationStrategy {
      */
     @SuppressWarnings("PMD")
     public List<String> getRecommendedTas(Set<Student> candidateTas) {
-        Map<Student, Float> studentRatingMap;
-        studentRatingMap = new HashMap();
-        HttpResponse<String> response;
-
-        for (Student s : candidateTas) {
-            HttpRequest request = HttpRequest.newBuilder().GET()
-                    .uri(URI.create("http://localhost:8080/management/get?courseId="
-                            + course.getCourseId() + "&studentId" + s.getNetId()))
-                    .build();
-            try {
-                response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            } catch (Exception e) {
-                e.printStackTrace();
-                return List.of();
-            }
-
-
-            if (response.statusCode() != CourseController.successCode) {
-                System.out.println("GET Status: " + response.statusCode());
-            }
-            System.out.println(response.body());
-            float rating;
-            rating = gson.fromJson(response.body(), Management.class).getRating();
-            studentRatingMap.put(s, rating);
-        }
+        Map<Student, Float> studentRatingMap =
+                communicationService.getRatings(candidateTas, course.getCourseId());
 
         Comparator<Student> comparator = (Student s1, Student s2)
                 -> studentRatingMap.get(s2) - studentRatingMap.get(s1) < 0 ? -1 : 1;
-        return candidateTas.stream().sorted(comparator).map(s -> s.getNetId())
+        return candidateTas.stream().sorted(comparator).map(s -> s.getNetId()).limit(10)
                 .collect(Collectors.toList());
     }
 }

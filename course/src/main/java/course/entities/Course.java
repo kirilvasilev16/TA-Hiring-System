@@ -1,8 +1,9 @@
 package course.entities;
 
-import java.util.Calendar;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -10,18 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "courses")
+@DynamicUpdate
 public class Course {
     @Id
     private String courseId;
     private String name;
     private Integer courseSize;
-    private Integer requiredTas;
+    private Integer quarter;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar startingDate;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime startingDate;
 
     @ElementCollection
     private Set<String> lecturerSet;
@@ -39,17 +42,16 @@ public class Course {
      * @param lecturerSet  set of strings where strings are lecturerIDs
      * @param startingDate Calendar object course start date
      */
-    public Course(String courseId, String name, int courseSize,
-                  Set<String> lecturerSet, Calendar startingDate) {
+    public Course(String courseId, String name, int courseSize, Set<String> lecturerSet,
+                  LocalDateTime startingDate, Integer quarter) {
         this.courseId = courseId;
         this.name = name;
         this.startingDate = startingDate;
         this.courseSize = courseSize;
-        this.requiredTas = Math.max(1, courseSize / 20);
-
         this.lecturerSet = lecturerSet;
         this.candidateTas = new HashSet<>();
         this.hiredTas = new HashSet<>();
+        this.quarter = quarter;
     }
 
     public Course() {
@@ -98,7 +100,7 @@ public class Course {
      *
      * @return Calendar object
      */
-    public Calendar getStartingDate() {
+    public LocalDateTime getStartingDate() {
         return this.startingDate;
     }
 
@@ -107,7 +109,7 @@ public class Course {
      *
      * @param startingDate Date object new starting date
      */
-    public void setStartingDate(Calendar startingDate) {
+    public void setStartingDate(LocalDateTime startingDate) {
         this.startingDate = startingDate;
     }
 
@@ -127,7 +129,6 @@ public class Course {
      */
     public void setCourseSize(Integer courseSize) {
         this.courseSize = courseSize;
-        setRequiredTas(Math.max(1, courseSize / 20));
     }
 
 
@@ -137,16 +138,7 @@ public class Course {
      * @return int
      */
     public Integer getRequiredTas() {
-        return requiredTas;
-    }
-
-    /**
-     * Setter for required TAs.
-     *
-     * @param requiredTas Integer number of required TAs
-     */
-    public void setRequiredTas(Integer requiredTas) {
-        this.requiredTas = requiredTas;
+        return Math.max(1, courseSize / 20);
     }
 
     /**
@@ -201,5 +193,59 @@ public class Course {
      */
     public void setHiredTas(Set<String> hiredTas) {
         this.hiredTas = hiredTas;
+    }
+
+    /**
+     * Gets quarter.
+     *
+     * @return the quarter
+     */
+    public Integer getQuarter() {
+        return quarter;
+    }
+
+    /**
+     * Sets quarter.
+     *
+     * @param quarter the quarter
+     */
+    public void setQuarter(Integer quarter) {
+        this.quarter = quarter;
+    }
+
+    /**
+     * Equals method for Course object.
+     *
+     * @param o Object
+     * @return true if equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Course course = (Course) o;
+        return courseId.equals(course.courseId)
+                && name.equals(course.name)
+                && courseSize.equals(course.courseSize)
+                && quarter.equals(course.quarter)
+                && startingDate.equals(course.startingDate)
+                && lecturerSet.equals(course.lecturerSet)
+                && candidateTas.equals(course.candidateTas)
+                && hiredTas.equals(course.hiredTas);
+    }
+
+    /**
+     * Hash method for Course object.
+     *
+     * @return hash value
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(courseId, name, courseSize, quarter,
+                startingDate, lecturerSet, candidateTas, hiredTas);
     }
 }

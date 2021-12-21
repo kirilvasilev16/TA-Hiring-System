@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import course.entities.Course;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,11 +20,11 @@ class LecturerServiceTest {
 
     private transient Course course;
     private transient Set<String> lecturerSet;
-    private transient Calendar startingDate;
+    private transient LocalDateTime startingDate;
     private transient String courseId;
     private transient String courseName;
     private transient int courseSize;
-
+    private transient int quarter;
     private transient String lecturer1 = "lecturer1";
 
     @BeforeEach
@@ -29,12 +32,13 @@ class LecturerServiceTest {
 
         lecturerSet = new HashSet<>();
         lecturerSet.add(lecturer1);
-        startingDate = new Calendar.Builder().setDate(2021, 11, 7).build();
+        startingDate = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
         courseSize = 500;
         courseId = "CSE2115-2021";
         courseName = "SEM";
+        quarter = 2;
 
-        course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate);
+        course = new Course(courseId, courseName, courseSize, lecturerSet, startingDate, quarter);
     }
 
     @Test

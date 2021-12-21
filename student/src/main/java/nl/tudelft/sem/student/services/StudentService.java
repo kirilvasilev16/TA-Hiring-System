@@ -1,5 +1,10 @@
 package nl.tudelft.sem.student.services;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,6 +23,8 @@ import org.springframework.stereotype.Service;
 public class StudentService {
 
     private final transient StudentRepository studentRepository;
+
+    //    private static HttpClient client = HttpClient.newBuilder().build();
 
     /**
      * Instantiates a new Student service.
@@ -49,6 +56,21 @@ public class StudentService {
      */
     public List<Student> getAll() {
         return studentRepository.findAll();
+    }
+
+    /**
+     * Gets all students corresponding to given ids.
+     * Used by course microservice.
+     *
+     * @param ids the ids
+     * @return set of students
+     */
+    public Set<Student> getMultiple(Set<String> ids) {
+        Set<Student> students = new HashSet<>();
+        for (String id : ids) {
+            students.add(this.getStudent(id));
+        }
+        return students;
     }
 
     /**
@@ -131,4 +153,21 @@ public class StudentService {
     public Student addStudent(Student student) {
         return studentRepository.save(student);
     }
+
+
+    //    public boolean checkApplyRequirement(String netId, String courseId) {
+    //        HttpRequest request = HttpRequest.newBuilder().setHeader("Content-type",
+    //        "application/json")
+    //                .uri(URI.create("http://localhost:8082/courses/addCandidateTa"))
+    //                .POST(null)
+    //                .build();
+    //        HttpResponse<String> response;
+    //        try {
+    //            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    //        } catch (Exception e) {
+    //            return false;
+    //        }
+    //        return response.statusCode() == 200;
+    //
+    //    }
 }
