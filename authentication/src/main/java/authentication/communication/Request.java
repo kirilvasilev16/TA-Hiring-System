@@ -1,5 +1,6 @@
 package authentication.communication;
 
+import authentication.entities.ResponseObj;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.URI;
@@ -19,7 +20,7 @@ public class Request {
      * @param url String with the url we want to GET
      * @return String with the responseBody
      */
-    public static String get(String url) throws IOException {
+    public static ResponseObj get(String url) throws IOException {
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -32,10 +33,11 @@ public class Request {
             HttpResponse<String> response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println("response: " + response.body());
-            return response.body();
+            ResponseObj responseObj = new ResponseObj(response.body(), response.statusCode());
+            return responseObj;
         } catch (Exception e) {
             e.printStackTrace();
-            return "err";
+            return new ResponseObj("error", 500);
 
         }
     }
@@ -46,7 +48,7 @@ public class Request {
      * @param url that which the request is made
      * @return response body
      */
-    public static String post(String url, String body) throws InterruptedIOException {
+    public static ResponseObj post(String url, String body) throws InterruptedIOException {
 
         try {
             HttpRequest request;
@@ -70,7 +72,8 @@ public class Request {
 
             HttpResponse<String> response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            return response.body();
+            ResponseObj responseObj = new ResponseObj(response.body(), response.statusCode());
+            return responseObj;
         } catch (Exception e) {
             throw new InterruptedIOException();
         }
@@ -82,7 +85,7 @@ public class Request {
      * @param url that which the request is made
      * @return response body
      */
-    public static String put(String url, String body) throws InterruptedIOException {
+    public static ResponseObj put(String url, String body) throws InterruptedIOException {
         try {
             HttpRequest request;
             if (body == null || body.length() == 0) {
@@ -105,7 +108,9 @@ public class Request {
 
             HttpResponse<String> response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            return response.body();
+
+            ResponseObj responseObj = new ResponseObj(response.body(), response.statusCode());
+            return responseObj;
         } catch (Exception e) {
             throw new InterruptedIOException();
         }
