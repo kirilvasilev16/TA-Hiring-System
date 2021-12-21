@@ -1,25 +1,17 @@
 package student.services;
 
-import com.google.gson.GsonBuilder;
-import student.communication.CourseCommunication;
-import student.exceptions.StudentNotEligibleException;
-import student.exceptions.StudentNotFoundException;
-import student.repositories.StudentRepository;
 
-import com.google.gson.Gson;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-
-import student.entities.Student;
-
 import org.springframework.stereotype.Service;
+import student.communication.CourseCommunication;
+import student.entities.Student;
+import student.exceptions.StudentNotEligibleException;
+import student.exceptions.StudentNotFoundException;
+import student.repositories.StudentRepository;
 
 /**
  * The type Student service.
@@ -30,15 +22,13 @@ public class StudentService {
     private final transient StudentRepository studentRepository;
     private final transient CourseCommunication courseCommunication;
 
-    private transient HttpClient client = HttpClient.newBuilder().build();
-    private transient Gson gson = new GsonBuilder().create();
-
     /**
      * Instantiates a new Student service.
      *
      * @param studentRepository the student repository
      */
-    public StudentService(StudentRepository studentRepository, CourseCommunication courseCommunication) {
+    public StudentService(StudentRepository studentRepository,
+                          CourseCommunication courseCommunication) {
         this.studentRepository = studentRepository;
         this.courseCommunication = courseCommunication;
     }

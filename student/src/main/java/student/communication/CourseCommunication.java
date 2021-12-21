@@ -26,7 +26,7 @@ public class CourseCommunication {
      *
      * @param netId    the net id of the student
      * @param courseId the course id to apply for
-     * @param set      the set of all courses that the student either is a TA for, or has applied for
+     * @param set      the set of all courses that the student either is a TA for, or applied for
      * @return the boolean
      */
     public boolean checkApplyRequirement(String netId, String courseId, Set<String> set) {
