@@ -8,7 +8,6 @@ import lecturer.entities.Course;
 import lecturer.entities.Lecturer;
 import lecturer.entities.Student;
 import lecturer.services.LecturerService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;

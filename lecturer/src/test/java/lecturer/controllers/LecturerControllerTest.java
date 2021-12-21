@@ -61,35 +61,35 @@ public class LecturerControllerTest {
 
     }
 
-//    @Test
-//    void findAllTest() throws Exception {
-//        when(lecturerService.findAll()).thenReturn(lecturers);
-//        this.mockMvc.perform(get("/lecturer/getAll"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().json(findAll));
-//    }
-//
-//    @Test
-//    void getOne() throws Exception {
-//        when(lecturerService.findLecturerById("2")).thenReturn(lecturer2);
-//        this.mockMvc.perform(get("/lecturer/get?netId=2"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().json(findOne));
-//    }
+    //    @Test
+    //    void findAllTest() throws Exception {
+    //        when(lecturerService.findAll()).thenReturn(lecturers);
+    //        this.mockMvc.perform(get("/lecturer/getAll"))
+    //                .andExpect(status().isOk())
+    //                .andExpect(content().json(findAll));
+    //    }
+    //
+    //    @Test
+    //    void getOne() throws Exception {
+    //        when(lecturerService.findLecturerById("2")).thenReturn(lecturer2);
+    //        this.mockMvc.perform(get("/lecturer/get?netId=2"))
+    //                .andExpect(status().isOk())
+    //                .andExpect(content().json(findOne));
+    //    }
 
-//    @Test
-//    void getOwnCourses() throws Exception {
-//        when(lecturerService.getOwnCourses("1")).thenReturn(courses);
-//        this.mockMvc.perform(get("/lecturer/courses/getOwnCourses?netId=1"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().json("[\n"
-//                        +
-//                        "    \"CSE2215\",\n"
-//                        +
-//                        "    \"CSE2315\"\n"
-//                        +
-//                        "]"));
-//    }
+    //    @Test
+    //    void getOwnCourses() throws Exception {
+    //        when(lecturerService.getOwnCourses("1")).thenReturn(courses);
+    //        this.mockMvc.perform(get("/lecturer/courses/getOwnCourses?netId=1"))
+    //                .andExpect(status().isOk())
+    //                .andExpect(content().json("[\n"
+    //                        +
+    //                        "    \"CSE2215\",\n"
+    //                        +
+    //                        "    \"CSE2315\"\n"
+    //                        +
+    //                        "]"));
+    //    }
 
     //    @Test
     //    void getSpecificCourse() throws Exception {

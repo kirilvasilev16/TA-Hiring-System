@@ -140,16 +140,16 @@ public class LecturerServiceTest {
         assertEquals(1, lecturer2.getCourses().size());
     }
 
-//    @Test
-//    void computeRating() {
-//        Set<String> l = new HashSet<>();
-//        l.add("1");
-//        Course courseEntity = new Course("CSE", l, 0);
-//        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId="
-//                + courseEntity.getCourseId(), Course.class))
-//                .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
-//        assertEquals(7.8, lecturerService.computeAverageRating("1", "CSE", "1"));
-//    }
+    //    @Test
+    //    void computeRating() {
+    //        Set<String> l = new HashSet<>();
+    //        l.add("1");
+    //        Course courseEntity = new Course("CSE", l, 0);
+    //        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId="
+    //                + courseEntity.getCourseId(), Course.class))
+    //                .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
+    //        assertEquals(7.8, lecturerService.computeAverageRating("1", "CSE", "1"));
+    //    }
 
     @Test
     void computeNotCandidateRating() {
