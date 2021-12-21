@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -71,12 +73,14 @@ public class AuthenticationController {
      * @throws IOException exception
      */
     @GetMapping("/**")
-    public String get(HttpServletRequest request) throws IOException {
+    public ResponseEntity get(HttpServletRequest request) throws IOException {
         if (request.getQueryString() == null || request.getQueryString().length() == 0) {
-            return serverCommunication.getRequest(request.getRequestURI());
+            return new ResponseEntity(serverCommunication
+                    .getRequest(request.getRequestURI()), HttpStatus.OK);
         } else {
-            return serverCommunication.getRequest(request.getRequestURI()
-                    + "?" + request.getQueryString());
+            return new ResponseEntity(serverCommunication
+                    .getRequest(request.getRequestURI()
+                    + "?" + request.getQueryString()), HttpStatus.OK);
         }
 
     }
@@ -89,14 +93,16 @@ public class AuthenticationController {
      * @throws IOException exception
      */
     @PutMapping("/**")
-    public String put(HttpServletRequest request) throws IOException {
+    public ResponseEntity put(HttpServletRequest request) throws IOException {
         String body = request.getReader().lines()
                 .collect(Collectors.joining(System.lineSeparator()));
         if (request.getQueryString() == null || request.getQueryString().length() == 0) {
-            return serverCommunication.putRequest(request.getRequestURI(), body);
+            return new ResponseEntity(serverCommunication
+                    .putRequest(request.getRequestURI(), body), HttpStatus.OK);
         } else {
-            return serverCommunication.putRequest(request.getRequestURI()
-                    + "?" + request.getQueryString(), body);
+            return new ResponseEntity(serverCommunication
+                    .putRequest(request.getRequestURI()
+                    + "?" + request.getQueryString(), body), HttpStatus.OK);
         }
 
     }

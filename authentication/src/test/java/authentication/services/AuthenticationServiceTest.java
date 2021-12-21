@@ -1,6 +1,7 @@
 package authentication.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import authentication.entities.Authentication;
 import authentication.entities.Role;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class AuthenticationServiceTest {
@@ -86,5 +88,14 @@ public class AuthenticationServiceTest {
                 new org.springframework.security
                         .core.userdetails.User(testStudent.getNetId(),
                             testStudent.getPassword(), authorities));
+    }
+
+    @Test
+    void loadUserByUsernameException() {
+        Mockito.when(authenticationRepository.findByNetId("stu")).thenReturn(null);
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+        assertThrows(UsernameNotFoundException.class,
+                () -> authenticationService.loadUserByUsername("hello"));
     }
 }

@@ -18,16 +18,13 @@ public class AuthenticationRoleValidator extends BaseValidator {
     @Override
     public void handle(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(GET, "/student/getAll").hasAnyAuthority("ROLE_admin");
-        http.authorizeRequests()
-                .antMatchers(POST, "/student/add").hasAnyAuthority("ROLE_admin");
-        http.authorizeRequests()
                 .antMatchers(GET, "/student/get")
                 .hasAnyAuthority("ROLE_student", "ROLE_admin", "ROLE_lecturer");
         http.authorizeRequests()
                 .antMatchers(PUT, "/student/apply").hasAnyAuthority("ROLE_student");
         http.authorizeRequests()
-                .antMatchers(PUT, "/student/accept").hasAnyAuthority("ROLE_admin", "ROLE_lecturer");
+                .antMatchers(PUT, "/student/accept")
+                .hasAnyAuthority("ROLE_admin", "ROLE_lecturer");
         http.authorizeRequests()
                 .antMatchers(GET, "/student/getPassedCourses")
                 .hasAnyAuthority("ROLE_student", "ROLE_admin", "ROLE_lecturer");
@@ -38,7 +35,11 @@ public class AuthenticationRoleValidator extends BaseValidator {
                 .antMatchers(GET, "/student/getTACourses")
                 .hasAnyAuthority("ROLE_student", "ROLE_admin", "ROLE_lecturer");
         http.authorizeRequests()
-                .antMatchers(POST, "/courses/makeCourse").hasAnyAuthority("ROLE_admin");
+                .antMatchers(GET, "/lecturer/getAll",
+                        "/student/getAll").hasAnyAuthority("ROLE_admin");
+        http.authorizeRequests()
+                .antMatchers(POST, "/courses/makeCourse",
+                        "/student/add").hasAnyAuthority("ROLE_admin");
         http.authorizeRequests()
                 .antMatchers(PUT, "/courses/updateSize").hasAnyAuthority("ROLE_admin");
         http.authorizeRequests()
@@ -47,7 +48,7 @@ public class AuthenticationRoleValidator extends BaseValidator {
         http.authorizeRequests()
                 .antMatchers(GET, "/authentication/**").hasAnyAuthority("ROLE_admin");
         http.authorizeRequests()
-                .antMatchers(GET, "/student/**").hasAnyAuthority("ROLE_student", "ROLE_ta");
+                .antMatchers(GET, "/student/**").hasAnyAuthority("ROLE_student");
         http.authorizeRequests()
                 .antMatchers(GET, "/lecturer/**").hasAnyAuthority("ROLE_lecturer");
         http.authorizeRequests()
