@@ -43,7 +43,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                                                 HttpServletResponse response)
             throws AuthenticationException {
 
-        String netId = request.getParameter("netid");
+        String netId = request.getParameter("netId");
         String password = request.getParameter("password");
 
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -66,7 +66,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                                             Authentication authentication)
             throws IOException {
         User user = (User) authentication.getPrincipal();
-        //unsafe ask
         Algorithm algorithm = Algorithm.HMAC256("sem15a".getBytes());
 
         String accessToken = JWT.create()

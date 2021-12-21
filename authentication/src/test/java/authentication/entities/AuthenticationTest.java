@@ -13,7 +13,7 @@ class AuthenticationTest {
     private transient Authentication auth;
     private transient String netId = "net@id.nl";
     private transient String name = "name";
-    private transient String email = "email@email.co";
+    private transient String email = "email";
     private transient String password = "password";
 
     @BeforeEach
@@ -70,5 +70,16 @@ class AuthenticationTest {
     void setName() {
         auth.setName("myName");
         assertEquals("myName", auth.getName());
+    }
+
+    @Test
+    void getEmail() {
+        assertEquals(email, auth.getEmail());
+    }
+
+    @Test
+    void setEmail() {
+        auth.setEmail("email2");
+        assertEquals("email2", auth.getEmail());
     }
 }
