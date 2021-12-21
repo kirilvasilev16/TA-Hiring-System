@@ -1,4 +1,4 @@
-package nl.tudelft.sem.student.entities;
+package student.entities;
 
 import java.util.HashMap;
 import java.util.HashSet;

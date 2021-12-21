@@ -1,18 +1,20 @@
-package nl.tudelft.sem.student.controllers;
+package student.controllers;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.websocket.server.PathParam;
-import nl.tudelft.sem.student.entities.Student;
-import nl.tudelft.sem.student.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import student.entities.Student;
+import student.services.StudentService;
+
 
 /**
  * The type Student controller.
@@ -68,12 +70,13 @@ public class StudentController {
 
     /**
      * Gets passed courses.
+     * This is an open endpoint
      *
      * @param id the id
      * @return the passed courses
      */
     @GetMapping("/getPassedCourses")
-    public Map<String, Float> getPassedCourses(@PathParam("id") String id) {
+    public Map<String, Float> getPassedCourses(@RequestHeader("netId") String id) {
         return studentService.getPassedCourses(id);
     }
 
@@ -112,13 +115,14 @@ public class StudentController {
 
     /**
      * Tries to apply a student as TA for a course.
+     * This is an open endpoint
      *
      * @param netId    the net id of the student
      * @param courseId the course id
      * @return the (updated) student
      */
     @PutMapping("/apply")
-    public Student apply(@PathParam("netId") String netId,
+    public Student apply(@RequestHeader("netId") String netId,
                          @PathParam("courseId") String courseId) {
         return studentService.apply(netId, courseId);
     }

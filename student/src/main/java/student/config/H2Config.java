@@ -1,4 +1,4 @@
-package nl.tudelft.sem.student.config;
+package student.config;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
