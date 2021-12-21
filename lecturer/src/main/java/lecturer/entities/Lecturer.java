@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class Lecturer {
     @Id
-    private String netId;
+    private String lecturerId;
     private String name;
     private String email;
 
@@ -29,7 +29,7 @@ public class Lecturer {
             String name,
             String email,
             List<String> courses) {
-        this.netId = netId;
+        this.lecturerId = netId;
         this.name = name;
         this.email = email;
         this.courses = courses;
@@ -45,8 +45,8 @@ public class Lecturer {
      *
      * @return netId
      */
-    public String getNetId() {
-        return netId;
+    public String getLecturerId() {
+        return lecturerId;
     }
 
     /**
@@ -79,10 +79,10 @@ public class Lecturer {
     /**
      * Setter for netId.
      *
-     * @param netId of a lecturer
+     * @param lecturerId of a lecturer
      */
-    public void setNetId(String netId) {
-        this.netId = netId;
+    public void setLecturerId(String lecturerId) {
+        this.lecturerId = lecturerId;
     }
 
     /**
@@ -121,7 +121,7 @@ public class Lecturer {
             return false;
         }
         Lecturer lecturer = (Lecturer) o;
-        return Objects.equals(netId, lecturer.netId)
+        return Objects.equals(lecturerId, lecturer.lecturerId)
                 && Objects.equals(name, lecturer.name)
                 && Objects.equals(email, lecturer.email)
                 && Objects.equals(courses, lecturer.courses);
@@ -129,6 +129,6 @@ public class Lecturer {
 
     @Override
     public int hashCode() {
-        return Objects.hash(netId, name, email, courses);
+        return Objects.hash(lecturerId, name, email, courses);
     }
 }

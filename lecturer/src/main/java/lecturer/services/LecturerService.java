@@ -16,8 +16,10 @@ import lecturer.exceptions.LecturerNotFoundException;
 import lecturer.repositories.LecturerRepository;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -45,13 +47,14 @@ public class LecturerService {
     /**
      * Find lecturer by id.
      *
-     * @param netId of a lecturer
-     * @return lecturer with given netId
+     * @param lecturerId of a lecturer
+     * @return lecturer with given lecturerId
      */
-    public Lecturer findLecturerById(String netId) {
-        Optional<Lecturer> lecturer = lecturerRepository.findLecturerByNetId(netId);
+    public Lecturer findLecturerById(String lecturerId) {
+        Optional<Lecturer> lecturer = lecturerRepository.findLecturerByLecturerId(lecturerId);
         if (lecturer.isEmpty()) {
-            throw new LecturerNotFoundException("Lecturer with id " + netId + " was not found.");
+            throw new LecturerNotFoundException("Lecturer with id " + lecturerId
+                    + " was not found.");
         }
         return lecturer.get();
     }
@@ -59,21 +62,21 @@ public class LecturerService {
     /**
      * Find all courses of a lecturer.
      *
-     * @param netId of a lecturer
+     * @param lecturerId of a lecturer
      * @return list of courses belonging to a lecturer
      */
-    public List<String> getOwnCourses(String netId) {
-        return this.findLecturerById(netId).getCourses();
+    public List<String> getOwnCourses(String lecturerId) {
+        return this.findLecturerById(lecturerId).getCourses();
     }
 
     /**
      * Verify if course belongs to a lecturer.
      *
-     * @param netId net id of lecturer
+     * @param lecturerId net id of lecturer
      * @param courseId course id
      */
-    public void verifyThatApplicableCourse(String netId, String courseId) {
-        if (this.getOwnCourses(netId).contains(courseId)) {
+    public void verifyThatApplicableCourse(String lecturerId, String courseId) {
+        if (this.getOwnCourses(lecturerId).contains(courseId)) {
             return;
         }
         throw new CourseNotFoundException("Course with id "
@@ -83,12 +86,12 @@ public class LecturerService {
     /**
      * Find specific course of a lecturer.
      *
-     * @param netId netId of a lecturer
+     * @param lecturerId lecturerId of a lecturer
      * @param courseId specific course
      * @return course if lecturer is supervising it
      */
-    public Course getSpecificCourseOfLecturer(String netId, String courseId) {
-        this.verifyThatApplicableCourse(netId, courseId);
+    public Course getSpecificCourseOfLecturer(String lecturerId, String courseId) {
+        this.verifyThatApplicableCourse(lecturerId, courseId);
         ResponseEntity<Course> course = restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=" + courseId, Course.class);
         if (course == null || course.getStatusCode() != HttpStatus.OK) {
             throw new CourseNotFoundException("Course was not found.");
@@ -108,24 +111,32 @@ public class LecturerService {
     /**
      * Get list of candidates for a specific course.
      *
-     * @param netId of a lecturer
+     * @param lecturerId of a lecturer
      * @param courseId specific course
      * @return list of students that want to be a TA for a course
      */
-    public Set<String> getCandidateTaList(String netId, String courseId) {
-        return this.getSpecificCourseOfLecturer(netId, courseId).getCandidateTas();
+    public Set<String> getCandidateTaList(String lecturerId, String courseId) {
+        return this.getSpecificCourseOfLecturer(lecturerId, courseId).getCandidateTas();
     }
 
     /**
      * Choose TA for a course. I send post request to a course microservice to save changes there.
      *
-     * @param netId of a lecturer
+     * @param lecturerId of a lecturer
      * @param courseId specific course
-     * @param studentNetId netId of a student
+     * @param studentlecturerId lecturerId of a student
      */
-    public void chooseTa(String netId, String courseId, String studentNetId, float hours) {
-        this.verifyThatApplicableCourse(netId, courseId);
-        ResponseEntity<Course> course = restTemplate.exchange("http://localhost:8082/courses/hireTa?courseId=" + courseId + "&studentId=" + studentNetId + "&lecturerId=" + netId + "&hours=" + hours, HttpMethod.PUT, null, Course.class);
+    public void chooseTa(String lecturerId, String courseId, String studentlecturerId,
+                         float hours, String auth) {
+        this.verifyThatApplicableCourse(lecturerId, courseId);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Authorization", auth);
+        HttpEntity<String> entity = new HttpEntity<String>("body", httpHeaders);
+        ResponseEntity<Boolean> course = restTemplate.exchange(
+                "http://localhost:8082/courses/hireTa?courseId="
+                + courseId + "&studentId=" + studentlecturerId + "&hours="
+                        + hours + "&netId=" + lecturerId,
+                HttpMethod.PUT, entity, Boolean.class);
         if (course == null) {
             throw new CourseNotFoundException("Course was not found");
         } else if (course.getStatusCode() != HttpStatus.OK) {
@@ -137,44 +148,26 @@ public class LecturerService {
      * Add a course to a lecturer.
      * I expect here a request from course microservice with course as the request body.
      *
-     * @param netId of a lecturer
+     * @param lecturerId of a lecturer
      * @param courseId specific course id
      */
-    public Lecturer addSpecificCourse(String netId, String courseId) {
-        Lecturer lecturer = this.findLecturerById(netId);
+    public Lecturer addSpecificCourse(String lecturerId, String courseId) {
+        Lecturer lecturer = this.findLecturerById(lecturerId);
         lecturer.getCourses().add(courseId);
         lecturerRepository.save(lecturer);
-        restTemplate.put("http://localhost:8082/courses/addLecturer?courseId=" + courseId + "&lecturerId=" + netId, null, Void.class);
+        restTemplate.put("http://localhost:8082/courses/addLecturer?courseId=" + courseId + "&lecturerId=" + lecturerId, null, Void.class);
         return lecturer;
-    }
-
-    /**
-     * Gets average rating of a student.
-     *
-     * @param netId of a lecturer
-     * @param course specific course
-     * @param studentId id of a student
-     * @return average rating of a student
-     */
-    public double computeAverageRating(String netId, String course, String studentId) {
-        //        Set<String> students = this.getCandidateTaList(netId, course);
-        //        for (String student : students) {
-        //            if (student.getId().equals(studentId)) {
-        //                return student.getAverageRating();
-        //            }
-        //        }
-        throw new EntityNotFoundException();
     }
 
     /**
      * Get recommendations of students for specific course.
      *
-     * @param netId if of a lecturer
+     * @param lecturerId if of a lecturer
      * @param courseId specific course
      * @return list of recommended students
      */
-    public List<Student> getRecommendation(String netId, String courseId, int strategy) {
-        this.verifyThatApplicableCourse(netId, courseId);
+    public List<Student> getRecommendation(String lecturerId, String courseId, int strategy) {
+        this.verifyThatApplicableCourse(lecturerId, courseId);
         ResponseEntity<List<String>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations?courseId=" + courseId + "&strategy=" + strategy, HttpMethod.GET, null, new ParameterizedTypeReference<List<String>>() {});
         if (sts == null) {
             throw new EntityNotFoundException();
@@ -192,23 +185,23 @@ public class LecturerService {
     /**
      * Get number of needed Ta's for course.
      *
-     * @param netId id of a lecturer
+     * @param lecturerId id of a lecturer
      * @param courseId specific course
      * @return number of needed Ta's
      */
-    public int getNumberOfNeededTas(String netId, String courseId) {
-        Course course = this.getSpecificCourseOfLecturer(netId, courseId);
+    public int getNumberOfNeededTas(String lecturerId, String courseId) {
+        Course course = this.getSpecificCourseOfLecturer(lecturerId, courseId);
         return (int) Math.ceil(course.getCourseSize() / 20.0);
     }
 
     /**
      * Approve hours for a student.
      *
-     * @param netId of a lecturer
+     * @param lecturerId of a lecturer
      * @param contract includes courseId, studentId and hours
      */
-    public void approveHours(String netId, Contract contract) {
-        this.verifyThatApplicableCourse(netId, contract.getCourseId());
+    public void approveHours(String lecturerId, Contract contract) {
+        this.verifyThatApplicableCourse(lecturerId, contract.getCourseId());
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             restTemplate.postForEntity("http://localhost:8080/management/approveHours",
@@ -216,5 +209,25 @@ public class LecturerService {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Gets average rating of a student.
+     *
+     * @param lecturerId of a lecturer
+     * @param course specific course
+     * @param studentId id of a student
+     * @return average rating of a student
+     */
+    public Double getAverage(String lecturerId, String course, String studentId) {
+        Set<String> students = this.getCandidateTaList(lecturerId, course);
+        if (students.contains(studentId)) {
+            ResponseEntity<Double> d = restTemplate.getForEntity("http://8080/management/getAverageRating/studentId=" + studentId, Double.class);
+            if (d.getStatusCode() != HttpStatus.OK) {
+                throw  new EntityNotFoundException();
+            }
+            return d.getBody();
+        }
+        throw new EntityNotFoundException();
     }
 }

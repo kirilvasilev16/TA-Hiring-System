@@ -60,11 +60,11 @@ public class LecturerServiceTest {
         lecturers.add(lecturer1);
         lecturers.add(lecturer2);
 
-        Mockito.when(lecturerRepository.findLecturerByNetId("1"))
+        Mockito.when(lecturerRepository.findLecturerByLecturerId("1"))
                 .thenReturn(java.util.Optional.ofNullable(lecturer1));
-        Mockito.when(lecturerRepository.findLecturerByNetId("2"))
+        Mockito.when(lecturerRepository.findLecturerByLecturerId("2"))
                 .thenReturn(java.util.Optional.ofNullable(lecturer2));
-        Mockito.when(lecturerRepository.findLecturerByNetId("3")).thenReturn(Optional.empty());
+        Mockito.when(lecturerRepository.findLecturerByLecturerId("3")).thenReturn(Optional.empty());
 
         Mockito.when(lecturerRepository.save(lecturer1))
                 .thenReturn(lecturer1);
@@ -121,7 +121,7 @@ public class LecturerServiceTest {
         lecturerService.addLecturer(lecturer2);
         ArgumentCaptor<Lecturer> argument = ArgumentCaptor.forClass(Lecturer.class);
         Mockito.verify(lecturerRepository).save(argument.capture());
-        assertEquals(lecturer2.getNetId(), argument.getValue().getNetId());
+        assertEquals(lecturer2.getLecturerId(), argument.getValue().getLecturerId());
     }
 
     @Test
@@ -160,7 +160,7 @@ public class LecturerServiceTest {
                 + courseEntity.getCourseId(), Course.class))
                 .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
         assertThrows(EntityNotFoundException.class,
-                () -> lecturerService.computeAverageRating("1", "CSE", "2"));
+                () -> lecturerService.getAverage("1", "CSE", "2"));
     }
 
     @Test

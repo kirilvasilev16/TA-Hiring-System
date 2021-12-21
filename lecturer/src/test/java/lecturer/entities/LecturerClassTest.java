@@ -28,13 +28,13 @@ public class LecturerClassTest {
 
     @Test
     void getId() {
-        assertEquals(netId, lecturer.getNetId());
+        assertEquals(netId, lecturer.getLecturerId());
     }
 
     @Test
     void setId() {
-        lecturer.setNetId("myId");
-        assertEquals("myId", lecturer.getNetId());
+        lecturer.setLecturerId("myId");
+        assertEquals("myId", lecturer.getLecturerId());
     }
 
     @Test
