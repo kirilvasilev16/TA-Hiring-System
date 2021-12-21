@@ -1,10 +1,11 @@
 package authentication.entities;
 
-import static javax.persistence.GenerationType.AUTO;
-
 import java.util.Collection;
-import javax.persistence.*;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity(name = "Authentication")
 public class Authentication {
@@ -26,7 +27,8 @@ public class Authentication {
      * @param name of the user
      * @param roles granted for the user like student/ta/admin/lecturer
      */
-    public Authentication(String netId, String email, String password, String name, Collection<Role> roles) {
+    public Authentication(String netId, String email,
+                          String password, String name, Collection<Role> roles) {
         this.netId = netId;
         this.email = email;
         this.password = password;

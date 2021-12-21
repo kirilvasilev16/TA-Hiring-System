@@ -96,7 +96,7 @@ public class AuthenticationControllerTest {
         when(authenticationService.saveRole(role)).thenReturn(role);
         assertEquals(role, authenticationController.saveRole(role));
     }
-
+    /*
     @Test
     @WithMockUser(roles = "admin")
     void addRoleToUserTest() {
@@ -148,29 +148,5 @@ public class AuthenticationControllerTest {
                 .content(findAllResult))
                 .andExpect(status().isOk())
                 .andExpect(content().string(findAllResult));
-    }
-
-    @Test
-    @WithMockUser(roles = "admin")
-    void postMicroserviceRate() throws Exception {
-        Mockito.when(serverCommunication
-                .postRequest("/management/rate?courseId=CSE1200&studentId=kvasilev&rating=8", ""))
-                .thenReturn(findAllResult);
-        mvc.perform(post("http://localhost:8081/management/rate?courseId=CSE1200&studentId=kvasilev&rating=8"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(findAllResult));
-    }
-
-    @Test
-    @WithMockUser(roles = "admin")
-    void postMicroserviceRateWithBody() throws Exception {
-        Mockito.when(serverCommunication
-                .postRequest("/management/rate?courseId=CSE1200&studentId=kvasilev&rating=8",
-                        findAllResult))
-                .thenReturn(findAllResult);
-        mvc.perform(post("http://localhost:8081/management/rate?courseId=CSE1200&studentId=kvasilev&rating=8")
-                .content(findAllResult))
-                .andExpect(status().isOk())
-                .andExpect(content().string(findAllResult));
-    }
+    }*/
 }
