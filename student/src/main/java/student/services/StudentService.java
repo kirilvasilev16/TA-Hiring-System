@@ -1,9 +1,16 @@
 package student.services;
 
+import com.google.gson.GsonBuilder;
+import student.communication.CourseCommunication;
 import student.exceptions.StudentNotEligibleException;
 import student.exceptions.StudentNotFoundException;
 import student.repositories.StudentRepository;
 
+import com.google.gson.Gson;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -21,16 +28,19 @@ import org.springframework.stereotype.Service;
 public class StudentService {
 
     private final transient StudentRepository studentRepository;
+    private final transient CourseCommunication courseCommunication;
 
-    //    private static HttpClient client = HttpClient.newBuilder().build();
+    private transient HttpClient client = HttpClient.newBuilder().build();
+    private transient Gson gson = new GsonBuilder().create();
 
     /**
      * Instantiates a new Student service.
      *
      * @param studentRepository the student repository
      */
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, CourseCommunication courseCommunication) {
         this.studentRepository = studentRepository;
+        this.courseCommunication = courseCommunication;
     }
 
     /**
@@ -110,7 +120,10 @@ public class StudentService {
      */
     public Student apply(String netId, String courseId) {
         Student student = this.getStudent(netId);
-        if (student.getPassedCourses().containsKey(courseId)) {
+        Set<String> totalSet = new HashSet<>(student.getTaCourses());
+        totalSet.addAll(student.getCandidateCourses());
+        if (student.getPassedCourses().containsKey(courseId.substring(0, 7))
+                && courseCommunication.checkApplyRequirement(netId, courseId, totalSet)) {
             Set<String> candidate = student.getCandidateCourses();
             candidate.add(courseId);
             studentRepository.save(student);
@@ -151,21 +164,4 @@ public class StudentService {
     public Student addStudent(Student student) {
         return studentRepository.save(student);
     }
-
-
-    //    public boolean checkApplyRequirement(String netId, String courseId) {
-    //        HttpRequest request = HttpRequest.newBuilder().setHeader("Content-type",
-    //        "application/json")
-    //                .uri(URI.create("http://localhost:8082/courses/addCandidateTa"))
-    //                .POST(null)
-    //                .build();
-    //        HttpResponse<String> response;
-    //        try {
-    //            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-    //        } catch (Exception e) {
-    //            return false;
-    //        }
-    //        return response.statusCode() == 200;
-    //
-    //    }
 }
