@@ -41,14 +41,6 @@ public class DataConfig {
             authenticationService.saveAuth(new Authentication("net4@id.nl", "email@email.co",
                     bcPasswordEncoder().encode("pass4"),
                     "netid4",  new ArrayList<Role>()));
-            authenticationService.saveAuth(new Authentication("taerts", "taerts@tudelft.nl",
-                    bcPasswordEncoder().encode("pass5"),
-                    "Taico", new ArrayList<>()));
-            authenticationService.saveAuth(new Authentication("kvasilev", "kvasilev@tudelft.nl",
-                    bcPasswordEncoder().encode("pass6"),
-                    "Kiril", new ArrayList<>()));
-            authenticationService.addRoleToAuthentication("taerts", "ROLE_lecturer");
-            authenticationService.addRoleToAuthentication("kvasilev", "ROLE_student");
             authenticationService.addRoleToAuthentication("net1@id.nl", "ROLE_student");
             authenticationService.addRoleToAuthentication("net2@id.nl", "ROLE_ta");
             authenticationService.addRoleToAuthentication("net3@id.nl", "ROLE_lecturer");
