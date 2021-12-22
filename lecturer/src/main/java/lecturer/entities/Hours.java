@@ -15,7 +15,7 @@ public class Hours {
      * @param studentId student id
      * @param hours hours
      */
-    public Hours(String courseId, String studentId, int hours) {
+    public Hours(String courseId, String studentId, float hours) {
         this.courseId = courseId;
         this.studentId = studentId;
         this.amountOfHours = hours;
