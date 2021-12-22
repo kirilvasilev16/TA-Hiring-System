@@ -31,7 +31,7 @@ public class StudentRepositoryTest {
         candidate.add("CSE2115-2022");
         candidate.add("CSE1400-2021");
         Set<String> ta = new HashSet<>();
-        candidate.add("CSE1105-2022");
+        ta.add("CSE1105-2022");
         student.setCandidateCourses(candidate);
         student.setTaCourses(ta);
         studentRepository.save(student);

@@ -45,8 +45,8 @@ public class Student {
         this.netId = netId;
         this.name = name;
         this.passedCourses = new HashMap<>();
-        this.candidateCourses = new HashSet<String>();
-        this.taCourses = new HashSet<String>();
+        this.candidateCourses = new HashSet<>();
+        this.taCourses = new HashSet<>();
     }
 
     /**
