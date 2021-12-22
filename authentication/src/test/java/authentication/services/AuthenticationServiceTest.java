@@ -1,6 +1,7 @@
-package authentication;
+package authentication.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import authentication.entities.Authentication;
 import authentication.entities.Role;
@@ -14,7 +15,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class AuthenticationServiceTest {
 
     private transient AuthenticationService authenticationService;
@@ -35,15 +38,15 @@ public class AuthenticationServiceTest {
         authenticationService = new AuthenticationService(authenticationRepository, roleRepository);
         role = new Role("ROLE_ta");
 
-        testStudent = new Authentication("stu@id.nl", "stupass", "password1",
+        testStudent = new Authentication("stu@id.nl", "email@email.co", "stupass", "password1",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_student"))));
-        testLecturer = new Authentication("lec@id.nl", "lecpass", "password2",
+        testLecturer = new Authentication("lec@id.nl", "email@email.co", "lecpass", "password2",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_lecturer"))));
-        testTa = new Authentication("ta@id.nl", "modpass", "password3",
+        testTa = new Authentication("ta@id.nl", "email@email.co", "modpass", "password3",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_ta"))));
-        testAdmin = new Authentication("adm@id.nl", "admpass", "password4",
+        testAdmin = new Authentication("adm@id.nl", "email@email.co", "admpass", "password4",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_admin"))));
-        testTaNoRole = new Authentication("stu@id.nl", "stupass", "password5",
+        testTaNoRole = new Authentication("stu@id.nl", "email@email.co", "stupass", "password5",
                 new ArrayList<>());
     }
 
@@ -85,5 +88,14 @@ public class AuthenticationServiceTest {
                 new org.springframework.security
                         .core.userdetails.User(testStudent.getNetId(),
                             testStudent.getPassword(), authorities));
+    }
+
+    @Test
+    void loadUserByUsernameException() {
+        Mockito.when(authenticationRepository.findByNetId("stu")).thenReturn(null);
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+        assertThrows(UsernameNotFoundException.class,
+                () -> authenticationService.loadUserByUsername("hello"));
     }
 }

@@ -1,4 +1,4 @@
-package authentication;
+package authentication.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -68,11 +68,11 @@ public class AuthenticationControllerTest {
     @BeforeEach
     void setUp() {
         role = new Role("ROLE_lecturer");
-        authTa = new Authentication("net2@id.nl", "pass2", "name",
+        authTa = new Authentication("net2@id.nl", "email@email.co", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_ta"))));
-        authLecturer = new Authentication("net2@id.nl", "pass2", "name",
+        authLecturer = new Authentication("net2@id.nl", "email@email.co", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_lecturer"))));
-        authAdmin = new Authentication("net2@id.nl", "pass2", "name",
+        authAdmin = new Authentication("net2@id.nl", "email@email.co", "pass2", "name",
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_admin"))));
         findAllResult = "{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
                 + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0}";
@@ -96,7 +96,7 @@ public class AuthenticationControllerTest {
         when(authenticationService.saveRole(role)).thenReturn(role);
         assertEquals(role, authenticationController.saveRole(role));
     }
-
+    /*
     @Test
     @WithMockUser(roles = "admin")
     void addRoleToUserTest() {
@@ -148,29 +148,5 @@ public class AuthenticationControllerTest {
                 .content(findAllResult))
                 .andExpect(status().isOk())
                 .andExpect(content().string(findAllResult));
-    }
-
-    @Test
-    @WithMockUser(roles = "admin")
-    void postMicroserviceRate() throws Exception {
-        Mockito.when(serverCommunication
-                .postRequest("/management/rate?courseId=CSE1200&studentId=kvasilev&rating=8", ""))
-                .thenReturn(findAllResult);
-        mvc.perform(post("http://localhost:8081/management/rate?courseId=CSE1200&studentId=kvasilev&rating=8"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(findAllResult));
-    }
-
-    @Test
-    @WithMockUser(roles = "admin")
-    void postMicroserviceRateWithBody() throws Exception {
-        Mockito.when(serverCommunication
-                .postRequest("/management/rate?courseId=CSE1200&studentId=kvasilev&rating=8",
-                        findAllResult))
-                .thenReturn(findAllResult);
-        mvc.perform(post("http://localhost:8081/management/rate?courseId=CSE1200&studentId=kvasilev&rating=8")
-                .content(findAllResult))
-                .andExpect(status().isOk())
-                .andExpect(content().string(findAllResult));
-    }
+    }*/
 }

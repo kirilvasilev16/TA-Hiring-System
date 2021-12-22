@@ -1,5 +1,6 @@
 package authentication.communication;
 
+import authentication.entities.ResponseObj;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
@@ -15,18 +16,18 @@ public class ServerCommunication extends authentication.communication.Request {
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
-    public String getRequest(String path) throws IOException {
-        String response = get("http://localhost:8761" + path);
+    public ResponseObj getRequest(String path) throws IOException {
+        ResponseObj response = get("http://localhost:8761" + path);
         return response;
     }
 
-    public String putRequest(String path, String body) throws IOException {
-        String response = put("http://localhost:8761" + path, body);
+    public ResponseObj putRequest(String path, String body) throws IOException {
+        ResponseObj response = put("http://localhost:8761" + path, body);
         return response;
     }
 
-    public String postRequest(String path, String body) throws IOException {
-        String response = post("http://localhost:8761" + path, body);
+    public ResponseObj postRequest(String path, String body) throws IOException {
+        ResponseObj response = post("http://localhost:8761" + path, body);
         return response;
     }
     /*

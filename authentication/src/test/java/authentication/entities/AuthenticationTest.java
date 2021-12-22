@@ -1,24 +1,24 @@
-package authentication;
+package authentication.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import authentication.entities.Authentication;
-import authentication.entities.Role;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 class AuthenticationTest {
     private transient Authentication auth;
     private transient String netId = "net@id.nl";
     private transient String name = "name";
+    private transient String email = "email";
     private transient String password = "password";
 
     @BeforeEach
     void setUp() {
-        auth = new Authentication(netId, password, name, new ArrayList<>());
+        auth = new Authentication(netId, email, password, name, new ArrayList<>());
     }
 
     @Test
@@ -70,5 +70,16 @@ class AuthenticationTest {
     void setName() {
         auth.setName("myName");
         assertEquals("myName", auth.getName());
+    }
+
+    @Test
+    void getEmail() {
+        assertEquals(email, auth.getEmail());
+    }
+
+    @Test
+    void setEmail() {
+        auth.setEmail("email2");
+        assertEquals("email2", auth.getEmail());
     }
 }
