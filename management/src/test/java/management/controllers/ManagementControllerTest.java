@@ -92,6 +92,16 @@ class ManagementControllerTest {
     }
 
     @Test
+    void getAverageRating() throws Exception {
+        when(managementService.getAverageRating(studentId)).thenReturn(management1.getRating());
+
+        this.mockMvc.perform(get("/management/getAverageRating?"
+                + "&" + studentIdString + "=" + studentId))
+                .andExpect(status().isOk())
+                .andExpect(content().string("10.0"));
+    }
+
+    @Test
     void getRating() throws Exception {
         when(managementService.getOne(courseId, studentId)).thenReturn(management1);
 

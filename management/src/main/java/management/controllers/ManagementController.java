@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("Management")
 @RequestMapping("management")
 public class ManagementController {
+
     private final transient ManagementService managementService;
 
     public ManagementController(ManagementService managementService) {
@@ -56,6 +57,17 @@ public class ManagementController {
     public float getRating(@PathParam(AnnotationHelper.courseId) String courseId,
                              @PathParam(AnnotationHelper.studentId) String studentId) {
         return managementService.getOne(courseId, studentId).getRating();
+    }
+
+    /**
+     * Gets the average rating of a TA.
+     *
+     * @param studentId id of student
+     * @return the management object
+     */
+    @GetMapping("getAverageRating")
+    public float getAverageRating(@PathParam(AnnotationHelper.studentId) String studentId) {
+        return managementService.getAverageRating(studentId);
     }
 
     /**
