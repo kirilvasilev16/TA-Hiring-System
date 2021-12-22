@@ -62,7 +62,7 @@ public class CommunicationService {
         for (Student s : candidateTas) {
             HttpRequest request = HttpRequest.newBuilder().GET()
                     .uri(URI.create(managementService + "/get?courseId="
-                            + courseId + "&studentId" + s.getNetId()))
+                            + courseId + "&studentId=" + s.getNetId()))
                     .build();
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
