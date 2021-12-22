@@ -28,6 +28,7 @@ public class StudentServiceTest {
     private transient Student student;
     private final transient String netId = "ohageman";
     private final transient String name = "Oisín";
+    private final transient String courseCode = "CSE2115-2022";
     private transient Map<String, Float> passedCourses;
     private transient Set<String> candidateCourses;
     private transient Set<String> taCourses;
@@ -43,7 +44,7 @@ public class StudentServiceTest {
         passedCourses.put("CSE1105", 10.0f);
         student = new Student(netId, name);
         candidateCourses = new HashSet<>();
-        candidateCourses.add("CSE2115-2022");
+        candidateCourses.add(courseCode);
         taCourses = new HashSet<>();
         taCourses.add("CSE1105-2022");
         student.setPassedCourses(passedCourses);
@@ -123,7 +124,7 @@ public class StudentServiceTest {
     @Test
     void applyTest() {
         Set<String> candidateCourses = new HashSet<>();
-        candidateCourses.add("CSE2115-2022");
+        candidateCourses.add(courseCode);
         candidateCourses.add("CSE1400-2021");
         Set<String> testCandidateCourses =
                 studentService.apply(netId, "CSE1400-2021").getCandidateCourses();
@@ -141,8 +142,8 @@ public class StudentServiceTest {
         Set<String> candidateCourses = new HashSet<>();
         Set<String> taCourses = new HashSet<>();
         taCourses.add("CSE1105-2022");
-        taCourses.add("CSE2115-2022");
-        Student testStudent = studentService.accept(netId, "CSE2115-2022");
+        taCourses.add(courseCode);
+        Student testStudent = studentService.accept(netId, courseCode);
         Set<String> testCandidateCourses = testStudent.getCandidateCourses();
         Set<String> testTaCourses = testStudent.getTaCourses();
         assertEquals(candidateCourses, testCandidateCourses);
