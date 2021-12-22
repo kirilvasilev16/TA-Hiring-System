@@ -103,4 +103,17 @@ class CourseCreationBodyTest {
 
         assertEquals(newSize, course.getCourseSize());
     }
+
+    @Test
+    void getQuarter() {
+        assertEquals(quarter, course.getQuarter());
+    }
+
+    @Test
+    void setQuarter() {
+        int newQuarter = 3;
+        course.setQuarter(newQuarter);
+
+        assertEquals(newQuarter, course.getQuarter());
+    }
 }

@@ -12,6 +12,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -70,13 +71,14 @@ class CourseControllerTest {
 
     private transient String notFoundException = "Could not find a course with id ";
     private transient String student1 = "student1";
+    private transient String lecturer1 = "lecturer1";
 
 
     @BeforeEach
     void setUp() {
 
         lecturerSet = new HashSet<>();
-        lecturerSet.add("lecturer1");
+        lecturerSet.add(lecturer1);
         startingDate = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
         courseSize = 500;
         quarter = 2;
@@ -129,25 +131,53 @@ class CourseControllerTest {
                 .andExpect(content().json(gson.toJson(course.getCourseSize())));
     }
 
-    /*
+    @Test
+    void getCourseSizeCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(get("/courses/size?courseId=" + courseId));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
+    }
+
+
     @Test
     void updateCourseSize() throws Exception {
-    //TODO: fix failing test
 
         Integer newSize = 1000;
 
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(patch("/courses/updateSize?courseId=" + courseId
-                + "&size=1000")
-                        .contentType("application/json-patch+json"))
-                .andExpect(status().isOk());
+        this.mockMvc.perform(put("/courses/updateSize?courseId=" + courseId
+                + "&size=" + newSize))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         assertEquals(newSize, course.getCourseSize());
         verify(courseService, times(1)).updateCourseSize(courseId, newSize);
 
     }
-    */
+
+    @Test
+    void updateCourseSizeCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(put("/courses/updateSize?courseId=" + courseId
+                            + "&size=1000"));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
+    }
+
+
+
 
     @Test
     void getLecturerSet() throws Exception {
@@ -159,12 +189,38 @@ class CourseControllerTest {
     }
 
     @Test
+    void getLecturerSetCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(get("/courses/lecturers?courseId=" + courseId));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
+    }
+
+    @Test
     void getRequiredTas() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
         this.mockMvc.perform(get("/courses/requiredTas?courseId=" + courseId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(course.getRequiredTas())));
+    }
+
+    @Test
+    void getRequiredTasCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(get("/courses/requiredTas?courseId=" + courseId));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
     }
 
     @Test
@@ -184,35 +240,75 @@ class CourseControllerTest {
         expect.add(student1);
 
         this.mockMvc.perform(get("/courses/taRecommendations?courseId=" + courseId
-                        + "&strategy=grade"))
+                        + "&strategy=grade").header("netId", lecturer1))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(expect)));
+    }
+
+    @Test
+    void getTaRecommendationListCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(get("/courses/taRecommendations?courseId=" + courseId
+                    + "&strategy=grade").header("netId", lecturer1));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
+    }
+
+    @Test
+    void getTaRecommendationListInvalidLecturer() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(course);
+
+        String lecturerFraud = "fraudLecturer";
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(get("/courses/taRecommendations?courseId=" + courseId
+                    + "&strategy=grade").header("netId", lecturerFraud));
+        });
+
+        String expect = "Lecturer not a staff of this course";
+        assertTrue(exception.getMessage().contains(expect));
+
     }
 
     @Test
     void makeCourse() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
+        CourseCreationBody courseCreation = new CourseCreationBody(
+                courseId, courseName, startingDate, lecturerSet, courseSize, quarter);
+
+        Course expect = new Course(
+                courseId, courseName, courseSize, lecturerSet, startingDate, quarter);
 
         this.mockMvc.perform(post("/courses/makeCourse")
                         .contentType(APPLICATION_JSON)
-                        .content(gson.toJson(course)))
+                        .content(gson.toJson(courseCreation)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(gson.toJson("Course added successfully")));
+                .andExpect(content().json(gson.toJson(expect)));
 
         verify(courseService, times(1)).save(any(Course.class));
     }
+
 
     @Test
     void makeCourseExists() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        String expect = "Course with id " + courseId + " already exists!";
+        CourseCreationBody courseCreation = new CourseCreationBody(
+                courseId, courseName, startingDate, lecturerSet, courseSize, quarter);
 
-        this.mockMvc.perform(post("/courses/makeCourse")
-                        .contentType(APPLICATION_JSON)
-                        .content(gson.toJson(course)))
-                .andExpect(status().isOk())
-                .andExpect(content().json(gson.toJson(expect)));
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(post("/courses/makeCourse")
+                    .contentType(APPLICATION_JSON)
+                    .content(gson.toJson(courseCreation)));
+        });
+
+        String expect = courseId;
+        assertTrue(exception.getMessage().contains(expect));
 
         verify(courseService, never()).save(any(Course.class));
     }
@@ -226,16 +322,33 @@ class CourseControllerTest {
         when(dateService.getTodayDate()).thenReturn(applyDate);
 
 
-        this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
+        this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
                         + "&studentId=student3")
                         .contentType(APPLICATION_JSON)
                         .content(gson.toJson(new HashSet<String>())))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         candidateSet.add("student3");
         assertEquals(candidateSet, course.getCandidateTas());
 
         verify(courseService, times(1)).save(any(Course.class));
+    }
+
+    @Test
+    void addCandidateTaCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
+                    + "&studentId=student3")
+                    .contentType(APPLICATION_JSON)
+                    .content(gson.toJson(new HashSet<String>())));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
     }
 
     @Test
@@ -248,7 +361,7 @@ class CourseControllerTest {
         when(courseService.findByCourseId(fakeCourse)).thenReturn(null);
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
+            this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
                     + "&studentId=student3")
                     .contentType(APPLICATION_JSON)
                     .content(gson.toJson(studentCourse)));
@@ -290,7 +403,7 @@ class CourseControllerTest {
         when(courseService.findByCourseId(course4Id)).thenReturn(course4);
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
+            this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
                     + "&studentId=student3")
                     .contentType(APPLICATION_JSON)
                     .content(gson.toJson(studentCourse)));
@@ -308,7 +421,7 @@ class CourseControllerTest {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
+            this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
                     + "&studentId=student2")
                     .contentType(APPLICATION_JSON)
                     .content(gson.toJson(new HashSet<String>())));
@@ -326,7 +439,7 @@ class CourseControllerTest {
         when(dateService.getTodayDate()).thenReturn(startingDate);
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
+            this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
                     + "&studentId=student3")
                     .contentType(APPLICATION_JSON)
                     .content(gson.toJson(new HashSet<String>())));
@@ -351,6 +464,20 @@ class CourseControllerTest {
         assertTrue(course.getCandidateTas().isEmpty());
     }
 
+    @Test
+    void removeAsCandidateCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(delete("/courses/removeAsCandidate?courseId=" + courseId
+                    + "&studentId=" + student1));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
+    }
+
 
     @Test
     void getAverageWorkedHours() throws Exception {
@@ -363,6 +490,19 @@ class CourseControllerTest {
         this.mockMvc.perform(get("/courses/averageWorkedHours?courseId=" + courseId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(1.0F)));
+    }
+
+    @Test
+    void getAverageWorkedHoursCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(get("/courses/averageWorkedHours?courseId=" + courseId));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
     }
 
     @Test
@@ -381,9 +521,10 @@ class CourseControllerTest {
     void addLecturer() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(post("/courses/addLecturer?courseId=" + courseId
+        this.mockMvc.perform(put("/courses/addLecturer?courseId=" + courseId
                         + "&lecturerId=lecturer2"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         lecturerSet.add("lecturer2");
         assertEquals(lecturerSet, course.getLecturerSet());
@@ -391,21 +532,97 @@ class CourseControllerTest {
     }
 
     @Test
+    void addLecturerCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(put("/courses/addLecturer?courseId=" + courseId
+                    + "&lecturerId=lecturer2"));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
+    }
+
+    @Test
     void getCandidateSet() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(get("/courses/candidates?courseId=" + courseId))
+        this.mockMvc.perform(get("/courses/candidates?courseId=" + courseId)
+                        .header("netId", lecturer1))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(course.getCandidateTas())));
+    }
+
+    @Test
+    void getCandidateSetCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(get("/courses/candidates?courseId=" + courseId)
+                    .header("netId", lecturer1));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
+    }
+
+    @Test
+    void getCandidateSetInvalidLecturer() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(course);
+
+        String lecturerFraud = "fraudLecturer";
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(get("/courses/candidates?courseId=" + courseId)
+                    .header("netId", lecturerFraud));
+        });
+
+        String expect = "Lecturer not a staff of this course";
+        assertTrue(exception.getMessage().contains(expect));
+
     }
 
     @Test
     void getTaSet() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(get("/courses/tas?courseId=" + courseId))
+        this.mockMvc.perform(get("/courses/tas?courseId=" + courseId)
+                        .header("netId", lecturer1))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(course.getHiredTas())));
+    }
+
+    @Test
+    void getTaSetCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(get("/courses/tas?courseId=" + courseId)
+                    .header("netId", lecturer1));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
+    }
+
+    @Test
+    void getTaSetInvalidLecturer() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(course);
+
+        String lecturerFraud = "fraudLecturer";
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(get("/courses/tas?courseId=" + courseId)
+                    .header("netId", lecturerFraud));
+        });
+
+        String expect = "Lecturer not a staff of this course";
+        assertTrue(exception.getMessage().contains(expect));
+
     }
 
     @Test
@@ -414,9 +631,11 @@ class CourseControllerTest {
 
         float hours = 1.F;
 
-        this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                        + "&studentId=student1&lecturerId=lecturer1&hours=" + hours))
-                .andExpect(status().isOk());
+        this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
+                        + "&studentId=student1&hours=" + hours)
+                        .header("netId", lecturer1))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         verify(communicationService, times(1)).createManagement(courseId, student1, hours);
         verify(courseService, times(1)).save(any(Course.class));
@@ -427,14 +646,30 @@ class CourseControllerTest {
     }
 
     @Test
+    void hireTaCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
+                    + "&studentId=student1&hours=1")
+                    .header("netId", lecturer1));
+        });
+
+        String expect = notFoundException + courseId;
+        assertTrue(exception.getMessage().contains(expect));
+
+    }
+
+    @Test
     void hireTaInvalidLecturer() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
         float hours = 1.F;
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student1&lecturerId=lecturerFraud&hours=" + hours));
+            this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
+                    + "&studentId=student1&hours=" + hours)
+                    .header("netId", "lecturerFraud"));
         });
 
         String expect = "Lecturer not a staff of this course";
@@ -452,8 +687,9 @@ class CourseControllerTest {
         float hours = 1.F;
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student2&lecturerId=lecturer1&hours=" + hours));
+            this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
+                    + "&studentId=student2&hours=" + hours)
+                    .header("netId", lecturer1));
         });
 
         String expect = "Student already hired";
@@ -471,8 +707,9 @@ class CourseControllerTest {
         float hours = 1.F;
 
         Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student3&lecturerId=lecturer1&hours=" + hours));
+            this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
+                    + "&studentId=student3&hours=" + hours)
+                    .header("netId", lecturer1));
         });
 
         String expect = "Student not in course";

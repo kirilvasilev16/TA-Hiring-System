@@ -140,10 +140,16 @@ public class StrategyTest {
         Map<Student, Float> mockMap = new HashMap<>();
         float rating = 1f;
         String lastStudent = "Student0";
+        int count = 0;
         for (Student s : candidateSet) {
             mockMap.put(s, rating);
-            rating += 0.2;
+            if (count == 5) {
+                rating -= 0.1f;
+            } else {
+                rating += 0.2;
+            }
             lastStudent = s.getNetId();
+            count++;
         }
 
         CommunicationService communicationService = Mockito.mock(CommunicationService.class);
