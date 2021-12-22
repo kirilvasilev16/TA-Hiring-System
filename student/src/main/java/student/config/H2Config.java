@@ -1,4 +1,4 @@
-package nl.tudelft.sem.student.config;
+package student.config;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * The type H2 config. Configures the in memory H2 database.
  */
 @Configuration
-@EnableJpaRepositories("nl.tudelft.sem.student")
+@EnableJpaRepositories("student")
 @PropertySource("application.properties")
 @EnableTransactionManagement
 public class H2Config {
