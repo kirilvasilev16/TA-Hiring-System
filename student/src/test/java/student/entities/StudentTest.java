@@ -3,6 +3,7 @@ package student.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -108,12 +109,12 @@ public class StudentTest {
         equalPassedCourses.put("CSE2115", 10.0f);
         equalPassedCourses.put("CSE1400", 10.0f);
         equalPassedCourses.put("CSE1105", 10.0f);
-        Student equalStudent = new Student(netId, name);
         Set<String> equalCandidateCourses = new HashSet<>();
         equalCandidateCourses.add("CSE2115-2022");
         equalCandidateCourses.add("CSE1400-2021");
         Set<String> equalTaCourses = new HashSet<>();
         equalTaCourses.add("CSE1105-2022");
+        Student equalStudent = new Student(netId, name);
         equalStudent.setPassedCourses(equalPassedCourses);
         equalStudent.setCandidateCourses(equalCandidateCourses);
         equalStudent.setTaCourses(equalTaCourses);
@@ -138,12 +139,12 @@ public class StudentTest {
         equalPassedCourses.put("CSE2115", 10.0f);
         equalPassedCourses.put("CSE1400", 10.0f);
         equalPassedCourses.put("CSE1105", 10.0f);
-        Student equalStudent = new Student(netId, name);
         Set<String> equalCandidateCourses = new HashSet<>();
         equalCandidateCourses.add("CSE2115-2022");
         equalCandidateCourses.add("CSE1400-2021");
         Set<String> equalTaCourses = new HashSet<>();
         equalTaCourses.add("CSE1105-2022");
+        Student equalStudent = new Student(netId, name);
         equalStudent.setPassedCourses(equalPassedCourses);
         equalStudent.setCandidateCourses(equalCandidateCourses);
         equalStudent.setTaCourses(equalTaCourses);
