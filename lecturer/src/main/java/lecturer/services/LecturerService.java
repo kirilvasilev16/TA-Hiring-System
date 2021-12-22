@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import javax.persistence.EntityNotFoundException;
-import lecturer.entities.Contract;
 import lecturer.entities.Course;
+import lecturer.entities.Hours;
 import lecturer.entities.Lecturer;
-import lecturer.entities.Management;
 import lecturer.entities.Student;
 import lecturer.exceptions.CourseNotFoundException;
 import lecturer.exceptions.LecturerNotFoundException;
@@ -19,7 +18,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -126,22 +124,21 @@ public class LecturerService {
      * @param courseId specific course
      * @param studentlecturerId lecturerId of a student
      */
-    public void chooseTa(String lecturerId, String courseId, String studentlecturerId,
-                         float hours, String auth) {
+    public boolean chooseTa(String lecturerId, String courseId, String studentlecturerId,
+                         float hours) {
         this.verifyThatApplicableCourse(lecturerId, courseId);
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Authorization", auth);
-        HttpEntity<String> entity = new HttpEntity<String>("body", httpHeaders);
+        httpHeaders.set("netId", lecturerId);
+        HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
         ResponseEntity<Boolean> course = restTemplate.exchange(
                 "http://localhost:8082/courses/hireTa?courseId="
                 + courseId + "&studentId=" + studentlecturerId + "&hours="
-                        + hours + "&netId=" + lecturerId,
+                        + hours,
                 HttpMethod.PUT, entity, Boolean.class);
-        if (course == null) {
+        if (course == null || course.getStatusCode() != HttpStatus.OK) {
             throw new CourseNotFoundException("Course was not found");
-        } else if (course.getStatusCode() != HttpStatus.OK) {
-            throw new HttpClientErrorException(course.getStatusCode());
         }
+        return true;
     }
 
     /**
@@ -155,7 +152,6 @@ public class LecturerService {
         Lecturer lecturer = this.findLecturerById(lecturerId);
         lecturer.getCourses().add(courseId);
         lecturerRepository.save(lecturer);
-        restTemplate.put("http://localhost:8082/courses/addLecturer?courseId=" + courseId + "&lecturerId=" + lecturerId, null, Void.class);
         return lecturer;
     }
 
@@ -166,11 +162,14 @@ public class LecturerService {
      * @param courseId specific course
      * @return list of recommended students
      */
-    public List<Student> getRecommendation(String lecturerId, String courseId, int strategy) {
+    public List<Student> getRecommendation(String lecturerId, String courseId, String strategy) {
         this.verifyThatApplicableCourse(lecturerId, courseId);
-        ResponseEntity<List<String>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations?courseId=" + courseId + "&strategy=" + strategy, HttpMethod.GET, null, new ParameterizedTypeReference<List<String>>() {});
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("netId", lecturerId);
+        HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<List<String>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations?courseId=" + courseId + "&strategy=" + strategy, HttpMethod.GET, entity, new ParameterizedTypeReference<List<String>>() {});
         if (sts == null) {
-            throw new EntityNotFoundException();
+            throw new CourseNotFoundException("Course was not found");
         }
         if (sts.getStatusCode() != HttpStatus.OK) {
             throw new HttpClientErrorException(sts.getStatusCode());
@@ -200,12 +199,12 @@ public class LecturerService {
      * @param lecturerId of a lecturer
      * @param contract includes courseId, studentId and hours
      */
-    public void approveHours(String lecturerId, Contract contract) {
-        this.verifyThatApplicableCourse(lecturerId, contract.getCourseId());
+    public void approveHours(String lecturerId, List<Hours> contract) {
+        this.verifyThatApplicableCourse(lecturerId, contract.get(0).getCourseId());
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            restTemplate.postForEntity("http://localhost:8080/management/approveHours",
-                    objectMapper.writeValueAsString(contract), Management.class);
+            restTemplate.put("http://localhost:8080/management/approveHours",
+                    objectMapper.writeValueAsString(contract), Void.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -219,15 +218,33 @@ public class LecturerService {
      * @param studentId id of a student
      * @return average rating of a student
      */
-    public Double getAverage(String lecturerId, String course, String studentId) {
+    public float getAverage(String lecturerId, String course, String studentId) {
         Set<String> students = this.getCandidateTaList(lecturerId, course);
         if (students.contains(studentId)) {
-            ResponseEntity<Double> d = restTemplate.getForEntity("http://8080/management/getAverageRating/studentId=" + studentId, Double.class);
-            if (d.getStatusCode() != HttpStatus.OK) {
-                throw  new EntityNotFoundException();
+            ResponseEntity<Float> d = restTemplate.getForEntity("http://localhost:8080/management/getAverageRating?studentId=" + studentId, Float.class);
+            if (d == null || d.getStatusCode() != HttpStatus.OK) {
+                return 0;
             }
             return d.getBody();
         }
         throw new EntityNotFoundException();
+    }
+
+    /**
+     * Rate student.
+     *
+     * @param netId of a lecturer
+     * @param courseId course id
+     * @param studentId student id
+     * @param rating rating
+     */
+    public void rateTa(String netId, String courseId, String studentId, float rating) {
+        verifyThatApplicableCourse(netId, courseId);
+        Set<String> ids = this.getSpecificCourseOfLecturer(netId, courseId).getHiredTas();
+        if (ids.contains(studentId)) {
+            restTemplate.exchange("http://localhost:8080/management/rate?courseId="
+                    + courseId + "&studentId=" + studentId + "&rating=" + rating,
+                    HttpMethod.PUT, null, Void.class);
+        }
     }
 }

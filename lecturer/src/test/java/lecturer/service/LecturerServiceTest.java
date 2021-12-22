@@ -2,6 +2,9 @@ package lecturer.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,6 +27,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -140,16 +144,68 @@ public class LecturerServiceTest {
         assertEquals(1, lecturer2.getCourses().size());
     }
 
-    //    @Test
-    //    void computeRating() {
-    //        Set<String> l = new HashSet<>();
-    //        l.add("1");
-    //        Course courseEntity = new Course("CSE", l, 0);
-    //        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId="
-    //                + courseEntity.getCourseId(), Course.class))
-    //                .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
-    //        assertEquals(7.8, lecturerService.computeAverageRating("1", "CSE", "1"));
-    //    }
+    @Test
+    void computeRating() {
+        Set<String> candidateTas = new HashSet<>();
+        candidateTas.add("akalandadze");
+        Course course = new Course("CSE2215", candidateTas, 500);
+        courses.add(course.getCourseId());
+        lecturer1.setCourses(courses);
+        Mockito.when(restTemplate.getForEntity(any(String.class), eq(Course.class)))
+                .thenReturn(new ResponseEntity<Course>(course, HttpStatus.OK));
+        Mockito.when(restTemplate.getForEntity(any(String.class), eq(Float.class)))
+                .thenReturn(new ResponseEntity<Float>(2.5f, HttpStatus.OK));
+        assertEquals(2.5f, lecturerService.getAverage("1", "CSE2215", "akalandadze"));
+    }
+
+    @Test
+    void computeRatingNull() {
+        Set<String> candidateTas = new HashSet<>();
+        candidateTas.add("akalandadze");
+        Course course = new Course("CSE2215", candidateTas, 500);
+        courses.add(course.getCourseId());
+        lecturer1.setCourses(courses);
+        Mockito.when(restTemplate.getForEntity(any(String.class), eq(Course.class)))
+                .thenReturn(new ResponseEntity<Course>(course, HttpStatus.OK));
+        Mockito.when(restTemplate.getForEntity(any(String.class), eq(Float.class)))
+                .thenReturn(null);
+        assertEquals(0, lecturerService.getAverage("1", "CSE2215", "akalandadze"));
+    }
+
+    @Test
+    void chooseTa() {
+        Set<String> candidateTas = new HashSet<>();
+        candidateTas.add("akalandadze");
+        Course course = new Course("CSE2215", candidateTas, 500);
+        courses.add(course.getCourseId());
+        lecturer1.setCourses(courses);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("netId", "1");
+        HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
+        Mockito.when(restTemplate.exchange(
+                any(String.class),
+                eq(HttpMethod.PUT), eq(entity), eq(Boolean.class)))
+                .thenReturn(new ResponseEntity<Boolean>(true, HttpStatus.OK));
+        assertTrue(lecturerService.chooseTa("1", "CSE2215", "akalandadze", 20));
+    }
+
+    @Test
+    void chooseTaNull() {
+        Set<String> candidateTas = new HashSet<>();
+        candidateTas.add("akalandadze");
+        Course course = new Course("CSE2215", candidateTas, 500);
+        courses.add(course.getCourseId());
+        lecturer1.setCourses(courses);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("netId", "1");
+        HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
+        Mockito.when(restTemplate.exchange(
+                any(String.class),
+                eq(HttpMethod.PUT), eq(entity), eq(Boolean.class))).thenReturn(null);
+        assertThrows(CourseNotFoundException.class,
+                () -> lecturerService.chooseTa("1", "CSE2215", "akalandadze", 20));
+    }
+
 
     @Test
     void computeNotCandidateRating() {
@@ -165,56 +221,83 @@ public class LecturerServiceTest {
 
     @Test
     void getRecommendation() {
+        Set<String> candidateTas = new HashSet<>();
+        candidateTas.add("akalandadze");
+        Course course = new Course("CSE2215", candidateTas, 500);
+        courses.add(course.getCourseId());
+        lecturer1.setCourses(courses);
         List<String> s = new ArrayList<>();
-        s.add("1");
+        s.add("akalandadze");
         List<Student> l = new ArrayList<Student>();
-        l.add(new Student("1", 7.8));
+        l.add(new Student("akalandadze"));
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("netId", "1");
+        HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
         Mockito.when(restTemplate.exchange(
-                "http://localhost:8082/courses/taRecommendations?courseId=CSE&strategy=1",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<String>>() {}))
+                any(String.class),
+                eq(HttpMethod.GET),
+                eq(entity),
+                eq(new ParameterizedTypeReference<List<String>>() {})))
                 .thenReturn(new ResponseEntity<>(s, HttpStatus.OK));
         Mockito.when(restTemplate.exchange("http://localhost:8083/student/getMultiple",
                 HttpMethod.GET,
                 new HttpEntity<>(s),
                 new ParameterizedTypeReference<List<Student>>() {}))
                 .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.OK));
-        assertEquals(l, lecturerService.getRecommendation("1", "CSE", 1));
+        assertEquals(l, lecturerService.getRecommendation("1", "CSE", "ss"));
     }
 
     @Test
     void getNonExistingRecommendation() {
+        Set<String> candidateTas = new HashSet<>();
+        candidateTas.add("akalandadze");
+        Course course = new Course("CSE2215", candidateTas, 500);
+        courses.add(course.getCourseId());
+        lecturer1.setCourses(courses);
         List<String> s = new ArrayList<>();
         s.add("1");
         List<Student> l = new ArrayList<Student>();
-        l.add(new Student("1", 7.8));
-        Mockito.when(restTemplate.exchange("http://localhost:8082/courses/taRecommendations?courseId=CSE&strategy=1", HttpMethod.GET, null, new ParameterizedTypeReference<List<String>>() {}))
+        l.add(new Student("1"));
+        Mockito.when(restTemplate.exchange("http://localhost:8082/courses/taRecommendations?courseId=CSE&strategy=rating", HttpMethod.GET, null, new ParameterizedTypeReference<List<String>>() {}))
                 .thenReturn(new ResponseEntity<>(s, HttpStatus.OK));
         Mockito.when(restTemplate.exchange("http://localhost:8083/student/getMultiple", HttpMethod.GET, new HttpEntity<>(s), new ParameterizedTypeReference<List<Student>>() {}))
                 .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.OK));
         assertThrows(CourseNotFoundException.class,
-                () -> lecturerService.getRecommendation("1", "4", 1));
+                () -> lecturerService.getRecommendation("1", "4", "ss"));
     }
 
     @Test
     void invalidRequestRecommendation() {
+        Set<String> candidateTas = new HashSet<>();
+        candidateTas.add("akalandadze");
+        Course course = new Course("CSE2215", candidateTas, 500);
+        courses.add(course.getCourseId());
+        lecturer1.setCourses(courses);
         List<String> s = new ArrayList<>();
-        s.add("1");
+        s.add("akalandadze");
         List<Student> l = new ArrayList<Student>();
-        l.add(new Student("1", 7.8));
-        Mockito.when(restTemplate.exchange("http://localhost:8082/courses/taRecommendations?courseId=CSE&strategy=1", HttpMethod.GET, null, new ParameterizedTypeReference<List<String>>() {}))
+        l.add(new Student("akalandadze"));
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("netId", "1");
+        HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
+        Mockito.when(restTemplate.getForEntity(any(String.class), eq(Course.class)))
+                .thenReturn(new ResponseEntity<Course>(course, HttpStatus.OK));
+        Mockito.when(restTemplate.exchange(any(String.class), eq(HttpMethod.GET), eq(entity),
+                eq(new ParameterizedTypeReference<List<String>>() {})))
                 .thenReturn(new ResponseEntity<>(s, HttpStatus.OK));
-        Mockito.when(restTemplate.exchange("http://localhost:8083/student/getMultiple", HttpMethod.GET, new HttpEntity<>(s), new ParameterizedTypeReference<List<Student>>() {}))
+        Mockito.when(restTemplate.exchange("http://localhost:8083/student/getMultiple",
+                HttpMethod.GET,
+                new HttpEntity<>(s), new ParameterizedTypeReference<List<Student>>() {}))
                 .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.BAD_REQUEST));
         assertThrows(HttpClientErrorException.class,
-                () -> lecturerService.getRecommendation("1", "CSE", 1));
+                () -> lecturerService.getRecommendation("1", "CSE", "ss"));
     }
 
     @Test
     void getSize() {
         Course courseEntity = new Course("CSE", new HashSet<>(), 20);
-        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=CSE", Course.class))
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=CSE",
+                Course.class))
                 .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
         assertEquals(1, lecturerService.getNumberOfNeededTas("1", "CSE"));
     }

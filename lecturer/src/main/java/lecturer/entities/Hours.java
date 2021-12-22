@@ -1,8 +1,11 @@
 package lecturer.entities;
 
-public class Contract {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Hours {
     private String studentId;
-    private int hours;
+    @JsonProperty("hours")
+    private float amountOfHours;
     private String courseId;
 
     /**
@@ -12,18 +15,18 @@ public class Contract {
      * @param studentId student id
      * @param hours hours
      */
-    public Contract(String courseId, String studentId, int hours) {
+    public Hours(String courseId, String studentId, int hours) {
         this.courseId = courseId;
         this.studentId = studentId;
-        this.hours = hours;
+        this.amountOfHours = hours;
     }
 
     public String getStudentId() {
         return studentId;
     }
 
-    public int getHours() {
-        return hours;
+    public float getAmountOfHours() {
+        return amountOfHours;
     }
 
     public String getCourseId() {
@@ -38,7 +41,7 @@ public class Contract {
         this.studentId = studentId;
     }
 
-    public void setHours(int hours) {
-        this.hours = hours;
+    public void setAmountOfHours(float amountOfHours) {
+        this.amountOfHours = amountOfHours;
     }
 }

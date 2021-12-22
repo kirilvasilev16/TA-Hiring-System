@@ -163,7 +163,7 @@ public class ManagementService {
      */
     public float getAverageRating(String studentId) {
         if (managementRepository.getTaRecords(studentId) == 0) {
-            throw new InvalidIdException("StudentId not found");
+            return 0;
         }
         return managementRepository.getAverageTaRating(studentId);
     }

@@ -73,12 +73,12 @@ public class AuthenticationController {
      * @throws IOException exception
      */
     @GetMapping("/**")
-    public ResponseEntity get(HttpServletRequest request) throws IOException {
+    public ResponseEntity<?> get(HttpServletRequest request) throws IOException {
         if (request.getQueryString() == null || request.getQueryString().length() == 0) {
-            return new ResponseEntity(serverCommunication
+            return new ResponseEntity<>(serverCommunication
                     .getRequest(request.getRequestURI()), HttpStatus.OK);
         } else {
-            return new ResponseEntity(serverCommunication
+            return new ResponseEntity<>(serverCommunication
                     .getRequest(request.getRequestURI()
                     + "?" + request.getQueryString()), HttpStatus.OK);
         }
@@ -93,14 +93,14 @@ public class AuthenticationController {
      * @throws IOException exception
      */
     @PutMapping("/**")
-    public ResponseEntity put(HttpServletRequest request) throws IOException {
+    public ResponseEntity<?> put(HttpServletRequest request) throws IOException {
         String body = request.getReader().lines()
                 .collect(Collectors.joining(System.lineSeparator()));
         if (request.getQueryString() == null || request.getQueryString().length() == 0) {
-            return new ResponseEntity(serverCommunication
+            return new ResponseEntity<>(serverCommunication
                     .putRequest(request.getRequestURI(), body), HttpStatus.OK);
         } else {
-            return new ResponseEntity(serverCommunication
+            return new ResponseEntity<>(serverCommunication
                     .putRequest(request.getRequestURI()
                     + "?" + request.getQueryString(), body), HttpStatus.OK);
         }

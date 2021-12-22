@@ -84,8 +84,7 @@ class ManagementServiceTest {
 
     @Test
     void getAverageRatingInvalid() {
-        assertThrows(InvalidIdException.class,
-                () -> managementService.getAverageRating("invalid"));
+        assertEquals(0, managementService.getAverageRating("invalid"));
 
         Mockito.verify(managementRepository).getTaRecords("invalid");
     }
