@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LecturerRepository extends JpaRepository<Lecturer, Long> {
-    Optional<Lecturer> findLecturerByNetId(String netId);
+    Optional<Lecturer> findLecturerByLecturerId(String lecturerId);
 }

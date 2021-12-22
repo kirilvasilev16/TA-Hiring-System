@@ -18,7 +18,7 @@ public class LecturerClassTest {
 
     @BeforeEach
     void setUp() {
-        lecturer = new Lecturer(netId, name, password, email, new ArrayList<>());
+        lecturer = new Lecturer(netId, name, email, new ArrayList<>());
     }
 
     @Test
@@ -28,13 +28,13 @@ public class LecturerClassTest {
 
     @Test
     void getId() {
-        assertEquals(netId, lecturer.getNetId());
+        assertEquals(netId, lecturer.getLecturerId());
     }
 
     @Test
     void setId() {
-        lecturer.setNetId("myId");
-        assertEquals("myId", lecturer.getNetId());
+        lecturer.setLecturerId("myId");
+        assertEquals("myId", lecturer.getLecturerId());
     }
 
     @Test
@@ -46,17 +46,6 @@ public class LecturerClassTest {
     void setName() {
         lecturer.setName("myName");
         assertEquals("myName", lecturer.getName());
-    }
-
-    @Test
-    void getPassword() {
-        assertEquals(password, lecturer.getPassword());
-    }
-
-    @Test
-    void setPassword() {
-        lecturer.setPassword("myPassword");
-        assertEquals("myPassword", lecturer.getPassword());
     }
 
     @Test
@@ -85,7 +74,7 @@ public class LecturerClassTest {
 
     @Test
     void equalsTest() {
-        Lecturer newLecturer = new Lecturer(netId, name, password, email, new ArrayList<>());
+        Lecturer newLecturer = new Lecturer(netId, name, email, new ArrayList<>());
         assertEquals(lecturer, newLecturer);
     }
 
@@ -107,7 +96,7 @@ public class LecturerClassTest {
 
     @Test
     void hashCodeTest() {
-        Lecturer newLecturer = new Lecturer(netId, name, password, email, new ArrayList<>());
+        Lecturer newLecturer = new Lecturer(netId, name, email, new ArrayList<>());
         System.out.println(lecturer.getName());
         assertEquals(lecturer.hashCode(), newLecturer.hashCode());
     }

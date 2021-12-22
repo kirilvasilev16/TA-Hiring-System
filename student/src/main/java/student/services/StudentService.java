@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import student.communication.CourseCommunication;
 import student.entities.Student;
@@ -27,6 +28,7 @@ public class StudentService {
      *
      * @param studentRepository the student repository
      */
+    @Autowired
     public StudentService(StudentRepository studentRepository,
                           CourseCommunication courseCommunication) {
         this.studentRepository = studentRepository;
