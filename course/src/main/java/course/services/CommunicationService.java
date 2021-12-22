@@ -61,9 +61,8 @@ public class CommunicationService {
 
         for (Student s : candidateTas) {
             HttpRequest request = HttpRequest.newBuilder().GET()
-                    .uri(URI.create(managementService + "/get?courseId="
-                            + courseId + "&studentId=" + s.getNetId()))
-                    .build();
+                    .uri(URI.create(managementService + "/getAverageRating?"
+                            + "studentId=" + s.getNetId())).build();
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
@@ -72,13 +71,12 @@ public class CommunicationService {
                         "Failed to get " + s.getNetId() + " ratings");
             }
 
-
             if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
             System.out.println(response.body());
             float rating;
-            rating = gson.fromJson(response.body(), Management.class).getRating();
+            rating = gson.fromJson(response.body(), Float.class);
             studentRatingMap.put(s, rating);
         }
 
