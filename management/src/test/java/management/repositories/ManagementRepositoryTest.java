@@ -18,11 +18,19 @@ class ManagementRepositoryTest {
     @Autowired
     private transient ManagementRepository managementRepository;
     private transient Management management;
+    private transient String kvasilev;
 
     @BeforeEach
     void setUp() {
         assertNotNull(managementRepository);
-        management = new Management("CSE1200", "kvasilev", 120);
+        kvasilev = "kvasilev";
+        management = new Management("CSE1300", kvasilev, 60);
+        management.setId(1);
+        management.setRating(10);
+        managementRepository.save(management);
+        management = new Management("CSE1200", kvasilev, 120);
+        management.setId(2);
+        management.setRating(3);
         managementRepository.save(management);
     }
 
@@ -30,9 +38,27 @@ class ManagementRepositoryTest {
     void getManagement() {
         assertTrue(managementRepository.findAll().size() > 0);
         Management management = managementRepository
-                .getManagementByCourseAndStudent("CSE1200", "kvasilev");
+                .getManagementByCourseAndStudent("CSE1200", kvasilev);
 
         assertEquals(this.management, management);
+    }
+
+    @Test
+    void getAverageTaRating() {
+        assertTrue(managementRepository.findAll().size() > 0);
+        float rating = managementRepository
+                .getAverageTaRating(kvasilev);
+
+        assertEquals(6.5, rating);
+    }
+
+    @Test
+    void getTaRecords() {
+        assertTrue(managementRepository.findAll().size() > 0);
+        int count = managementRepository
+                .getTaRecords(kvasilev);
+
+        assertEquals(2, count);
     }
 
     @Test
@@ -68,7 +94,7 @@ class ManagementRepositoryTest {
         assertTrue(managementRepository.findAll().size() > 0);
         long id = managementRepository.findAll().get(0).getId();
         Management management = managementRepository.getOne(id);
-        assertEquals(0, management.getRating());
+        assertEquals(10, management.getRating());
 
         managementRepository.updateRating(id, 5.0f);
 

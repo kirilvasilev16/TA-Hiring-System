@@ -2,6 +2,7 @@ package authentication.controller;
 
 import authentication.communication.ServerCommunication;
 import authentication.entities.Authentication;
+import authentication.entities.ResponseObj;
 import authentication.entities.Role;
 import authentication.service.AuthenticationService;
 import java.io.IOException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -71,12 +74,15 @@ public class AuthenticationController {
      * @throws IOException exception
      */
     @GetMapping("/**")
-    public String get(HttpServletRequest request) throws IOException {
+    public ResponseEntity<?> get(HttpServletRequest request) throws IOException {
         if (request.getQueryString() == null || request.getQueryString().length() == 0) {
-            return serverCommunication.getRequest(request.getRequestURI());
+            ResponseObj resp = serverCommunication.getRequest(request.getRequestURI());
+            return new ResponseEntity<>(resp.getResult(), HttpStatus.valueOf(resp.getStatusCode()));
         } else {
-            return serverCommunication.getRequest(request.getRequestURI()
-                    + "?" + request.getQueryString());
+            ResponseObj resp = serverCommunication
+                    .getRequest(request.getRequestURI()
+                            + "?" + request.getQueryString());
+            return new ResponseEntity<>(resp.getResult(), HttpStatus.valueOf(resp.getStatusCode()));
         }
 
     }
@@ -89,16 +95,18 @@ public class AuthenticationController {
      * @throws IOException exception
      */
     @PutMapping("/**")
-    public String put(HttpServletRequest request) throws IOException {
+    public ResponseEntity<?> put(HttpServletRequest request) throws IOException {
         String body = request.getReader().lines()
                 .collect(Collectors.joining(System.lineSeparator()));
         if (request.getQueryString() == null || request.getQueryString().length() == 0) {
-            return serverCommunication.putRequest(request.getRequestURI(), body);
+            ResponseObj resp = serverCommunication
+                    .putRequest(request.getRequestURI(), body);
+            return new ResponseEntity<>(resp.getResult(), HttpStatus.valueOf(resp.getStatusCode()));
         } else {
-            return serverCommunication.putRequest(request.getRequestURI()
+            ResponseObj resp = serverCommunication.putRequest(request.getRequestURI()
                     + "?" + request.getQueryString(), body);
+            return new ResponseEntity<>(resp.getResult(), HttpStatus.valueOf(resp.getStatusCode()));
         }
-
     }
 
     /**
@@ -109,14 +117,17 @@ public class AuthenticationController {
      * @throws IOException exception
      */
     @PostMapping("/**")
-    public String post(HttpServletRequest request) throws IOException {
+    public ResponseEntity<?> post(HttpServletRequest request) throws IOException {
         String body = request.getReader().lines()
                 .collect(Collectors.joining(System.lineSeparator()));
         if (request.getQueryString() == null || request.getQueryString().length() == 0) {
-            return serverCommunication.postRequest(request.getRequestURI(), body);
+            ResponseObj resp = serverCommunication
+                    .postRequest(request.getRequestURI(), body);
+            return new ResponseEntity<>(resp.getResult(), HttpStatus.valueOf(resp.getStatusCode()));
         } else {
-            return serverCommunication.postRequest(request.getRequestURI()
+            ResponseObj resp = serverCommunication.postRequest(request.getRequestURI()
                     + "?" + request.getQueryString(), body);
+            return new ResponseEntity<>(resp.getResult(), HttpStatus.valueOf(resp.getStatusCode()));
         }
     }
 

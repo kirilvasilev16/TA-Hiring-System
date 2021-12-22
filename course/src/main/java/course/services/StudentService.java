@@ -158,25 +158,21 @@ public class StudentService {
      *
      * @param course    Course Object
      * @param studentId String studentId
-     * @param lecturerId String lecturerId
      * @param hours     float for contract hours
      * @return true if hired, false otherwise
      * @throws InvalidHiringException if student already hired or not in course
-     * @throws InvalidLecturerException if lecturer not course staff
      */
-    public static boolean hireTa(Course course, String studentId, String lecturerId,
-                                 float hours,
+    public static boolean hireTa(Course course, String studentId, float hours,
                                  CommunicationService communicationService)
             throws InvalidHiringException {
 
-        if (!LecturerService.containsLecturer(course, lecturerId)) {
-            throw new InvalidLecturerException("Lecturer not a staff of this course");
-        }
-
-        if (course.getCandidateTas().remove(studentId)) {
-            course.getHiredTas().add(studentId);
-            //TODO: save management object?
+        if (course.getCandidateTas().contains(studentId)) {
             communicationService.createManagement(course.getCourseId(), studentId, hours);
+            communicationService.updateStudentEmployment(studentId, course.getCourseId());
+
+            course.getCandidateTas().remove(studentId);
+            course.getHiredTas().add(studentId);
+
             return true;
         } else {
             if (containsTa(course, studentId)) {

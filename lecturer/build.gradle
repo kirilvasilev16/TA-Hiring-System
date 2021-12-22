@@ -54,7 +54,7 @@ test {
     useJUnitPlatform()
     jacoco {
         enabled = true
-        includes = ['template.*']
+        includes = ['lecturer.*']
         excludes = []
     }
 }
@@ -69,7 +69,7 @@ jacocoTestCoverageVerification() {
         rule {
             enabled = true
             element = 'CLASS'
-            includes = ['template.*']
+            includes = ['lecturer.*']
 
             limit {
                 counter = 'BRANCH'

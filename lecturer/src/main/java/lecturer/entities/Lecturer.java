@@ -9,9 +9,8 @@ import javax.persistence.Id;
 @Entity
 public class Lecturer {
     @Id
-    private String netId;
+    private String lecturerId;
     private String name;
-    private String password;
     private String email;
 
     @ElementCollection
@@ -22,19 +21,16 @@ public class Lecturer {
      *
      * @param netId of a lecturer
      * @param name name
-     * @param password password
      * @param email email
      * @param courses list of courses
      */
     public Lecturer(
             String netId,
             String name,
-            String password,
             String email,
             List<String> courses) {
-        this.netId = netId;
+        this.lecturerId = netId;
         this.name = name;
-        this.password = password;
         this.email = email;
         this.courses = courses;
     }
@@ -49,8 +45,8 @@ public class Lecturer {
      *
      * @return netId
      */
-    public String getNetId() {
-        return netId;
+    public String getLecturerId() {
+        return lecturerId;
     }
 
     /**
@@ -72,15 +68,6 @@ public class Lecturer {
     }
 
     /**
-     * Getter for password.
-     *
-     * @return password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
      * Getter for courses.
      *
      * @return courses
@@ -92,10 +79,10 @@ public class Lecturer {
     /**
      * Setter for netId.
      *
-     * @param netId of a lecturer
+     * @param lecturerId of a lecturer
      */
-    public void setNetId(String netId) {
-        this.netId = netId;
+    public void setLecturerId(String lecturerId) {
+        this.lecturerId = lecturerId;
     }
 
     /**
@@ -105,15 +92,6 @@ public class Lecturer {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Setter for a password.
-     *
-     * @param password of a lecturer
-     */
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     /**
@@ -143,15 +121,14 @@ public class Lecturer {
             return false;
         }
         Lecturer lecturer = (Lecturer) o;
-        return Objects.equals(netId, lecturer.netId)
+        return Objects.equals(lecturerId, lecturer.lecturerId)
                 && Objects.equals(name, lecturer.name)
-                && Objects.equals(password, lecturer.password)
                 && Objects.equals(email, lecturer.email)
                 && Objects.equals(courses, lecturer.courses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(netId, name, password, email, courses);
+        return Objects.hash(lecturerId, name, email, courses);
     }
 }

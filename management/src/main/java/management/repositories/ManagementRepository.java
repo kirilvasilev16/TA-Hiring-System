@@ -22,6 +22,26 @@ public interface ManagementRepository extends JpaRepository<Management, Long> {
     Management getManagementByCourseAndStudent(String courseId, String studentId);
 
     /**
+     * Query average rating for a student for all courses they have TAed for.
+     *
+     * @param studentId id of student
+     * @return the management object
+     */
+    @Transactional
+    @Query(value = "SELECT AVG(m.rating) FROM Management m WHERE m.studentId = ?1")
+    float getAverageTaRating(String studentId);
+
+    /**
+     * Verify a student with the provided studentId exists.
+     *
+     * @param studentId id of student
+     * @return the management object
+     */
+    @Transactional
+    @Query(value = "SELECT COUNT(*) FROM Management m WHERE m.studentId = ?1")
+    int getTaRecords(String studentId);
+
+    /**
      * Update declared hours.
      *
      * @param id the id of the management object
