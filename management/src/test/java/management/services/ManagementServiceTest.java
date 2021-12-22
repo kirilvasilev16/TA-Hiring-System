@@ -84,7 +84,8 @@ class ManagementServiceTest {
 
     @Test
     void getAverageRatingInvalid() {
-        assertEquals(0, managementService.getAverageRating("invalid"));
+        float rating = managementService.getAverageRating("invalid");
+        assertEquals(0, rating);
 
         Mockito.verify(managementRepository).getTaRecords("invalid");
     }
