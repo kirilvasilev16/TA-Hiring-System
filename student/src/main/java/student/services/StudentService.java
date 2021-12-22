@@ -112,7 +112,7 @@ public class StudentService {
         Student student = this.getStudent(netId);
         Set<String> totalSet = new HashSet<>(student.getTaCourses());
         totalSet.addAll(student.getCandidateCourses());
-        if (student.getPassedCourses().containsKey(courseId.substring(0, 7))
+        if (student.getPassedCourses().containsKey(courseId.substring(0, courseId.lastIndexOf("-")))
                 && courseCommunication.checkApplyRequirement(netId, courseId, totalSet)) {
             Set<String> candidate = student.getCandidateCourses();
             candidate.add(courseId);

@@ -26,27 +26,29 @@ import student.repositories.StudentRepository;
 public class StudentServiceTest {
 
     private transient Student student;
+    private final transient String netId = "ohageman";
+    private final transient String name = "Oisín";
+    private transient Map<String, Float> passedCourses;
+    private transient Set<String> candidateCourses;
+    private transient Set<String> taCourses;
     private transient StudentRepository studentRepository; // mocked
     private transient CourseCommunication courseCommunication; // mocked
     private transient StudentService studentService; // not mocked
-    private final transient String netId = "ohageman";
-    private final transient String course2000 = "cse2000";
 
     @BeforeEach
     void setUp() {
-        student = new Student(netId, "Oisín");
-        Map<String, Float> passed = new HashMap<>();
-        passed.put("cse1000", 7.0f);
-        passed.put(course2000, 8.0f);
-        passed.put("cse3000", 6.0f);
-        passed.put("cse4000", 7.0f);
-        Set<String> candidate = new HashSet<>();
-        candidate.add(course2000);
-        Set<String> ta = new HashSet<>();
-        ta.add("cse4000");
-        student.setPassedCourses(passed);
-        student.setCandidateCourses(candidate);
-        student.setTaCourses(ta);
+        passedCourses = new HashMap<>();
+        passedCourses.put("CSE2115", 10.0f);
+        passedCourses.put("CSE1400", 10.0f);
+        passedCourses.put("CSE1105", 10.0f);
+        student = new Student(netId, name);
+        candidateCourses = new HashSet<>();
+        candidateCourses.add("CSE2115-2022");
+        taCourses = new HashSet<>();
+        taCourses.add("CSE1105-2022");
+        student.setPassedCourses(passedCourses);
+        student.setCandidateCourses(candidateCourses);
+        student.setTaCourses(taCourses);
 
         studentRepository = Mockito.mock(StudentRepository.class);
         courseCommunication = Mockito.mock(CourseCommunication.class);
@@ -121,26 +123,26 @@ public class StudentServiceTest {
     @Test
     void applyTest() {
         Set<String> candidateCourses = new HashSet<>();
-        candidateCourses.add("cse1000");
-        candidateCourses.add(course2000);
+        candidateCourses.add("CSE2115-2022");
+        candidateCourses.add("CSE1400-2021");
         Set<String> testCandidateCourses =
-                studentService.apply(netId, "cse1000").getCandidateCourses();
+                studentService.apply(netId, "CSE1400-2021").getCandidateCourses();
         assertEquals(candidateCourses, testCandidateCourses);
     }
 
     @Test
     void applyExceptionTest() {
         assertThrows(StudentNotEligibleException.class,
-                () -> studentService.apply(netId, "cse5000"));
+                () -> studentService.apply(netId, "CSE9999-2022"));
     }
 
     @Test
     void acceptTest() {
         Set<String> candidateCourses = new HashSet<>();
         Set<String> taCourses = new HashSet<>();
-        taCourses.add(course2000);
-        taCourses.add("cse4000");
-        Student testStudent = studentService.accept(netId, course2000);
+        taCourses.add("CSE1105-2022");
+        taCourses.add("CSE2115-2022");
+        Student testStudent = studentService.accept(netId, "CSE2115-2022");
         Set<String> testCandidateCourses = testStudent.getCandidateCourses();
         Set<String> testTaCourses = testStudent.getTaCourses();
         assertEquals(candidateCourses, testCandidateCourses);
@@ -150,7 +152,7 @@ public class StudentServiceTest {
     @Test
     void acceptExceptionTest() {
         assertThrows(StudentNotEligibleException.class,
-                () -> studentService.accept(netId, "cse3000"));
+                () -> studentService.accept(netId, "CSE1400-2021"));
     }
 
 }
