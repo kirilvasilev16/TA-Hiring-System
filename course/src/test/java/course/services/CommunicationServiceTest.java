@@ -57,9 +57,8 @@ class CommunicationServiceTest {
         Mockito.<HttpResponse<? extends String>>when(client.send(Mockito.any(), Mockito.any()))
                 .thenReturn(response);
 
-        Management m = new Management();
-        m.setRating(7.0f);
-        Mockito.when(response.body()).thenReturn(gson.toJson(m));
+
+        Mockito.when(response.body()).thenReturn(gson.toJson(7.0f));
 
         communicationService.setClient(client);
 
@@ -81,9 +80,7 @@ class CommunicationServiceTest {
         Mockito.<HttpResponse<? extends String>>when(client.send(Mockito.any(), Mockito.any()))
                 .thenThrow(new IOException());
 
-        Management m = new Management();
-        m.setRating(7.0f);
-        Mockito.when(response.body()).thenReturn(gson.toJson(m));
+        Mockito.when(response.body()).thenReturn(gson.toJson(7.0f));
 
         communicationService.setClient(client);
 
@@ -105,9 +102,7 @@ class CommunicationServiceTest {
         Mockito.<HttpResponse<? extends String>>when(client.send(Mockito.any(), Mockito.any()))
                 .thenReturn(response);
 
-        Management m = new Management();
-        m.setRating(7.0f);
-        Mockito.when(response.body()).thenReturn(gson.toJson(m));
+        Mockito.when(response.body()).thenReturn(gson.toJson(7.0f));
 
         communicationService.setClient(client);
 
