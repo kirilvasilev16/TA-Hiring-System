@@ -205,6 +205,9 @@ public class LecturerService {
      * @param hours includes courseId, studentId and hours
      */
     public void approveHours(String lecturerId, List<Hours> hours) {
+        if (hours.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
         this.verifyThatApplicableCourse(lecturerId, hours.get(0).getCourseId());
         restTemplate.put("http://localhost:8080/management/approveHours",
                 hours);
@@ -242,9 +245,12 @@ public class LecturerService {
         verifyThatApplicableCourse(netId, courseId);
         Set<String> ids = this.getSpecificCourseOfLecturer(netId, courseId).getHiredTas();
         if (ids.contains(studentId)) {
-            restTemplate.exchange("http://localhost:8080/management/rate?courseId="
+            ResponseEntity<Void> re = restTemplate.exchange("http://localhost:8080/management/rate?courseId="
                     + courseId + "&studentId=" + studentId + "&rating=" + rating,
                     HttpMethod.PUT, null, Void.class);
+            if (re.getStatusCode() != HttpStatus.OK) {
+                throw new InternalError();
+            }
         }
     }
 }
