@@ -22,7 +22,7 @@ public class DataConfig {
         return args -> {
 
             List<String> l1 = new ArrayList<>();
-            l1.add("CSE1400-2021");
+            l1.add("CSE1400-2022");
             Lecturer lecturer1 = new Lecturer("taerts", "Taico", "taerts@tudelft.nl", l1);
             lecturerRepo.save(lecturer1);
             List<String> l2 = new ArrayList<>();

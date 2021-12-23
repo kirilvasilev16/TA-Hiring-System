@@ -49,7 +49,7 @@ public class DatabaseLoader {
                 "ohageman")));
         courseRepo.save(c3);
 
-        Course c4 = new Course("CSE1400-2021",
+        Course c4 = new Course("CSE1400-2022",
                 "CO",
                 500,
                 new HashSet<>(Arrays.asList("ovisser", "taerts")),
