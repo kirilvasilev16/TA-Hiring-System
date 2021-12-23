@@ -19,13 +19,13 @@ public class CourseCommunicationTest {
         set = new HashSet<>();
     }
 
-//    @Test
-//    void test() {
-//        assertDoesNotThrow(() ->
-//                courseCommunication.checkApplyRequirement("ohageman",
-//                "CSE2115-2022", set));
-//        assertFalse(courseCommunication.checkApplyRequirement("ohageman",
-//                "CSE2115-2022", set));
-//    }
+    @Test
+    void test() {
+        assertDoesNotThrow(() ->
+                courseCommunication.checkApplyRequirement("ohageman",
+                "CSE2115-2022", set));
+        assertFalse(courseCommunication.checkApplyRequirement("ohageman",
+                "CSE2115-2022", set));
+    }
 
 }
