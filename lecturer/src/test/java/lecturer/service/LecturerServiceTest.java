@@ -34,7 +34,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-@SuppressWarnings("PMD")
+/**
+ * Here I suppress duplicates as tests are using similar objects.
+ * While I could do duplicates as predefined strings,
+ * I do not think this is a good idea for readability.
+ */
+
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class LecturerServiceTest {
     @Mock
     private transient LecturerRepository lecturerRepository;

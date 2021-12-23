@@ -25,6 +25,10 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+/**
+ * Here I suppress duplicates as all exceptions usually have similar but not same messages.
+ */
+
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @Service
 public class LecturerService {
