@@ -25,8 +25,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * Suppress is used here to avoid mistake "duplicate netId" and "duplicate CSE2215".
+ * As netId is used quite often as a header as an actual
+ * string, it doesn't make sense to out it in a variable. While I could do them as variables,
+ * I do not think it would make a difference.
+ * Here are tests, which can use duplicate information.
+ */
 
-@SuppressWarnings("PMD")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @WebMvcTest
 public class LecturerControllerTest {
     @Autowired
@@ -39,9 +46,7 @@ public class LecturerControllerTest {
     private transient Lecturer lecturer2;
     private final transient List<String> courses = new ArrayList<>();
     private final transient ArrayList<Lecturer> lecturers = new ArrayList<>();
-    private transient String findAll;
-    private transient String findOne;
-    ObjectMapper objectMapper = new ObjectMapper();
+    private final transient ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeEach
     void setUp() {
@@ -51,24 +56,6 @@ public class LecturerControllerTest {
         lecturer2 = new Lecturer("2", "name", "email", new ArrayList<>());
         lecturers.add(lecturer1);
         lecturers.add(lecturer2);
-        findAll = "[{\"lecturerId\": \"1\",\"name\": \"name\","
-                +
-                "\"email\": \"email\",\"courses\": [\"CSE2215\", \"CSE2315\"]},"
-                +
-                " {\"netId\": \"2\",\n"
-                +
-                "                \"name\": \"name\",\n"
-                +
-                "                \"email\": \"email\",\n"
-                +
-                "                \"courses\": []}]";
-        findOne = "{\"lecturerId\": \"2\",\n"
-                +
-                "                \"name\": \"name\",\n"
-                +
-                "                \"email\": \"email\",\n"
-                +
-                "                \"courses\": []}";
 
     }
 

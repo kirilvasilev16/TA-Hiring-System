@@ -16,7 +16,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SuppressWarnings("PMD")
+/**
+ * Suppress is used here to avoid mistake "duplicate netId". As netId is used quite often
+ * as a header as an actual string, it doesn't make sense to out it in a variable.
+ */
+
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @RestController
 @RequestMapping("/lecturer")
 public class LecturerController {
@@ -82,7 +87,7 @@ public class LecturerController {
         return lecturerService.addSpecificCourse(netId, courseId);
     }
 
-    //what to do if management object does not exist
+    //tested
     @GetMapping("/getAverageRating")
     public float getAverageRating(@RequestHeader("netId") String netId,
                                    @PathParam("courseId") String courseId,
@@ -105,7 +110,7 @@ public class LecturerController {
         return lecturerService.getNumberOfNeededTas(netId, courseId);
     }
 
-    //needs testing !!!
+    //tested
     @PostMapping("/approveHours")
     public void approveHours(@RequestHeader("netId") String netId,
                              @RequestBody List<Hours> contract) {

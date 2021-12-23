@@ -3,10 +3,10 @@ package lecturer.entities;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Hours {
+    private String courseId;
     private String studentId;
     @JsonProperty("hours")
     private float amountOfHours;
-    private String courseId;
 
     /**
      * Constructor.
