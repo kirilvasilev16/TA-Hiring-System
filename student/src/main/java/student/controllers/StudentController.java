@@ -21,6 +21,9 @@ import student.services.StudentService;
  */
 @RestController
 @RequestMapping("/student")
+// PMD doesn't want duplicate "netId" literals,
+// but since you cannot use field references inside annotations, we suppress it
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class StudentController {
 
     private final transient StudentService studentService;
@@ -127,6 +130,12 @@ public class StudentController {
         return studentService.apply(netId, courseId);
     }
 
+    @PutMapping("/removeApplication")
+    public Student removeApplication(@RequestHeader("netId") String netId,
+                                     @PathParam("courseId") String courseId) {
+        return studentService.removeApplication(netId, courseId);
+    }
+
     /**
      * Tries to accept a student as TA for a course.
      *
@@ -138,5 +147,11 @@ public class StudentController {
     public Student accept(@PathParam("netId") String netId,
                           @PathParam("courseId") String courseId) {
         return studentService.accept(netId, courseId);
+    }
+
+    @PutMapping("/declareHours")
+    public void declareHours(@RequestHeader("netId") String netId,
+                             @RequestBody String json) {
+        studentService.declareHours(json);
     }
 }
