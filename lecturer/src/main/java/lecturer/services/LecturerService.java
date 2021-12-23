@@ -21,7 +21,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class LecturerService {
@@ -51,8 +53,8 @@ public class LecturerService {
     public Lecturer findLecturerById(String lecturerId) {
         Optional<Lecturer> lecturer = lecturerRepository.findLecturerByLecturerId(lecturerId);
         if (lecturer.isEmpty()) {
-            throw new LecturerNotFoundException("Lecturer with id " + lecturerId
-                    + " was not found.");
+            System.out.println("lecturer was not found");
+            throw new LecturerNotFoundException("Lecturer with id " + lecturerId + " was not found");
         }
         return lecturer.get();
     }
@@ -92,7 +94,7 @@ public class LecturerService {
         this.verifyThatApplicableCourse(lecturerId, courseId);
         ResponseEntity<Course> course = restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=" + courseId, Course.class);
         if (course == null || course.getStatusCode() != HttpStatus.OK) {
-            throw new CourseNotFoundException("Course was not found.");
+            throw new CourseNotFoundException("Course with id " + courseId + " was not found.");
         }
         return course.getBody();
     }
@@ -136,7 +138,7 @@ public class LecturerService {
                         + hours,
                 HttpMethod.PUT, entity, Boolean.class);
         if (course == null || course.getStatusCode() != HttpStatus.OK) {
-            throw new CourseNotFoundException("Course was not found");
+            throw new CourseNotFoundException("Course with id " + courseId + " was not found.");
         }
         return true;
     }
@@ -168,15 +170,12 @@ public class LecturerService {
         httpHeaders.set("netId", lecturerId);
         HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
         ResponseEntity<List<String>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations?courseId=" + courseId + "&strategy=" + strategy, HttpMethod.GET, entity, new ParameterizedTypeReference<List<String>>() {});
-        if (sts == null) {
-            throw new CourseNotFoundException("Course was not found");
-        }
-        if (sts.getStatusCode() != HttpStatus.OK) {
-            throw new HttpClientErrorException(sts.getStatusCode());
+        if (sts == null || sts.getStatusCode() != HttpStatus.OK) {
+            throw new CourseNotFoundException("Course with id " + courseId + " was not found.");
         }
         ResponseEntity<List<Student>> stL = restTemplate.exchange("http://localhost:8083/student/getMultiple", HttpMethod.GET, new HttpEntity<>((sts.getBody())), new ParameterizedTypeReference<List<Student>>() {});
         if (stL.getStatusCode() != HttpStatus.OK) {
-            throw new HttpClientErrorException(stL.getStatusCode());
+            throw new InternalError();
         }
         return stL.getBody();
     }
@@ -199,15 +198,10 @@ public class LecturerService {
      * @param lecturerId of a lecturer
      * @param contract includes courseId, studentId and hours
      */
-    public void approveHours(String lecturerId, List<Hours> contract) {
-        this.verifyThatApplicableCourse(lecturerId, contract.get(0).getCourseId());
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            restTemplate.put("http://localhost:8080/management/approveHours",
-                    objectMapper.writeValueAsString(contract), Void.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+    public void approveHours(String lecturerId, List<Hours> hours) {
+        this.verifyThatApplicableCourse(lecturerId, hours.get(0).getCourseId());
+        restTemplate.put("http://localhost:8080/management/approveHours",
+                hours);
     }
 
     /**
