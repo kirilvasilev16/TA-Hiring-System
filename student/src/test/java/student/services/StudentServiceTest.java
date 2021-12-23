@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import student.communication.CourseCommunication;
+import student.communication.ManagementCommunication;
 import student.entities.Student;
 import student.exceptions.StudentNotEligibleException;
 import student.exceptions.StudentNotFoundException;
@@ -34,6 +35,7 @@ public class StudentServiceTest {
     private transient Set<String> taCourses;
     private transient StudentRepository studentRepository; // mocked
     private transient CourseCommunication courseCommunication; // mocked
+    private transient ManagementCommunication managementCommunication; // mocked
     private transient StudentService studentService; // not mocked
 
     @BeforeEach
@@ -53,7 +55,9 @@ public class StudentServiceTest {
 
         studentRepository = Mockito.mock(StudentRepository.class);
         courseCommunication = Mockito.mock(CourseCommunication.class);
-        studentService = new StudentService(studentRepository, courseCommunication);
+        managementCommunication = Mockito.mock(ManagementCommunication.class);
+        studentService = new StudentService(
+                studentRepository, courseCommunication, managementCommunication);
         Optional<Student> optionalStudent = Optional.of(student);
         Mockito.when(studentRepository.findStudentByNetId(netId)).thenReturn(optionalStudent);
         Mockito.when(studentRepository.findStudentByNetId(not(eq(netId))))
