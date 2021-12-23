@@ -66,7 +66,6 @@ public class CommunicationService {
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
-                e.printStackTrace();
                 throw new FailedGetStudentRatingsException(
                         "Failed to get " + s.getNetId() + " ratings");
             }
@@ -103,7 +102,6 @@ public class CommunicationService {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
-            e.printStackTrace();
             throw new FailedContractCreationException("Could not create " + courseId
                     + " TA Work Contract for " + studentId);
         }
@@ -129,7 +127,6 @@ public class CommunicationService {
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
-                e.printStackTrace();
                 throw new FailedGetStudentListException("Failed to get student " + studentId);
             }
 
@@ -162,7 +159,6 @@ public class CommunicationService {
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
-                e.printStackTrace();
                 throw new FailedGetHoursException("Failed to get worked hours for student " + ta);
             }
 
@@ -193,7 +189,6 @@ public class CommunicationService {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
-            e.printStackTrace();
             throw new FailedUpdateStudentEmploymentException(studentId);
         }
 
