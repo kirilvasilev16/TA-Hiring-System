@@ -375,9 +375,6 @@ class StudentServiceTest {
         c.setQuarter(2);
         courseSet.add(c);
         c = new Course();
-        c.setCourseId("CSE0004-2021");
-        c.setQuarter(2);
-        courseSet.add(c);
         assertThrows(TooManyCoursesException.class, () -> {
             StudentService.checkQuarterCapacity(courseSet);
         });
