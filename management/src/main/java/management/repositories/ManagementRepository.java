@@ -28,7 +28,8 @@ public interface ManagementRepository extends JpaRepository<Management, Long> {
      * @return the management object
      */
     @Transactional
-    @Query(value = "SELECT AVG(m.rating) FROM Management m WHERE m.studentId = ?1")
+    @Query(value = "SELECT COALESCE(AVG(m.rating), -1) FROM Management m "
+            + "WHERE m.studentId = ?1 AND m.rating <> -1")
     float getAverageTaRating(String studentId);
 
     /**

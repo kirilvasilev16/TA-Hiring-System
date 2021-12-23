@@ -61,7 +61,7 @@ class ManagementControllerTest {
         findAllResult = "[{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
                 + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0},"
                 + "{\"id\":2,\"courseId\":CSE1200,\"studentId\":aatanasov,\"amountOfHours\":70.0,"
-                + "\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0}]";
+                + "\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":-1.0}]";
 
         findOneResult = "{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
                 + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0}";

@@ -163,8 +163,9 @@ public class ManagementService {
      */
     public float getAverageRating(String studentId) {
         if (managementRepository.getTaRecords(studentId) == 0) {
-            return 0;
+            return -1;
         }
+
         return managementRepository.getAverageTaRating(studentId);
     }
 }
