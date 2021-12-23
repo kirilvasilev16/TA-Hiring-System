@@ -25,7 +25,7 @@ public class DataConfig {
 
             String sem = "CSE2115-2022";
             String oopp = "CSE1105-2022";
-            String co = "CSE1400-2021";
+            String co = "CSE1400-2022";
 
             String kvasilev = "kvasilev";
             String etrinh = "etrinh";
