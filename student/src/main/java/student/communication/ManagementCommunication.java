@@ -18,6 +18,12 @@ public class ManagementCommunication {
     }
 
 
+    /**
+     * Sends a request to the Management microservice for declaring hours.
+     *
+     * @param json the json containing Hours data
+     * @return boolean whether the action has succeeded
+     */
     public boolean declareHours(String json) {
         String uri = "http://localhost:8080/management/declareHours";
         HttpRequest request = HttpRequest.newBuilder().setHeader("Content-type",

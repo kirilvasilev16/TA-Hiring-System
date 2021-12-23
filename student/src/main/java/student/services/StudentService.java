@@ -51,7 +51,7 @@ public class StudentService {
     public Student getStudent(String id) {
         Optional<Student> student = studentRepository.findStudentByNetId(id);
         if (student.isEmpty()) {
-            throw new StudentNotFoundException("");
+            throw new StudentNotFoundException("Student with netId " + id + " was not found");
         }
         return student.get();
     }
@@ -164,6 +164,14 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
+    /**
+     * Removes the student as candidate for a course,
+     * and sends a request for the same to Course microservice as well
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the student
+     */
     public Student removeApplication(String netId, String courseId) {
         Student student = this.getStudent(netId);
         if (courseCommunication.removeAsCandidate(netId, courseId)) {
@@ -177,6 +185,11 @@ public class StudentService {
         return student;
     }
 
+    /**
+     * Sends a request to the Management microservice for declaring hours.
+     *
+     * @param json the json containing Hours data
+     */
     public void declareHours(String json) {
         if (!managementCommunication.declareHours(json)) {
             throw new InvalidDeclarationException("Hours couldn't be declared");

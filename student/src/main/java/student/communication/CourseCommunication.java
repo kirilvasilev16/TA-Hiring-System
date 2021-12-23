@@ -50,6 +50,13 @@ public class CourseCommunication {
         return response.statusCode() == 200;
     }
 
+    /**
+     * Sends a request to Course microservice for removing a student as ta candidate
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return boolean whether the action has succeeded
+     */
     public boolean removeAsCandidate(String netId, String courseId) {
         String uri = "http://localhost:8082/courses/removeAsCandidate?courseId="
                 + courseId

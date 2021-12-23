@@ -1,7 +1,6 @@
 package student.config;
 
-import student.entities.Student;
-import student.repositories.StudentRepository;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,8 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.CommandLineRunner;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import student.entities.Student;
+import student.repositories.StudentRepository;
 
 public class DataConfigTest {
 
@@ -32,8 +31,6 @@ public class DataConfigTest {
 
     @Test
     void commandLineRunnerTest() throws Exception {
-        CommandLineRunner commandLineRunner
-                = dataConfig.commandLineRunner(studentRepository);
 
         Map<String, Float> passed1 = new HashMap<>();
         passed1.put("CSE2115", 6.0f);
@@ -100,6 +97,8 @@ public class DataConfigTest {
         student6.setCandidateCourses(candidate6);
         student6.setTaCourses(ta6);
 
+        CommandLineRunner commandLineRunner
+                = dataConfig.commandLineRunner(studentRepository);
         commandLineRunner.run();
         Mockito.verify(studentRepository).save(student1);
         Mockito.verify(studentRepository).save(student2);

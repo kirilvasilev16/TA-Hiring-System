@@ -1,12 +1,12 @@
 package student.communication;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ManagementCommunicationTest {
 
@@ -16,11 +16,11 @@ public class ManagementCommunicationTest {
     @BeforeEach
     void setUp() {
         managementCommunication = new ManagementCommunication();
-        json = "[{\n" +
-                "    \"courseId\" : \"CSE2115-2022\",\n" +
-                "    \"studentId\" : \"kvasilev\",\n" +
-                "    \"hours\" : 20.0\n" +
-                "}]";
+        json = "[{\n"
+                + "    \"courseId\" : \"CSE2115-2022\",\n"
+                + "    \"studentId\" : \"kvasilev\",\n"
+                + "    \"hours\" : 20.0\n"
+                + "}]";
     }
 
     @Test

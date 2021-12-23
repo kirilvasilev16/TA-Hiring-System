@@ -1,6 +1,8 @@
 package student.services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -30,11 +32,11 @@ public class StudentServiceTest {
     private final transient String netId = "ohageman";
     private final transient String name = "Oisín";
     private final transient String courseCode = "CSE2115-2022";
-    private final transient String json = "[{\n" +
-            "    \"courseId\" : \"CSE2115-2022\",\n" +
-            "    \"studentId\" : \"kvasilev\",\n" +
-            "    \"hours\" : 20.0\n" +
-            "}]";
+    private final transient String json = "[{\n"
+            + "    \"courseId\" : \"CSE2115-2022\",\n"
+            + "    \"studentId\" : \"kvasilev\",\n"
+            + "    \"hours\" : 20.0\n"
+            + "}]";
     private transient Map<String, Float> passedCourses;
     private transient Set<String> candidateCourses;
     private transient Set<String> taCourses;
