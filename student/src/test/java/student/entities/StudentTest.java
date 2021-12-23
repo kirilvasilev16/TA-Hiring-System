@@ -1,6 +1,7 @@
 package student.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -131,6 +132,12 @@ public class StudentTest {
     void equalsSameTest() {
         Student sameStudent = student;
         assertEquals(sameStudent, student);
+    }
+
+    @Test
+    void equalsNullTest() {
+        Student nullStudent = null;
+        assertFalse(student.equals(nullStudent));
     }
 
     @Test

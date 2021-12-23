@@ -9,7 +9,8 @@ import java.net.http.HttpResponse;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 
-@SuppressWarnings("PMD")
+// PMD thinks the response variables are never used, but since they are, we suppress the warning
+@SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 @Service
 public class CourseCommunication {
 
@@ -37,10 +38,38 @@ public class CourseCommunication {
         HttpRequest request = HttpRequest.newBuilder().setHeader("Content-type",
                 "application/json")
                 .uri(URI.create(uri))
-                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(set)))
+                .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(set)))
                 .build();
         HttpResponse<String> response;
         try {
+            // PMD DU anomaly
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            return false;
+        }
+        return response.statusCode() == 200;
+    }
+
+    /**
+     * Sends a request to Course microservice for removing a student as ta candidate
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return boolean whether the action has succeeded
+     */
+    public boolean removeAsCandidate(String netId, String courseId) {
+        String uri = "http://localhost:8082/courses/removeAsCandidate?courseId="
+                + courseId
+                + "&studentId="
+                + netId;
+        HttpRequest request = HttpRequest.newBuilder().setHeader("Content-type",
+                "application/json")
+                .uri(URI.create(uri))
+                .DELETE()
+                .build();
+        HttpResponse<String> response;
+        try {
+            // PMD DU anomaly
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
             return false;

@@ -9,7 +9,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import student.communication.CourseCommunication;
+import student.communication.ManagementCommunication;
 import student.entities.Student;
+import student.exceptions.InvalidDeclarationException;
 import student.exceptions.StudentNotEligibleException;
 import student.exceptions.StudentNotFoundException;
 import student.repositories.StudentRepository;
@@ -18,10 +20,13 @@ import student.repositories.StudentRepository;
  * The type Student service.
  */
 @Service
+// PMD thinks student variable is not used, but since it is, we suppress the warning
+@SuppressWarnings("PMD.DataflowAnomalyAnalysis")
 public class StudentService {
 
     private final transient StudentRepository studentRepository;
     private final transient CourseCommunication courseCommunication;
+    private final transient ManagementCommunication managementCommunication;
 
     /**
      * Instantiates a new Student service.
@@ -30,9 +35,11 @@ public class StudentService {
      */
     @Autowired
     public StudentService(StudentRepository studentRepository,
-                          CourseCommunication courseCommunication) {
+                          CourseCommunication courseCommunication,
+                          ManagementCommunication managementCommunication) {
         this.studentRepository = studentRepository;
         this.courseCommunication = courseCommunication;
+        this.managementCommunication = managementCommunication;
     }
 
     /**
@@ -44,7 +51,7 @@ public class StudentService {
     public Student getStudent(String id) {
         Optional<Student> student = studentRepository.findStudentByNetId(id);
         if (student.isEmpty()) {
-            throw new StudentNotFoundException("");
+            throw new StudentNotFoundException("Student with netId " + id + " was not found");
         }
         return student.get();
     }
@@ -155,5 +162,37 @@ public class StudentService {
      */
     public Student addStudent(Student student) {
         return studentRepository.save(student);
+    }
+
+    /**
+     * Removes the student as candidate for a course,
+     * and sends a request for the same to Course microservice as well
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the student
+     */
+    public Student removeApplication(String netId, String courseId) {
+        Student student = this.getStudent(netId);
+        if (courseCommunication.removeAsCandidate(netId, courseId)) {
+            Set<String> candidate = student.getCandidateCourses();
+            candidate.remove(courseId);
+            studentRepository.save(student);
+        } else {
+            throw new StudentNotEligibleException(
+                    "Student is not a candidate yet for " + courseId);
+        }
+        return student;
+    }
+
+    /**
+     * Sends a request to the Management microservice for declaring hours.
+     *
+     * @param json the json containing Hours data
+     */
+    public void declareHours(String json) {
+        if (!managementCommunication.declareHours(json)) {
+            throw new InvalidDeclarationException("Hours couldn't be declared");
+        }
     }
 }
