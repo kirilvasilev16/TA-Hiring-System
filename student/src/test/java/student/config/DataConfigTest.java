@@ -45,7 +45,7 @@ public class DataConfigTest {
         passed6.put("CSE1400", 10.0f);
         passed6.put("CSE1105", 10.0f);
         String course1 = "CSE1105-2022";
-        String course2 = "CSE1400-2021";
+        String course2 = "CSE1400-2022";
         String course3 = "CSE2115-2022";
         Set<String> candidate1 = new HashSet<>();
         candidate1.add(course1);
