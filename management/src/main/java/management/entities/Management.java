@@ -48,7 +48,7 @@ public class Management {
         this.amountOfHours = amountOfHours;
         this.approvedHours = 0;
         this.declaredHours = 0;
-        this.rating = 0;
+        this.rating = -1;
     }
 
     /**
