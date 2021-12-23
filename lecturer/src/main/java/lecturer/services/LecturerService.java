@@ -25,6 +25,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @Service
 public class LecturerService {
     private final transient LecturerRepository lecturerRepository;
@@ -54,7 +55,8 @@ public class LecturerService {
         Optional<Lecturer> lecturer = lecturerRepository.findLecturerByLecturerId(lecturerId);
         if (lecturer.isEmpty()) {
             System.out.println("lecturer was not found");
-            throw new LecturerNotFoundException("Lecturer with id " + lecturerId + " was not found");
+            throw new LecturerNotFoundException("Lecturer with id "
+                    + lecturerId + " was not found");
         }
         return lecturer.get();
     }
@@ -196,7 +198,7 @@ public class LecturerService {
      * Approve hours for a student.
      *
      * @param lecturerId of a lecturer
-     * @param contract includes courseId, studentId and hours
+     * @param hours includes courseId, studentId and hours
      */
     public void approveHours(String lecturerId, List<Hours> hours) {
         this.verifyThatApplicableCourse(lecturerId, hours.get(0).getCourseId());

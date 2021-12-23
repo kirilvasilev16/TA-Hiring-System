@@ -289,7 +289,7 @@ public class LecturerServiceTest {
                 HttpMethod.GET,
                 new HttpEntity<>(s), new ParameterizedTypeReference<List<Student>>() {}))
                 .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.BAD_REQUEST));
-        assertThrows(HttpClientErrorException.class,
+        assertThrows(InternalError.class,
                 () -> lecturerService.getRecommendation("1", "CSE", "ss"));
     }
 
