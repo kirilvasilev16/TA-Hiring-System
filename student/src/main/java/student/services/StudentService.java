@@ -1,6 +1,7 @@
 package student.services;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -72,8 +73,8 @@ public class StudentService {
      * @param ids the ids
      * @return set of students
      */
-    public Set<Student> getMultiple(Set<String> ids) {
-        Set<Student> students = new HashSet<>();
+    public List<Student> getMultiple(List<String> ids) {
+        List<Student> students = new ArrayList<>();
         for (String id : ids) {
             students.add(this.getStudent(id));
         }
@@ -166,7 +167,7 @@ public class StudentService {
 
     /**
      * Removes the student as candidate for a course,
-     * and sends a request for the same to Course microservice as well
+     * and sends a request for the same to Course microservice as well.
      *
      * @param netId    the net id
      * @param courseId the course id

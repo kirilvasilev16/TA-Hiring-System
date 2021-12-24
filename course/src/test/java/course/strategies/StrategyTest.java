@@ -54,30 +54,29 @@ public class StrategyTest {
 
         Map<String, Float>[] passedCourses = new Map[]{
                 Map.of(
-                        "CSE2115-2020", 7.0f
+                        "CSE2115", 7.0f
                 ), Map.of(
-                "CSE2115-2020", 8.0f
+                "CSE2115", 8.0f
         ), Map.of(
-                "CSE2115-2020", 2.0f
+                "CSE2115", 2.0f
         ), Map.of(
-                "CSE2115-2020", 4.0f
+                "CSE2115", 4.0f
         ), Map.of(
-                "CSE2115-2020", 3.0f
+                "CSE2115", 3.0f
         ), Map.of(
-                "CSE2115-2020", 1.0f
+                "CSE2115", 1.0f
         ), Map.of(
-                "CSE2115-2020", 6.0f
+                "CSE2115", 6.0f
         ), Map.of(
-                "CSE2115-2020", 3.0f
+                "CSE2115", 3.0f
         ), Map.of(
-                "CSE2115-2020", 1.0f
+                "CSE2115", 1.0f
         ), Map.of(
-                "CSE2115-2020", 8.0f
+                "CSE2115", 8.0f
         ), Map.of(
-                "CSE2115-2019", 5.0f,
-                "CSE2115-2020", 9.0f
+                "CSE2115", 9.0f
         ), Map.of(
-                "CSE2115-2020", 7.0f
+                "CSE2115", 7.0f
         )
         };
 

@@ -246,7 +246,7 @@ public class LecturerServiceTest {
                 eq(new ParameterizedTypeReference<List<String>>() {})))
                 .thenReturn(new ResponseEntity<>(s, HttpStatus.OK));
         Mockito.when(restTemplate.exchange("http://localhost:8083/student/getMultiple",
-                HttpMethod.GET,
+                HttpMethod.POST,
                 new HttpEntity<>(s),
                 new ParameterizedTypeReference<List<Student>>() {}))
                 .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.OK));
@@ -292,7 +292,7 @@ public class LecturerServiceTest {
                 eq(new ParameterizedTypeReference<List<String>>() {})))
                 .thenReturn(new ResponseEntity<>(s, HttpStatus.OK));
         Mockito.when(restTemplate.exchange("http://localhost:8083/student/getMultiple",
-                HttpMethod.GET,
+                HttpMethod.POST,
                 new HttpEntity<>(s), new ParameterizedTypeReference<List<Student>>() {}))
                 .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.BAD_REQUEST));
         assertThrows(InternalError.class,

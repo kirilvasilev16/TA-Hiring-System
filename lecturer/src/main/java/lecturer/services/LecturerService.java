@@ -179,7 +179,8 @@ public class LecturerService {
         if (sts == null || sts.getStatusCode() != HttpStatus.OK) {
             throw new CourseNotFoundException("Course with id " + courseId + " was not found.");
         }
-        ResponseEntity<List<Student>> stL = restTemplate.exchange("http://localhost:8083/student/getMultiple", HttpMethod.GET, new HttpEntity<>((sts.getBody())), new ParameterizedTypeReference<List<Student>>() {});
+        ResponseEntity<List<Student>> stL = restTemplate.exchange("http://localhost:8083/student/getMultiple", HttpMethod.POST, new HttpEntity<>((sts.getBody())), new ParameterizedTypeReference<List<Student>>() {});
+
         if (stL.getStatusCode() != HttpStatus.OK) {
             throw new InternalError();
         }

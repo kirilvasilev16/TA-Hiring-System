@@ -16,7 +16,7 @@ public class StudentClassTest {
     @Test
     void id() {
         Student student = new Student("1");
-        student.setId("2");
-        assertEquals("2", student.getId());
+        student.setNetId("2");
+        assertEquals("2", student.getNetId());
     }
 }
