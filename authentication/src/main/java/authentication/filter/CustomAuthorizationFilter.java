@@ -50,31 +50,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             if (authorizationHeader != null
                     && authorizationHeader.startsWith("Bearer ")) {
                 try {
-                    String token =
-                            authorizationHeader.substring(
-                                    "Bearer ".length());
-
-                    Algorithm algorithm =
-                            Algorithm.HMAC256("sem15a".getBytes());
-                    JWTVerifier verifier =
-                            JWT.require(algorithm).build();
-                    DecodedJWT decodedJwt =
-                            verifier.verify(token);
-
-                    String netId = decodedJwt.getSubject();
-                    String[] roles = decodedJwt.getClaim("roles")
-                            .asArray(String.class);
-                    Collection<SimpleGrantedAuthority> authorities =
-                            new ArrayList<>();
-                    stream(roles).forEach(role -> authorities
-                            .add(new SimpleGrantedAuthority(role)));
-                    UsernamePasswordAuthenticationToken
-                            authenticationToken =
-                            new UsernamePasswordAuthenticationToken(
-                                    netId, null, authorities);
-
-                    SecurityContextHolder.getContext()
-                            .setAuthentication(authenticationToken);
+                    DecodedJWT decodedJwt = getDecodedJwt(authorizationHeader);
+                    decodeAndCreateAuthToken(decodedJwt);
 
                     filterChain.doFilter(request, response);
                 } catch (Exception e) {
@@ -92,5 +69,36 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
             }
         }
+    }
+
+    private DecodedJWT getDecodedJwt(String authorizationHeader) {
+        String token =
+                authorizationHeader.substring(
+                        "Bearer ".length());
+
+        Algorithm algorithm =
+                Algorithm.HMAC256("sem15a".getBytes());
+        JWTVerifier verifier =
+                JWT.require(algorithm).build();
+        DecodedJWT decodedJwt =
+                verifier.verify(token);
+        return decodedJwt;
+    }
+
+    private void decodeAndCreateAuthToken(DecodedJWT decodedJwt) {
+        String netId = decodedJwt.getSubject();
+        String[] roles = decodedJwt.getClaim("roles")
+                .asArray(String.class);
+        Collection<SimpleGrantedAuthority> authorities =
+                new ArrayList<>();
+        stream(roles).forEach(role -> authorities
+                .add(new SimpleGrantedAuthority(role)));
+        UsernamePasswordAuthenticationToken
+                authenticationToken =
+                new UsernamePasswordAuthenticationToken(
+                        netId, null, authorities);
+
+        SecurityContextHolder.getContext()
+                .setAuthentication(authenticationToken);
     }
 }

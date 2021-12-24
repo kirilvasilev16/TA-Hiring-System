@@ -75,7 +75,7 @@ public class AuthenticationController {
      */
     @GetMapping("/**")
     public ResponseEntity get(HttpServletRequest request) throws IOException {
-        if (request.getQueryString() == null || request.getQueryString().length() == 0) {
+        if (request.getQueryString() == null) {
             ResponseObj resp = serverCommunication.getRequest(request.getRequestURI());
             return new ResponseEntity(resp.getResult(), HttpStatus.valueOf(resp.getStatusCode()));
         } else {
@@ -98,7 +98,7 @@ public class AuthenticationController {
     public ResponseEntity put(HttpServletRequest request) throws IOException {
         String body = request.getReader().lines()
                 .collect(Collectors.joining(System.lineSeparator()));
-        if (request.getQueryString() == null || request.getQueryString().length() == 0) {
+        if (request.getQueryString() == null) {
             ResponseObj resp = serverCommunication
                     .putRequest(request.getRequestURI(), body);
             return new ResponseEntity(resp.getResult(), HttpStatus.valueOf(resp.getStatusCode()));
@@ -120,7 +120,7 @@ public class AuthenticationController {
     public ResponseEntity post(HttpServletRequest request) throws IOException {
         String body = request.getReader().lines()
                 .collect(Collectors.joining(System.lineSeparator()));
-        if (request.getQueryString() == null || request.getQueryString().length() == 0) {
+        if (request.getQueryString() == null) {
             ResponseObj resp = serverCommunication
                     .postRequest(request.getRequestURI(), body);
             return new ResponseEntity(resp.getResult(), HttpStatus.valueOf(resp.getStatusCode()));

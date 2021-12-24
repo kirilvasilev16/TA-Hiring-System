@@ -3,6 +3,7 @@ package authentication.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import authentication.security.AuthenticationRoleValidator;
 import authentication.security.BaseValidator;
 import authentication.security.FilterValidator;
 import authentication.security.LoginValidator;
@@ -28,12 +29,14 @@ public class ValidatorTest {
     private transient AuthenticationManager authenticationManager;
 
     private transient FilterValidator filterValidator;
+    private transient BaseValidator baseValidator;
 
     @BeforeEach
     void setup() {
         validator.setNext(nextValidator);
         nextValidator.setNext(null);
         filterValidator = new FilterValidator(authenticationManager);
+        baseValidator = new AuthenticationRoleValidator();
     }
 
     @Test
@@ -56,6 +59,11 @@ public class ValidatorTest {
         AuthenticationManager authenticationManager = authentication -> null;
         filterValidator.setAuthenticationManager(authenticationManager);
         assertEquals(authenticationManager, filterValidator.getAuthenticationManager());
+    }
+
+    @Test
+    void checkNextTest() throws Exception {
+        baseValidator.checkNext(http);
     }
 
 }
