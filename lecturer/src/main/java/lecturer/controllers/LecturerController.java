@@ -1,20 +1,27 @@
 package lecturer.controllers;
 
 import java.util.List;
+import java.util.Set;
 import javax.websocket.server.PathParam;
-import lecturer.entities.Contract;
 import lecturer.entities.Course;
+import lecturer.entities.Hours;
 import lecturer.entities.Lecturer;
 import lecturer.entities.Student;
 import lecturer.services.LecturerService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SuppressWarnings("PMD")
+/**
+ * Suppress is used here to avoid mistake "duplicate netId". As netId is used quite often
+ * as a header as an actual string, it doesn't make sense to out it in a variable.
+ */
+
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @RestController
 @RequestMapping("/lecturer")
 public class LecturerController {
@@ -25,76 +32,97 @@ public class LecturerController {
         this.lecturerService = lecturerService;
     }
 
+    //tested
     @PostMapping("/addLecturer")
     public void addLecturer(@RequestBody Lecturer lecturer) {
         lecturerService.addLecturer(lecturer);
     }
 
+    //tested
     @GetMapping("/getAll")
     public List<Lecturer> findAll() {
         return lecturerService.findAll();
     }
 
+    //tested
     @GetMapping("/get")
-    public Lecturer getLecturer(@PathParam("netId") String netId) {
+    public Lecturer getLecturer(@RequestHeader("netId") String netId) {
         return lecturerService.findLecturerById(netId);
     }
 
+    //tested
     @GetMapping("/courses/getOwnCourses")
-    public List<String> getOwnCourses(@PathParam("netId") String netId) {
+    public List<String> getOwnCourses(@RequestHeader("netId") String netId) {
         return lecturerService.getOwnCourses(netId);
     }
 
+    //tested
     @GetMapping("/courses/getSpecificCourse")
-    public Course getSpecificCourse(@PathParam("netId") String netId,
-                                    @PathParam("courseId") String course) {
-        return lecturerService.getSpecificCourseOfLecturer(netId, course);
+    public Course getSpecificCourse(@RequestHeader("netId") String netId,
+                                    @PathParam("courseId") String courseId) {
+        return lecturerService.getSpecificCourseOfLecturer(netId, courseId);
     }
 
+    //tested
     @GetMapping("/courses/getCandidateTas")
-    public List<Student> getCandidateTas(@PathParam("netId") String netId,
-                                         @PathParam("courseId") String course) {
-        return lecturerService.getCandidateTaList(netId, course);
+    public Set<String> getCandidateTas(@RequestHeader("netId") String netId,
+                                       @PathParam("courseId") String courseId) {
+        return lecturerService.getCandidateTaList(netId, courseId);
     }
 
-    @PatchMapping("/courses/selectTa")
+    //tested
+    @PutMapping("/courses/selectTa")
     public void selectTaForCourse(
-            @PathParam("netId") String netId,
-            @PathParam("courseId") String course,
-            @PathParam("studentId") String studentNetId,
-            @PathParam("hours") int hours) {
-        lecturerService.chooseTa(netId, course, studentNetId, hours);
+            @RequestHeader("netId") String netId,
+            @PathParam("courseId") String courseId,
+            @PathParam("studentId") String studentId,
+            @PathParam("hours") float hours) {
+        lecturerService.chooseTa(netId, courseId, studentId, hours);
     }
 
-    @PatchMapping("/courses/addCourse")
-    public Lecturer addSpecificCourse(@PathParam("netId") String netId,
-                                  @PathParam("courseId") String courseId) {
+    //tested
+    @PutMapping("/courses/addCourse")
+    public Lecturer addSpecificCourse(@RequestHeader("netId") String netId,
+                                      @PathParam("courseId") String courseId) {
         return lecturerService.addSpecificCourse(netId, courseId);
     }
 
+    //tested
     @GetMapping("/getAverageRating")
-    public double getAverageRating(@PathParam("netId") String netId,
-                                   @PathParam("courseId") String course,
+    public float getAverageRating(@RequestHeader("netId") String netId,
+                                   @PathParam("courseId") String courseId,
                                    @PathParam("studentId") String studentId) {
-        return lecturerService.computeAverageRating(netId, course, studentId);
+        return lecturerService.getAverage(netId, courseId, studentId);
     }
 
+    //course strategy needs fixing
     @GetMapping("/courses/recommendations")
-    public List<Student> getRecommendations(@PathParam("netId") String netId,
-                                            @PathParam("courseId") String course,
-                                            @PathParam("strategy") int strategy) {
-        return lecturerService.getRecommendation(netId, course, strategy);
+    public List<Student> getRecommendations(@RequestHeader("netId") String netId,
+                                            @PathParam("courseId") String courseId,
+                                            @PathParam("strategy") String strategy) {
+        return lecturerService.getRecommendation(netId, courseId, strategy);
     }
 
+    //tested
     @GetMapping("/courses/getSize")
-    public int getNumberOfTa(@PathParam("netId") String netId,
-                             @PathParam("courseId") String course) {
-        return lecturerService.getNumberOfNeededTas(netId, course);
+    public int getNumberOfTa(@RequestHeader("netId") String netId,
+                             @PathParam("courseId") String courseId) {
+        return lecturerService.getNumberOfNeededTas(netId, courseId);
     }
 
-    @GetMapping("approveHours")
-    public void approveHours(@PathParam("netId") String netId,
-                             @RequestBody Contract contract) {
+    //tested
+    @PostMapping("/approveHours")
+    public void approveHours(@RequestHeader("netId") String netId,
+                             @RequestBody List<Hours> contract) {
         lecturerService.approveHours(netId, contract);
+    }
+
+    //tested
+    @GetMapping("/rateTa")
+    public void rateTa(@RequestHeader("netId") String netId,
+                        @PathParam("courseId") String courseId,
+                        @PathParam("studentId") String studentId,
+                       @PathParam("rating") float rating) {
+        lecturerService.rateTa(netId, courseId, studentId, rating);
     }
 }

@@ -1,5 +1,6 @@
 package course.controllers;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,6 +13,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -19,6 +21,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import course.entities.Course;
 import course.entities.Student;
+import course.exceptions.CourseAlreadyExistException;
+import course.exceptions.CourseNotFoundException;
+import course.exceptions.DeadlinePastException;
+import course.exceptions.InvalidCandidateException;
+import course.exceptions.InvalidHiringException;
+import course.exceptions.InvalidLecturerException;
+import course.exceptions.TooManyCoursesException;
 import course.services.CommunicationService;
 import course.services.CourseService;
 import course.services.DateService;
@@ -68,15 +77,16 @@ class CourseControllerTest {
     private transient Set<String> candidateSet;
     private transient Set<String> hireSet;
 
-    private transient String notFoundException = "Could not find a course with id ";
-    private transient String student1 = "student1";
+    private final transient String notFoundException = "Could not find a course with id ";
+    private final transient String student1 = "student1";
+    private final transient String lecturer1 = "lecturer1";
 
 
     @BeforeEach
     void setUp() {
 
         lecturerSet = new HashSet<>();
-        lecturerSet.add("lecturer1");
+        lecturerSet.add(lecturer1);
         startingDate = LocalDateTime.of(LocalDate.of(2021, 11, 7), LocalTime.NOON);
         courseSize = 500;
         quarter = 2;
@@ -108,15 +118,17 @@ class CourseControllerTest {
     }
 
     @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
-
-        Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(get("/courses/get?courseId=" + courseId));
-        });
-
         String expect = notFoundException + courseId;
-        assertTrue(exception.getMessage().contains(expect));
+
+        this.mockMvc.perform(get("/courses/get?courseId=" + courseId))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
 
     }
 
@@ -129,25 +141,56 @@ class CourseControllerTest {
                 .andExpect(content().json(gson.toJson(course.getCourseSize())));
     }
 
-    /*
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void getCourseSizeCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+
+        String expect = notFoundException + courseId;
+
+        this.mockMvc.perform(get("/courses/size?courseId=" + courseId))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
+    }
+
+
     @Test
     void updateCourseSize() throws Exception {
-    //TODO: fix failing test
 
         Integer newSize = 1000;
 
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(patch("/courses/updateSize?courseId=" + courseId
-                + "&size=1000")
-                        .contentType("application/json-patch+json"))
-                .andExpect(status().isOk());
+        this.mockMvc.perform(put("/courses/updateSize?courseId=" + courseId
+                        + "&size=" + newSize))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         assertEquals(newSize, course.getCourseSize());
         verify(courseService, times(1)).updateCourseSize(courseId, newSize);
 
     }
-    */
+
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void updateCourseSizeCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+        String expect = notFoundException + courseId;
+
+        this.mockMvc.perform(put("/courses/updateSize?courseId=" + courseId
+                + "&size=1000"))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
+    }
+
 
     @Test
     void getLecturerSet() throws Exception {
@@ -159,12 +202,42 @@ class CourseControllerTest {
     }
 
     @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void getLecturerSetCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+        String expect = notFoundException + courseId;
+
+        this.mockMvc.perform(get("/courses/lecturers?courseId=" + courseId))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
+    }
+
+    @Test
     void getRequiredTas() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
         this.mockMvc.perform(get("/courses/requiredTas?courseId=" + courseId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(course.getRequiredTas())));
+    }
+
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void getRequiredTasCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+        String expect = notFoundException + courseId;
+
+        this.mockMvc.perform(get("/courses/requiredTas?courseId=" + courseId))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
     }
 
     @Test
@@ -184,35 +257,80 @@ class CourseControllerTest {
         expect.add(student1);
 
         this.mockMvc.perform(get("/courses/taRecommendations?courseId=" + courseId
-                        + "&strategy=grade"))
+                        + "&strategy=grade").header("netId", lecturer1))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(expect)));
+    }
+
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void getTaRecommendationListCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+        String expect = notFoundException + courseId;
+
+        this.mockMvc.perform(get("/courses/taRecommendations?courseId=" + courseId
+                        + "&strategy=grade").header("netId", lecturer1))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+    }
+
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void getTaRecommendationListInvalidLecturer() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(course);
+
+        String lecturerFraud = "fraudLecturer";
+        String expect = "Lecturer not a staff of this course";
+
+        this.mockMvc.perform(get("/courses/taRecommendations?courseId=" + courseId
+                + "&strategy=grade").header("netId", lecturerFraud))
+                .andExpect(status().isForbidden())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof InvalidLecturerException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
     }
 
     @Test
     void makeCourse() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
+        CourseCreationBody courseCreation = new CourseCreationBody(
+                courseId, courseName, startingDate, lecturerSet, courseSize, quarter);
+
+        Course expect = new Course(
+                courseId, courseName, courseSize, lecturerSet, startingDate, quarter);
 
         this.mockMvc.perform(post("/courses/makeCourse")
                         .contentType(APPLICATION_JSON)
-                        .content(gson.toJson(course)))
+                        .content(gson.toJson(courseCreation)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(gson.toJson("Course added successfully")));
+                .andExpect(content().json(gson.toJson(expect)));
 
         verify(courseService, times(1)).save(any(Course.class));
     }
 
+
     @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void makeCourseExists() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        String expect = "Course with id " + courseId + " already exists!";
+        CourseCreationBody courseCreation = new CourseCreationBody(
+                courseId, courseName, startingDate, lecturerSet, courseSize, quarter);
+        String expect = courseId;
 
         this.mockMvc.perform(post("/courses/makeCourse")
-                        .contentType(APPLICATION_JSON)
-                        .content(gson.toJson(course)))
-                .andExpect(status().isOk())
-                .andExpect(content().json(gson.toJson(expect)));
+                .contentType(APPLICATION_JSON)
+                .content(gson.toJson(courseCreation)))
+                .andExpect(status().isForbidden())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseAlreadyExistException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
 
         verify(courseService, never()).save(any(Course.class));
     }
@@ -226,11 +344,12 @@ class CourseControllerTest {
         when(dateService.getTodayDate()).thenReturn(applyDate);
 
 
-        this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
+        this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
                         + "&studentId=student3")
                         .contentType(APPLICATION_JSON)
                         .content(gson.toJson(new HashSet<String>())))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         candidateSet.add("student3");
         assertEquals(candidateSet, course.getCandidateTas());
@@ -239,6 +358,25 @@ class CourseControllerTest {
     }
 
     @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void addCandidateTaCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+        String expect = notFoundException + courseId;
+
+        this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
+                + "&studentId=student3")
+                .contentType(APPLICATION_JSON)
+                .content(gson.toJson(new HashSet<String>())))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
+    }
+
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void addCandidateTaInvalidStudentCourse() throws Exception {
         String fakeCourse = "fraudCourse";
         Set<String> studentCourse = new HashSet<>();
@@ -247,21 +385,24 @@ class CourseControllerTest {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
         when(courseService.findByCourseId(fakeCourse)).thenReturn(null);
 
-        Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
-                    + "&studentId=student3")
-                    .contentType(APPLICATION_JSON)
-                    .content(gson.toJson(studentCourse)));
-        });
-
         String expect = notFoundException + fakeCourse;
-        assertTrue(exception.getMessage().contains(expect));
+
+        this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
+                + "&studentId=student3")
+                .contentType(APPLICATION_JSON)
+                .content(gson.toJson(studentCourse)))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
 
         verify(courseService, never()).save(any(Course.class));
     }
 
     @Test
-    void addCandidateTaTooManyCourses() {
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void addCandidateTaTooManyCourses() throws Exception {
 
         Set<String> studentCourse = new HashSet<>();
         studentCourse.add(courseId);
@@ -289,51 +430,58 @@ class CourseControllerTest {
         when(courseService.findByCourseId(course3Id)).thenReturn(course3);
         when(courseService.findByCourseId(course4Id)).thenReturn(course4);
 
-        Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
-                    + "&studentId=student3")
-                    .contentType(APPLICATION_JSON)
-                    .content(gson.toJson(studentCourse)));
-        });
-
         String expect = "Quarter " + quarter + " has too many courses";
-        assertTrue(exception.getMessage().contains(expect));
+
+        this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
+                + "&studentId=student3")
+                .contentType(APPLICATION_JSON)
+                .content(gson.toJson(studentCourse)))
+                .andExpect(status().isForbidden())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof TooManyCoursesException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
 
         verify(courseService, never()).save(any(Course.class));
     }
 
     @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void addCandidateTaInvalidStudentHired() throws Exception {
 
         when(courseService.findByCourseId(courseId)).thenReturn(course);
-
-        Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
-                    + "&studentId=student2")
-                    .contentType(APPLICATION_JSON)
-                    .content(gson.toJson(new HashSet<String>())));
-        });
-
         String expect = "Student already hired as TA";
-        assertTrue(exception.getMessage().contains(expect));
+
+        this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
+                + "&studentId=student2")
+                .contentType(APPLICATION_JSON)
+                .content(gson.toJson(new HashSet<String>())))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof InvalidCandidateException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
 
         verify(courseService, never()).save(any(Course.class));
     }
 
     @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void addCandidateTaInvalidPastDeadline() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
         when(dateService.getTodayDate()).thenReturn(startingDate);
 
-        Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/addCandidateTa?courseId=" + courseId
-                    + "&studentId=student3")
-                    .contentType(APPLICATION_JSON)
-                    .content(gson.toJson(new HashSet<String>())));
-        });
-
         String expect = "Deadline for TA application has past";
-        assertTrue(exception.getMessage().contains(expect));
+
+        this.mockMvc.perform(put("/courses/addCandidateTa?courseId=" + courseId
+                + "&studentId=student3")
+                .contentType(APPLICATION_JSON)
+                .content(gson.toJson(new HashSet<String>())))
+                .andExpect(status().isForbidden())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof DeadlinePastException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
 
         verify(courseService, never()).save(any(Course.class));
     }
@@ -351,6 +499,22 @@ class CourseControllerTest {
         assertTrue(course.getCandidateTas().isEmpty());
     }
 
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void removeAsCandidateCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+        String expect = notFoundException + courseId;
+
+        this.mockMvc.perform(delete("/courses/removeAsCandidate?courseId=" + courseId
+                + "&studentId=" + student1))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
+    }
+
 
     @Test
     void getAverageWorkedHours() throws Exception {
@@ -363,6 +527,21 @@ class CourseControllerTest {
         this.mockMvc.perform(get("/courses/averageWorkedHours?courseId=" + courseId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(1.0F)));
+    }
+
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void getAverageWorkedHoursCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+        String expect = notFoundException + courseId;
+
+        this.mockMvc.perform(get("/courses/averageWorkedHours?courseId=" + courseId))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
     }
 
     @Test
@@ -381,9 +560,10 @@ class CourseControllerTest {
     void addLecturer() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(post("/courses/addLecturer?courseId=" + courseId
+        this.mockMvc.perform(put("/courses/addLecturer?courseId=" + courseId
                         + "&lecturerId=lecturer2"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         lecturerSet.add("lecturer2");
         assertEquals(lecturerSet, course.getLecturerSet());
@@ -391,21 +571,106 @@ class CourseControllerTest {
     }
 
     @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void addLecturerCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+        String expect = notFoundException + courseId;
+
+        this.mockMvc.perform(put("/courses/addLecturer?courseId=" + courseId
+                + "&lecturerId=lecturer2"))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
+    }
+
+    @Test
     void getCandidateSet() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(get("/courses/candidates?courseId=" + courseId))
+        this.mockMvc.perform(get("/courses/candidates?courseId=" + courseId)
+                        .header("netId", lecturer1))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(course.getCandidateTas())));
+    }
+
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void getCandidateSetCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+        String expect = notFoundException + courseId;
+
+        this.mockMvc.perform(get("/courses/candidates?courseId=" + courseId)
+                .header("netId", lecturer1))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
+    }
+
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void getCandidateSetInvalidLecturer() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(course);
+
+        String lecturerFraud = "fraudLecturer";
+        String expect = "Lecturer not a staff of this course";
+
+        this.mockMvc.perform(get("/courses/candidates?courseId=" + courseId)
+                .header("netId", lecturerFraud))
+                .andExpect(status().isForbidden())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof InvalidLecturerException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
     }
 
     @Test
     void getTaSet() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
-        this.mockMvc.perform(get("/courses/tas?courseId=" + courseId))
+        this.mockMvc.perform(get("/courses/tas?courseId=" + courseId)
+                        .header("netId", lecturer1))
                 .andExpect(status().isOk())
                 .andExpect(content().json(gson.toJson(course.getHiredTas())));
+    }
+
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void getTaSetCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+        String expect = notFoundException + courseId;
+
+        this.mockMvc.perform(get("/courses/tas?courseId=" + courseId)
+                .header("netId", lecturer1))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+    }
+
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void getTaSetInvalidLecturer() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(course);
+
+        String lecturerFraud = "fraudLecturer";
+        String expect = "Lecturer not a staff of this course";
+
+        this.mockMvc.perform(get("/courses/tas?courseId=" + courseId)
+                .header("netId", lecturerFraud))
+                .andExpect(status().isForbidden())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof InvalidLecturerException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
     }
 
     @Test
@@ -414,9 +679,11 @@ class CourseControllerTest {
 
         float hours = 1.F;
 
-        this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                        + "&studentId=student1&lecturerId=lecturer1&hours=" + hours))
-                .andExpect(status().isOk());
+        this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
+                        + "&studentId=student1&hours=" + hours)
+                        .header("netId", lecturer1))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
 
         verify(communicationService, times(1)).createManagement(courseId, student1, hours);
         verify(courseService, times(1)).save(any(Course.class));
@@ -427,18 +694,38 @@ class CourseControllerTest {
     }
 
     @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void hireTaCourseNotFound() throws Exception {
+        when(courseService.findByCourseId(courseId)).thenReturn(null);
+        String expect = notFoundException + courseId;
+        this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
+                + "&studentId=student1&hours=1")
+                .header("netId", lecturer1))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof CourseNotFoundException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+    }
+
+    @Test
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void hireTaInvalidLecturer() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
         float hours = 1.F;
 
-        Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student1&lecturerId=lecturerFraud&hours=" + hours));
-        });
-
         String expect = "Lecturer not a staff of this course";
-        assertTrue(exception.getMessage().contains(expect));
+
+        this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
+                + "&studentId=student1&hours=" + hours)
+                .header("netId", "lecturerFraud"))
+                .andExpect(status().isForbidden())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof InvalidLecturerException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
+
 
         verify(communicationService, never()).createManagement(any(String.class),
                 any(String.class), any(Float.class));
@@ -446,18 +733,21 @@ class CourseControllerTest {
     }
 
     @Test
-    void hireTaInvalidStudentAlreadyHired() {
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void hireTaInvalidStudentAlreadyHired() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
         float hours = 1.F;
-
-        Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student2&lecturerId=lecturer1&hours=" + hours));
-        });
-
         String expect = "Student already hired";
-        assertTrue(exception.getMessage().contains(expect));
+
+        this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
+                + "&studentId=student2&hours=" + hours)
+                .header("netId", lecturer1))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof InvalidHiringException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
 
         verify(communicationService, never()).createManagement(any(String.class),
                 any(String.class), any(Float.class));
@@ -465,18 +755,21 @@ class CourseControllerTest {
     }
 
     @Test
-    void hireTaInvalidStudentNotInCourse() {
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
+    void hireTaInvalidStudentNotInCourse() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
         float hours = 1.F;
-
-        Exception exception = assertThrows(NestedServletException.class, () -> {
-            this.mockMvc.perform(post("/courses/hireTa?courseId=" + courseId
-                    + "&studentId=student3&lecturerId=lecturer1&hours=" + hours));
-        });
-
         String expect = "Student not in course";
-        assertTrue(exception.getMessage().contains(expect));
+
+        this.mockMvc.perform(put("/courses/hireTa?courseId=" + courseId
+                + "&studentId=student3&hours=" + hours)
+                .header("netId", lecturer1))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(
+                        result.getResolvedException() instanceof InvalidHiringException))
+                .andExpect(result -> assertEquals(
+                        expect, result.getResolvedException().getMessage()));
 
         verify(communicationService, never()).createManagement(any(String.class),
                 any(String.class), any(Float.class));

@@ -1,11 +1,15 @@
 package course.services;
 
 
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import course.entities.Management;
 import course.entities.Student;
+import course.exceptions.FailedContractCreationException;
+import course.exceptions.FailedGetHoursException;
+import course.exceptions.FailedGetStudentListException;
+import course.exceptions.FailedGetStudentRatingsException;
+import course.exceptions.FailedUpdateStudentEmploymentException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -19,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommunicationService {
 
-    private static final HttpClient client = HttpClient.newBuilder().build();
+    private static HttpClient client = HttpClient.newBuilder().build();
 
     private static final Gson gson = new GsonBuilder().create();
 
@@ -33,6 +37,14 @@ public class CommunicationService {
 
     public CommunicationService() {
 
+    }
+
+    public static void setClient(HttpClient client) {
+        CommunicationService.client = client;
+    }
+
+    public static HttpClient getClient() {
+        return client;
     }
 
     /**
@@ -49,45 +61,24 @@ public class CommunicationService {
 
         for (Student s : candidateTas) {
             HttpRequest request = HttpRequest.newBuilder().GET()
-                    .uri(URI.create(managementService + "/get?courseId="
-                            + courseId + "&studentId" + s.getNetId()))
-                    .build();
+                    .uri(URI.create(managementService + "/getAverageRating?"
+                            + "studentId=" + s.getNetId())).build();
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
-                e.printStackTrace();
-                return studentRatingMap;
+                throw new FailedGetStudentRatingsException(
+                        "Failed to get " + s.getNetId() + " ratings");
             }
-
 
             if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
-            System.out.println(response.body());
             float rating;
-            rating = gson.fromJson(response.body(), Management.class).getRating();
+            rating = gson.fromJson(response.body(), Float.class);
             studentRatingMap.put(s, rating);
         }
 
         return studentRatingMap;
-    }
-
-    /**
-     * process send and receive of HTTP request and response body.
-     *
-     * @param request - HttpRequest body
-     * @return True if response valid (200OK), false otherwise
-     */
-    public HttpResponse<String> requestSend(HttpRequest request) {
-        try {
-            return client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Communication with server failed");
-            return null; //TODO: proper exception handling
-        }
-
     }
 
     /**
@@ -97,17 +88,21 @@ public class CommunicationService {
      * @param studentId     String studentId
      * @param contractHours float contractHours
      * @return created Management object if successful else null
+     * @throws FailedContractCreationException if request to Management microservice fails
      */
+    @SuppressWarnings("PMD")
     public Management createManagement(String courseId, String studentId, float contractHours) {
 
         HttpRequest request = HttpRequest.newBuilder().POST(HttpRequest.BodyPublishers.noBody())
                 .uri(URI.create(managementService + "/create?courseId=" + courseId + "&studentId="
                         + studentId + "&amountOfHours=" + contractHours)).build();
 
-        HttpResponse<String> response = requestSend(request);
-
-        if (response == null) {
-            return null;
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            throw new FailedContractCreationException("Could not create " + courseId
+                    + " TA Work Contract for " + studentId);
         }
 
         return gson.fromJson(response.body(), Management.class);
@@ -131,14 +126,12 @@ public class CommunicationService {
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
-                e.printStackTrace();
-                return students;
+                throw new FailedGetStudentListException("Failed to get student " + studentId);
             }
 
             if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
-            System.out.println(response.body());
             students.add(gson.fromJson(response.body(), Student.class));
         }
         return students;
@@ -164,16 +157,38 @@ public class CommunicationService {
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
-                e.printStackTrace();
-                return hourSet;
+                throw new FailedGetHoursException("Failed to get worked hours for student " + ta);
             }
 
             if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
-            System.out.println(response.body());
             hourSet.add(gson.fromJson(response.body(), Float.class));
         }
         return hourSet;
+    }
+
+    /**
+     * Update Student microservice on employment of student.
+     *
+     * @param studentId String student netId
+     * @param courseId  String courseId
+     * @return true is update successful
+     * @throws FailedUpdateStudentEmploymentException if updating Student microservice fails
+     */
+    @SuppressWarnings("PMD")
+    public boolean updateStudentEmployment(String studentId, String courseId) {
+        HttpRequest request = HttpRequest.newBuilder().PUT(HttpRequest.BodyPublishers.noBody())
+                .uri(URI.create(studentService + "/accept?netId=" + studentId
+                        + "&courseId=" + courseId)).build();
+
+        HttpResponse<String> response;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            throw new FailedUpdateStudentEmploymentException(studentId);
+        }
+
+        return true;
     }
 }

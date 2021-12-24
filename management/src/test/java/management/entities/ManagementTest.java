@@ -101,7 +101,7 @@ public class ManagementTest {
 
     @Test
     void getRating() {
-        assertEquals(0, management.getRating());
+        assertEquals(-1, management.getRating());
     }
 
     @Test
