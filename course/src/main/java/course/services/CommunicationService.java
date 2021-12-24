@@ -73,7 +73,6 @@ public class CommunicationService {
             if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
-            System.out.println(response.body());
             float rating;
             rating = gson.fromJson(response.body(), Float.class);
             studentRatingMap.put(s, rating);
@@ -133,7 +132,6 @@ public class CommunicationService {
             if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
-            System.out.println(response.body());
             students.add(gson.fromJson(response.body(), Student.class));
         }
         return students;
@@ -165,7 +163,6 @@ public class CommunicationService {
             if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
-            System.out.println(response.body());
             hourSet.add(gson.fromJson(response.body(), Float.class));
         }
         return hourSet;
@@ -182,7 +179,7 @@ public class CommunicationService {
     @SuppressWarnings("PMD")
     public boolean updateStudentEmployment(String studentId, String courseId) {
         HttpRequest request = HttpRequest.newBuilder().PUT(HttpRequest.BodyPublishers.noBody())
-                .uri(URI.create(studentService + "/apply?netId=" + studentId
+                .uri(URI.create(studentService + "/accept?netId=" + studentId
                         + "&courseId=" + courseId)).build();
 
         HttpResponse<String> response;
