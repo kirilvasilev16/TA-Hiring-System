@@ -245,6 +245,61 @@ class ManagementServiceTest {
                         studentId, -10))));
     }
 
+    @Test
+    void disapproveHoursValid() {
+        management2.setDeclaredHours(20);
+        managementService.disapproveHours(List.of(new Hours(courseId, studentId, 5)));
+
+        Mockito.verify(managementRepository)
+                .getManagementByCourseAndStudent(courseId, studentId);
+        Mockito.verify(managementRepository).updateDeclaredHours(2, 15);
+
+        assertEquals(0, management2.getApprovedHours());
+        assertEquals(15, management2.getDeclaredHours());
+    }
+
+    @Test
+    void disapproveHoursZeroValid() {
+        managementService.disapproveHours(List.of(new Hours(courseId, studentId, 0)));
+
+        Mockito.verify(managementRepository)
+                .getManagementByCourseAndStudent(courseId, studentId);
+        Mockito.verify(managementRepository).updateDeclaredHours(2, 0);
+
+        assertEquals(0, management2.getApprovedHours());
+    }
+
+    @Test
+    void disapproveHoursMultipleValid() {
+        management2.setDeclaredHours(60);
+        managementService.disapproveHours(List.of(new Hours(courseId, studentId, 10),
+                new Hours(courseId, studentId, 50)));
+
+        Mockito.verify(managementRepository, Mockito.times(2))
+                .getManagementByCourseAndStudent(courseId, studentId);
+        Mockito.verify(managementRepository).updateDeclaredHours(2, 50);
+        Mockito.verify(managementRepository).updateDeclaredHours(2, 0);
+
+        assertEquals(0, management2.getApprovedHours());
+        assertEquals(0, management2.getDeclaredHours());
+    }
+
+    @Test
+    void disapproveHoursInvalid() {
+        assertThrows(InvalidApprovedHoursException.class,
+                () -> managementService.disapproveHours(List.of(new Hours(courseId,
+                        studentId, 1000))));
+
+        Mockito.verify(managementRepository)
+                .getManagementByCourseAndStudent(courseId, studentId);
+    }
+
+    @Test
+    void disapproveHoursInvalidNegative() {
+        assertThrows(InvalidApprovedHoursException.class,
+                () -> managementService.disapproveHours(List.of(new Hours(courseId,
+                        studentId, -10))));
+    }
 
     @Test
     void rateStudentValid() {
