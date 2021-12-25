@@ -21,6 +21,9 @@ public class Hours {
         this.amountOfHours = hours;
     }
 
+    public Hours() {
+    }
+
     public String getStudentId() {
         return studentId;
     }

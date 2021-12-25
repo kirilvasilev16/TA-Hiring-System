@@ -296,7 +296,7 @@ public class LecturerServiceTest {
                 HttpMethod.POST,
                 new HttpEntity<>(s), new ParameterizedTypeReference<List<Student>>() {}))
                 .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.BAD_REQUEST));
-        assertThrows(InternalError.class,
+        assertThrows(RetrieveInfoException.class,
                 () -> lecturerService.getRecommendation("1", "CSE", "ss"));
     }
 
@@ -307,5 +307,17 @@ public class LecturerServiceTest {
                 Course.class))
                 .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
         assertEquals(1, lecturerService.getNumberOfNeededTas("1", "CSE"));
+    }
+
+    @Test
+    void approveHoursExc() {
+        assertThrows(EntityNotFoundException.class,
+                () -> lecturerService.approveHours("1", new ArrayList<>()));
+    }
+
+    @Test
+    void disapproveHoursExc() {
+        assertThrows(EntityNotFoundException.class,
+                () -> lecturerService.disapproveHours("1", new ArrayList<>()));
     }
 }
