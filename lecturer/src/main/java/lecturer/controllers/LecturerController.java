@@ -117,6 +117,12 @@ public class LecturerController {
         lecturerService.approveHours(netId, contract);
     }
 
+    @PostMapping("/disapproveHours")
+    public void disapprove(@RequestHeader("netId") String netId,
+                             @RequestBody List<Hours> contract) {
+        lecturerService.disapproveHours(netId, contract);
+    }
+
     //tested
     @GetMapping("/rateTa")
     public void rateTa(@RequestHeader("netId") String netId,
@@ -124,5 +130,12 @@ public class LecturerController {
                         @PathParam("studentId") String studentId,
                        @PathParam("rating") float rating) {
         lecturerService.rateTa(netId, courseId, studentId, rating);
+    }
+
+    @GetMapping("/view")
+    public Student viewStudent(@RequestHeader("netId") String netId,
+                               @PathParam("courseId") String courseId,
+                               @PathParam("studentId") String studentId) {
+        return lecturerService.viewStudent(netId, courseId, studentId);
     }
 }

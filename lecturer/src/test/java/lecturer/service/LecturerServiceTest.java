@@ -15,8 +15,9 @@ import javax.persistence.EntityNotFoundException;
 import lecturer.entities.Course;
 import lecturer.entities.Lecturer;
 import lecturer.entities.Student;
-import lecturer.exceptions.CourseNotFoundException;
 import lecturer.exceptions.LecturerNotFoundException;
+import lecturer.exceptions.OwnNoPermissionException;
+import lecturer.exceptions.RetrieveInfoException;
 import lecturer.repositories.LecturerRepository;
 import lecturer.services.LecturerService;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +32,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -114,7 +114,7 @@ public class LecturerServiceTest {
     void getSpecificNullCourse() {
         Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=CSE", Course.class))
                 .thenReturn(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-        assertThrows(CourseNotFoundException.class,
+        assertThrows(RetrieveInfoException.class,
                 () -> lecturerService.getSpecificCourseOfLecturer("1", "CSE"));
     }
 
@@ -122,7 +122,7 @@ public class LecturerServiceTest {
     void getSpecificNotContainedCourse() {
         Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=11", Course.class))
                 .thenReturn(new ResponseEntity<>(HttpStatus.OK));
-        assertThrows(CourseNotFoundException.class,
+        assertThrows(OwnNoPermissionException.class,
                 () -> lecturerService.getSpecificCourseOfLecturer("1", "11"));
     }
 
@@ -175,7 +175,8 @@ public class LecturerServiceTest {
                 .thenReturn(new ResponseEntity<Course>(course, HttpStatus.OK));
         Mockito.when(restTemplate.getForEntity(any(String.class), eq(Float.class)))
                 .thenReturn(null);
-        assertEquals(0, lecturerService.getAverage("1", "CSE2215", "akalandadze"));
+        assertThrows(RetrieveInfoException.class,
+                () -> lecturerService.getAverage("1", "CSE2215", "akalandadze"));
     }
 
     @Test
@@ -208,7 +209,7 @@ public class LecturerServiceTest {
         Mockito.when(restTemplate.exchange(
                 any(String.class),
                 eq(HttpMethod.PUT), eq(entity), eq(Boolean.class))).thenReturn(null);
-        assertThrows(CourseNotFoundException.class,
+        assertThrows(RetrieveInfoException.class,
                 () -> lecturerService.chooseTa("1", "CSE2215", "akalandadze", 20));
     }
 
@@ -268,7 +269,7 @@ public class LecturerServiceTest {
                 .thenReturn(new ResponseEntity<>(s, HttpStatus.OK));
         Mockito.when(restTemplate.exchange("http://localhost:8083/student/getMultiple", HttpMethod.GET, new HttpEntity<>(s), new ParameterizedTypeReference<List<Student>>() {}))
                 .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.OK));
-        assertThrows(CourseNotFoundException.class,
+        assertThrows(OwnNoPermissionException.class,
                 () -> lecturerService.getRecommendation("1", "4", "ss"));
     }
 

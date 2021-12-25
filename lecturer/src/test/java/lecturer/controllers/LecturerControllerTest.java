@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lecturer.entities.Course;
+import lecturer.entities.Hours;
 import lecturer.entities.Lecturer;
 import lecturer.entities.Student;
 import lecturer.services.LecturerService;
@@ -23,6 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
@@ -38,6 +40,7 @@ import org.springframework.test.web.servlet.MockMvc;
 public class LecturerControllerTest {
     @Autowired
     private transient MockMvc mockMvc;
+    @Autowired
     private transient LecturerController lecturerController;
     @MockBean
     private transient LecturerService lecturerService;
@@ -168,4 +171,16 @@ public class LecturerControllerTest {
                 .header("netId", "1"))
                 .andExpect(status().isOk());
     }
+
+    //    @Test
+    //    void approveHours() throws Exception {
+    //        List<Hours> hours = new ArrayList<>();
+    //        hours.add(new Hours("1", "1", 1.0f));
+    //        doNothing().when(lecturerService).approveHours("1", hours);
+    //        this.mockMvc.perform(post("/lecturer/approveHours")
+    //                .header("netId", "1")
+    //                .content(objectMapper.writeValueAsString(hours))
+    //                .accept(MediaType.APPLICATION_JSON))
+    //                .andExpect(status().isOk());
+    //    }
 }

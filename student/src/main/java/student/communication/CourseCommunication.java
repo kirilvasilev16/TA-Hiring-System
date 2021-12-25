@@ -51,7 +51,7 @@ public class CourseCommunication {
     }
 
     /**
-     * Sends a request to Course microservice for removing a student as ta candidate
+     * Sends a request to Course microservice for removing a student as ta candidate.
      *
      * @param netId    the net id
      * @param courseId the course id
