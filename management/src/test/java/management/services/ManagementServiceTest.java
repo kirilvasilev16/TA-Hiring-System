@@ -11,6 +11,7 @@ import management.entities.Hours;
 import management.entities.Management;
 import management.exceptions.InvalidApprovedHoursException;
 import management.exceptions.InvalidContractHoursException;
+import management.exceptions.InvalidDisapprovedHoursException;
 import management.exceptions.InvalidIdException;
 import management.exceptions.InvalidRatingException;
 import management.repositories.ManagementRepository;
@@ -286,7 +287,7 @@ class ManagementServiceTest {
 
     @Test
     void disapproveHoursInvalid() {
-        assertThrows(InvalidApprovedHoursException.class,
+        assertThrows(InvalidDisapprovedHoursException.class,
                 () -> managementService.disapproveHours(List.of(new Hours(courseId,
                         studentId, 1000))));
 
@@ -296,7 +297,7 @@ class ManagementServiceTest {
 
     @Test
     void disapproveHoursInvalidNegative() {
-        assertThrows(InvalidApprovedHoursException.class,
+        assertThrows(InvalidDisapprovedHoursException.class,
                 () -> managementService.disapproveHours(List.of(new Hours(courseId,
                         studentId, -10))));
     }
