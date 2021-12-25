@@ -25,7 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 /**
  * Suppress is used here to avoid mistake "duplicate netId" and "duplicate CSE2215".
@@ -59,7 +61,6 @@ public class LecturerControllerTest {
         lecturer2 = new Lecturer("2", "name", "email", new ArrayList<>());
         lecturers.add(lecturer1);
         lecturers.add(lecturer2);
-
     }
 
     @Test
@@ -176,11 +177,22 @@ public class LecturerControllerTest {
     //    void approveHours() throws Exception {
     //        List<Hours> hours = new ArrayList<>();
     //        hours.add(new Hours("1", "1", 1.0f));
-    //        doNothing().when(lecturerService).approveHours("1", hours);
+    //        //doNothing().when(lecturerService).approveHours("1", hours);
     //        this.mockMvc.perform(post("/lecturer/approveHours")
     //                .header("netId", "1")
     //                .content(objectMapper.writeValueAsString(hours))
     //                .accept(MediaType.APPLICATION_JSON))
     //                .andExpect(status().isOk());
     //    }
+
+    @Test
+    void view() throws Exception {
+        Student student = new Student("1");
+        when(lecturerService.viewStudent("1", "1", "1"))
+                .thenReturn(student);
+        this.mockMvc.perform(get("/lecturer/view?courseId=1&studentId=1")
+                .header("netId", "1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(student)));
+    }
 }
