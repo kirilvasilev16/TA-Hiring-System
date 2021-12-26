@@ -434,6 +434,18 @@ public class LecturerServiceTest {
     }
 
     @Test
+    void viewNotContaining() {
+        Course c  = new Course();
+        c.setCourseId("CSE");
+        c.setHiredTas(Set.of());
+        c.setCandidateTas(Set.of());
+        Mockito.when(restTemplate.getForEntity(any(String.class),
+                eq(Course.class))).thenReturn(new ResponseEntity<>(c, HttpStatus.OK));
+        assertThrows(OwnNoPermissionException.class,
+                () -> lecturerService.viewStudent("1", "CSE", "akalandadze"));
+    }
+
+    @Test
     void approveNormal() {
         List<Hours> hours = new ArrayList<>();
         hours.add(new Hours("CSE", "akalandadze", 10f));
