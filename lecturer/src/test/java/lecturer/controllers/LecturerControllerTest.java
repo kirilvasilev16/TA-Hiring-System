@@ -169,7 +169,7 @@ public class LecturerControllerTest {
 
     @Test
     void rateTa() throws Exception {
-        doNothing().when(lecturerService).rateTa("1", "CSE2215", "st", 10f);
+        when(lecturerService.rateTa("1", "CSE2215", "st", 10f)).thenReturn(true);
         this.mockMvc.perform(get("/lecturer/rateTa?courseId=CSE2215&studentId=st&rating=10")
                 .header("netId", "1"))
                 .andExpect(status().isOk());
@@ -179,7 +179,7 @@ public class LecturerControllerTest {
     void approveHours() throws Exception {
         List<Hours> hours = new ArrayList<>();
         hours.add(new Hours("1", "1", 1.0f));
-        doNothing().when(lecturerService).approveHours("1", hours);
+        when(lecturerService.approveHours("1", hours)).thenReturn(true);
         this.mockMvc.perform(post("/lecturer/approveHours")
                 .header("netId", "1")
                 .contentType(APPLICATION_JSON)
@@ -192,7 +192,7 @@ public class LecturerControllerTest {
     void disapproveHours() throws Exception {
         List<Hours> hours = new ArrayList<>();
         hours.add(new Hours("1", "1", 1.0f));
-        doNothing().when(lecturerService).disapproveHours("1", hours);
+        when(lecturerService.disapproveHours("1", hours)).thenReturn(true);
         this.mockMvc.perform(post("/lecturer/disapproveHours")
                 .header("netId", "1")
                 .contentType(APPLICATION_JSON)

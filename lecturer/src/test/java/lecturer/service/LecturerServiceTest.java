@@ -1,6 +1,7 @@
 package lecturer.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 import javax.persistence.EntityNotFoundException;
 import lecturer.entities.Course;
+import lecturer.entities.Hours;
 import lecturer.entities.Lecturer;
 import lecturer.entities.Student;
 import lecturer.exceptions.LecturerNotFoundException;
@@ -74,7 +76,6 @@ public class LecturerServiceTest {
                 .thenReturn(java.util.Optional.ofNullable(lecturer1));
         Mockito.when(lecturerRepository.findLecturerByLecturerId("2"))
                 .thenReturn(java.util.Optional.ofNullable(lecturer2));
-        Mockito.when(lecturerRepository.findLecturerByLecturerId("3")).thenReturn(Optional.empty());
 
         Mockito.when(lecturerRepository.save(lecturer1))
                 .thenReturn(lecturer1);
@@ -93,6 +94,7 @@ public class LecturerServiceTest {
 
     @Test
     void findByIdNullable() {
+        Mockito.when(lecturerRepository.findLecturerByLecturerId("3")).thenReturn(Optional.empty());
         assertThrows(LecturerNotFoundException.class, () -> lecturerService.findLecturerById("3"));
     }
 
@@ -102,16 +104,25 @@ public class LecturerServiceTest {
     }
 
     @Test
+    void verifyForLecturerException() {
+        assertThrows(OwnNoPermissionException.class,
+                () -> lecturerService.verifyThatApplicableCourse("1", "1"));
+    }
+
+    @Test
     void getSpecificCourse() {
         Course courseEntity = new Course("CSE", new HashSet<>(), 0);
         Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=" + courseEntity.getCourseId(), Course.class))
                 .thenReturn(new ResponseEntity<>(courseEntity, HttpStatus.OK));
         Course c = lecturerService.getSpecificCourseOfLecturer("1", course);
         assertEquals("CSE", c.getCourseId());
+        assertEquals(0, c.getCandidateTas().size());
+        assertEquals(0, c.getCourseSize());
+        assertNull(c.getHiredTas());
     }
 
     @Test
-    void getSpecificNullCourse() {
+    void getSpecificBadRequestCourse() {
         Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=CSE", Course.class))
                 .thenReturn(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         assertThrows(RetrieveInfoException.class,
@@ -119,9 +130,15 @@ public class LecturerServiceTest {
     }
 
     @Test
+    void getSpecificNullCourse() {
+        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=CSE", Course.class))
+                .thenReturn(null);
+        assertThrows(RetrieveInfoException.class,
+                () -> lecturerService.getSpecificCourseOfLecturer("1", "CSE"));
+    }
+
+    @Test
     void getSpecificNotContainedCourse() {
-        Mockito.when(restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=11", Course.class))
-                .thenReturn(new ResponseEntity<>(HttpStatus.OK));
         assertThrows(OwnNoPermissionException.class,
                 () -> lecturerService.getSpecificCourseOfLecturer("1", "11"));
     }
@@ -181,11 +198,6 @@ public class LecturerServiceTest {
 
     @Test
     void chooseTa() {
-        Set<String> candidateTas = new HashSet<>();
-        candidateTas.add("akalandadze");
-        Course course = new Course("CSE2215", candidateTas, 500);
-        courses.add(course.getCourseId());
-        lecturer1.setCourses(courses);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("netId", "1");
         HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
@@ -193,16 +205,11 @@ public class LecturerServiceTest {
                 any(String.class),
                 eq(HttpMethod.PUT), eq(entity), eq(Boolean.class)))
                 .thenReturn(new ResponseEntity<Boolean>(true, HttpStatus.OK));
-        assertTrue(lecturerService.chooseTa("1", "CSE2215", "akalandadze", 20));
+        assertTrue(lecturerService.chooseTa("1", "CSE", "akalandadze", 20));
     }
 
     @Test
     void chooseTaNull() {
-        Set<String> candidateTas = new HashSet<>();
-        candidateTas.add("akalandadze");
-        Course course = new Course("CSE2215", candidateTas, 500);
-        courses.add(course.getCourseId());
-        lecturer1.setCourses(courses);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("netId", "1");
         HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
@@ -210,9 +217,21 @@ public class LecturerServiceTest {
                 any(String.class),
                 eq(HttpMethod.PUT), eq(entity), eq(Boolean.class))).thenReturn(null);
         assertThrows(RetrieveInfoException.class,
-                () -> lecturerService.chooseTa("1", "CSE2215", "akalandadze", 20));
+                () -> lecturerService.chooseTa("1", "CSE", "akalandadze", 20));
     }
 
+    @Test
+    void chooseTaBadRequest() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("netId", "1");
+        HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
+        Mockito.when(restTemplate.exchange(
+                any(String.class),
+                eq(HttpMethod.PUT), eq(entity), eq(Boolean.class)))
+                .thenReturn(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        assertThrows(RetrieveInfoException.class,
+                () -> lecturerService.chooseTa("1", "CSE", "akalandadze", 20f));
+    }
 
     @Test
     void computeNotCandidateRating() {
@@ -228,11 +247,6 @@ public class LecturerServiceTest {
 
     @Test
     void getRecommendation() {
-        Set<String> candidateTas = new HashSet<>();
-        candidateTas.add("akalandadze");
-        Course course = new Course("CSE2215", candidateTas, 500);
-        courses.add(course.getCourseId());
-        lecturer1.setCourses(courses);
         List<String> s = new ArrayList<>();
         s.add("akalandadze");
         List<Student> l = new ArrayList<Student>();
@@ -246,56 +260,74 @@ public class LecturerServiceTest {
                 eq(entity),
                 eq(new ParameterizedTypeReference<List<String>>() {})))
                 .thenReturn(new ResponseEntity<>(s, HttpStatus.OK));
-        Mockito.when(restTemplate.exchange("http://localhost:8083/student/getMultiple",
-                HttpMethod.POST,
-                new HttpEntity<>(s),
-                new ParameterizedTypeReference<List<Student>>() {}))
-                .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.OK));
+        Mockito.when(restTemplate.exchange(any(String.class),
+                eq(HttpMethod.POST),
+                eq(new HttpEntity<>(s)),
+                eq(new ParameterizedTypeReference<List<Student>>() {})))
+                .thenReturn(new ResponseEntity<>(l, HttpStatus.OK));
         assertEquals(l, lecturerService.getRecommendation("1", "CSE", "ss"));
     }
 
     @Test
     void getNonExistingRecommendation() {
-        Set<String> candidateTas = new HashSet<>();
-        candidateTas.add("akalandadze");
-        Course course = new Course("CSE2215", candidateTas, 500);
-        courses.add(course.getCourseId());
-        lecturer1.setCourses(courses);
-        List<String> s = new ArrayList<>();
-        s.add("1");
-        List<Student> l = new ArrayList<Student>();
-        l.add(new Student("1"));
-        Mockito.when(restTemplate.exchange("http://localhost:8082/courses/taRecommendations?courseId=CSE&strategy=rating", HttpMethod.GET, null, new ParameterizedTypeReference<List<String>>() {}))
-                .thenReturn(new ResponseEntity<>(s, HttpStatus.OK));
-        Mockito.when(restTemplate.exchange("http://localhost:8083/student/getMultiple", HttpMethod.GET, new HttpEntity<>(s), new ParameterizedTypeReference<List<Student>>() {}))
-                .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.OK));
         assertThrows(OwnNoPermissionException.class,
                 () -> lecturerService.getRecommendation("1", "4", "ss"));
     }
 
     @Test
-    void invalidRequestRecommendation() {
-        Set<String> candidateTas = new HashSet<>();
-        candidateTas.add("akalandadze");
-        Course course = new Course("CSE2215", candidateTas, 500);
-        courses.add(course.getCourseId());
-        lecturer1.setCourses(courses);
-        List<String> s = new ArrayList<>();
-        s.add("akalandadze");
-        List<Student> l = new ArrayList<Student>();
-        l.add(new Student("akalandadze"));
+    void invalidOneRequestRecommendation() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("netId", "1");
         HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
-        Mockito.when(restTemplate.getForEntity(any(String.class), eq(Course.class)))
-                .thenReturn(new ResponseEntity<Course>(course, HttpStatus.OK));
         Mockito.when(restTemplate.exchange(any(String.class), eq(HttpMethod.GET), eq(entity),
                 eq(new ParameterizedTypeReference<List<String>>() {})))
-                .thenReturn(new ResponseEntity<>(s, HttpStatus.OK));
-        Mockito.when(restTemplate.exchange("http://localhost:8083/student/getMultiple",
-                HttpMethod.POST,
-                new HttpEntity<>(s), new ParameterizedTypeReference<List<Student>>() {}))
-                .thenReturn(new ResponseEntity<List<Student>>(l, HttpStatus.BAD_REQUEST));
+                .thenReturn(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        assertThrows(RetrieveInfoException.class,
+                () -> lecturerService.getRecommendation("1", "CSE", "ss"));
+    }
+
+    @Test
+    void nullOneRecommendation() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("netId", "1");
+        HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
+        Mockito.when(restTemplate.exchange(any(String.class), eq(HttpMethod.GET), eq(entity),
+                eq(new ParameterizedTypeReference<List<String>>() {})))
+                .thenReturn(null);
+        assertThrows(RetrieveInfoException.class,
+                () -> lecturerService.getRecommendation("1", "CSE", "ss"));
+    }
+
+    @Test
+    void nullTwoRecommendation() {
+        List<String> candidates = List.of("akalandadze");
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("netId", "1");
+        HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
+        Mockito.when(restTemplate.exchange(any(String.class), eq(HttpMethod.GET), eq(entity),
+                eq(new ParameterizedTypeReference<List<String>>() {})))
+                .thenReturn(new ResponseEntity<>(candidates, HttpStatus.OK));
+        Mockito.when(restTemplate.exchange(any(String.class), eq(HttpMethod.POST),
+                eq(new HttpEntity<>(candidates)),
+                eq(new ParameterizedTypeReference<List<Student>>() {})))
+                .thenReturn(null);
+        assertThrows(RetrieveInfoException.class,
+                () -> lecturerService.getRecommendation("1", "CSE", "ss"));
+    }
+
+    @Test
+    void badRequestTwoRecommendation() {
+        List<String> candidates = List.of("akalandadze");
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("netId", "1");
+        HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
+        Mockito.when(restTemplate.exchange(any(String.class), eq(HttpMethod.GET), eq(entity),
+                eq(new ParameterizedTypeReference<List<String>>() {})))
+                .thenReturn(new ResponseEntity<>(candidates, HttpStatus.OK));
+        Mockito.when(restTemplate.exchange(any(String.class),
+                eq(HttpMethod.POST), eq(new HttpEntity<>(candidates)),
+                eq(new ParameterizedTypeReference<List<Student>>() {})))
+                .thenReturn(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         assertThrows(RetrieveInfoException.class,
                 () -> lecturerService.getRecommendation("1", "CSE", "ss"));
     }
@@ -319,5 +351,126 @@ public class LecturerServiceTest {
     void disapproveHoursExc() {
         assertThrows(EntityNotFoundException.class,
                 () -> lecturerService.disapproveHours("1", new ArrayList<>()));
+    }
+
+    @Test
+    void rateNotApplicableTa() {
+        Course c  = new Course();
+        c.setCourseId("CSE");
+        c.setHiredTas(new HashSet<>());
+        Mockito.when(restTemplate.getForEntity(any(String.class),
+                eq(Course.class))).thenReturn(new ResponseEntity<>(c, HttpStatus.OK));
+        assertThrows(OwnNoPermissionException.class,
+                () -> lecturerService.rateTa("1", "CSE", "akalandadze", 10f));
+    }
+
+    @Test
+    void rateTa() {
+        Course c  = new Course();
+        c.setCourseId("CSE");
+        c.setHiredTas(Set.of("akalandadze"));
+        Mockito.when(restTemplate.getForEntity(any(String.class),
+                eq(Course.class))).thenReturn(new ResponseEntity<>(c, HttpStatus.OK));
+        Mockito.when(restTemplate.exchange(any(String.class),
+                eq(HttpMethod.PUT), eq(null), eq(Void.class)))
+                .thenReturn(new ResponseEntity<>(HttpStatus.OK));
+        assertTrue(lecturerService.rateTa("1", "CSE", "akalandadze", 10f));
+    }
+
+    @Test
+    void rateBadRequestTa() {
+        Course c  = new Course();
+        c.setCourseId("CSE");
+        c.setHiredTas(Set.of("akalandadze"));
+        Mockito.when(restTemplate.getForEntity(any(String.class),
+                eq(Course.class))).thenReturn(new ResponseEntity<>(c, HttpStatus.OK));
+        Mockito.when(restTemplate.exchange(any(String.class),
+                eq(HttpMethod.PUT), eq(null),
+                eq(Void.class))).thenReturn(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        assertThrows(RetrieveInfoException.class,
+                () -> lecturerService.rateTa("1", "CSE", "akalandadze", 10f));
+    }
+
+    @Test
+    void viewStudentInHired() {
+        Course c  = new Course();
+        c.setCourseId("CSE");
+        c.setHiredTas(Set.of("akalandadze"));
+        Student st = new Student("akalandadze");
+        Mockito.when(restTemplate.getForEntity(any(String.class),
+                eq(Course.class))).thenReturn(new ResponseEntity<>(c, HttpStatus.OK));
+        Mockito.when(restTemplate.getForEntity(any(String.class), eq(Student.class)))
+                .thenReturn(new ResponseEntity<>(st, HttpStatus.OK));
+        assertEquals(st, lecturerService.viewStudent("1", "CSE", "akalandadze"));
+    }
+
+    @Test
+    void viewStudentInCandidates() {
+        Course c  = new Course();
+        c.setCourseId("CSE");
+        c.setHiredTas(Set.of());
+        c.setCandidateTas(Set.of("akalandadze"));
+        Student st = new Student("akalandadze");
+        Mockito.when(restTemplate.getForEntity(any(String.class),
+                eq(Course.class))).thenReturn(new ResponseEntity<>(c, HttpStatus.OK));
+        Mockito.when(restTemplate.getForEntity(any(String.class), eq(Student.class)))
+                .thenReturn(new ResponseEntity<>(st, HttpStatus.OK));
+        assertEquals(st, lecturerService.viewStudent("1", "CSE", "akalandadze"));
+    }
+
+    @Test
+    void viewStudentBadRequest() {
+        Course c  = new Course();
+        c.setCourseId("CSE");
+        c.setHiredTas(Set.of());
+        c.setCandidateTas(Set.of("akalandadze"));
+        Student st = new Student("akalandadze");
+        Mockito.when(restTemplate.getForEntity(any(String.class),
+                eq(Course.class))).thenReturn(new ResponseEntity<>(c, HttpStatus.OK));
+        Mockito.when(restTemplate.getForEntity(any(String.class), eq(Student.class)))
+                .thenReturn(new ResponseEntity<>(st, HttpStatus.BAD_REQUEST));
+        assertThrows(RetrieveInfoException.class,
+                () -> lecturerService.viewStudent("1", "CSE", "akalandadze"));
+    }
+
+    @Test
+    void approveNormal() {
+        List<Hours> hours = new ArrayList<>();
+        hours.add(new Hours("CSE", "akalandadze", 10f));
+        Mockito.when(restTemplate.exchange(any(String.class), eq(HttpMethod.PUT),
+                eq(new HttpEntity<>(hours)), eq(Void.class)))
+                .thenReturn(new ResponseEntity<>(HttpStatus.OK));
+        assertTrue(lecturerService.approveHours("1", hours));
+    }
+
+    @Test
+    void approveBadRequest() {
+        List<Hours> hours = new ArrayList<>();
+        hours.add(new Hours("CSE", "akalandadze", 10f));
+        Mockito.when(restTemplate.exchange(any(String.class), eq(HttpMethod.PUT),
+                eq(new HttpEntity<>(hours)), eq(Void.class)))
+                .thenReturn(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        assertThrows(RetrieveInfoException.class, () -> lecturerService.approveHours("1", hours));
+    }
+
+    @Test
+    void disapproveNormal() {
+        List<Hours> hours = new ArrayList<>();
+        hours.add(new Hours("CSE", "akalandadze", 10f));
+        Mockito.when(restTemplate.exchange(any(String.class), eq(HttpMethod.PUT),
+                eq(new HttpEntity<>(hours)), eq(Void.class)))
+                .thenReturn(new ResponseEntity<>(HttpStatus.OK));
+        assertTrue(lecturerService.disapproveHours("1", hours));
+    }
+
+    @Test
+    void disapproveBadRequest() {
+        List<Hours> hours = new ArrayList<>();
+        hours.add(new Hours("CSE", "akalandadze", 10f));
+        Mockito.when(restTemplate.exchange(any(String.class), eq(HttpMethod.PUT),
+                eq(new HttpEntity<>(hours)), eq(Void.class)))
+                .thenReturn(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        assertThrows(RetrieveInfoException.class,
+                () -> lecturerService.disapproveHours("1", hours));
     }
 }

@@ -207,13 +207,17 @@ public class LecturerService {
      * @param lecturerId of a lecturer
      * @param hours includes courseId, studentId and hours
      */
-    public void approveHours(String lecturerId, List<Hours> hours) {
+    public boolean approveHours(String lecturerId, List<Hours> hours) {
         if (hours.isEmpty()) {
             throw new EntityNotFoundException();
         }
         this.verifyThatApplicableCourse(lecturerId, hours.get(0).getCourseId());
-        restTemplate.put("http://localhost:8080/management/approveHours",
-                hours);
+        ResponseEntity<Void> re = restTemplate.exchange("http://localhost:8080/management/approveHours",
+                HttpMethod.PUT, new HttpEntity<>(hours), Void.class);
+        if (re.getStatusCode() != HttpStatus.OK) {
+            throw new RetrieveInfoException("The system failed to approve hours.");
+        }
+        return true;
     }
 
     /**
@@ -222,13 +226,17 @@ public class LecturerService {
      * @param lecturerId of a lecturer
      * @param hours includes courseId, studentId and hours
      */
-    public void disapproveHours(String lecturerId, List<Hours> hours) {
+    public boolean disapproveHours(String lecturerId, List<Hours> hours) {
         if (hours.isEmpty()) {
             throw new EntityNotFoundException();
         }
         this.verifyThatApplicableCourse(lecturerId, hours.get(0).getCourseId());
-        restTemplate.put("http://localhost:8080/management/disapproveHours",
-                hours);
+        ResponseEntity<Void> re = restTemplate.exchange("http://localhost:8080/management/disapproveHours",
+                HttpMethod.PUT, new HttpEntity<>(hours), Void.class);
+        if (re.getStatusCode() != HttpStatus.OK) {
+            throw new RetrieveInfoException("The system failed to disapprove hours.");
+        }
+        return true;
     }
 
     /**
@@ -262,7 +270,7 @@ public class LecturerService {
      * @param studentId student id
      * @param rating rating
      */
-    public void rateTa(String netId, String courseId, String studentId, float rating) {
+    public boolean rateTa(String netId, String courseId, String studentId, float rating) {
         verifyThatApplicableCourse(netId, courseId);
         Set<String> ids = this.getSpecificCourseOfLecturer(netId, courseId).getHiredTas();
         if (ids.contains(studentId)) {
@@ -272,6 +280,9 @@ public class LecturerService {
             if (re.getStatusCode() != HttpStatus.OK) {
                 throw new RetrieveInfoException("Your rating could not be saved.");
             }
+            return true;
+        } else {
+            throw new OwnNoPermissionException("You cannot rate this student.");
         }
     }
 

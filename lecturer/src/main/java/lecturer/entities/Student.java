@@ -1,5 +1,7 @@
 package lecturer.entities;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,8 +12,15 @@ public class Student {
     private Set<String> candidateCourses;
     private Set<String> taCourses;
 
+    /**
+     * Basic constructor.
+     * @param id of student
+     */
     public Student(String id) {
         this.netId = id;
+        this.passedCourses = new HashMap<>();
+        this.candidateCourses = new HashSet<>();
+        this.taCourses = new HashSet<>();
     }
 
     public Student() {
