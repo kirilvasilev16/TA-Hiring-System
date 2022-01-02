@@ -6,7 +6,12 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 
 public class ServerCommunication extends authentication.communication.Request {
-    public ServerCommunication() {}
+
+    private transient Request request;
+
+    public ServerCommunication(Request request) {
+        this.request = request;
+    }
 
     /**
      * Retrieves a quote from the server.
@@ -15,17 +20,17 @@ public class ServerCommunication extends authentication.communication.Request {
      * @throws Exception if communication with the server fails.
      */
     public ResponseObj getRequest(String path) throws IOException {
-        ResponseObj response = get("http://localhost:8761" + path);
+        ResponseObj response = request.get("http://localhost:8761" + path);
         return response;
     }
 
     public ResponseObj putRequest(String path, String body) throws IOException {
-        ResponseObj response = put("http://localhost:8761" + path, body);
+        ResponseObj response = request.put("http://localhost:8761" + path, body);
         return response;
     }
 
     public ResponseObj postRequest(String path, String body) throws IOException {
-        ResponseObj response = post("http://localhost:8761" + path, body);
+        ResponseObj response = request.post("http://localhost:8761" + path, body);
         return response;
     }
 }

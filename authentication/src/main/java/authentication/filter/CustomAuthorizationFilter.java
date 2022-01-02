@@ -55,15 +55,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
                     filterChain.doFilter(request, response);
                 } catch (Exception e) {
-                    response.setHeader("error", e.getMessage());
-                    response.setStatus(FORBIDDEN.value());
-
-                    Map<String, String> error = new HashMap<>();
-                    error.put("error_message", e.getMessage());
-                    response.setContentType(APPLICATION_JSON_VALUE);
-                    new ObjectMapper()
-                            .writeValue(response.getOutputStream(),
-                                    error);
+                    errorResponse(response, e);
                 }
             } else {
                 filterChain.doFilter(request, response);
@@ -71,7 +63,32 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         }
     }
 
-    private DecodedJWT getDecodedJwt(String authorizationHeader) {
+    /**
+     * reacts to error when JWT token cannot be created.
+     *
+     * @param response of the server
+     * @param e exception
+     * @throws IOException throw IOException
+     */
+    public void errorResponse(HttpServletResponse response, Exception e) throws IOException {
+        response.setHeader("error", e.getMessage());
+        response.setStatus(FORBIDDEN.value());
+
+        Map<String, String> error = new HashMap<>();
+        error.put("error_message", e.getMessage());
+        response.setContentType(APPLICATION_JSON_VALUE);
+        new ObjectMapper()
+                .writeValue(response.getOutputStream(),
+                        error);
+    }
+
+    /**
+     * get the decoded version of JWT to extract information.
+     *
+     * @param authorizationHeader "Bearer ey..."
+     * @return DecodedJWT object
+     */
+    public DecodedJWT getDecodedJwt(String authorizationHeader) {
         String token =
                 authorizationHeader.substring(
                         "Bearer ".length());
@@ -85,7 +102,12 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         return decodedJwt;
     }
 
-    private void decodeAndCreateAuthToken(DecodedJWT decodedJwt) {
+    /**
+     * sets security context and creates authentication token.
+     *
+     * @param decodedJwt decoded JWT token
+     */
+    public void decodeAndCreateAuthToken(DecodedJWT decodedJwt) {
         String netId = decodedJwt.getSubject();
         String[] roles = decodedJwt.getClaim("roles")
                 .asArray(String.class);

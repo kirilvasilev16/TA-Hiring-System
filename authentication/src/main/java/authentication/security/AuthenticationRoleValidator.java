@@ -39,7 +39,8 @@ public class AuthenticationRoleValidator extends BaseValidator {
                 .antMatchers(POST, "/courses/makeCourse",
                         "/student/add").hasAnyAuthority("ROLE_admin");
         http.authorizeRequests()
-                .antMatchers(PUT, "/courses/updateSize").hasAnyAuthority("ROLE_admin");
+                .antMatchers(PUT, "/courses/updateSize", "lecturer/courses/addCourse")
+                .hasAnyAuthority("ROLE_admin");
         http.authorizeRequests()
                 .antMatchers(GET, "/courses/addLecturer")
                 .hasAnyAuthority("ROLE_admin", "ROLE_lecturer");
