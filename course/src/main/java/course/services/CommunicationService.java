@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 
+@SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+//PMD doesnt recognize try catch protection for HTTPResponse
 @Service
 public class CommunicationService {
 
@@ -64,7 +66,6 @@ public class CommunicationService {
      * @param courseId     the course id
      * @return the ratings
      */
-    @SuppressWarnings("PMD")
     public Map<Student, Float> getRatings(Set<Student> candidateTas, String courseId) {
         Map<Student, Float> studentRatingMap = new HashMap<>();
         HttpResponse<String> response;
@@ -100,7 +101,6 @@ public class CommunicationService {
      * @return created Management object if successful
      * @throws FailedContractCreationException if request to Management microservice fails
      */
-    @SuppressWarnings("PMD")
     public Management createManagement(String courseId, String studentId, float contractHours) {
 
         HttpRequest request = HttpRequest.newBuilder().POST(HttpRequest.BodyPublishers.noBody())
@@ -126,7 +126,6 @@ public class CommunicationService {
      * @return the students set
      * @throws FailedGetStudentListException if communication error with Student microservice
      */
-    @SuppressWarnings("PMD")
     public Set<Student> getStudents(Set<String> candidateTas) {
         Set<Student> students = new HashSet<>();
         for (String studentId : candidateTas) {
@@ -156,7 +155,6 @@ public class CommunicationService {
      * @return the hours set
      * @throws FailedGetHoursException if communication error with Management microservice
      */
-    @SuppressWarnings("PMD")
     public Set<Float> getHoursList(Set<String> hiredTas, String courseId) {
         Set<Float> hourSet = new HashSet<>();
 
@@ -188,7 +186,6 @@ public class CommunicationService {
      * @return true is update successful
      * @throws FailedUpdateStudentEmploymentException if updating Student microservice fails
      */
-    @SuppressWarnings("PMD")
     public boolean updateStudentEmployment(String studentId, String courseId) {
         HttpRequest request = HttpRequest.newBuilder().PUT(HttpRequest.BodyPublishers.noBody())
                 .uri(URI.create(studentService + "/accept?netId=" + studentId

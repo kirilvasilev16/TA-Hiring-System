@@ -111,31 +111,11 @@ public class StudentService {
      * @return list containing student ids in desired order
      * @throws InvalidStrategyException if given strategy invalid
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+    //PMD doesnt recognize null check in getStudents() method for students set
     public static List<String> getTaRecommendationList(Course course,
                                                        String strategy,
                                                        CommunicationService communicationService) {
-        //Make request (POST)
-        /*String idJson = gson.toJson(c.getCandidateTAs());
-
-        HttpRequest request = HttpRequest.newBuilder()
-        .POST(HttpRequest.BodyPublishers.ofString(idJson))
-                .uri(URI.create("http://localhost:8083/student/getstudents"))
-                .build();
-        HttpResponse<String> response = null;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return List.of();
-        }
-
-        if (response.statusCode() != 200) {
-            System.out.println("GET Status: " + response.statusCode());
-        }
-        System.out.println(response.body());
-        Set<Student> students = gson.fromJson(response.body(), new TypeToken<Set<Student>>() {
-        }.getType());*/
 
         Set<Student> students = communicationService.getStudents(course.getCandidateTas());
 
@@ -255,7 +235,8 @@ public class StudentService {
      * @param studentCourses the student courses
      * @throws TooManyCoursesException if student candidate for 3 or more courses
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+    //PMD doesnt null check and replacement to prevent get() returning null later on
     public static void checkQuarterCapacity(Set<Course> studentCourses) {
         Map<String, Integer> coursesPerQuarter = new HashMap<>();
         for (Course current : studentCourses) {

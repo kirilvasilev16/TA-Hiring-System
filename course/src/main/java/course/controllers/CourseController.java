@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals") //for string literals in path param annotations
 @RestController
 @RequestMapping("courses")
 public class CourseController {
@@ -211,7 +211,7 @@ public class CourseController {
      * @throws InvalidCandidateException if student already hired as TA
      * @throws TooManyCoursesException if student is already candidate for 3 courses
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")//PMD not recognising null check before add call
     @PutMapping("addCandidateTa")
     public Boolean addCandidateTa(@PathParam("courseId") String courseId,
                                   @PathParam("studentId") String studentId,
@@ -236,7 +236,6 @@ public class CourseController {
         StudentService.checkQuarterCapacity(courses);
         StudentService.addCandidate(c, studentId, dateService.getTodayDate());
 
-        //courseService.updateCandidateTas(courseId, c.getCandidateTas());
         courseService.save(c);
         return true;
     }
@@ -262,7 +261,6 @@ public class CourseController {
 
         StudentService.removeCandidate(c, studentId);
 
-        //courseService.updateCandidateTas(courseId, c.getCandidateTas());
         courseService.save(c);
     }
 
@@ -310,7 +308,6 @@ public class CourseController {
 
         LecturerService.addLecturer(c, lecturerId);
 
-        //courseService.updateLecturerSet(courseId, c.getLecturerSet());
         courseService.save(c);
         return true;
     }
@@ -397,8 +394,6 @@ public class CourseController {
 
         StudentService.hireTa(c, studentId, hours, communicationService);
 
-        //courseService.updateHireTas(courseId, c.getHiredTas());
-        //courseService.updateCandidateTas(courseId, c.getCandidateTas());
         courseService.save(c);
         return true;
     }
