@@ -52,10 +52,13 @@ public class CourseController {
         this.dateService = dateService;
     }
 
+
     /**
      * Display info about a course.
      *
      * @param courseId The id of the Course
+     * @return Course object of corresponding id
+     * @throws CourseNotFoundException if Course not found
      */
     @GetMapping("get")
     public Course getCourse(@PathParam("courseId") String courseId)
@@ -91,14 +94,15 @@ public class CourseController {
     /**
      * Update specific course student size.
      *
-     * @param courseId   String courseID
-     * @param size Integer course size
+     * @param courseId String courseID
+     * @param size     Integer course size
+     * @return true if updated
      * @throws CourseNotFoundException if course not found
      */
     @PutMapping("updateSize")
     @Transactional
     public Boolean updateCourseSize(@PathParam("courseId") String courseId,
-                                 @PathParam("size") Integer size)
+                                    @PathParam("size") Integer size)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseId(courseId);
 
@@ -153,8 +157,10 @@ public class CourseController {
      *
      * @param courseId courseId
      * @param strategy desired sorting strategy
-     * @param netId netId of lecturer
+     * @param netId    netId of lecturer
      * @return Ordered list of TA's
+     * @throws CourseNotFoundException if Course not found
+     * @throws InvalidLecturerException if lecturer invalid
      */
     @GetMapping("taRecommendations")
     public List<String> getTaRecommendationList(@PathParam("courseId") String courseId,
@@ -178,7 +184,7 @@ public class CourseController {
      * Create and Persist new Course in system.
      *
      * @param body CourseCreationBody object containing course information
-     * @return String execution result message
+     * @return Course object of course created
      * @throws CourseAlreadyExistException if course already exists
      */
     @PostMapping("makeCourse")
@@ -199,14 +205,17 @@ public class CourseController {
      *
      * @param courseId  String courseID
      * @param studentId String studentID
+     * @param studentCourses Set of strings (courseId) of courses students are already candidate for
+     * @return true if student added as candidate
      * @throws CourseNotFoundException   if Course not found
      * @throws InvalidCandidateException if student already hired as TA
+     * @throws TooManyCoursesException if student is already candidate for 3 courses
      */
     @SuppressWarnings("PMD")
     @PutMapping("addCandidateTa")
     public Boolean addCandidateTa(@PathParam("courseId") String courseId,
-                               @PathParam("studentId") String studentId,
-                               @RequestBody Set<String> studentCourses)
+                                  @PathParam("studentId") String studentId,
+                                  @RequestBody Set<String> studentCourses)
             throws CourseNotFoundException, InvalidCandidateException, TooManyCoursesException {
         Course c = courseService.findByCourseId(courseId);
 
@@ -286,11 +295,12 @@ public class CourseController {
      *
      * @param courseId   String courseId
      * @param lecturerId String lecturerId
+     * @return true is lecturer added
      * @throws CourseNotFoundException if course not found
      */
     @PutMapping("addLecturer")
     public Boolean addLecturer(@PathParam("courseId") String courseId,
-                            @PathParam("lecturerId") String lecturerId)
+                               @PathParam("lecturerId") String lecturerId)
             throws CourseNotFoundException {
         Course c = courseService.findByCourseId(courseId);
 
@@ -309,9 +319,10 @@ public class CourseController {
      * Retrieve all candidate TAs of specific course.
      *
      * @param courseId String courseId
-     * @param netId String lecturer netId
+     * @param netId    String lecturer netId
      * @return Set of strings (studentIds)
      * @throws CourseNotFoundException if course not found
+     * @throws InvalidLecturerException if lecturer doesnt belong to course
      */
     @GetMapping("candidates")
     public Set<String> getCandidateSet(@PathParam("courseId") String courseId,
@@ -334,9 +345,10 @@ public class CourseController {
      * Retrieve all hired TAs of specific course.
      *
      * @param courseId String courseId
-     * @param netId String lecturerId
+     * @param netId    String lecturerId
      * @return Set of strings (studentIds)
      * @throws CourseNotFoundException if course not found
+     * @throws InvalidLecturerException if lecturer doesnt belong to course
      */
     @GetMapping("tas")
     public Set<String> getTaSet(@PathParam("courseId") String courseId,
@@ -359,19 +371,20 @@ public class CourseController {
     /**
      * Hire candidate TA as TA.
      *
-     * @param courseId   String courseId
-     * @param studentId  String studentId
-     * @param hours      float contract hours
-     * @param netId String lecturer netId
+     * @param courseId  String courseId
+     * @param studentId String studentId
+     * @param hours     float contract hours
+     * @param netId     String lecturer netId
      * @throws CourseNotFoundException if no courses found
      * @throws InvalidHiringException  if student already hired or not in course
+     * @throws InvalidLecturerException if lecturer doesnt belong to course
      */
     @PutMapping("hireTa")
     public Boolean hireTa(@PathParam("courseId") String courseId,
-                       @PathParam("studentId") String studentId,
-                       @PathParam("hours") float hours,
-                       @RequestHeader("netId") String netId)
-            throws CourseNotFoundException, InvalidHiringException {
+                          @PathParam("studentId") String studentId,
+                          @PathParam("hours") float hours,
+                          @RequestHeader("netId") String netId)
+            throws CourseNotFoundException, InvalidHiringException, InvalidLecturerException {
         Course c = courseService.findByCourseId(courseId);
 
         if (c == null) {
