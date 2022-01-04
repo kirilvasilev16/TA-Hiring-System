@@ -198,6 +198,14 @@ public class LecturerServiceTest {
 
     @Test
     void chooseTa() {
+        Set<String> candidateTas = new HashSet<>();
+        candidateTas.add("akalandadze");
+        Course course = new Course("CSE", candidateTas, 500);
+        course.setHiredTas(Set.of("a"));
+        courses.add(course.getCourseId());
+        lecturer1.setCourses(courses);
+        Mockito.when(restTemplate.getForEntity(any(String.class), eq(Course.class)))
+                .thenReturn(new ResponseEntity<Course>(course, HttpStatus.OK));
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("netId", "1");
         HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
@@ -206,6 +214,27 @@ public class LecturerServiceTest {
                 eq(HttpMethod.PUT), eq(entity), eq(Boolean.class)))
                 .thenReturn(new ResponseEntity<Boolean>(true, HttpStatus.OK));
         assertTrue(lecturerService.chooseTa("1", "CSE", "akalandadze", 20));
+    }
+
+    @Test
+    void chooseTaExceeds() {
+        Set<String> candidateTas = new HashSet<>();
+        candidateTas.add("akalandadze");
+        Course course = new Course("CSE", candidateTas, 19);
+        course.setHiredTas(Set.of("a"));
+        courses.add(course.getCourseId());
+        lecturer1.setCourses(courses);
+        Mockito.when(restTemplate.getForEntity(any(String.class), eq(Course.class)))
+                .thenReturn(new ResponseEntity<Course>(course, HttpStatus.OK));
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("netId", "1");
+        HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
+        Mockito.when(restTemplate.exchange(
+                any(String.class),
+                eq(HttpMethod.PUT), eq(entity), eq(Boolean.class)))
+                .thenReturn(new ResponseEntity<Boolean>(true, HttpStatus.OK));
+        assertThrows(OwnNoPermissionException.class,
+                () -> lecturerService.chooseTa("1", "CSE", "akalandadze", 20));
     }
 
     @Test
