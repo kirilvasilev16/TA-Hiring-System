@@ -14,6 +14,12 @@ public class HoursClassTest {
     }
 
     @Test
+    void empty() {
+        Hours h = new Hours();
+        assertNotNull(h);
+    }
+
+    @Test
     void courseId() {
         Hours hours = new Hours("1", "1", 1.0f);
         hours.setCourseId("2");

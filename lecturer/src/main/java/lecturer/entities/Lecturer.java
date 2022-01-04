@@ -112,6 +112,12 @@ public class Lecturer {
         this.courses = courses;
     }
 
+    /**
+     * Compare two objects.
+     *
+     * @param o other object
+     * @return if two objects are equal
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -127,6 +133,11 @@ public class Lecturer {
                 && Objects.equals(courses, lecturer.courses);
     }
 
+    /**
+     * Make hash of an object.
+     *
+     * @return hash of object
+     */
     @Override
     public int hashCode() {
         return Objects.hash(lecturerId, name, email, courses);

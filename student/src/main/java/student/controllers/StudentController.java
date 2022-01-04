@@ -67,7 +67,7 @@ public class StudentController {
      * @return set of students
      */
     @PostMapping("/getMultiple")
-    public Set<Student> getMultiple(@RequestBody Set<String> ids) {
+    public List<Student> getMultiple(@RequestBody List<String> ids) {
         return studentService.getMultiple(ids);
     }
 

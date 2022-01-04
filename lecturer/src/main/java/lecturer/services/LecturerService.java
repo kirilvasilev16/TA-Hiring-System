@@ -1,7 +1,5 @@
 package lecturer.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -10,8 +8,9 @@ import lecturer.entities.Course;
 import lecturer.entities.Hours;
 import lecturer.entities.Lecturer;
 import lecturer.entities.Student;
-import lecturer.exceptions.CourseNotFoundException;
 import lecturer.exceptions.LecturerNotFoundException;
+import lecturer.exceptions.OwnNoPermissionException;
+import lecturer.exceptions.RetrieveInfoException;
 import lecturer.repositories.LecturerRepository;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -20,10 +19,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Here I suppress duplicates as all exceptions usually have similar but not same messages.
@@ -58,7 +54,6 @@ public class LecturerService {
     public Lecturer findLecturerById(String lecturerId) {
         Optional<Lecturer> lecturer = lecturerRepository.findLecturerByLecturerId(lecturerId);
         if (lecturer.isEmpty()) {
-            System.out.println("lecturer was not found");
             throw new LecturerNotFoundException("Lecturer with id "
                     + lecturerId + " was not found");
         }
@@ -85,7 +80,7 @@ public class LecturerService {
         if (this.getOwnCourses(lecturerId).contains(courseId)) {
             return;
         }
-        throw new CourseNotFoundException("Course with id "
+        throw new OwnNoPermissionException("Course with id "
                 + courseId + " is not taught by lecturer");
     }
 
@@ -100,7 +95,8 @@ public class LecturerService {
         this.verifyThatApplicableCourse(lecturerId, courseId);
         ResponseEntity<Course> course = restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=" + courseId, Course.class);
         if (course == null || course.getStatusCode() != HttpStatus.OK) {
-            throw new CourseNotFoundException("Course with id " + courseId + " was not found.");
+            throw new RetrieveInfoException("The course with id " + courseId
+                    + " could not be found.");
         }
         return course.getBody();
     }
@@ -144,7 +140,8 @@ public class LecturerService {
                         + hours,
                 HttpMethod.PUT, entity, Boolean.class);
         if (course == null || course.getStatusCode() != HttpStatus.OK) {
-            throw new CourseNotFoundException("Course with id " + courseId + " was not found.");
+            throw new RetrieveInfoException("The course with id " + courseId
+                    + " could not be found.");
         }
         return true;
     }
@@ -175,13 +172,19 @@ public class LecturerService {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("netId", lecturerId);
         HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<List<String>> sts = restTemplate.exchange("http://localhost:8082/courses/taRecommendations?courseId=" + courseId + "&strategy=" + strategy, HttpMethod.GET, entity, new ParameterizedTypeReference<List<String>>() {});
+        ResponseEntity<List<String>> sts = restTemplate.exchange("http://localhost:8082/courses"
+                + "/taRecommendations?courseId=" + courseId + "&strategy=" + strategy,
+                HttpMethod.GET, entity, new ParameterizedTypeReference<List<String>>() {});
         if (sts == null || sts.getStatusCode() != HttpStatus.OK) {
-            throw new CourseNotFoundException("Course with id " + courseId + " was not found.");
+            throw new RetrieveInfoException("The course with id " + courseId
+                    + " could not be found.");
         }
-        ResponseEntity<List<Student>> stL = restTemplate.exchange("http://localhost:8083/student/getMultiple", HttpMethod.GET, new HttpEntity<>((sts.getBody())), new ParameterizedTypeReference<List<Student>>() {});
-        if (stL.getStatusCode() != HttpStatus.OK) {
-            throw new InternalError();
+        ResponseEntity<List<Student>> stL = restTemplate.exchange("http://localhost:8083/student/getMultiple",
+                HttpMethod.POST, new HttpEntity<>((sts.getBody())),
+                new ParameterizedTypeReference<List<Student>>() {});
+
+        if (stL == null || stL.getStatusCode() != HttpStatus.OK) {
+            throw new RetrieveInfoException("List of students could not be found.");
         }
         return stL.getBody();
     }
@@ -204,13 +207,36 @@ public class LecturerService {
      * @param lecturerId of a lecturer
      * @param hours includes courseId, studentId and hours
      */
-    public void approveHours(String lecturerId, List<Hours> hours) {
+    public boolean approveHours(String lecturerId, List<Hours> hours) {
         if (hours.isEmpty()) {
             throw new EntityNotFoundException();
         }
         this.verifyThatApplicableCourse(lecturerId, hours.get(0).getCourseId());
-        restTemplate.put("http://localhost:8080/management/approveHours",
-                hours);
+        ResponseEntity<Void> re = restTemplate.exchange("http://localhost:8080/management/approveHours",
+                HttpMethod.PUT, new HttpEntity<>(hours), Void.class);
+        if (re.getStatusCode() != HttpStatus.OK) {
+            throw new RetrieveInfoException("The system failed to approve hours.");
+        }
+        return true;
+    }
+
+    /**
+     * Disapprove hours for a student.
+     *
+     * @param lecturerId of a lecturer
+     * @param hours includes courseId, studentId and hours
+     */
+    public boolean disapproveHours(String lecturerId, List<Hours> hours) {
+        if (hours.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+        this.verifyThatApplicableCourse(lecturerId, hours.get(0).getCourseId());
+        ResponseEntity<Void> re = restTemplate.exchange("http://localhost:8080/management/disapproveHours",
+                HttpMethod.PUT, new HttpEntity<>(hours), Void.class);
+        if (re.getStatusCode() != HttpStatus.OK) {
+            throw new RetrieveInfoException("The system failed to disapprove hours.");
+        }
+        return true;
     }
 
     /**
@@ -224,9 +250,12 @@ public class LecturerService {
     public float getAverage(String lecturerId, String course, String studentId) {
         Set<String> students = this.getCandidateTaList(lecturerId, course);
         if (students.contains(studentId)) {
-            ResponseEntity<Float> d = restTemplate.getForEntity("http://localhost:8080/management/getAverageRating?studentId=" + studentId, Float.class);
+            ResponseEntity<Float> d = restTemplate.getForEntity(
+                    "http://localhost:8080/management/getAverageRating?studentId=" + studentId,
+                    Float.class);
             if (d == null || d.getStatusCode() != HttpStatus.OK) {
-                return 0;
+                throw new RetrieveInfoException("The rating of student with id " + studentId
+                        + " could not be found.");
             }
             return d.getBody();
         }
@@ -241,7 +270,7 @@ public class LecturerService {
      * @param studentId student id
      * @param rating rating
      */
-    public void rateTa(String netId, String courseId, String studentId, float rating) {
+    public boolean rateTa(String netId, String courseId, String studentId, float rating) {
         verifyThatApplicableCourse(netId, courseId);
         Set<String> ids = this.getSpecificCourseOfLecturer(netId, courseId).getHiredTas();
         if (ids.contains(studentId)) {
@@ -249,8 +278,36 @@ public class LecturerService {
                     + courseId + "&studentId=" + studentId + "&rating=" + rating,
                     HttpMethod.PUT, null, Void.class);
             if (re.getStatusCode() != HttpStatus.OK) {
-                throw new InternalError();
+                throw new RetrieveInfoException("Your rating could not be saved.");
             }
+            return true;
+        } else {
+            throw new OwnNoPermissionException("You cannot rate this student.");
         }
+    }
+
+    /**
+     * Find a student.
+     *
+     * @param lecturerId lecturer id
+     * @param courseId course id
+     * @param studentId student id
+     * @return student
+     */
+    public Student viewStudent(String lecturerId, String courseId, String studentId) {
+        Course course = this.getSpecificCourseOfLecturer(lecturerId, courseId);
+        Set<String> students = course.getCandidateTas();
+        Set<String> hired = course.getHiredTas();
+        if (hired.contains(studentId) || students.contains(studentId)) {
+            ResponseEntity<Student> studentResponseEntity = restTemplate.getForEntity(
+                    "http://localhost:8083/student"
+                    + "/get?id=" + studentId, Student.class);
+            if (studentResponseEntity.getStatusCode() != HttpStatus.OK) {
+                throw new RetrieveInfoException("The student with id " + studentId
+                        + " could not be found.");
+            }
+            return studentResponseEntity.getBody();
+        }
+        throw new OwnNoPermissionException("You cannot access information about the student.");
     }
 }

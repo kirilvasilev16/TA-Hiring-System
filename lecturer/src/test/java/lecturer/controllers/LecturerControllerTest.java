@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lecturer.entities.Course;
+import lecturer.entities.Hours;
 import lecturer.entities.Lecturer;
 import lecturer.entities.Student;
 import lecturer.services.LecturerService;
@@ -23,7 +24,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 /**
  * Suppress is used here to avoid mistake "duplicate netId" and "duplicate CSE2215".
@@ -38,6 +43,7 @@ import org.springframework.test.web.servlet.MockMvc;
 public class LecturerControllerTest {
     @Autowired
     private transient MockMvc mockMvc;
+    @Autowired
     private transient LecturerController lecturerController;
     @MockBean
     private transient LecturerService lecturerService;
@@ -56,7 +62,8 @@ public class LecturerControllerTest {
         lecturer2 = new Lecturer("2", "name", "email", new ArrayList<>());
         lecturers.add(lecturer1);
         lecturers.add(lecturer2);
-
+        this.mockMvc = MockMvcBuilders
+                .standaloneSetup(new LecturerController(lecturerService)).build();
     }
 
     @Test
@@ -118,7 +125,7 @@ public class LecturerControllerTest {
     void selectTa() throws Exception {
         when(lecturerService.chooseTa("1", "CSE2215", "qw", 25)).thenReturn(true);
         this.mockMvc.perform(put(
-                "/lecturer/courses/selectTa?courseId=CSE2215?studentId=qw&hours=25")
+                "/lecturer/courses/selectTa?courseId=CSE2215&studentId=qw&hours=25")
                 .header("netId", "1"))
                 .andExpect(status().isOk());
     }
@@ -126,22 +133,21 @@ public class LecturerControllerTest {
     @Test
     void getAvg() throws Exception {
         when(lecturerService.getAverage("1", "CSE2215", "qw")).thenReturn(9f);
-        this.mockMvc.perform(get("/lecturer/getAverageRating?courseId=CSE2215?studentId=qw")
+        this.mockMvc.perform(get("/lecturer/getAverageRating?courseId=CSE2215&studentId=qw")
                 .header("netId", "1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string(String.valueOf(9f)));
     }
 
-    //TODO
     @Test
     void getRecommendations() throws Exception {
         Student student = new Student("2");
-        List<Student> students = new ArrayList<>();
-        students.add(student);
+        List<Student> students = List.of(student);
         when(lecturerService.getRecommendation("1", "CSE2215", "qw")).thenReturn(students);
-        this.mockMvc.perform(get("/lecturer/courses/recommendations?courseId=CSE2215?strategy=qw")
+        this.mockMvc.perform(get("/lecturer/courses/recommendations?courseId=CSE2215&strategy=qw")
                 .header("netId", "1"))
-                .andExpect(status().isOk());
-        //.andExpect(content().json(objectMapper.writeValueAsString(students)));
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(students)));
     }
 
     @Test
@@ -163,9 +169,46 @@ public class LecturerControllerTest {
 
     @Test
     void rateTa() throws Exception {
-        doNothing().when(lecturerService).rateTa("1", "CSE2215", "st", 10f);
+        when(lecturerService.rateTa("1", "CSE2215", "st", 10f)).thenReturn(true);
         this.mockMvc.perform(get("/lecturer/rateTa?courseId=CSE2215&studentId=st&rating=10")
                 .header("netId", "1"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void approveHours() throws Exception {
+        List<Hours> hours = new ArrayList<>();
+        hours.add(new Hours("1", "1", 1.0f));
+        when(lecturerService.approveHours("1", hours)).thenReturn(true);
+        this.mockMvc.perform(post("/lecturer/approveHours")
+                .header("netId", "1")
+                .contentType(APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(hours))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void disapproveHours() throws Exception {
+        List<Hours> hours = new ArrayList<>();
+        hours.add(new Hours("1", "1", 1.0f));
+        when(lecturerService.disapproveHours("1", hours)).thenReturn(true);
+        this.mockMvc.perform(post("/lecturer/disapproveHours")
+                .header("netId", "1")
+                .contentType(APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(hours))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void view() throws Exception {
+        Student student = new Student("1");
+        when(lecturerService.viewStudent("1", "1", "1"))
+                .thenReturn(student);
+        this.mockMvc.perform(get("/lecturer/view?courseId=1&studentId=1")
+                .header("netId", "1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(student)));
     }
 }

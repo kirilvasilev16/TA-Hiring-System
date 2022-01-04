@@ -19,9 +19,7 @@ class StudentTest {
     @BeforeEach
     void setUp() {
         netId = "student1";
-        passedCourses = Map.of("CSE2100-2020", 9f,
-                "CSE2100-2021", 4f,
-                "CSE2100-2019", 8f);
+        passedCourses = Map.of("CSE2100", 9f);
         taCourses = new HashSet<>(Arrays.asList("CSE1005-2020"));
         student = new Student(netId, passedCourses, taCourses);
     }
@@ -65,6 +63,5 @@ class StudentTest {
     @Test
     void getHighestGradeAchieved() {
         assertEquals(9f, student.getHighestGradeAchieved("CSE2100-2022"));
-        assertEquals(8f, student.getHighestGradeAchieved("CSE2100-2020"));
     }
 }

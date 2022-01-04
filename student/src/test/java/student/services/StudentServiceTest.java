@@ -101,19 +101,19 @@ public class StudentServiceTest {
 
     @Test
     void getMultipleTest() {
-        Set<Student> students = new HashSet<>();
+        List<Student> students = new ArrayList<>();
         students.add(student);
-        Set<String> studentIds = new HashSet<>();
+        List<String> studentIds = new ArrayList<>();
         studentIds.add(netId);
-        Set<Student> testStudents = studentService.getMultiple(studentIds);
+        List<Student> testStudents = studentService.getMultiple(studentIds);
         assertEquals(students, testStudents);
     }
 
     @Test
     void getMultipleEmptyTest() {
-        Set<Student> students = new HashSet<>();
-        Set<String> studentIds = new HashSet<>();
-        Set<Student> testStudents = studentService.getMultiple(studentIds);
+        List<Student> students = new ArrayList<>();
+        List<String> studentIds = new ArrayList<>();
+        List<Student> testStudents = studentService.getMultiple(studentIds);
         assertEquals(students, testStudents);
     }
 
