@@ -145,6 +145,16 @@ public class ManagementController {
     }
 
     /**
+     * Disapprove working hours for student for a given course.
+     *
+     * @param hours list of approvals
+     */
+    @PutMapping("disapproveHours")
+    public void disapproveHours(@RequestBody List<Hours> hours) {
+        managementService.disapproveHours(hours);
+    }
+
+    /**
      * Rate a student for a given course.
      *
      * @param courseId id of course
