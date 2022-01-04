@@ -14,7 +14,7 @@ public class DateService {
     /**
      * Get today's date.
      *
-     * @return Calendar object
+     * @return LocalDateTime object
      */
     public LocalDateTime getTodayDate() {
         return LocalDateTime.now();

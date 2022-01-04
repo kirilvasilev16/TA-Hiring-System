@@ -13,7 +13,6 @@ import course.entities.Student;
 import course.exceptions.DeadlinePastException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
-import course.exceptions.InvalidLecturerException;
 import course.exceptions.InvalidStrategyException;
 import course.exceptions.TooManyCoursesException;
 import java.net.http.HttpClient;
@@ -22,8 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-
 
 
 public class StudentService {
@@ -62,8 +59,9 @@ public class StudentService {
      *
      * @param course    Course Object
      * @param studentId String studentId
+     * @param today     LocalDateTime object candidate application date
      * @throws InvalidCandidateException if Student already hired as TA
-     * @throws DeadlinePastException if deadline for TA application has past
+     * @throws DeadlinePastException     if deadline for TA application has past
      */
     public static void addCandidate(Course course, String studentId, LocalDateTime today)
             throws InvalidCandidateException {
@@ -106,10 +104,12 @@ public class StudentService {
 
     /**
      * Generate list of TA Recommendations.
-
-     * @param course String studentID
-     * @param strategy Choose from "rating", "experience" or "grade"
+     *
+     * @param course               String studentID
+     * @param strategy             Choose from "rating", "experience" or "grade"
+     * @param communicationService CommunicationService object
      * @return list containing student ids in desired order
+     * @throws InvalidStrategyException if given strategy invalid
      */
     @SuppressWarnings("PMD")
     public static List<String> getTaRecommendationList(Course course,
@@ -156,9 +156,10 @@ public class StudentService {
     /**
      * Hire candidate TA to be TA.
      *
-     * @param course    Course Object
-     * @param studentId String studentId
-     * @param hours     float for contract hours
+     * @param course               Course Object
+     * @param studentId            String studentId
+     * @param hours                float for contract hours
+     * @param communicationService CommunicationService object
      * @return true if hired, false otherwise
      * @throws InvalidHiringException if student already hired or not in course
      */
@@ -252,6 +253,7 @@ public class StudentService {
      * does not exceed 3 per quarter.
      *
      * @param studentCourses the student courses
+     * @throws TooManyCoursesException if student candidate for 3 or more courses
      */
     @SuppressWarnings("PMD")
     public static void checkQuarterCapacity(Set<Course> studentCourses) {

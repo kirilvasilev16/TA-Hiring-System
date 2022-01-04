@@ -44,6 +44,7 @@ public class CourseService {
     /**
      * Update course size of course.
      *
+     * @param courseId String courseId
      * @param courseSize Integer course size
      */
     public void updateCourseSize(String courseId, Integer courseSize) {

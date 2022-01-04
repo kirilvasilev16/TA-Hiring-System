@@ -39,10 +39,20 @@ public class CommunicationService {
 
     }
 
+    /**
+     * Setter for CommunicationService HTTPClient.
+     *
+     * @param client HTTPClient object
+     */
     public static void setClient(HttpClient client) {
         CommunicationService.client = client;
     }
 
+    /**
+     * Getter for CommunicationService client.
+     *
+     * @return HTTPClient object
+     */
     public static HttpClient getClient() {
         return client;
     }
@@ -87,7 +97,7 @@ public class CommunicationService {
      * @param courseId      String courseId
      * @param studentId     String studentId
      * @param contractHours float contractHours
-     * @return created Management object if successful else null
+     * @return created Management object if successful
      * @throws FailedContractCreationException if request to Management microservice fails
      */
     @SuppressWarnings("PMD")
@@ -113,7 +123,8 @@ public class CommunicationService {
      * Gets full list of students from the Student microservice.
      *
      * @param candidateTas the candidate ta strings
-     * @return the students
+     * @return the students set
+     * @throws FailedGetStudentListException if communication error with Student microservice
      */
     @SuppressWarnings("PMD")
     public Set<Student> getStudents(Set<String> candidateTas) {
@@ -142,7 +153,8 @@ public class CommunicationService {
      *
      * @param hiredTas the hired tas
      * @param courseId the course id
-     * @return the hours list
+     * @return the hours set
+     * @throws FailedGetHoursException if communication error with Management microservice
      */
     @SuppressWarnings("PMD")
     public Set<Float> getHoursList(Set<String> hiredTas, String courseId) {
