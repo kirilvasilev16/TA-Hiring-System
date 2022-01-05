@@ -42,7 +42,7 @@ public class DataConfig {
                     "mrhug123",
                     "kiril",  new ArrayList<Role>()));
             authenticationService.saveAuth(new Authentication("ovisser", "email@email.co",
-                    bcPasswordEncoder().encode("ovisser123"),
+                    "ovisser123",
                     "netid5",  new ArrayList<Role>()));
             authenticationService.addRoleToAuthentication("kvasilev", "ROLE_student");
             authenticationService.addRoleToAuthentication("net2@id.nl", "ROLE_ta");
