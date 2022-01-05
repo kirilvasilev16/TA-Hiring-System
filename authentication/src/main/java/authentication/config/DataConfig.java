@@ -30,16 +30,16 @@ public class DataConfig {
             authenticationService.saveRole(new Role("ROLE_admin"));
 
             authenticationService.saveAuth(new Authentication("kvasilev", "email@email.co",
-                    bcPasswordEncoder().encode("kvasilev123"),
+                    "kvasilev123",
                     "netid1",  new ArrayList<Role>()));
             authenticationService.saveAuth(new Authentication("net2@id.nl", "email@email.co",
-                    bcPasswordEncoder().encode("pass2"),
+                    "pass2",
                     "netid2",  new ArrayList<Role>()));
             authenticationService.saveAuth(new Authentication("azaidman", "email@email.co",
-                    bcPasswordEncoder().encode("azaidman123"),
+                    "azaidman123",
                     "netid3",  new ArrayList<Role>()));
             authenticationService.saveAuth(new Authentication("mrhug", "email@email.co",
-                    bcPasswordEncoder().encode("mrhug123"),
+                    "mrhug123",
                     "kiril",  new ArrayList<Role>()));
             authenticationService.saveAuth(new Authentication("ovisser", "email@email.co",
                     bcPasswordEncoder().encode("ovisser123"),
@@ -50,15 +50,5 @@ public class DataConfig {
             authenticationService.addRoleToAuthentication("mrhug", "ROLE_admin");
             authenticationService.addRoleToAuthentication("ovisser", "ROLE_lecturer");
         };
-    }
-
-    /**
-     * BCryptPasswordEncoder creating function.
-     *
-     * @return a new BCryptPasswordEncoder
-     */
-    @Bean
-    BCryptPasswordEncoder bcPasswordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
