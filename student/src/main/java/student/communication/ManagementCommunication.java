@@ -19,6 +19,16 @@ public class ManagementCommunication {
 
 
     /**
+     * Sets HttpClient.
+     *
+     * @param client the client
+     */
+    public void setClient(HttpClient client) {
+        this.client = client;
+    }
+
+
+    /**
      * Sends a request to the Management microservice for declaring hours.
      *
      * @param json the json containing Hours data

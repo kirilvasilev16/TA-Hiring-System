@@ -130,6 +130,14 @@ public class StudentController {
         return studentService.apply(netId, courseId);
     }
 
+    /**
+     * Removes the student as candidate for a course.
+     * and sends a request for the same to Course microservice as well.
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the student
+     */
     @PutMapping("/removeApplication")
     public Student removeApplication(@RequestHeader("netId") String netId,
                                      @PathParam("courseId") String courseId) {
@@ -149,9 +157,28 @@ public class StudentController {
         return studentService.accept(netId, courseId);
     }
 
+    /**
+     * Sends a request to the Management microservice for declaring hours.
+     *
+     * @param netId the net id
+     * @param json  the json containing Hours data
+     */
     @PutMapping("/declareHours")
     public void declareHours(@RequestHeader("netId") String netId,
                              @RequestBody String json) {
         studentService.declareHours(json);
+    }
+
+    /**
+     * Sends a request to the Course microservice for getting the average worked hours.
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the average worked hours for given course
+     */
+    @GetMapping("averageWorkedHours")
+    public float averageWorkedHours(@RequestHeader("netId") String netId,
+                                    @PathParam("courseId") String courseId) {
+        return studentService.averageWorkedHours(courseId);
     }
 }
