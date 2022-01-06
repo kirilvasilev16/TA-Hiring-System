@@ -253,7 +253,7 @@ public class StudentService {
             }
             coursesPerQuarter.put(yearQuarter, coursesPerQuarter.get(yearQuarter) + 1);
 
-            if (coursesPerQuarter.get(yearQuarter) >= maxCoursesPerQuarter) {
+            if (coursesPerQuarter.get(yearQuarter) > maxCoursesPerQuarter) {
                 throw new TooManyCoursesException("Quarter "
                         + current.getQuarter() + " has too many courses");
             }

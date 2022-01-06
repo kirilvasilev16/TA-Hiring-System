@@ -232,6 +232,7 @@ public class CourseController {
             }
             courses.add(current);
         }
+        courses.add(c);
 
         StudentService.checkQuarterCapacity(courses);
         StudentService.addCandidate(c, studentId, dateService.getTodayDate());
