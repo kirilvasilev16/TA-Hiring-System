@@ -7,10 +7,12 @@ import authentication.repository.RoleRepository;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -40,6 +42,7 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     public Authentication saveAuth(Authentication authentication) {
+        authentication.setPassword(bcPasswordEncoder().encode(authentication.getPassword()));
         return authenticationRepository.save(authentication);
     }
 
@@ -78,5 +81,19 @@ public class AuthenticationService implements UserDetailsService {
                 });
         return new org.springframework.security
                 .core.userdetails.User(auth.getNetId(), auth.getPassword(), authorities);
+    }
+
+    public List<Authentication> saveAll(List<Authentication> authList) {
+        return authenticationRepository.saveAll(authList);
+    }
+
+    /**
+     * BCryptPasswordEncoder creating function.
+     *
+     * @return a new BCryptPasswordEncoder
+     */
+    @Bean
+    BCryptPasswordEncoder bcPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

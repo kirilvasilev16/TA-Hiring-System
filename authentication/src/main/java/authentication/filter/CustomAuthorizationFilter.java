@@ -50,47 +50,77 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             if (authorizationHeader != null
                     && authorizationHeader.startsWith("Bearer ")) {
                 try {
-                    String token =
-                            authorizationHeader.substring(
-                                    "Bearer ".length());
-
-                    Algorithm algorithm =
-                            Algorithm.HMAC256("sem15a".getBytes());
-                    JWTVerifier verifier =
-                            JWT.require(algorithm).build();
-                    DecodedJWT decodedJwt =
-                            verifier.verify(token);
-
-                    String netId = decodedJwt.getSubject();
-                    String[] roles = decodedJwt.getClaim("roles")
-                            .asArray(String.class);
-                    Collection<SimpleGrantedAuthority> authorities =
-                            new ArrayList<>();
-                    stream(roles).forEach(role -> authorities
-                            .add(new SimpleGrantedAuthority(role)));
-                    UsernamePasswordAuthenticationToken
-                            authenticationToken =
-                            new UsernamePasswordAuthenticationToken(
-                                    netId, null, authorities);
-
-                    SecurityContextHolder.getContext()
-                            .setAuthentication(authenticationToken);
+                    DecodedJWT decodedJwt = getDecodedJwt(authorizationHeader);
+                    decodeAndCreateAuthToken(decodedJwt);
 
                     filterChain.doFilter(request, response);
                 } catch (Exception e) {
-                    response.setHeader("error", e.getMessage());
-                    response.setStatus(FORBIDDEN.value());
-
-                    Map<String, String> error = new HashMap<>();
-                    error.put("error_message", e.getMessage());
-                    response.setContentType(APPLICATION_JSON_VALUE);
-                    new ObjectMapper()
-                            .writeValue(response.getOutputStream(),
-                                    error);
+                    errorResponse(response, e);
                 }
             } else {
                 filterChain.doFilter(request, response);
             }
         }
+    }
+
+    /**
+     * reacts to error when JWT token cannot be created.
+     *
+     * @param response of the server
+     * @param e exception
+     * @throws IOException throw IOException
+     */
+    public void errorResponse(HttpServletResponse response, Exception e) throws IOException {
+        response.setHeader("error", e.getMessage());
+        response.setStatus(FORBIDDEN.value());
+
+        Map<String, String> error = new HashMap<>();
+        error.put("error_message", e.getMessage());
+        response.setContentType(APPLICATION_JSON_VALUE);
+        new ObjectMapper()
+                .writeValue(response.getOutputStream(),
+                        error);
+    }
+
+    /**
+     * get the decoded version of JWT to extract information.
+     *
+     * @param authorizationHeader "Bearer ey..."
+     * @return DecodedJWT object
+     */
+    public DecodedJWT getDecodedJwt(String authorizationHeader) {
+        String token =
+                authorizationHeader.substring(
+                        "Bearer ".length());
+
+        Algorithm algorithm =
+                Algorithm.HMAC256("sem15a".getBytes());
+        JWTVerifier verifier =
+                JWT.require(algorithm).build();
+        DecodedJWT decodedJwt =
+                verifier.verify(token);
+        return decodedJwt;
+    }
+
+    /**
+     * sets security context and creates authentication token.
+     *
+     * @param decodedJwt decoded JWT token
+     */
+    public void decodeAndCreateAuthToken(DecodedJWT decodedJwt) {
+        String netId = decodedJwt.getSubject();
+        String[] roles = decodedJwt.getClaim("roles")
+                .asArray(String.class);
+        Collection<SimpleGrantedAuthority> authorities =
+                new ArrayList<>();
+        stream(roles).forEach(role -> authorities
+                .add(new SimpleGrantedAuthority(role)));
+        UsernamePasswordAuthenticationToken
+                authenticationToken =
+                new UsernamePasswordAuthenticationToken(
+                        netId, null, authorities);
+
+        SecurityContextHolder.getContext()
+                .setAuthentication(authenticationToken);
     }
 }

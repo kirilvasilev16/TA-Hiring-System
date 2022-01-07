@@ -28,7 +28,7 @@ public class GradeStrategy implements TaRecommendationStrategy {
             public int compare(Student o1, Student o2) {
                 Float first = o1.getHighestGradeAchieved(course.getCourseId());
                 Float second = o2.getHighestGradeAchieved(course.getCourseId());
-                return  first > second ? -1 : 1;
+                return -Float.compare(first, second);
             }
         };
 

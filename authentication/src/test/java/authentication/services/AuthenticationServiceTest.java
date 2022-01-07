@@ -11,6 +11,7 @@ import authentication.service.AuthenticationService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -30,6 +31,7 @@ public class AuthenticationServiceTest {
     transient Authentication testStudent;
     transient Authentication testTaNoRole;
     transient Role role;
+    private transient List<Authentication> list;
 
     @BeforeEach
     void setup() {
@@ -48,6 +50,15 @@ public class AuthenticationServiceTest {
                 new ArrayList<Role>(Arrays.asList(new Role("ROLE_admin"))));
         testTaNoRole = new Authentication("stu@id.nl", "email@email.co", "stupass", "password5",
                 new ArrayList<>());
+
+        list = new ArrayList<>(Arrays.asList(testStudent, testTa, testLecturer, testAdmin));
+    }
+
+    @Test
+    void saveAll() {
+        Mockito.when(authenticationRepository.saveAll(list))
+                .thenReturn(list);
+        assertEquals(authenticationService.saveAll(list), list);
     }
 
     @Test
