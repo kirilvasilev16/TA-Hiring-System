@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 class CourseApplicationTest {
 
-   @Test
-   void main() {
-       assertDoesNotThrow(() -> {
-           CourseApplication.main(new String[]{});
-       });
-   }
+    @Test
+    void main() {
+        assertDoesNotThrow(() -> {
+            CourseApplication.main(new String[]{});
+        });
+    }
 }
 
