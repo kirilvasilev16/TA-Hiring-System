@@ -13,7 +13,6 @@ import course.entities.Student;
 import course.exceptions.DeadlinePastException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
-import course.exceptions.InvalidLecturerException;
 import course.exceptions.InvalidStrategyException;
 import course.exceptions.TooManyCoursesException;
 import java.net.http.HttpClient;
@@ -22,8 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-
 
 
 public class StudentService {
@@ -62,8 +59,9 @@ public class StudentService {
      *
      * @param course    Course Object
      * @param studentId String studentId
+     * @param today     LocalDateTime object candidate application date
      * @throws InvalidCandidateException if Student already hired as TA
-     * @throws DeadlinePastException if deadline for TA application has past
+     * @throws DeadlinePastException     if deadline for TA application has past
      */
     public static void addCandidate(Course course, String studentId, LocalDateTime today)
             throws InvalidCandidateException {
@@ -106,36 +104,18 @@ public class StudentService {
 
     /**
      * Generate list of TA Recommendations.
-
-     * @param course String studentID
-     * @param strategy Choose from "rating", "experience" or "grade"
+     *
+     * @param course               String studentID
+     * @param strategy             Choose from "rating", "experience" or "grade"
+     * @param communicationService CommunicationService object
      * @return list containing student ids in desired order
+     * @throws InvalidStrategyException if given strategy invalid
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+    //PMD doesnt recognize null check in getStudents() method for students set
     public static List<String> getTaRecommendationList(Course course,
                                                        String strategy,
                                                        CommunicationService communicationService) {
-        //Make request (POST)
-        /*String idJson = gson.toJson(c.getCandidateTAs());
-
-        HttpRequest request = HttpRequest.newBuilder()
-        .POST(HttpRequest.BodyPublishers.ofString(idJson))
-                .uri(URI.create("http://localhost:8083/student/getstudents"))
-                .build();
-        HttpResponse<String> response = null;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return List.of();
-        }
-
-        if (response.statusCode() != 200) {
-            System.out.println("GET Status: " + response.statusCode());
-        }
-        System.out.println(response.body());
-        Set<Student> students = gson.fromJson(response.body(), new TypeToken<Set<Student>>() {
-        }.getType());*/
 
         Set<Student> students = communicationService.getStudents(course.getCandidateTas());
 
@@ -156,9 +136,10 @@ public class StudentService {
     /**
      * Hire candidate TA to be TA.
      *
-     * @param course    Course Object
-     * @param studentId String studentId
-     * @param hours     float for contract hours
+     * @param course               Course Object
+     * @param studentId            String studentId
+     * @param hours                float for contract hours
+     * @param communicationService CommunicationService object
      * @return true if hired, false otherwise
      * @throws InvalidHiringException if student already hired or not in course
      */
@@ -252,8 +233,10 @@ public class StudentService {
      * does not exceed 3 per quarter.
      *
      * @param studentCourses the student courses
+     * @throws TooManyCoursesException if student candidate for 3 or more courses
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+    //PMD doesnt null check and replacement to prevent get() returning null later on
     public static void checkQuarterCapacity(Set<Course> studentCourses) {
         Map<String, Integer> coursesPerQuarter = new HashMap<>();
         for (Course current : studentCourses) {
@@ -270,7 +253,7 @@ public class StudentService {
             }
             coursesPerQuarter.put(yearQuarter, coursesPerQuarter.get(yearQuarter) + 1);
 
-            if (coursesPerQuarter.get(yearQuarter) >= maxCoursesPerQuarter) {
+            if (coursesPerQuarter.get(yearQuarter) > maxCoursesPerQuarter) {
                 throw new TooManyCoursesException("Quarter "
                         + current.getQuarter() + " has too many courses");
             }
