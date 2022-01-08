@@ -166,7 +166,7 @@ public class StudentService {
     }
 
     /**
-     * Removes the student as candidate for a course,
+     * Removes the student as candidate for a course.
      * and sends a request for the same to Course microservice as well.
      *
      * @param netId    the net id
@@ -195,5 +195,19 @@ public class StudentService {
         if (!managementCommunication.declareHours(json)) {
             throw new InvalidDeclarationException("Hours couldn't be declared");
         }
+    }
+
+    /**
+     * Sends a request to the Course microservice for getting the average worked hours.
+     *
+     * @param courseId the course id
+     * @return the the average worked hours for given course
+     */
+    public float averageWorkedHours(String courseId) {
+        float avg = courseCommunication.averageWorkedHours(courseId);
+        if (avg == -1) {
+            throw new InvalidDeclarationException("Couldn't retrieve average worked hours");
+        }
+        return avg;
     }
 }
