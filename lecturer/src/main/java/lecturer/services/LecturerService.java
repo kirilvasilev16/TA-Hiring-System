@@ -131,6 +131,12 @@ public class LecturerService {
     public boolean chooseTa(String lecturerId, String courseId, String studentlecturerId,
                          float hours) {
         this.verifyThatApplicableCourse(lecturerId, courseId);
+        Course courseEntity = this.getSpecificCourseOfLecturer(lecturerId, courseId);
+        if ((int) Math.ceil(courseEntity.getCourseSize() / 20.0)
+                <= courseEntity.getHiredTas().size()) {
+            throw new OwnNoPermissionException("You cannot hire this student "
+                    + "- the limit is exceeded.");
+        }
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("netId", lecturerId);
         HttpEntity<Void> entity = new HttpEntity<>(httpHeaders);
