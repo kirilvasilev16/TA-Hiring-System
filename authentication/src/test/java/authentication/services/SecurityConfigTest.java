@@ -107,11 +107,4 @@ public class  SecurityConfigTest {
                 .andExpect(status().isOk());
     }
 
-
-    @Test
-    @WithMockUser(roles = "lecturer")
-    void getStudentMsStudentCredentialForbidden() throws Exception {
-        mvc.perform(put("/student/apply"))
-                .andExpect(status().isForbidden());
-    }
 }

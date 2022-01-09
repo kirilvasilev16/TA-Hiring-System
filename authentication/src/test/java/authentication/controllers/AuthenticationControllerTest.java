@@ -106,17 +106,17 @@ public class AuthenticationControllerTest {
     @WithMockUser(roles = "admin")
     void getMicroserviceWithAuthenticationAdmin() throws Exception {
         when(serverCommunication.getRequest("/management/findAll"))
-                .thenReturn(new ResponseObj(findAllResult, 200));
+                .thenReturn(new ResponseObj(findAllResult, 403));
         mvc.perform(get("/management/findAll"))
-                .andExpect(status().isOk());
+                .andExpect(status().isForbidden());
     }
 
     @Test
     @WithMockUser(roles = "admin")
     void getMicroserviceWithAuthenticationAdminCheckContent() throws Exception {
-        Mockito.when(serverCommunication.getRequest("/management/findAll"))
+        Mockito.when(serverCommunication.getRequest("/student/getAll"))
                 .thenReturn(new ResponseObj(findAllResult, 200));
-        mvc.perform(get("http://localhost:8081/management/findAll"))
+        mvc.perform(get("http://localhost:8081/student/getAll"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(findAllResult));
     }
@@ -146,12 +146,12 @@ public class AuthenticationControllerTest {
     }
 
     @Test
-    @WithMockUser(roles = "admin")
+    @WithMockUser(roles = "lecturer")
     void getManagementWithParam() throws Exception {
         Mockito.when(serverCommunication
-                .getRequest("/management/getAverageRating?studentId=kvasilev"))
+                .getRequest("/student/get?studentId=kvasilev"))
                 .thenReturn(new ResponseObj(findAllResult, 200));
-        mvc.perform(get("http://localhost:8081/management/getAverageRating")
+        mvc.perform(get("http://localhost:8081/student/get")
                 .queryParam("studentId", studentId))
                 .andExpect(status().isOk())
                 .andExpect(content().json(findAllResult));
