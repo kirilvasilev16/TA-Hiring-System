@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import student.entities.Management;
 import student.entities.Student;
 import student.services.StudentService;
 
@@ -180,5 +181,19 @@ public class StudentController {
     public float averageWorkedHours(@RequestHeader("netId") String netId,
                                     @PathParam("courseId") String courseId) {
         return studentService.averageWorkedHours(courseId);
+    }
+
+
+    /**
+     * Sends request to Management for getting all contract info for a student on a course.
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the Management object
+     */
+    @GetMapping("getManagement")
+    public Management getManagement(@RequestHeader("netId") String netId,
+                                    @PathParam("courseId") String courseId) {
+        return studentService.getManagement(netId, courseId);
     }
 }
