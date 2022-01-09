@@ -1,10 +1,13 @@
 package student.communication;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import org.springframework.stereotype.Service;
+import student.entities.Management;
 
 // PMD thinks the response variables are never used, but since they are, we suppress the warning
 @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
@@ -12,9 +15,11 @@ import org.springframework.stereotype.Service;
 public class ManagementCommunication {
 
     private transient HttpClient client;
+    private transient Gson gson;
 
     public ManagementCommunication() {
         client = HttpClient.newBuilder().build();
+        gson = new GsonBuilder().create();
     }
 
 
@@ -25,6 +30,7 @@ public class ManagementCommunication {
      */
     public void setClient(HttpClient client) {
         this.client = client;
+
     }
 
 
@@ -49,5 +55,33 @@ public class ManagementCommunication {
             return false;
         }
         return response.statusCode() == 200;
+    }
+
+
+    /**
+     * Sends request to Management for getting all contract info for a student on a course.
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the Management object
+     */
+    public Management getManagement(String netId, String courseId) {
+        String uri = "http://localhost:8080/management/get?courseId="
+                + courseId
+                + "&studentId="
+                + netId;
+        HttpRequest request = HttpRequest.newBuilder().setHeader("Content-type",
+                "application/json")
+                .uri(URI.create(uri))
+                .GET()
+                .build();
+        HttpResponse<String> response;
+        try {
+            // PMD DU anomaly
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            return new Management();
+        }
+        return gson.fromJson(response.body(), Management.class);
     }
 }

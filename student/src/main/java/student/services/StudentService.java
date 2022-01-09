@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import student.communication.CourseCommunication;
 import student.communication.ManagementCommunication;
+import student.entities.Management;
 import student.entities.Student;
 import student.exceptions.InvalidDeclarationException;
 import student.exceptions.StudentNotEligibleException;
@@ -200,7 +201,7 @@ public class StudentService {
      * Sends a request to the Course microservice for getting the average worked hours.
      *
      * @param courseId the course id
-     * @return the the average worked hours for given course
+     * @return the average worked hours for given course
      */
     public float averageWorkedHours(String courseId) {
         float avg = courseCommunication.averageWorkedHours(courseId);
@@ -208,5 +209,16 @@ public class StudentService {
             throw new InvalidDeclarationException("Couldn't retrieve average worked hours");
         }
         return avg;
+    }
+
+    /**
+     * Sends request to Management for getting all contract info for a student on a course.
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the Management object
+     */
+    public Management getManagement(String netId, String courseId) {
+        return managementCommunication.getManagement(netId, courseId);
     }
 }
