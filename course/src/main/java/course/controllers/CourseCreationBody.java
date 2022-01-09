@@ -1,5 +1,7 @@
 package course.controllers;
 
+import course.entities.Course;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -140,5 +142,14 @@ public class CourseCreationBody {
      */
     public void setQuarter(Integer quarter) {
         this.quarter = quarter;
+    }
+
+    /**
+     * Create Course object from course creation body.
+     *
+     * @return Course object
+     */
+    public Course createCourse() {
+        return new Course(courseId, name, courseSize, lecturerSet, startingDate, quarter);
     }
 }

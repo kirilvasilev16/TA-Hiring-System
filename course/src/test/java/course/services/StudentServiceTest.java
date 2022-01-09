@@ -90,8 +90,8 @@ class StudentServiceTest {
 
     @Test
     void addCandidate() {
-        StudentService.addCandidate(course, student1, applicationDate);
-        StudentService.addCandidate(course, student2, applicationDate);
+        StudentService.addCandidate(course, student1, applicationDate, courses);
+        StudentService.addCandidate(course, student2, applicationDate, courses);
         assertEquals(candidateSet, StudentService.getCandidates(course));
     }
 
@@ -99,15 +99,15 @@ class StudentServiceTest {
     void addCandidateInvalid() { //student already hired
         StudentService.addTaSet(course, hireSet);
         assertThrows(InvalidCandidateException.class, () -> {
-            StudentService.addCandidate(course, student3, applicationDate);
+            StudentService.addCandidate(course, student3, applicationDate, courses);
         });
     }
 
     @Test
     void addCandidateExactly3Weeks() {
         LocalDateTime date = LocalDateTime.of(LocalDate.of(2021, 11, 16), LocalTime.NOON);
-        StudentService.addCandidate(course, student1, date);
-        StudentService.addCandidate(course, student2, date);
+        StudentService.addCandidate(course, student1, date, courses);
+        StudentService.addCandidate(course, student2, date, courses);
         assertEquals(candidateSet, StudentService.getCandidates(course));
     }
 
@@ -116,7 +116,7 @@ class StudentServiceTest {
         LocalDateTime date = LocalDateTime.of(LocalDate.of(2021, 11, 17), LocalTime.NOON);
 
         assertThrows(DeadlinePastException.class, () -> {
-            StudentService.addCandidate(course, student1, date);
+            StudentService.addCandidate(course, student1, date, courses);
         });
     }
 
@@ -125,7 +125,7 @@ class StudentServiceTest {
         LocalDateTime date = LocalDateTime.of(LocalDate.of(2021, 11, 17), LocalTime.NOON);
 
         assertThrows(DeadlinePastException.class, () -> {
-            StudentService.addCandidate(course, student1, date);
+            StudentService.addCandidate(course, student1, date, courses);
         });
     }
 
@@ -137,8 +137,8 @@ class StudentServiceTest {
 
         course.setStartingDate(newDate);
 
-        StudentService.addCandidate(course, student1, date);
-        StudentService.addCandidate(course, student2, date);
+        StudentService.addCandidate(course, student1, date, courses);
+        StudentService.addCandidate(course, student2, date, courses);
         assertEquals(candidateSet, StudentService.getCandidates(course));
     }
 
@@ -151,7 +151,7 @@ class StudentServiceTest {
         course.setStartingDate(newDate);
 
         assertThrows(DeadlinePastException.class, () -> {
-            StudentService.addCandidate(course, student1, date);
+            StudentService.addCandidate(course, student1, date, courses);
         });
     }
 
@@ -177,7 +177,7 @@ class StudentServiceTest {
 
     @Test
     void containsCandidateTrue() {
-        StudentService.addCandidate(course, student1, applicationDate);
+        StudentService.addCandidate(course, student1, applicationDate, courses);
         assertTrue(StudentService.containsCandidate(course, student1));
     }
 
