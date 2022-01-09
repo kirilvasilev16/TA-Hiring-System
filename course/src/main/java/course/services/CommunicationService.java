@@ -66,7 +66,6 @@ public class CommunicationService {
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
-                e.printStackTrace();
                 throw new FailedGetStudentRatingsException(
                         "Failed to get " + s.getNetId() + " ratings");
             }
@@ -74,7 +73,6 @@ public class CommunicationService {
             if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
-            System.out.println(response.body());
             float rating;
             rating = gson.fromJson(response.body(), Float.class);
             studentRatingMap.put(s, rating);
@@ -103,7 +101,6 @@ public class CommunicationService {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
-            e.printStackTrace();
             throw new FailedContractCreationException("Could not create " + courseId
                     + " TA Work Contract for " + studentId);
         }
@@ -129,14 +126,12 @@ public class CommunicationService {
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
-                e.printStackTrace();
                 throw new FailedGetStudentListException("Failed to get student " + studentId);
             }
 
             if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
-            System.out.println(response.body());
             students.add(gson.fromJson(response.body(), Student.class));
         }
         return students;
@@ -162,14 +157,12 @@ public class CommunicationService {
             try {
                 response = client.send(request, HttpResponse.BodyHandlers.ofString());
             } catch (Exception e) {
-                e.printStackTrace();
                 throw new FailedGetHoursException("Failed to get worked hours for student " + ta);
             }
 
             if (response.statusCode() != successCode) {
                 System.out.println("GET Status: " + response.statusCode());
             }
-            System.out.println(response.body());
             hourSet.add(gson.fromJson(response.body(), Float.class));
         }
         return hourSet;
@@ -186,14 +179,13 @@ public class CommunicationService {
     @SuppressWarnings("PMD")
     public boolean updateStudentEmployment(String studentId, String courseId) {
         HttpRequest request = HttpRequest.newBuilder().PUT(HttpRequest.BodyPublishers.noBody())
-                .uri(URI.create(studentService + "/apply?netId=" + studentId
+                .uri(URI.create(studentService + "/accept?netId=" + studentId
                         + "&courseId=" + courseId)).build();
 
         HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
-            e.printStackTrace();
             throw new FailedUpdateStudentEmploymentException(studentId);
         }
 

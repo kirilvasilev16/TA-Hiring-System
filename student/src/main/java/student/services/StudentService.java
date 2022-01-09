@@ -1,6 +1,7 @@
 package student.services;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -73,8 +74,8 @@ public class StudentService {
      * @param ids the ids
      * @return set of students
      */
-    public Set<Student> getMultiple(Set<String> ids) {
-        Set<Student> students = new HashSet<>();
+    public List<Student> getMultiple(List<String> ids) {
+        List<Student> students = new ArrayList<>();
         for (String id : ids) {
             students.add(this.getStudent(id));
         }

@@ -8,6 +8,7 @@ import management.entities.Hours;
 import management.entities.Management;
 import management.exceptions.InvalidApprovedHoursException;
 import management.exceptions.InvalidContractHoursException;
+import management.exceptions.InvalidDisapprovedHoursException;
 import management.exceptions.InvalidIdException;
 import management.exceptions.InvalidRatingException;
 import management.repositories.ManagementRepository;
@@ -94,7 +95,7 @@ public class ManagementService {
     }
 
     /**
-     * Approved declared hours.
+     * Approve declared hours.
      * Rollbacks all updates on exception.
      *
      * @param hoursList arraylist with declarations
@@ -120,6 +121,35 @@ public class ManagementService {
             management.setApprovedHours(management.getApprovedHours() + hours);
             managementRepository.updateApprovedHours(management.getId(),
                     management.getDeclaredHours(), management.getApprovedHours());
+        }
+    }
+
+    /**
+     * Disapprove declared hours.
+     * Rollbacks all updates on exception.
+     *
+     * @param hoursList arraylist with declarations
+     */
+    @Transactional(rollbackOn = {InvalidIdException.class, InvalidApprovedHoursException.class})
+    public void disapproveHours(List<Hours> hoursList) {
+        for (Hours hourObject : hoursList) {
+            float hours = hourObject.getAmountOfHours();
+
+            if (hours < 0) {
+                throw new InvalidDisapprovedHoursException("You cannot disapprove negative "
+                        + "amount of hours!");
+            }
+
+            Management management = getOne(hourObject.getCourseId(), hourObject.getStudentId());
+
+            if (management.getDeclaredHours() < hours) {
+                throw new InvalidDisapprovedHoursException("You cannot disapprove more hours "
+                        + "than the declared ones!");
+            }
+
+            management.setDeclaredHours(management.getDeclaredHours() - hours);
+            managementRepository.updateDeclaredHours(management.getId(),
+                    management.getDeclaredHours());
         }
     }
 
@@ -163,8 +193,9 @@ public class ManagementService {
      */
     public float getAverageRating(String studentId) {
         if (managementRepository.getTaRecords(studentId) == 0) {
-            return 0;
+            return -1;
         }
+
         return managementRepository.getAverageTaRating(studentId);
     }
 }

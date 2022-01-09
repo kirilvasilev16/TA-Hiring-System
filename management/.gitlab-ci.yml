@@ -23,4 +23,6 @@ management-PMD:
 management-test:
   stage: test
   script:
-    gradle :management:test
+    gradle :management:test :management:jacocoTestReport
+  coverage: /([0-9]{1,3})%/
+

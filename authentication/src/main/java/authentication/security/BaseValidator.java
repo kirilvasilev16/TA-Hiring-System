@@ -26,7 +26,7 @@ public abstract class BaseValidator implements Validator {
      * @param http security config object
      * @throws Exception if next.handle goes wrong
      */
-    protected void checkNext(HttpSecurity http) throws Exception {
+    public void checkNext(HttpSecurity http) throws Exception {
         if (next != null) {
             next.handle(http);
         }

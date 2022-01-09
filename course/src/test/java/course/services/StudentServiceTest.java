@@ -347,7 +347,7 @@ class StudentServiceTest {
         c.setQuarter(2);
         courseSet.add(c);
         c = new Course();
-        c.setCourseId("CSE0003-2021");
+        c.setCourseId("CSE0003-2020");
         c.setQuarter(2);
         courseSet.add(c);
         c = new Course();
@@ -372,10 +372,6 @@ class StudentServiceTest {
         courseSet.add(c);
         c = new Course();
         c.setCourseId("CSE0003-2021");
-        c.setQuarter(2);
-        courseSet.add(c);
-        c = new Course();
-        c.setCourseId("CSE0004-2021");
         c.setQuarter(2);
         courseSet.add(c);
         assertThrows(TooManyCoursesException.class, () -> {

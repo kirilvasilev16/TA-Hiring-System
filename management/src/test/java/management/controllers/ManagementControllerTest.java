@@ -61,7 +61,7 @@ class ManagementControllerTest {
         findAllResult = "[{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
                 + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0},"
                 + "{\"id\":2,\"courseId\":CSE1200,\"studentId\":aatanasov,\"amountOfHours\":70.0,"
-                + "\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":0.0}]";
+                + "\"approvedHours\":0.0,\"declaredHours\":0.0,\"rating\":-1.0}]";
 
         findOneResult = "{\"id\":1,\"courseId\":CSE1200,\"studentId\":kvasilev,\"amountOfHours\""
                 + ":120.0,\"approvedHours\":50.0,\"declaredHours\":20.0,\"rating\":10.0}";
@@ -218,7 +218,38 @@ class ManagementControllerTest {
                 .andExpect(status().isOk());
         verify(managementService, only())
                 .approveHours(List.of(new Hours(courseId, studentId, 10),
-                    new Hours("CSE1200", "kvasilev", 30)));
+                    new Hours(courseId, studentId, 30)));
+    }
+
+    @Test
+    void disapproveHours() throws Exception {
+        this.mockMvc
+                .perform(put("/management/disapproveHours")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[{" + courseIdString + ":" + courseId
+                                + "," + studentIdString + ":" + studentId + ",\"hours\":20.0}]")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        verify(managementService, only())
+                .disapproveHours(List.of(new Hours(courseId, studentId, 20)));
+    }
+
+    @Test
+    void disapproveHoursMultiple() throws Exception {
+        this.mockMvc
+                .perform(put("/management/disapproveHours")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[{" + courseIdString + ":" + courseId
+                                + "," + studentIdString + ":" + studentId + ",\"hours\":10.0},"
+                                + "{" + courseIdString + ":" + courseId
+                                + "," + studentIdString + ":" + "\"kvasilev\""
+                                + ",\"hours\":30.0}]")
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk());
+        verify(managementService, only())
+                .disapproveHours(List.of(new Hours(courseId, studentId, 10),
+                        new Hours(courseId, studentId, 30)));
     }
 
     @Test
