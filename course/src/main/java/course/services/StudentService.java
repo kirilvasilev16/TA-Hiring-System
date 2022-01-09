@@ -119,16 +119,7 @@ public class StudentService {
 
         Set<Student> students = communicationService.getStudents(course.getCandidateTas());
 
-        TaRecommendationStrategy strategyImplementation;
-        if (strategy.equals("rating")) {
-            strategyImplementation = new RatingStrategy(course, communicationService);
-        } else if (strategy.equals("experience")) {
-            strategyImplementation = new ExperienceStrategy();
-        } else if (strategy.equals("grade")) {
-            strategyImplementation = new GradeStrategy(course);
-        } else {
-            throw new InvalidStrategyException(strategy + " is not a valid strategy");
-        }
+        TaRecommendationStrategy strategyImplementation = TaRecommendationStrategy.getRecommendationType(strategy, communicationService, course);
 
         return strategyImplementation.getRecommendedTas(students);
     }
