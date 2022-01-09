@@ -1,6 +1,7 @@
 package authentication.entities;
 
 import java.util.Collection;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -115,5 +116,30 @@ public class Authentication {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Equals method for Authentication.
+     *
+     * @param o other object
+     * @return true iff the 2 objects are identical
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Authentication that = (Authentication) o;
+        return netId == that.netId
+                && email == that.email
+                && password == that.password;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNetId(), getPassword(), getEmail(), getName(), getRoles());
     }
 }

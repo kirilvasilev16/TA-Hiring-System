@@ -19,10 +19,10 @@ public class CourseCreationBody {
      *
      * @param courseId     String courseID
      * @param name         String course name
-     * @param startingDate Calendar course start date
+     * @param startingDate LocalDateTime course start date
      * @param lecturerSet  Set of strings where strings are lecturerIDs
      * @param courseSize   Integer course student size
-     * @param quarter      the quarter
+     * @param quarter      Integer quarter
      */
     public CourseCreationBody(String courseId, String name, LocalDateTime startingDate,
                               Set<String> lecturerSet, Integer courseSize, Integer quarter) {
@@ -73,7 +73,7 @@ public class CourseCreationBody {
     /**
      * Getter for course starting date.
      *
-     * @return Date object
+     * @return LocalDateTime object
      */
     public LocalDateTime getStartingDate() {
         return startingDate;
@@ -82,7 +82,7 @@ public class CourseCreationBody {
     /**
      * Setter for course starting date.
      *
-     * @param startingDate Date object new starting date
+     * @param startingDate LocalDateTime object new starting date
      */
     public void setStartingDate(LocalDateTime startingDate) {
         this.startingDate = startingDate;

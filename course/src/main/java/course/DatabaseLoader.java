@@ -31,8 +31,8 @@ public class DatabaseLoader {
         c2.setCandidateTas(new HashSet<>(Arrays.asList("esozen",
                 "chengmouyeh",
                 "akalandadze",
-                "ohageman",
-                "mr")));
+                "ohageman"
+        )));
         c2.setHiredTas(new HashSet<>(Arrays.asList("kvasilev", "etrinh")));
         courseRepo.save(c2);
 
@@ -49,7 +49,7 @@ public class DatabaseLoader {
                 "ohageman")));
         courseRepo.save(c3);
 
-        Course c4 = new Course("CSE1400-2021",
+        Course c4 = new Course("CSE1400-2022",
                 "CO",
                 500,
                 new HashSet<>(Arrays.asList("ovisser", "taerts")),

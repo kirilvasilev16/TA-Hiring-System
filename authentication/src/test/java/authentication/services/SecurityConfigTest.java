@@ -1,5 +1,6 @@
 package authentication.services;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -9,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import authentication.communication.ServerCommunication;
 import authentication.controller.AuthenticationController;
 import authentication.entities.Authentication;
+import authentication.entities.ResponseObj;
 import authentication.entities.Role;
 import authentication.service.AuthenticationService;
 import java.util.ArrayList;
@@ -77,14 +79,16 @@ public class  SecurityConfigTest {
         mvc.perform(get("/management/findAll"))
                 .andExpect(status().isForbidden());
     }
-    /*
+
     @Test
     @WithMockUser(roles = "admin")
     void getStudentMsWithAdminRole() throws Exception {
+        when(serverCommunication.postRequest("/student/add", ""))
+                .thenReturn(new ResponseObj("", 200));
         mvc.perform(post("/student/add"))
                 .andExpect(status().isOk());
     }
-    */
+
 
     @Test
     @WithMockUser(roles = "student")
@@ -93,19 +97,14 @@ public class  SecurityConfigTest {
                 .andExpect(status().isForbidden());
     }
 
-    /*
+
     @Test
     @WithMockUser(roles = "student")
     void getStudentMsStudentCredential() throws Exception {
+        when(serverCommunication.putRequest("/student/apply", ""))
+                .thenReturn(new ResponseObj("", 200));
         mvc.perform(put("/student/apply"))
                 .andExpect(status().isOk());
     }
-    */
 
-    @Test
-    @WithMockUser(roles = "lecturer")
-    void getStudentMsStudentCredentialForbidden() throws Exception {
-        mvc.perform(put("/student/apply"))
-                .andExpect(status().isForbidden());
-    }
 }

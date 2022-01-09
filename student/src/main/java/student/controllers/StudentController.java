@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import student.entities.Management;
 import student.entities.Student;
 import student.services.StudentService;
 
@@ -21,6 +22,9 @@ import student.services.StudentService;
  */
 @RestController
 @RequestMapping("/student")
+// PMD doesn't want duplicate "netId" literals,
+// but since you cannot use field references inside annotations, we suppress it
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class StudentController {
 
     private final transient StudentService studentService;
@@ -64,7 +68,7 @@ public class StudentController {
      * @return set of students
      */
     @PostMapping("/getMultiple")
-    public Set<Student> getMultiple(@RequestBody Set<String> ids) {
+    public List<Student> getMultiple(@RequestBody List<String> ids) {
         return studentService.getMultiple(ids);
     }
 
@@ -128,6 +132,20 @@ public class StudentController {
     }
 
     /**
+     * Removes the student as candidate for a course.
+     * and sends a request for the same to Course microservice as well.
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the student
+     */
+    @PutMapping("/removeApplication")
+    public Student removeApplication(@RequestHeader("netId") String netId,
+                                     @PathParam("courseId") String courseId) {
+        return studentService.removeApplication(netId, courseId);
+    }
+
+    /**
      * Tries to accept a student as TA for a course.
      *
      * @param netId    the net id of the student
@@ -138,5 +156,44 @@ public class StudentController {
     public Student accept(@PathParam("netId") String netId,
                           @PathParam("courseId") String courseId) {
         return studentService.accept(netId, courseId);
+    }
+
+    /**
+     * Sends a request to the Management microservice for declaring hours.
+     *
+     * @param netId the net id
+     * @param json  the json containing Hours data
+     */
+    @PutMapping("/declareHours")
+    public void declareHours(@RequestHeader("netId") String netId,
+                             @RequestBody String json) {
+        studentService.declareHours(json);
+    }
+
+    /**
+     * Sends a request to the Course microservice for getting the average worked hours.
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the average worked hours for given course
+     */
+    @GetMapping("averageWorkedHours")
+    public float averageWorkedHours(@RequestHeader("netId") String netId,
+                                    @PathParam("courseId") String courseId) {
+        return studentService.averageWorkedHours(courseId);
+    }
+
+
+    /**
+     * Sends request to Management for getting all contract info for a student on a course.
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the Management object
+     */
+    @GetMapping("getManagement")
+    public Management getManagement(@RequestHeader("netId") String netId,
+                                    @PathParam("courseId") String courseId) {
+        return studentService.getManagement(netId, courseId);
     }
 }

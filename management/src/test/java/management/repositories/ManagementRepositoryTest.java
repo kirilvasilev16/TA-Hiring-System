@@ -53,6 +53,47 @@ class ManagementRepositoryTest {
     }
 
     @Test
+    void getAverageNoRating() {
+        managementRepository.deleteAll();
+        management = new Management("CSE1500", kvasilev, 120);
+        management.setId(1);
+        managementRepository.save(management);
+
+        assertTrue(managementRepository.findAll().size() > 0);
+        float rating = managementRepository
+                .getAverageTaRating(kvasilev);
+
+        assertEquals(-1.0f, rating);
+    }
+
+    @Test
+    void getAverageOneRating() {
+        managementRepository.deleteAll();
+        management = new Management("CSE1500", kvasilev, 120);
+        management.setId(1);
+        management.setRating(9);
+        managementRepository.save(management);
+
+        assertTrue(managementRepository.findAll().size() > 0);
+        float rating = managementRepository
+                .getAverageTaRating(kvasilev);
+
+        assertEquals(9, rating);
+    }
+
+    @Test
+    void getAverageTaRatingNonRatedCourse() {
+        management = new Management("CSE1500", kvasilev, 120);
+        management.setId(3);
+        managementRepository.save(management);
+        assertTrue(managementRepository.findAll().size() > 0);
+        float rating = managementRepository
+                .getAverageTaRating(kvasilev);
+
+        assertEquals(6.5, rating);
+    }
+
+    @Test
     void getTaRecords() {
         assertTrue(managementRepository.findAll().size() > 0);
         int count = managementRepository

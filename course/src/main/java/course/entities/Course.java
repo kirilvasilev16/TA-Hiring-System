@@ -9,8 +9,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
@@ -22,8 +20,6 @@ public class Course {
     private String name;
     private Integer courseSize;
     private Integer quarter;
-
-    //@Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime startingDate;
 
     @ElementCollection
@@ -40,7 +36,8 @@ public class Course {
      * @param name         String course name
      * @param courseSize   int course student size
      * @param lecturerSet  set of strings where strings are lecturerIDs
-     * @param startingDate Calendar object course start date
+     * @param startingDate LocalDateTime object course start date
+     * @param quarter      Integer quarter
      */
     public Course(String courseId, String name, int courseSize, Set<String> lecturerSet,
                   LocalDateTime startingDate, Integer quarter) {
@@ -98,7 +95,7 @@ public class Course {
     /**
      * Getter for course starting date.
      *
-     * @return Calendar object
+     * @return LocalDateTime object
      */
     public LocalDateTime getStartingDate() {
         return this.startingDate;
@@ -107,7 +104,7 @@ public class Course {
     /**
      * Setter for course starting date.
      *
-     * @param startingDate Date object new starting date
+     * @param startingDate LocalDateTime object new starting date
      */
     public void setStartingDate(LocalDateTime startingDate) {
         this.startingDate = startingDate;

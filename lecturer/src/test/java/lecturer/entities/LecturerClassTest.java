@@ -95,6 +95,18 @@ public class LecturerClassTest {
     }
 
     @Test
+    void equalsOtherClass() {
+        Student student = new Student();
+        assertNotEquals(lecturer, student);
+    }
+
+    @Test
+    void trueEquals() {
+        Lecturer l2 = new Lecturer(netId, name, email, new ArrayList<>());
+        assertEquals(lecturer, l2);
+    }
+
+    @Test
     void hashCodeTest() {
         Lecturer newLecturer = new Lecturer(netId, name, email, new ArrayList<>());
         System.out.println(lecturer.getName());

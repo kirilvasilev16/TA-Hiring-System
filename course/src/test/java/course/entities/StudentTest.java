@@ -1,8 +1,11 @@
 package course.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import course.exceptions.CourseNotPassedException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -19,9 +22,8 @@ class StudentTest {
     @BeforeEach
     void setUp() {
         netId = "student1";
-        passedCourses = Map.of("CSE2100-2020", 9f,
-                "CSE2100-2021", 4f,
-                "CSE2100-2019", 8f);
+        passedCourses = new HashMap<>();
+        passedCourses.put("CSE2100", 9f);
         taCourses = new HashSet<>(Arrays.asList("CSE1005-2020"));
         student = new Student(netId, passedCourses, taCourses);
     }
@@ -65,6 +67,27 @@ class StudentTest {
     @Test
     void getHighestGradeAchieved() {
         assertEquals(9f, student.getHighestGradeAchieved("CSE2100-2022"));
-        assertEquals(8f, student.getHighestGradeAchieved("CSE2100-2020"));
+    }
+
+    @Test
+    void getHighestGradeAchievedNull() {
+        String c = "CSE1300-2020";
+        String strip = "CSE1300";
+        student.getPassedCourses().put(strip, null);
+
+        assertThrows(CourseNotPassedException.class, () -> {
+            student.getHighestGradeAchieved(c);
+        });
+    }
+
+    @Test
+    void getHighestGradeAchievedLower() {
+        String c = "CSE1300-2020";
+        String strip = "CSE1300";
+        student.getPassedCourses().put(strip, -1f);
+
+        assertThrows(CourseNotPassedException.class, () -> {
+            student.getHighestGradeAchieved(c);
+        });
     }
 }

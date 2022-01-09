@@ -27,7 +27,7 @@ public class RatingStrategy implements TaRecommendationStrategy {
      * @param candidateTas Set of Students
      * @return List sorted by rating
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")//PMD comparator leaving scope for sorting
     public List<String> getRecommendedTas(Set<Student> candidateTas) {
         Map<Student, Float> studentRatingMap =
                 communicationService.getRatings(candidateTas, course.getCourseId());
