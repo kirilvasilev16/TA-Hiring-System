@@ -231,13 +231,7 @@ public class StudentService {
     public static void checkQuarterCapacity(Set<Course> studentCourses) {
         Map<String, Integer> coursesPerQuarter = new HashMap<>();
         for (Course current : studentCourses) {
-            StringBuilder builder = new StringBuilder();
-
-            String year = current.getCourseId().split("-")[1];
-            builder.append(year);
-            builder.append("-");
-            builder.append(current.getQuarter());
-            String yearQuarter = builder.toString();
+            String yearQuarter = getYearQuarter(current);
 
             if (coursesPerQuarter.get(yearQuarter) == null) {
                 coursesPerQuarter.put(yearQuarter, 0);
@@ -250,6 +244,17 @@ public class StudentService {
             }
 
         }
+    }
+
+    private static String getYearQuarter(Course current) {
+        StringBuilder builder = new StringBuilder();
+
+        String year = current.getCourseId().split("-")[1];
+        builder.append(year);
+        builder.append("-");
+        builder.append(current.getQuarter());
+        String yearQuarter = builder.toString();
+        return yearQuarter;
     }
 
     /**
