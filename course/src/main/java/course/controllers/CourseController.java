@@ -3,6 +3,7 @@ package course.controllers;
 
 import course.entities.Course;
 import course.exceptions.CourseAlreadyExistException;
+import course.exceptions.CourseNotFoundException;
 import course.exceptions.InvalidCandidateException;
 import course.exceptions.InvalidHiringException;
 import course.exceptions.InvalidLecturerException;
@@ -151,14 +152,16 @@ public class CourseController {
      * @return Course object of course created
      * @throws CourseAlreadyExistException if course already exists
      */
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")//PMD not recognising the try catch block
     @PostMapping("makeCourse")
-    public Course makeCourse(@RequestBody CourseCreationBody body) {
+    public Course makeCourse(@RequestBody CourseCreationBody body)
+        throws CourseAlreadyExistException {
         Course c;
         String id = body.getCourseId();
         try {
             c = courseService.findByCourseId(id);
             throw new CourseAlreadyExistException(id);
-        } catch (Exception e) {
+        } catch (CourseNotFoundException e) {
             c = body.createCourse();
         }
 

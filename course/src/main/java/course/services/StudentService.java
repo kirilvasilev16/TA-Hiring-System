@@ -57,11 +57,14 @@ public class StudentService {
      * @param course    Course Object
      * @param studentId String studentId
      * @param today     LocalDateTime object candidate application date
-     * @param courses
+     * @param courses   Set of courses
      * @throws InvalidCandidateException if Student already hired as TA
      * @throws DeadlinePastException     if deadline for TA application has past
      */
-    public static void addCandidate(Course course, String studentId, LocalDateTime today, Set<Course> courses)
+    public static void addCandidate(Course course,
+                                    String studentId,
+                                    LocalDateTime today,
+                                    Set<Course> courses)
             throws InvalidCandidateException {
         if (containsTa(course, studentId)) {
             throw new InvalidCandidateException("Student already hired as TA");
@@ -119,7 +122,8 @@ public class StudentService {
 
         Set<Student> students = communicationService.getStudents(course.getCandidateTas());
 
-        TaRecommendationStrategy strategyImplementation = TaRecommendationStrategy.getRecommendationType(strategy, communicationService, course);
+        TaRecommendationStrategy strategyImplementation = TaRecommendationStrategy
+                .getRecommendationType(strategy, communicationService, course);
 
         return strategyImplementation.getRecommendedTas(students);
     }

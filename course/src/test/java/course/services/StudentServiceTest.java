@@ -39,6 +39,7 @@ class StudentServiceTest {
 
     private transient Set<String> candidateSet;
     private transient Set<String> hireSet;
+    private transient Set<Course> courses;
 
     private transient String student1 = "student1";
     private transient String student2 = "student2";
@@ -68,6 +69,9 @@ class StudentServiceTest {
         hireSet = new HashSet<>();
         hireSet.add(student3);
         hireSet.add("student4");
+
+        courses = new HashSet<>();
+        courses.add(course);
 
         applicationDate = LocalDateTime.of(LocalDate.of(2021, 10, 6), LocalTime.NOON);
     }
