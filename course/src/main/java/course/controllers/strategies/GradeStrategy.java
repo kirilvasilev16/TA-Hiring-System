@@ -21,15 +21,12 @@ public class GradeStrategy implements TaRecommendationStrategy {
      * @return List sorted by course grade
      */
     @Override
-    @SuppressWarnings("PMD")
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")//PMD comparator leaving scope for sorting
     public List<String> getRecommendedTas(Set<Student> candidateTas) {
-        Comparator<Student> comparator = new Comparator<Student>() {
-            @Override
-            public int compare(Student o1, Student o2) {
-                Float first = o1.getHighestGradeAchieved(course.getCourseId());
-                Float second = o2.getHighestGradeAchieved(course.getCourseId());
-                return -Float.compare(first, second);
-            }
+        Comparator<Student> comparator = (o1, o2) -> {
+            Float first = o1.getHighestGradeAchieved(course.getCourseId());
+            Float second = o2.getHighestGradeAchieved(course.getCourseId());
+            return -Float.compare(first, second);
         };
 
         return candidateTas.stream().sorted(comparator).map(s -> s.getNetId()).limit(10)

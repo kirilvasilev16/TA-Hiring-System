@@ -23,6 +23,15 @@ public class CourseCommunication {
     }
 
     /**
+     * Sets HttpClient.
+     *
+     * @param client the client
+     */
+    public void setClient(HttpClient client) {
+        this.client = client;
+    }
+
+    /**
      * Sends a request to the course service, to apply a student for a course.
      *
      * @param netId    the net id of the student
@@ -75,5 +84,29 @@ public class CourseCommunication {
             return false;
         }
         return response.statusCode() == 200;
+    }
+
+    /**
+     * Sends a request to Course microservice for retrieving the average worked hours.
+     *
+     * @param courseId the course id
+     * @return the average worked hours for the given course, or -1 if request failed
+     */
+    public float averageWorkedHours(String courseId) {
+        String uri = "http://localhost:8082/courses/averageWorkedHours?courseId="
+                + courseId;
+        HttpRequest request = HttpRequest.newBuilder().setHeader("Content-type",
+                "application/json")
+                .uri(URI.create(uri))
+                .GET()
+                .build();
+        HttpResponse<String> response;
+        try {
+            // PMD DU anomaly
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            return -1;
+        }
+        return gson.fromJson(response.body(), Float.class);
     }
 }

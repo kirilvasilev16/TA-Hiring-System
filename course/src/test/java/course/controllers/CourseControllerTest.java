@@ -50,7 +50,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.util.NestedServletException;
 
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+@SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.DataflowAnomalyAnalysis"})
+//PMD not recognising expect used in mockMVC, class suppression since applies to most test cases
+//Suppress string literals due to use of repeated strings in URLs
 @WebMvcTest
 class CourseControllerTest {
 
@@ -118,7 +120,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -142,7 +143,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getCourseSizeCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
 
@@ -176,7 +176,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void updateCourseSizeCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -202,7 +201,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getLecturerSetCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -226,7 +224,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getRequiredTasCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -263,7 +260,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getTaRecommendationListCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -278,7 +274,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getTaRecommendationListInvalidLecturer() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
@@ -315,7 +310,6 @@ class CourseControllerTest {
 
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void makeCourseExists() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
@@ -358,7 +352,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void addCandidateTaCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -376,7 +369,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void addCandidateTaInvalidStudentCourse() throws Exception {
         String fakeCourse = "fraudCourse";
         Set<String> studentCourse = new HashSet<>();
@@ -401,7 +393,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void addCandidateTaTooManyCourses() throws Exception {
 
         Set<String> studentCourse = new HashSet<>();
@@ -446,7 +437,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void addCandidateTaInvalidStudentHired() throws Exception {
 
         when(courseService.findByCourseId(courseId)).thenReturn(course);
@@ -466,7 +456,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void addCandidateTaInvalidPastDeadline() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
         when(dateService.getTodayDate()).thenReturn(startingDate);
@@ -500,7 +489,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void removeAsCandidateCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -530,7 +518,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getAverageWorkedHoursCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -571,7 +558,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void addLecturerCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -597,7 +583,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getCandidateSetCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -613,7 +598,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getCandidateSetInvalidLecturer() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
@@ -641,7 +625,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getTaSetCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -656,7 +639,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void getTaSetInvalidLecturer() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
@@ -694,7 +676,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void hireTaCourseNotFound() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(null);
         String expect = notFoundException + courseId;
@@ -709,7 +690,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void hireTaInvalidLecturer() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
@@ -733,7 +713,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void hireTaInvalidStudentAlreadyHired() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 
@@ -755,7 +734,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis") //PMD not recognising expect used in mockMVC
     void hireTaInvalidStudentNotInCourse() throws Exception {
         when(courseService.findByCourseId(courseId)).thenReturn(course);
 

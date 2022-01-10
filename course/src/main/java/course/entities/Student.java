@@ -88,7 +88,7 @@ public class Student {
      * @param courseId the course id
      * @return the highest grade achieved
      */
-    @SuppressWarnings("PMD")
+    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")//inter system data guarantees year is integer
     public Float getHighestGradeAchieved(String courseId) {
         String strippedId = courseId.split("-")[0];
         int year = Integer.parseInt(courseId.split("-")[1]);

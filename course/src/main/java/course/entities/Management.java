@@ -1,7 +1,6 @@
 package course.entities;
 
 
-
 public class Management {
     String name;
     Float rating;
@@ -31,10 +30,20 @@ public class Management {
         this.managementId = managementId;
     }
 
+    /**
+     * Getter for management rating.
+     *
+     * @return float rating
+     */
     public Float getRating() {
         return rating;
     }
 
+    /**
+     * Setter for management rating.
+     *
+     * @param rating float
+     */
     public void setRating(Float rating) {
         this.rating = rating;
     }

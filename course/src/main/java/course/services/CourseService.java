@@ -44,43 +44,11 @@ public class CourseService {
     /**
      * Update course size of course.
      *
+     * @param courseId String courseId
      * @param courseSize Integer course size
      */
     public void updateCourseSize(String courseId, Integer courseSize) {
         courseRepository.updateCourseSize(courseId, courseSize);
     }
-
-
-    //    /**
-    //     * Update candidate Tas set of course.
-    //     *
-    //     * @param courseId     String courseId
-    //     * @param candidateTas Set of Strings where strings are studentIds
-    //     */
-    //
-    //    public void updateCandidateTas(String courseId, Set<String> candidateTas) {
-    //        courseRepository.updateCandidateTas(courseId, candidateTas);
-    //    }
-    //
-    //    /**
-    //     * Update lecturer set of course.
-    //     *
-    //     * @param courseId    String courseId
-    //     * @param lecturerSet Set of Strings where strings are lecturerIds
-    //     */
-    //    public void updateLecturerSet(String courseId, Set<String> lecturerSet) {
-    //        courseRepository.updateLecturerSet(courseId, lecturerSet);
-    //    }
-    //
-    //    /**
-    //     * Update hired tas set of course.
-    //     *
-    //     * @param courseId String courseId
-    //     * @param hireTas  Set of Strings where strings are studentIds
-    //     */
-    //    public void updateHireTas(String courseId, Set<String> hireTas) {
-    //        courseRepository.updateHireTas(courseId, hireTas);
-    //    }
-
 
 }

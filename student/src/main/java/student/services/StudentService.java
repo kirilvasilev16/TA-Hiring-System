@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import student.communication.CourseCommunication;
 import student.communication.ManagementCommunication;
+import student.entities.Management;
 import student.entities.Student;
 import student.exceptions.InvalidDeclarationException;
 import student.exceptions.StudentNotEligibleException;
@@ -166,7 +167,7 @@ public class StudentService {
     }
 
     /**
-     * Removes the student as candidate for a course,
+     * Removes the student as candidate for a course.
      * and sends a request for the same to Course microservice as well.
      *
      * @param netId    the net id
@@ -195,5 +196,30 @@ public class StudentService {
         if (!managementCommunication.declareHours(json)) {
             throw new InvalidDeclarationException("Hours couldn't be declared");
         }
+    }
+
+    /**
+     * Sends a request to the Course microservice for getting the average worked hours.
+     *
+     * @param courseId the course id
+     * @return the average worked hours for given course
+     */
+    public float averageWorkedHours(String courseId) {
+        float avg = courseCommunication.averageWorkedHours(courseId);
+        if (avg == -1) {
+            throw new InvalidDeclarationException("Couldn't retrieve average worked hours");
+        }
+        return avg;
+    }
+
+    /**
+     * Sends request to Management for getting all contract info for a student on a course.
+     *
+     * @param netId    the net id
+     * @param courseId the course id
+     * @return the Management object
+     */
+    public Management getManagement(String netId, String courseId) {
+        return managementCommunication.getManagement(netId, courseId);
     }
 }
