@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import student.entities.Student;
+import student.services.CouplingService;
 import student.services.StudentService;
 
 public class StudentControllerTest {
@@ -24,6 +25,7 @@ public class StudentControllerTest {
     private transient Set<String> taCourses;
 
     private transient StudentService studentService; // mocked
+    private transient CouplingService couplingService; // mocked
     private transient StudentController studentController;
 
     @BeforeEach
@@ -43,7 +45,8 @@ public class StudentControllerTest {
         student.setTaCourses(taCourses);
 
         studentService = Mockito.mock(StudentService.class);
-        studentController = new StudentController(studentService);
+        couplingService = Mockito.mock(CouplingService.class);
+        studentController = new StudentController(studentService, couplingService);
         Mockito.when(studentService.getStudent("ohageman")).thenReturn(student);
         Mockito.when(studentService.getAll()).thenReturn(List.of(student));
     }
