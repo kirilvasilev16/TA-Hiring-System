@@ -1,11 +1,10 @@
 package lecturer.services;
 
+import com.sun.istack.Nullable;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import javax.persistence.EntityNotFoundException;
-
-import com.sun.istack.Nullable;
 import lecturer.entities.Course;
 import lecturer.entities.Hours;
 import lecturer.entities.Lecturer;
