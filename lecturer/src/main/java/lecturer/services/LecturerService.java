@@ -95,11 +95,9 @@ public class LecturerService {
      */
     public Course getSpecificCourseOfLecturer(String lecturerId, String courseId) {
         this.verifyThatApplicableCourse(lecturerId, courseId);
-        ResponseEntity<Course> course = restTemplate.getForEntity("http://localhost:8082/courses/get?courseId=" + courseId, Course.class);
-        if (course == null || course.getStatusCode() != HttpStatus.OK) {
-            throw new RetrieveInfoException("The course with id " + courseId
-                    + " could not be found.");
-        }
+        ResponseEntity<Course> course = restTemplate.getForEntity("http://localhost:8082/courses/get?courseId="
+                + courseId, Course.class);
+        this.ifSuccess(course, "The course with id " + courseId + " could not be found.");
         return course.getBody();
     }
 
@@ -187,17 +185,12 @@ public class LecturerService {
         ResponseEntity<List<String>> sts = restTemplate.exchange("http://localhost:8082/courses"
                 + "/taRecommendations?courseId=" + courseId + "&strategy=" + strategy,
                 HttpMethod.GET, entity, new ParameterizedTypeReference<List<String>>() {});
-        if (sts == null || sts.getStatusCode() != HttpStatus.OK) {
-            throw new RetrieveInfoException("The course with id " + courseId
-                    + " could not be found.");
-        }
+        this.ifSuccess(sts, "The course with id " + courseId
+                + " could not be found.");
         ResponseEntity<List<Student>> stL = restTemplate.exchange("http://localhost:8083/student/getMultiple",
                 HttpMethod.POST, new HttpEntity<>((sts.getBody())),
                 new ParameterizedTypeReference<List<Student>>() {});
-
-        if (stL == null || stL.getStatusCode() != HttpStatus.OK) {
-            throw new RetrieveInfoException("List of students could not be found.");
-        }
+        this.ifSuccess(stL, "List of students could not be found.");
         return stL.getBody();
     }
 
@@ -226,9 +219,7 @@ public class LecturerService {
         this.verifyThatApplicableCourse(lecturerId, hours.get(0).getCourseId());
         ResponseEntity<Void> re = restTemplate.exchange("http://localhost:8080/management/approveHours",
                 HttpMethod.PUT, new HttpEntity<>(hours), Void.class);
-        if (re.getStatusCode() != HttpStatus.OK) {
-            throw new RetrieveInfoException("The system failed to approve hours.");
-        }
+        this.ifSuccess(re, "The system failed to approve hours.");
         return true;
     }
 
@@ -245,9 +236,7 @@ public class LecturerService {
         this.verifyThatApplicableCourse(lecturerId, hours.get(0).getCourseId());
         ResponseEntity<Void> re = restTemplate.exchange("http://localhost:8080/management/disapproveHours",
                 HttpMethod.PUT, new HttpEntity<>(hours), Void.class);
-        if (re.getStatusCode() != HttpStatus.OK) {
-            throw new RetrieveInfoException("The system failed to disapprove hours.");
-        }
+        this.ifSuccess(re, "The system failed to disapprove hours.");
         return true;
     }
 
@@ -265,10 +254,8 @@ public class LecturerService {
             ResponseEntity<Float> d = restTemplate.getForEntity(
                     "http://localhost:8080/management/getAverageRating?studentId=" + studentId,
                     Float.class);
-            if (d == null || d.getStatusCode() != HttpStatus.OK) {
-                throw new RetrieveInfoException("The rating of student with id " + studentId
-                        + " could not be found.");
-            }
+            this.ifSuccess(d, "The rating of student with id " + studentId
+                    + " could not be found.");
             return d.getBody();
         }
         throw new EntityNotFoundException();
@@ -289,9 +276,7 @@ public class LecturerService {
             ResponseEntity<Void> re = restTemplate.exchange("http://localhost:8080/management/rate?courseId="
                     + courseId + "&studentId=" + studentId + "&rating=" + rating,
                     HttpMethod.PUT, null, Void.class);
-            if (re.getStatusCode() != HttpStatus.OK) {
-                throw new RetrieveInfoException("Your rating could not be saved.");
-            }
+            this.ifSuccess(re, "Your rating could not be saved.");
             return true;
         } else {
             throw new OwnNoPermissionException("You cannot rate this student.");
@@ -314,10 +299,8 @@ public class LecturerService {
             ResponseEntity<Student> studentResponseEntity = restTemplate.getForEntity(
                     "http://localhost:8083/student"
                     + "/get?id=" + studentId, Student.class);
-            if (studentResponseEntity.getStatusCode() != HttpStatus.OK) {
-                throw new RetrieveInfoException("The student with id " + studentId
-                        + " could not be found.");
-            }
+            this.ifSuccess(studentResponseEntity, "The student with id " + studentId
+                    + " could not be found.");
             return studentResponseEntity.getBody();
         }
         throw new OwnNoPermissionException("You cannot access information about the student.");
