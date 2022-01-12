@@ -145,10 +145,8 @@ public class LecturerService {
                 + courseId + "&studentId=" + studentlecturerId + "&hours="
                         + hours,
                 HttpMethod.PUT, entity, Boolean.class);
-        if (course == null || course.getStatusCode() != HttpStatus.OK) {
-            throw new RetrieveInfoException("The course with id " + courseId
-                    + " could not be found.");
-        }
+        this.ifSuccess(course, "The course with id " + courseId
+                + " could not be found.");
         return true;
     }
 
@@ -164,6 +162,12 @@ public class LecturerService {
         lecturer.getCourses().add(courseId);
         lecturerRepository.save(lecturer);
         return lecturer;
+    }
+
+    private void ifSuccess(@Nullable ResponseEntity<?> responseEntity, String text) {
+        if (responseEntity == null || responseEntity.getStatusCode() != HttpStatus.OK) {
+            throw new RetrieveInfoException(text);
+        }
     }
 
     /**
