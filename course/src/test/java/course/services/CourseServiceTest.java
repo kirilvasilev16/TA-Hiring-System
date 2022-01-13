@@ -1,10 +1,12 @@
 package course.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import course.entities.Course;
+import course.exceptions.CourseNotFoundException;
 import course.repositories.CourseRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -65,7 +67,9 @@ class CourseServiceTest {
         String missingCourse = "CSE2115-2020";
         Mockito.when(courseRepository.findByCourseId(missingCourse)).thenReturn(null);
 
-        assertEquals(null, courseService.findByCourseId(missingCourse));
+        assertThrows(CourseNotFoundException.class, () -> {
+            courseService.findByCourseId(missingCourse);
+        });
     }
 
     @Test
