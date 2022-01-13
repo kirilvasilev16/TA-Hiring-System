@@ -3,12 +3,9 @@ package management.services;
 import java.util.List;
 import javax.transaction.Transactional;
 import management.email.EmailSender;
-import management.email.MailboxProvider;
 import management.entities.Hours;
 import management.entities.Management;
-import management.exceptions.InvalidApprovedHoursException;
-import management.exceptions.InvalidContractHoursException;
-import management.exceptions.InvalidDisapprovedHoursException;
+import management.exceptions.InvalidHoursException;
 import management.exceptions.InvalidIdException;
 import management.exceptions.InvalidRatingException;
 import management.repositories.ManagementRepository;
@@ -70,13 +67,13 @@ public class ManagementService {
      *
      * @param hoursList arraylist with declarations
      */
-    @Transactional(rollbackOn = {InvalidIdException.class, InvalidContractHoursException.class})
+    @Transactional(rollbackOn = {InvalidIdException.class, InvalidHoursException.class})
     public void declareHours(List<Hours> hoursList) {
         for (Hours hourObject : hoursList) {
             float hours = hourObject.getAmountOfHours();
 
             if (hours < 0) {
-                throw new InvalidContractHoursException("You cannot declare negative "
+                throw new InvalidHoursException("You cannot declare negative "
                         + "amount of hours!");
             }
 
@@ -84,7 +81,7 @@ public class ManagementService {
 
             if (management.getDeclaredHours() + management.getApprovedHours() + hours
                     > management.getAmountOfHours()) {
-                throw new InvalidContractHoursException("You cannot declare more hours "
+                throw new InvalidHoursException("You cannot declare more hours "
                         + "the ones in your contract!");
             }
 
@@ -100,20 +97,20 @@ public class ManagementService {
      *
      * @param hoursList arraylist with declarations
      */
-    @Transactional(rollbackOn = {InvalidIdException.class, InvalidApprovedHoursException.class})
+    @Transactional(rollbackOn = {InvalidIdException.class, InvalidHoursException.class})
     public void approveHours(List<Hours> hoursList) {
         for (Hours hourObject : hoursList) {
             float hours = hourObject.getAmountOfHours();
 
             if (hours < 0) {
-                throw new InvalidApprovedHoursException("You cannot approve negative "
+                throw new InvalidHoursException("You cannot approve negative "
                         + "amount of hours!");
             }
 
             Management management = getOne(hourObject.getCourseId(), hourObject.getStudentId());
 
             if (management.getDeclaredHours() < hours) {
-                throw new InvalidApprovedHoursException("You cannot approve more hours "
+                throw new InvalidHoursException("You cannot approve more hours "
                         + "than the declared ones!");
             }
 
@@ -130,20 +127,20 @@ public class ManagementService {
      *
      * @param hoursList arraylist with declarations
      */
-    @Transactional(rollbackOn = {InvalidIdException.class, InvalidApprovedHoursException.class})
+    @Transactional(rollbackOn = {InvalidIdException.class, InvalidHoursException.class})
     public void disapproveHours(List<Hours> hoursList) {
         for (Hours hourObject : hoursList) {
             float hours = hourObject.getAmountOfHours();
 
             if (hours < 0) {
-                throw new InvalidDisapprovedHoursException("You cannot disapprove negative "
+                throw new InvalidHoursException("You cannot disapprove negative "
                         + "amount of hours!");
             }
 
             Management management = getOne(hourObject.getCourseId(), hourObject.getStudentId());
 
             if (management.getDeclaredHours() < hours) {
-                throw new InvalidDisapprovedHoursException("You cannot disapprove more hours "
+                throw new InvalidHoursException("You cannot disapprove more hours "
                         + "than the declared ones!");
             }
 
