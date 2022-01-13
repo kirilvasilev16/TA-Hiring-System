@@ -93,9 +93,12 @@ public class CommunicationService {
      * @return response entity
      */
     public ResponseEntity<List<Student>> students(ResponseEntity<List<String>> sts, String text) {
-        return restTemplate.exchange("http://localhost:8083/student/getMultiple",
+        ResponseEntity<List<Student>> exchange = restTemplate.exchange("http://localhost:8083/student/getMultiple",
                 HttpMethod.POST, new HttpEntity<>((sts.getBody())),
-                new ParameterizedTypeReference<List<Student>>() {});
+                new ParameterizedTypeReference<List<Student>>() {
+                });
+        ifSuccess(exchange, text);
+        return exchange;
     }
 
     /**
