@@ -32,11 +32,20 @@ public class DataConfig {
             authenticationService.saveAuth(new Authentication("kvasilev", "email@email.co",
                     "kvasilev123",
                     "netid1",  new ArrayList<Role>()));
+            authenticationService.saveAuth(new Authentication("esozen", "email@email.co",
+                    "esozen123",
+                    "netid2",  new ArrayList<Role>()));
+            authenticationService.saveAuth(new Authentication("akalandadze", "email@email.co",
+                    "akalandadze123",
+                    "netid2",  new ArrayList<Role>()));
             authenticationService.saveAuth(new Authentication("net2@id.nl", "email@email.co",
                     "pass2",
                     "netid2",  new ArrayList<Role>()));
             authenticationService.saveAuth(new Authentication("azaidman", "email@email.co",
                     "azaidman123",
+                    "netid3",  new ArrayList<Role>()));
+            authenticationService.saveAuth(new Authentication("gmigut", "email@email.co",
+                    "gmigut123",
                     "netid3",  new ArrayList<Role>()));
             authenticationService.saveAuth(new Authentication("mrhug", "email@email.co",
                     "mrhug123",
@@ -45,8 +54,11 @@ public class DataConfig {
                     "ovisser123",
                     "netid5",  new ArrayList<Role>()));
             authenticationService.addRoleToAuthentication("kvasilev", "ROLE_student");
+            authenticationService.addRoleToAuthentication("akalandadze", "ROLE_student");
+            authenticationService.addRoleToAuthentication("esozen", "ROLE_student");
             authenticationService.addRoleToAuthentication("net2@id.nl", "ROLE_ta");
             authenticationService.addRoleToAuthentication("azaidman", "ROLE_lecturer");
+            authenticationService.addRoleToAuthentication("gmigut", "ROLE_lecturer");
             authenticationService.addRoleToAuthentication("mrhug", "ROLE_admin");
             authenticationService.addRoleToAuthentication("ovisser", "ROLE_lecturer");
         };

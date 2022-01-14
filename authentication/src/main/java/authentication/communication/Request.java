@@ -61,6 +61,7 @@ public class Request {
      * @return response body
      */
     public ResponseObj post(String url, String body) {
+        securityContextHolder.setSecurityContext();
         try {
             HttpRequest request;
             if (body == null || body.length() == 0) {
@@ -98,6 +99,7 @@ public class Request {
      * @return response body
      */
     public ResponseObj put(String url, String body) {
+        securityContextHolder.setSecurityContext();
         try {
             HttpRequest request;
             if (body == null || body.length() == 0) {
