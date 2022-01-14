@@ -4,9 +4,6 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import course.controllers.strategies.ExperienceStrategy;
-import course.controllers.strategies.GradeStrategy;
-import course.controllers.strategies.RatingStrategy;
 import course.controllers.strategies.TaRecommendationStrategy;
 import course.entities.Course;
 import course.entities.Student;
@@ -60,14 +57,20 @@ public class StudentService {
      * @param course    Course Object
      * @param studentId String studentId
      * @param today     LocalDateTime object candidate application date
+     * @param courses   Set of courses
      * @throws InvalidCandidateException if Student already hired as TA
      * @throws DeadlinePastException     if deadline for TA application has past
      */
-    public static void addCandidate(Course course, String studentId, LocalDateTime today)
+    public static void addCandidate(Course course,
+                                    String studentId,
+                                    LocalDateTime today,
+                                    Set<Course> courses)
             throws InvalidCandidateException {
         if (containsTa(course, studentId)) {
             throw new InvalidCandidateException("Student already hired as TA");
         }
+
+        checkQuarterCapacity(courses);
 
         if (DAYS.between(today, course.getStartingDate()) < weeks3InDays) {
             throw new DeadlinePastException("Deadline for TA application has past");
@@ -119,16 +122,8 @@ public class StudentService {
 
         Set<Student> students = communicationService.getStudents(course.getCandidateTas());
 
-        TaRecommendationStrategy strategyImplementation;
-        if (strategy.equals("rating")) {
-            strategyImplementation = new RatingStrategy(course, communicationService);
-        } else if (strategy.equals("experience")) {
-            strategyImplementation = new ExperienceStrategy();
-        } else if (strategy.equals("grade")) {
-            strategyImplementation = new GradeStrategy(course);
-        } else {
-            throw new InvalidStrategyException(strategy + " is not a valid strategy");
-        }
+        TaRecommendationStrategy strategyImplementation = TaRecommendationStrategy
+                .getRecommendationType(strategy, communicationService, course);
 
         return strategyImplementation.getRecommendedTas(students);
     }
@@ -240,13 +235,7 @@ public class StudentService {
     public static void checkQuarterCapacity(Set<Course> studentCourses) {
         Map<String, Integer> coursesPerQuarter = new HashMap<>();
         for (Course current : studentCourses) {
-            StringBuilder builder = new StringBuilder();
-
-            String year = current.getCourseId().split("-")[1];
-            builder.append(year);
-            builder.append("-");
-            builder.append(current.getQuarter());
-            String yearQuarter = builder.toString();
+            String yearQuarter = getYearQuarter(current);
 
             if (coursesPerQuarter.get(yearQuarter) == null) {
                 coursesPerQuarter.put(yearQuarter, 0);
@@ -259,6 +248,17 @@ public class StudentService {
             }
 
         }
+    }
+
+    private static String getYearQuarter(Course current) {
+        StringBuilder builder = new StringBuilder();
+
+        String year = current.getCourseId().split("-")[1];
+        builder.append(year);
+        builder.append("-");
+        builder.append(current.getQuarter());
+        String yearQuarter = builder.toString();
+        return yearQuarter;
     }
 
     /**
