@@ -40,7 +40,7 @@ public class AuthenticationServiceTest {
         roleRepository = Mockito.mock(RoleRepository.class);
         authenticationRepository = Mockito.mock(AuthenticationRepository.class);
         authenticationService = new AuthenticationService(authenticationRepository,
-                roleRepository, bcPasswordEncoder());
+                roleRepository);
         role = new Role("ROLE_ta");
 
         testStudent = new Authentication("stu@id.nl", "email@email.co", "stupass", "password1",
@@ -98,13 +98,4 @@ public class AuthenticationServiceTest {
                 () -> authenticationService.loadUserByUsername("hello"));
     }
 
-    /**
-     * BCryptPasswordEncoder creating function.
-     *
-     * @return a new BCryptPasswordEncoder
-     */
-    @Bean
-    BCryptPasswordEncoder bcPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
