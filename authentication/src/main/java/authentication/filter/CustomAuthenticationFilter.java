@@ -65,6 +65,15 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                                             HttpServletResponse response, FilterChain chain,
                                             Authentication authentication)
             throws IOException {
+        String accessToken = createAccessToken(request, authentication);
+
+        Map<String, String> tokens = new HashMap<>();
+        tokens.put("access_token", accessToken);
+        response.setContentType(APPLICATION_JSON_VALUE);
+        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+    }
+
+    private String createAccessToken(HttpServletRequest request, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC256("sem15a".getBytes());
 
@@ -76,10 +85,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                         .stream().map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toList()))
                 .sign(algorithm);
-
-        Map<String, String> tokens = new HashMap<>();
-        tokens.put("access_token", accessToken);
-        response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        return accessToken;
     }
 }
