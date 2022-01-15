@@ -1,6 +1,5 @@
 package student.services;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.AdditionalMatchers.not;
@@ -17,10 +16,7 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import student.communication.CourseCommunication;
-import student.communication.ManagementCommunication;
 import student.entities.Student;
-import student.exceptions.InvalidDeclarationException;
 import student.exceptions.StudentNotEligibleException;
 import student.exceptions.StudentNotFoundException;
 import student.repositories.StudentRepository;
@@ -41,8 +37,6 @@ public class StudentServiceTest {
     private transient Set<String> candidateCourses;
     private transient Set<String> taCourses;
     private transient StudentRepository studentRepository; // mocked
-    private transient CourseCommunication courseCommunication; // mocked
-    private transient ManagementCommunication managementCommunication; // mocked
     private transient StudentService studentService; // not mocked
 
     @BeforeEach
@@ -61,23 +55,12 @@ public class StudentServiceTest {
         student.setTaCourses(taCourses);
 
         studentRepository = Mockito.mock(StudentRepository.class);
-        courseCommunication = Mockito.mock(CourseCommunication.class);
-        managementCommunication = Mockito.mock(ManagementCommunication.class);
-        studentService = new StudentService(
-                studentRepository, courseCommunication, managementCommunication);
+        studentService = new StudentService(studentRepository);
         Optional<Student> optionalStudent = Optional.of(student);
         Mockito.when(studentRepository.findStudentByNetId(netId)).thenReturn(optionalStudent);
         Mockito.when(studentRepository.findStudentByNetId(not(eq(netId))))
                 .thenReturn(Optional.empty());
         Mockito.when(studentRepository.findAll()).thenReturn(List.of(student));
-        Mockito.when(courseCommunication.checkApplyRequirement(any(), any(), any()))
-                .thenReturn(true);
-        Mockito.when(courseCommunication.removeAsCandidate("ohageman", courseCode))
-                .thenReturn(true);
-        Mockito.when(courseCommunication.removeAsCandidate(eq("ohageman"), not(eq(courseCode))))
-                .thenReturn(false);
-        Mockito.when(managementCommunication.declareHours(json)).thenReturn(true);
-        Mockito.when(managementCommunication.declareHours(not(eq(json)))).thenReturn(false);
     }
 
     @Test
@@ -139,36 +122,6 @@ public class StudentServiceTest {
     }
 
     @Test
-    void applyTest() {
-        Set<String> candidateCourses = new HashSet<>();
-        candidateCourses.add(courseCode);
-        candidateCourses.add("CSE1400-2021");
-        Set<String> testCandidateCourses =
-                studentService.apply(netId, "CSE1400-2021").getCandidateCourses();
-        assertEquals(candidateCourses, testCandidateCourses);
-    }
-
-    @Test
-    void applyExceptionTest() {
-        assertThrows(StudentNotEligibleException.class,
-                () -> studentService.apply(netId, "CSE9999-2022"));
-    }
-
-    @Test
-    void removeApplicationTest() {
-        Set<String> candidateCourses = new HashSet<>();
-        Set<String> testCandidateCourses =
-                studentService.removeApplication(netId, courseCode).getCandidateCourses();
-        assertEquals(candidateCourses, testCandidateCourses);
-    }
-
-    @Test
-    void removeApplicationExceptionTest() {
-        assertThrows(StudentNotEligibleException.class,
-                () -> studentService.removeApplication(netId, "CSE9999-2022"));
-    }
-
-    @Test
     void acceptTest() {
         Set<String> candidateCourses = new HashSet<>();
         Set<String> taCourses = new HashSet<>();
@@ -185,19 +138,6 @@ public class StudentServiceTest {
     void acceptExceptionTest() {
         assertThrows(StudentNotEligibleException.class,
                 () -> studentService.accept(netId, "CSE1400-2021"));
-    }
-
-    @Test
-    void declareHoursTest() {
-        assertDoesNotThrow(() ->
-                studentService.declareHours(json));
-        Mockito.verify(managementCommunication).declareHours(any());
-    }
-
-    @Test
-    void declareHoursExceptionTest() {
-        assertThrows(InvalidDeclarationException.class, () ->
-                studentService.declareHours("notactuallyjson"));
     }
 
     @Test

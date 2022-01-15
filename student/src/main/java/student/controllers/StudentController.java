@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import student.entities.Management;
 import student.entities.Student;
+import student.services.CouplingService;
 import student.services.StudentService;
 
 
@@ -28,6 +29,7 @@ import student.services.StudentService;
 public class StudentController {
 
     private final transient StudentService studentService;
+    private final transient CouplingService couplingService;
 
     /**
      * Instantiates a new Student controller.
@@ -35,8 +37,10 @@ public class StudentController {
      * @param studentService the student service
      */
     @Autowired
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService,
+                             CouplingService couplingService) {
         this.studentService = studentService;
+        this.couplingService = couplingService;
     }
 
     /**
@@ -128,7 +132,7 @@ public class StudentController {
     @PutMapping("/apply")
     public Student apply(@RequestHeader("netId") String netId,
                          @PathParam("courseId") String courseId) {
-        return studentService.apply(netId, courseId);
+        return couplingService.apply(netId, courseId);
     }
 
     /**
@@ -142,7 +146,7 @@ public class StudentController {
     @PutMapping("/removeApplication")
     public Student removeApplication(@RequestHeader("netId") String netId,
                                      @PathParam("courseId") String courseId) {
-        return studentService.removeApplication(netId, courseId);
+        return couplingService.removeApplication(netId, courseId);
     }
 
     /**
@@ -167,7 +171,7 @@ public class StudentController {
     @PutMapping("/declareHours")
     public void declareHours(@RequestHeader("netId") String netId,
                              @RequestBody String json) {
-        studentService.declareHours(json);
+        couplingService.declareHours(json);
     }
 
     /**
@@ -180,7 +184,7 @@ public class StudentController {
     @GetMapping("averageWorkedHours")
     public float averageWorkedHours(@RequestHeader("netId") String netId,
                                     @PathParam("courseId") String courseId) {
-        return studentService.averageWorkedHours(courseId);
+        return couplingService.averageWorkedHours(courseId);
     }
 
 
@@ -194,6 +198,6 @@ public class StudentController {
     @GetMapping("getManagement")
     public Management getManagement(@RequestHeader("netId") String netId,
                                     @PathParam("courseId") String courseId) {
-        return studentService.getManagement(netId, courseId);
+        return couplingService.getManagement(netId, courseId);
     }
 }

@@ -31,6 +31,17 @@ public class CourseCommunication {
         this.client = client;
     }
 
+    public boolean sendRequest(HttpRequest request) {
+        HttpResponse<String> response;
+        try {
+            // PMD DU anomaly
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            return false;
+        }
+        return response.statusCode() == 200;
+    }
+
     /**
      * Sends a request to the course service, to apply a student for a course.
      *
@@ -49,14 +60,7 @@ public class CourseCommunication {
                 .uri(URI.create(uri))
                 .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(set)))
                 .build();
-        HttpResponse<String> response;
-        try {
-            // PMD DU anomaly
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            return false;
-        }
-        return response.statusCode() == 200;
+        return sendRequest(request);
     }
 
     /**
@@ -76,14 +80,7 @@ public class CourseCommunication {
                 .uri(URI.create(uri))
                 .DELETE()
                 .build();
-        HttpResponse<String> response;
-        try {
-            // PMD DU anomaly
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            return false;
-        }
-        return response.statusCode() == 200;
+        return sendRequest(request);
     }
 
     /**
