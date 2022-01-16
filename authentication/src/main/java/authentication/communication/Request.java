@@ -50,7 +50,7 @@ public class Request {
             return responseObj;
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseObj("error", 500);
+            return new ResponseObj("Unexpected error, please try again!", 500);
         }
     }
 
@@ -88,7 +88,7 @@ public class Request {
             return responseObj;
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseObj("error", 500);
+            return new ResponseObj("Unexpected error, please try again!", 500);
         }
     }
 
@@ -127,7 +127,7 @@ public class Request {
             return responseObj;
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseObj("error", 500);
+            return new ResponseObj("Unexpected error, please try again!", 500);
         }
     }
 }

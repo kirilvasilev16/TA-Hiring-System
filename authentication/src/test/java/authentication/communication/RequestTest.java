@@ -71,7 +71,7 @@ public class RequestTest {
 
         assertEquals(500, req
                 .get("http://localhost:8080").getStatusCode());
-        assertEquals("error", req
+        assertEquals("Unexpected error, please try again!", req
                 .get("http://localhost:8080").getResult());
     }
 
@@ -113,7 +113,7 @@ public class RequestTest {
 
         assertEquals(500, req
                 .put("http://localhost:8080", "").getStatusCode());
-        assertEquals("error", req
+        assertEquals("Unexpected error, please try again!", req
                 .put("http://localhost:8080", "").getResult());
     }
 
@@ -197,7 +197,7 @@ public class RequestTest {
 
         assertEquals(500, req
                 .post("http://localhost:8080", "").getStatusCode());
-        assertEquals("error", req
+        assertEquals("Unexpected error, please try again!", req
                 .post("http://localhost:8080", "").getResult());
     }
 

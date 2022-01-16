@@ -15,8 +15,10 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class AuthenticationServiceTest {
@@ -37,7 +39,8 @@ public class AuthenticationServiceTest {
     void setup() {
         roleRepository = Mockito.mock(RoleRepository.class);
         authenticationRepository = Mockito.mock(AuthenticationRepository.class);
-        authenticationService = new AuthenticationService(authenticationRepository, roleRepository);
+        authenticationService = new AuthenticationService(authenticationRepository,
+                roleRepository);
         role = new Role("ROLE_ta");
 
         testStudent = new Authentication("stu@id.nl", "email@email.co", "stupass", "password1",
@@ -52,21 +55,6 @@ public class AuthenticationServiceTest {
                 new ArrayList<>());
 
         list = new ArrayList<>(Arrays.asList(testStudent, testTa, testLecturer, testAdmin));
-    }
-
-    @Test
-    void saveAll() {
-        Mockito.when(authenticationRepository.saveAll(list))
-                .thenReturn(list);
-        assertEquals(authenticationService.saveAll(list), list);
-    }
-
-    @Test
-    void findAll() {
-        Mockito.when(authenticationRepository.findAll())
-                .thenReturn(Arrays.asList(testStudent, testTa, testLecturer, testAdmin));
-        assertEquals(authenticationService.findAll(), Arrays.asList(testStudent,
-                testTa, testLecturer, testAdmin));
     }
 
     @Test
@@ -109,4 +97,5 @@ public class AuthenticationServiceTest {
         assertThrows(UsernameNotFoundException.class,
                 () -> authenticationService.loadUserByUsername("hello"));
     }
+
 }

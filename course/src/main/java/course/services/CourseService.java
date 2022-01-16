@@ -1,6 +1,7 @@
 package course.services;
 
 import course.entities.Course;
+import course.exceptions.CourseNotFoundException;
 import course.repositories.CourseRepository;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,12 @@ public class CourseService {
      * @return Course object if found, else null
      */
     public Course findByCourseId(String id) {
-        return courseRepository.findByCourseId(id);
+        Course c = courseRepository.findByCourseId(id);
+
+        if (c == null) {
+            throw new CourseNotFoundException(id);
+        }
+        return c;
     }
 
     /**

@@ -9,9 +9,7 @@ import java.util.List;
 import management.email.EmailSender;
 import management.entities.Hours;
 import management.entities.Management;
-import management.exceptions.InvalidApprovedHoursException;
-import management.exceptions.InvalidContractHoursException;
-import management.exceptions.InvalidDisapprovedHoursException;
+import management.exceptions.InvalidHoursException;
 import management.exceptions.InvalidIdException;
 import management.exceptions.InvalidRatingException;
 import management.repositories.ManagementRepository;
@@ -158,7 +156,7 @@ class ManagementServiceTest {
 
     @Test
     void declareHoursInvalid() {
-        assertThrows(InvalidContractHoursException.class,
+        assertThrows(InvalidHoursException.class,
                 () -> managementService.declareHours(List.of(
                         new Hours(courseId, studentId, 1000))));
 
@@ -172,7 +170,7 @@ class ManagementServiceTest {
         managementService.declareHours(List.of(new Hours(courseId, studentId, 10)));
 
 
-        assertThrows(InvalidContractHoursException.class,
+        assertThrows(InvalidHoursException.class,
                 () -> managementService.declareHours(List.of(
                         new Hours(courseId, studentId, 30))));
 
@@ -184,7 +182,7 @@ class ManagementServiceTest {
 
     @Test
     void declareHoursInvalidNegative() {
-        assertThrows(InvalidContractHoursException.class,
+        assertThrows(InvalidHoursException.class,
                 () -> managementService.declareHours(List.of(
                         new Hours(courseId, studentId, -1000))));
     }
@@ -231,7 +229,7 @@ class ManagementServiceTest {
 
     @Test
     void approveHoursInvalid() {
-        assertThrows(InvalidApprovedHoursException.class,
+        assertThrows(InvalidHoursException.class,
                 () -> managementService.approveHours(List.of(new Hours(courseId,
                         studentId, 1000))));
 
@@ -241,7 +239,7 @@ class ManagementServiceTest {
 
     @Test
     void approveHoursInvalidNegative() {
-        assertThrows(InvalidApprovedHoursException.class,
+        assertThrows(InvalidHoursException.class,
                 () -> managementService.approveHours(List.of(new Hours(courseId,
                         studentId, -10))));
     }
@@ -287,7 +285,7 @@ class ManagementServiceTest {
 
     @Test
     void disapproveHoursInvalid() {
-        assertThrows(InvalidDisapprovedHoursException.class,
+        assertThrows(InvalidHoursException.class,
                 () -> managementService.disapproveHours(List.of(new Hours(courseId,
                         studentId, 1000))));
 
@@ -297,7 +295,7 @@ class ManagementServiceTest {
 
     @Test
     void disapproveHoursInvalidNegative() {
-        assertThrows(InvalidDisapprovedHoursException.class,
+        assertThrows(InvalidHoursException.class,
                 () -> managementService.disapproveHours(List.of(new Hours(courseId,
                         studentId, -10))));
     }
