@@ -1,16 +1,17 @@
 package lecturer;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public class LecturerApplicationTest {
-//    @Test
-//    void main() {
-//        assertDoesNotThrow(() -> {
-//            LecturerApplication.main(new String[]{});
-//        });
-//    }
+    //note: I'm going to keep this test commented as it does not work properly with pitest.
+    //    @Test
+    //    void main() {
+    //        assertDoesNotThrow(() -> {
+    //            LecturerApplication.main(new String[]{});
+    //        });
+    //    }
     @Test
     void getRestTemplate() {
         LecturerApplication lecturerApplication = new LecturerApplication();
