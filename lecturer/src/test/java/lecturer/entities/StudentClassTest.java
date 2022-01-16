@@ -46,14 +46,18 @@ public class StudentClassTest {
     @Test
     void candidates() {
         Set<String> c = new HashSet<>();
+        c.add("a");
         student1.setCandidateCourses(c);
         assertEquals(c, student1.getCandidateCourses());
+        assertEquals(1, student1.getCandidateCourses().size());
     }
 
     @Test
     void tas() {
         Set<String> c = new HashSet<>();
+        c.add("a");
         student1.setTaCourses(c);
         assertEquals(c, student1.getTaCourses());
+        assertEquals(1, student1.getTaCourses().size());
     }
 }
