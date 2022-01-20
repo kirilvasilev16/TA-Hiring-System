@@ -32,7 +32,7 @@ public class CourseCommunication {
     }
 
     /**
-     * Send request and checks whether it was successful
+     * Send request and checks whether it was successful.
      *
      * @param request the http request
      * @return the boolean
