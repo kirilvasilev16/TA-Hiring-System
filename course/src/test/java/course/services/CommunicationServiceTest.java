@@ -13,7 +13,9 @@ import course.exceptions.FailedGetHoursException;
 import course.exceptions.FailedGetStudentListException;
 import course.exceptions.FailedGetStudentRatingsException;
 import course.exceptions.FailedUpdateStudentEmploymentException;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
@@ -103,10 +105,24 @@ class CommunicationServiceTest {
                 .thenReturn(response);
 
         Mockito.when(response.body()).thenReturn(gson.toJson(7.0f));
-
         communicationService.setClient(client);
 
-        assertEquals(7.0f, communicationService.getRatings(candidateSet, "CSE2000-2021").get(s));
+        final PrintStream standardOut = System.out;
+        final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        try {
+            System.setOut(new PrintStream(outputStreamCaptor));
+
+            assertEquals(7.0f,
+                    communicationService.getRatings(candidateSet, "CSE2000-2021").get(s));
+
+            String output = "GET Status: 300";
+            assertEquals(output, outputStreamCaptor.toString().trim());
+        } finally {
+            standardOut.close();
+            System.setOut(standardOut);
+        }
+
+
     }
 
     @Test
@@ -188,7 +204,21 @@ class CommunicationServiceTest {
 
         communicationService.setClient(client);
 
-        assertEquals(1, communicationService.getStudents(candidateSet).size());
+        final PrintStream standardOut = System.out;
+        final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+        String expected = "GET Status: 300";
+
+        try {
+            System.setOut(new PrintStream(outputStreamCaptor));
+
+            communicationService.getStudents(candidateSet);
+
+            assertEquals(expected, outputStreamCaptor.toString().trim());
+        } finally {
+            standardOut.close();
+            System.setOut(standardOut);
+        }
     }
 
     @Test
@@ -248,7 +278,21 @@ class CommunicationServiceTest {
 
         communicationService.setClient(client);
 
-        assertTrue(communicationService.getHoursList(hiredTas, "Cid").contains(7.0f));
+        final PrintStream standardOut = System.out;
+        final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+        String expected = "GET Status: 300";
+
+        try {
+            System.setOut(new PrintStream(outputStreamCaptor));
+
+            communicationService.getHoursList(hiredTas, "Cid");
+
+            assertEquals(expected, outputStreamCaptor.toString().trim());
+        } finally {
+            standardOut.close();
+            System.setOut(standardOut);
+        }
     }
 
     @Test
