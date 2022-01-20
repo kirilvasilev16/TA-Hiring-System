@@ -13,7 +13,6 @@ import course.exceptions.FailedGetHoursException;
 import course.exceptions.FailedGetStudentListException;
 import course.exceptions.FailedGetStudentRatingsException;
 import course.exceptions.FailedUpdateStudentEmploymentException;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -110,10 +109,11 @@ class CommunicationServiceTest {
 
         final PrintStream standardOut = System.out;
         final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-        try{
+        try {
             System.setOut(new PrintStream(outputStreamCaptor));
 
-            assertEquals(7.0f, communicationService.getRatings(candidateSet, "CSE2000-2021").get(s));
+            assertEquals(7.0f,
+                    communicationService.getRatings(candidateSet, "CSE2000-2021").get(s));
 
             String output = "GET Status: 300";
             assertEquals(output, outputStreamCaptor.toString().trim());
