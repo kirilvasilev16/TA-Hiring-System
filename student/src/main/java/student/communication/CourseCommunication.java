@@ -31,6 +31,12 @@ public class CourseCommunication {
         this.client = client;
     }
 
+    /**
+     * Send request and checks whether it was successful
+     *
+     * @param request the http request
+     * @return the boolean
+     */
     public boolean sendRequest(HttpRequest request) {
         HttpResponse<String> response;
         try {
