@@ -1,6 +1,8 @@
 package lecturer.controllers;
 
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,9 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 /**
@@ -105,6 +105,7 @@ public class LecturerControllerTest {
     @Test
     void getCandidates() throws Exception {
         Set<String> l = new HashSet<>();
+        l.add("a");
         when(lecturerService.getCandidateTaList("1", "CSE2215")).thenReturn(l);
         this.mockMvc.perform(get("/lecturer/courses/getCandidateTas?courseId=CSE2215")
                 .header("netId", "1"))
@@ -155,7 +156,8 @@ public class LecturerControllerTest {
         when(lecturerService.getNumberOfNeededTas("1", "CSE2215")).thenReturn(10);
         this.mockMvc.perform(get("/lecturer/courses/getSize?courseId=CSE2215")
                 .header("netId", "1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string(String.valueOf(10)));
     }
 
     @Test
@@ -165,6 +167,8 @@ public class LecturerControllerTest {
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(lecturer1)))
                 .andExpect(status().isOk());
+        verify(lecturerService, only())
+                .addLecturer(lecturer1);
     }
 
     @Test

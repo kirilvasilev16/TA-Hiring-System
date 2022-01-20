@@ -1,7 +1,9 @@
 package student.communication;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -17,16 +19,17 @@ public class ManagementCommunicationTest {
     private transient String json;
     private transient HttpClient client;
     private transient HttpResponse<String> response;
-
+    private transient String student = "kvasilev";
+    private transient String course = "CSE2115-2022";
 
     @BeforeEach
     void setUp() throws IOException, InterruptedException {
         managementCommunication = new ManagementCommunication();
-        json = "[{\n"
+        json = "{\n"
                 + "    \"courseId\" : \"CSE2115-2022\",\n"
                 + "    \"studentId\" : \"kvasilev\",\n"
-                + "    \"hours\" : 20.0\n"
-                + "}]";
+                + "    \"amountOfHours\" : 20.0\n"
+                + "}";
         client = Mockito.mock(HttpClient.class);
         managementCommunication.setClient(client);
         response = Mockito.mock(HttpResponse.class);
@@ -48,5 +51,31 @@ public class ManagementCommunicationTest {
         assertDoesNotThrow(() ->
                 managementCommunication.declareHours(json));
         assertFalse(managementCommunication.declareHours(json));
+    }
+
+    @Test
+    void declareHoursExcTest() throws IOException, InterruptedException {
+        Mockito.<HttpResponse<? extends String>>when(client.send(Mockito.any(), Mockito.any()))
+                .thenThrow(IOException.class);
+        assertFalse(managementCommunication.declareHours(json));
+    }
+
+    @Test
+    void getManagementTrue() {
+        Mockito.when(response.statusCode()).thenReturn(200);
+        Mockito.when(response.body()).thenReturn(json);
+        assertEquals(course, managementCommunication
+                .getManagement(student, course).getCourseId());
+        assertEquals(student, managementCommunication
+                .getManagement(student, course).getStudentId());
+        assertEquals(20f, managementCommunication
+                .getManagement(student, course).getAmountOfHours());
+    }
+
+    @Test
+    void getManagementFalse() throws IOException, InterruptedException {
+        Mockito.<HttpResponse<? extends String>>when(client.send(Mockito.any(), Mockito.any()))
+                .thenThrow(IOException.class);
+        assertNotNull(managementCommunication.getManagement(student, course));
     }
 }
